@@ -1,0 +1,11 @@
+Package: igraphlite
+Title: R interface to C igraph
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "Watal M.", family = "Iwasaki", role = c("aut", "cre"), email = "heavy.watal@gmail.com")
+Description: R interface to C igraph.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
