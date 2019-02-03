@@ -6,6 +6,17 @@
 
 using namespace Rcpp;
 
+// edgelist
+Rcpp::NumericMatrix edgelist(const igraph_t& graph);
+RcppExport SEXP _igraphlite_edgelist(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(edgelist(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
 // make_empty_graph
 igraph_t make_empty_graph(int n, bool directed);
 RcppExport SEXP _igraphlite_make_empty_graph(SEXP nSEXP, SEXP directedSEXP) {
@@ -45,12 +56,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // degree
-Rcpp::NumericVector degree(const igraph_t* graph, const Rcpp::NumericVector& vs, int mode, bool loops);
+Rcpp::NumericVector degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode, bool loops);
 RcppExport SEXP _igraphlite_degree(SEXP graphSEXP, SEXP vsSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const igraph_t* >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type vs(vsSEXP);
     Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
     Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
@@ -74,6 +85,7 @@ RcppExport SEXP _rcpp_module_boot_igraph();
 RcppExport SEXP _rcpp_module_boot_test();
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_igraphlite_edgelist", (DL_FUNC) &_igraphlite_edgelist, 1},
     {"_igraphlite_make_empty_graph", (DL_FUNC) &_igraphlite_make_empty_graph, 2},
     {"_igraphlite_make_graph", (DL_FUNC) &_igraphlite_make_graph, 3},
     {"_igraphlite_make_tree", (DL_FUNC) &_igraphlite_make_tree, 3},
