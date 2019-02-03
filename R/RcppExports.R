@@ -13,6 +13,10 @@ make_tree <- function(n, children = 2L, mode = 0L) {
     .Call(`_igraphlite_make_tree`, n, children, mode)
 }
 
+degree <- function(graph, vs, mode = 3L, loops = FALSE) {
+    .Call(`_igraphlite_degree`, graph, vs, mode, loops)
+}
+
 len <- function(args) {
     .Call(`_igraphlite_len`, args)
 }

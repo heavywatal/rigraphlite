@@ -11,6 +11,7 @@ RCPP_MODULE(igraph) {
 
   Rcpp::function("igraph_vcount", &igraph_vcount);
   Rcpp::function("igraph_ecount", &igraph_ecount);
+  Rcpp::function("igraph_is_directed", &igraph_is_directed);
 }
 
 // [[Rcpp::export]]
@@ -34,4 +35,15 @@ igraph_t make_tree(int n, int children = 2, int mode = 0) {
   igraph_t g;
   igraph_tree(&g, n, children, static_cast<igraph_tree_mode_t>(mode));
   return g;
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector
+degree(const igraph_t* graph, const Rcpp::NumericVector& vs, int mode = 3, bool loops = false) {
+  igraph_vector_t ivs;
+  igraph_vector_view(&ivs, &(vs[0]), vs.size());
+  igraph_vector_t res;
+  igraph_vector_init(&res, vs.size());
+  igraph_degree(graph, &res, igraph_vss_vector(&ivs), static_cast<igraph_neimode_t>(mode), loops);
+  return Rcpp::NumericVector(res.stor_begin, res.stor_end);
 }
