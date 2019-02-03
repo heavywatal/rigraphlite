@@ -18,6 +18,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// make_graph
+igraph_t make_graph(const Rcpp::NumericVector& edges, int n, bool directed);
+RcppExport SEXP _igraphlite_make_graph(SEXP edgesSEXP, SEXP nSEXP, SEXP directedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type edges(edgesSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    rcpp_result_gen = Rcpp::wrap(make_graph(edges, n, directed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// make_tree
+igraph_t make_tree(int n, int children, int mode);
+RcppExport SEXP _igraphlite_make_tree(SEXP nSEXP, SEXP childrenSEXP, SEXP modeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type children(childrenSEXP);
+    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
+    rcpp_result_gen = Rcpp::wrap(make_tree(n, children, mode));
+    return rcpp_result_gen;
+END_RCPP
+}
 // len
 int len(const std::vector<std::string>& args);
 RcppExport SEXP _igraphlite_len(SEXP argsSEXP) {
@@ -35,6 +61,8 @@ RcppExport SEXP _rcpp_module_boot_test();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_make_empty_graph", (DL_FUNC) &_igraphlite_make_empty_graph, 2},
+    {"_igraphlite_make_graph", (DL_FUNC) &_igraphlite_make_graph, 3},
+    {"_igraphlite_make_tree", (DL_FUNC) &_igraphlite_make_tree, 3},
     {"_igraphlite_len", (DL_FUNC) &_igraphlite_len, 1},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {"_rcpp_module_boot_test", (DL_FUNC) &_rcpp_module_boot_test, 0},
