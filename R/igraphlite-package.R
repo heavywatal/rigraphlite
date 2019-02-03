@@ -7,4 +7,5 @@
   library.dynam.unload("igraphlite", libpath)
 }
 
+Rcpp::loadModule("igraph", TRUE)
 Rcpp::loadModule("test", TRUE)
