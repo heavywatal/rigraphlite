@@ -69,6 +69,50 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// gname
+const char* gname(igraph_t* graph);
+RcppExport SEXP _igraphlite_gname(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(gname(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// set_gname
+void set_gname(igraph_t* graph, const char* value);
+RcppExport SEXP _igraphlite_set_gname(SEXP graphSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const char* >::type value(valueSEXP);
+    set_gname(graph, value);
+    return R_NilValue;
+END_RCPP
+}
+// vname
+Rcpp::StringVector vname(igraph_t* graph);
+RcppExport SEXP _igraphlite_vname(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(vname(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// set_vname
+void set_vname(igraph_t* graph, const Rcpp::StringVector& values);
+RcppExport SEXP _igraphlite_set_vname(SEXP graphSEXP, SEXP valuesSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type values(valuesSEXP);
+    set_vname(graph, values);
+    return R_NilValue;
+END_RCPP
+}
 // len
 int len(const std::vector<std::string>& args);
 RcppExport SEXP _igraphlite_len(SEXP argsSEXP) {
@@ -90,13 +134,19 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_make_graph", (DL_FUNC) &_igraphlite_make_graph, 3},
     {"_igraphlite_make_tree", (DL_FUNC) &_igraphlite_make_tree, 3},
     {"_igraphlite_degree", (DL_FUNC) &_igraphlite_degree, 4},
+    {"_igraphlite_gname", (DL_FUNC) &_igraphlite_gname, 1},
+    {"_igraphlite_set_gname", (DL_FUNC) &_igraphlite_set_gname, 2},
+    {"_igraphlite_vname", (DL_FUNC) &_igraphlite_vname, 1},
+    {"_igraphlite_set_vname", (DL_FUNC) &_igraphlite_set_vname, 2},
     {"_igraphlite_len", (DL_FUNC) &_igraphlite_len, 1},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {"_rcpp_module_boot_test", (DL_FUNC) &_rcpp_module_boot_test, 0},
     {NULL, NULL, 0}
 };
 
+void igraphlite_init(DllInfo *dll);
 RcppExport void R_init_igraphlite(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
+    igraphlite_init(dll);
 }

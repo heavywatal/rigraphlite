@@ -21,6 +21,22 @@ degree <- function(graph, vs, mode = 3L, loops = FALSE) {
     .Call(`_igraphlite_degree`, graph, vs, mode, loops)
 }
 
+gname <- function(graph) {
+    .Call(`_igraphlite_gname`, graph)
+}
+
+set_gname <- function(graph, value) {
+    invisible(.Call(`_igraphlite_set_gname`, graph, value))
+}
+
+vname <- function(graph) {
+    .Call(`_igraphlite_vname`, graph)
+}
+
+set_vname <- function(graph, values) {
+    invisible(.Call(`_igraphlite_set_vname`, graph, values))
+}
+
 len <- function(args) {
     .Call(`_igraphlite_len`, args)
 }
