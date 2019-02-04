@@ -11,13 +11,16 @@ Rcpp::List attribute_list(const IGraph& graph) {
     vnames.data(), vtypes.data(),
     enames.data(), etypes.data()
   );
+  auto gattr = Rcpp::NumericVector(gtypes);
+  auto vattr = Rcpp::NumericVector(vtypes);
+  auto eattr = Rcpp::NumericVector(etypes);
+  gattr.names() = Rcpp::StringVector(gnames);
+  vattr.names() = Rcpp::StringVector(vnames);
+  eattr.names() = Rcpp::StringVector(enames);
   return Rcpp::List::create(
-    Rcpp::Named("gnames") = Rcpp::StringVector(gnames),
-    Rcpp::Named("gtypes") = Rcpp::NumericVector(gtypes),
-    Rcpp::Named("vnames") = Rcpp::StringVector(vnames),
-    Rcpp::Named("vtypes") = Rcpp::NumericVector(vtypes),
-    Rcpp::Named("enames") = Rcpp::StringVector(enames),
-    Rcpp::Named("etypes") = Rcpp::NumericVector(etypes)
+    Rcpp::Named("gattr") = gattr,
+    Rcpp::Named("vattr") = vattr,
+    Rcpp::Named("eattr") = eattr
   );
 }
 
