@@ -8,7 +8,7 @@ degree(graph, vs = NA, mode = c("all", "out", "in", "total"),
   loops = TRUE)
 }
 \arguments{
-\item{graph}{igraph_t object.}
+\item{graph}{IGraph object.}
 
 \item{vs}{vertices of which the degree will be calculated.}
 

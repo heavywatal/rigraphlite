@@ -41,7 +41,3 @@ impl_degree <- function(graph, vs, mode = 3L, loops = TRUE) {
     .Call(`_igraphlite_impl_degree`, graph, vs, mode, loops)
 }
 
-len <- function(args) {
-    .Call(`_igraphlite_len`, args)
-}
-

@@ -8,4 +8,3 @@
 }
 
 Rcpp::loadModule("igraph", TRUE)
-Rcpp::loadModule("test", TRUE)

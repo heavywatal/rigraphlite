@@ -127,20 +127,8 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// len
-int len(const std::vector<std::string>& args);
-RcppExport SEXP _igraphlite_len(SEXP argsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const std::vector<std::string>& >::type args(argsSEXP);
-    rcpp_result_gen = Rcpp::wrap(len(args));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 RcppExport SEXP _rcpp_module_boot_igraph();
-RcppExport SEXP _rcpp_module_boot_test();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_attribute_list", (DL_FUNC) &_igraphlite_attribute_list, 1},
@@ -153,9 +141,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_edgelist", (DL_FUNC) &_igraphlite_edgelist, 1},
     {"_igraphlite_impl_degree_all", (DL_FUNC) &_igraphlite_impl_degree_all, 3},
     {"_igraphlite_impl_degree", (DL_FUNC) &_igraphlite_impl_degree, 4},
-    {"_igraphlite_len", (DL_FUNC) &_igraphlite_len, 1},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
-    {"_rcpp_module_boot_test", (DL_FUNC) &_rcpp_module_boot_test, 0},
     {NULL, NULL, 0}
 };
 
