@@ -6,44 +6,6 @@
 
 using namespace Rcpp;
 
-// edgelist
-Rcpp::NumericMatrix edgelist(const IGraph& graph);
-RcppExport SEXP _igraphlite_edgelist(SEXP graphSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    rcpp_result_gen = Rcpp::wrap(edgelist(graph));
-    return rcpp_result_gen;
-END_RCPP
-}
-// impl_degree_all
-Rcpp::NumericVector impl_degree_all(const IGraph& graph, int mode, bool loops);
-RcppExport SEXP _igraphlite_impl_degree_all(SEXP graphSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
-    Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
-    rcpp_result_gen = Rcpp::wrap(impl_degree_all(graph, mode, loops));
-    return rcpp_result_gen;
-END_RCPP
-}
-// impl_degree
-Rcpp::NumericVector impl_degree(const IGraph& graph, const Rcpp::NumericVector& vs, int mode, bool loops);
-RcppExport SEXP _igraphlite_impl_degree(SEXP graphSEXP, SEXP vsSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type vs(vsSEXP);
-    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
-    Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
-    rcpp_result_gen = Rcpp::wrap(impl_degree(graph, vs, mode, loops));
-    return rcpp_result_gen;
-END_RCPP
-}
 // attribute_list
 Rcpp::List attribute_list(const IGraph& graph);
 RcppExport SEXP _igraphlite_attribute_list(SEXP graphSEXP) {
@@ -127,6 +89,44 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// edgelist
+Rcpp::NumericMatrix edgelist(const IGraph& graph);
+RcppExport SEXP _igraphlite_edgelist(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(edgelist(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// impl_degree_all
+Rcpp::NumericVector impl_degree_all(const IGraph& graph, int mode, bool loops);
+RcppExport SEXP _igraphlite_impl_degree_all(SEXP graphSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
+    Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
+    rcpp_result_gen = Rcpp::wrap(impl_degree_all(graph, mode, loops));
+    return rcpp_result_gen;
+END_RCPP
+}
+// impl_degree
+Rcpp::NumericVector impl_degree(const IGraph& graph, const Rcpp::NumericVector& vs, int mode, bool loops);
+RcppExport SEXP _igraphlite_impl_degree(SEXP graphSEXP, SEXP vsSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type vs(vsSEXP);
+    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
+    Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
+    rcpp_result_gen = Rcpp::wrap(impl_degree(graph, vs, mode, loops));
+    return rcpp_result_gen;
+END_RCPP
+}
 // len
 int len(const std::vector<std::string>& args);
 RcppExport SEXP _igraphlite_len(SEXP argsSEXP) {
@@ -143,9 +143,6 @@ RcppExport SEXP _rcpp_module_boot_igraph();
 RcppExport SEXP _rcpp_module_boot_test();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_igraphlite_edgelist", (DL_FUNC) &_igraphlite_edgelist, 1},
-    {"_igraphlite_impl_degree_all", (DL_FUNC) &_igraphlite_impl_degree_all, 3},
-    {"_igraphlite_impl_degree", (DL_FUNC) &_igraphlite_impl_degree, 4},
     {"_igraphlite_attribute_list", (DL_FUNC) &_igraphlite_attribute_list, 1},
     {"_igraphlite_get_gan", (DL_FUNC) &_igraphlite_get_gan, 2},
     {"_igraphlite_get_gas", (DL_FUNC) &_igraphlite_get_gas, 2},
@@ -153,6 +150,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_get_van", (DL_FUNC) &_igraphlite_get_van, 2},
     {"_igraphlite_get_vas", (DL_FUNC) &_igraphlite_get_vas, 2},
     {"_igraphlite_set_vattr", (DL_FUNC) &_igraphlite_set_vattr, 3},
+    {"_igraphlite_edgelist", (DL_FUNC) &_igraphlite_edgelist, 1},
+    {"_igraphlite_impl_degree_all", (DL_FUNC) &_igraphlite_impl_degree_all, 3},
+    {"_igraphlite_impl_degree", (DL_FUNC) &_igraphlite_impl_degree, 4},
     {"_igraphlite_len", (DL_FUNC) &_igraphlite_len, 1},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {"_rcpp_module_boot_test", (DL_FUNC) &_rcpp_module_boot_test, 0},
