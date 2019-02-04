@@ -17,7 +17,7 @@ inline Rcpp::StringVector as_rvector(const igraph_strvector_t& x) {
 }
 
 inline Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
-  return Rcpp::NumericVector(x.stor_begin, x.stor_end);
+  return Rcpp::NumericVector(x.stor_begin, x.end);
 }
 
 class IVector {
