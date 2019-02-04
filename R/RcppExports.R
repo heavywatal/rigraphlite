@@ -5,18 +5,6 @@ edgelist <- function(graph) {
     .Call(`_igraphlite_edgelist`, graph)
 }
 
-make_empty_graph <- function(n, directed = TRUE) {
-    .Call(`_igraphlite_make_empty_graph`, n, directed)
-}
-
-make_graph <- function(edges, n = 0L, directed = TRUE) {
-    .Call(`_igraphlite_make_graph`, edges, n, directed)
-}
-
-make_tree <- function(n, children = 2L, mode = 0L) {
-    .Call(`_igraphlite_make_tree`, n, children, mode)
-}
-
 impl_degree_all <- function(graph, mode = 3L, loops = TRUE) {
     .Call(`_igraphlite_impl_degree_all`, graph, mode, loops)
 }

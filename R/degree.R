@@ -1,7 +1,7 @@
 #' The degree of some vertices in a graph
 #'
 #' This function calculates the in-, out- or total degree of the specified vertices.
-#' @param graph igraph_t object.
+#' @param graph IGraph object.
 #' @param vs vertices of which the degree will be calculated.
 #' @param mode type of the degree.
 #' @param loops whether self-loop should be counted.
