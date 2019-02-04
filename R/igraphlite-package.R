@@ -1,5 +1,5 @@
 #' @useDynLib igraphlite, .registration = TRUE
-#' @importFrom Rcpp sourceCpp
+#' @import Rcpp
 #' @keywords internal
 "_PACKAGE"
 
