@@ -20,6 +20,53 @@ Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
   return Rcpp::NumericVector(x.stor_begin, x.stor_end);
 }
 
+class IVector {
+  public:
+    IVector(int n = 0) {
+      igraph_vector_init(&data_, n);
+    }
+    ~IVector() {
+      igraph_vector_destroy(&data_);
+    }
+    igraph_vector_t* data() {return &data_;}
+    operator Rcpp::NumericVector() {return as_rvector(data_);}
+  private:
+    igraph_vector_t data_;
+};
+
+class IVectorView {
+  public:
+    IVectorView(const Rcpp::NumericVector& x) {
+      igraph_vector_view(&data_, &(x[0]), x.size());
+    }
+    ~IVectorView() = default;
+    igraph_vector_t* data() {return &data_;}
+    operator Rcpp::NumericVector() {return as_rvector(data_);}
+  private:
+    igraph_vector_t data_;
+};
+
+class IStrVector {
+  public:
+    IStrVector(int n = 0) {
+      igraph_strvector_init(&data_, n);
+    }
+    IStrVector(const Rcpp::StringVector& x) {
+      int n = x.size();
+      igraph_strvector_init(&data_, n);
+      for (int i = 0; i < n; ++i) {
+        igraph_strvector_set(&data_, i, x[i]);
+      }
+    }
+    ~IStrVector() {
+      igraph_strvector_destroy(&data_);
+    }
+    igraph_strvector_t* data() {return &data_;}
+    operator Rcpp::StringVector() {return as_rvector(data_);}
+  private:
+    igraph_strvector_t data_;
+};
+
 RCPP_MODULE(igraph) {
   Rcpp::class_<igraph_t>("igraph_t");
 
@@ -51,9 +98,7 @@ igraph_t make_empty_graph(int n, bool directed = true) {
 // [[Rcpp::export]]
 igraph_t make_graph(const Rcpp::NumericVector& edges, int n = 0, bool directed = true) {
   igraph_t g;
-  igraph_vector_t v;
-  igraph_vector_view(&v, &(edges[0]), edges.size());
-  igraph_create(&g, &v, n, directed);
+  igraph_create(&g, IVectorView(edges).data(), n, directed);
   return g;
 }
 
@@ -67,21 +112,18 @@ igraph_t make_tree(int n, int children = 2, int mode = 0) {
 // [[Rcpp::export]]
 Rcpp::NumericVector
 impl_degree_all(const igraph_t& graph, int mode = 3, bool loops = true) {
-  igraph_vector_t res;
-  igraph_vector_init(&res, igraph_vcount(&graph));
-  igraph_degree(&graph, &res, igraph_vss_all(), static_cast<igraph_neimode_t>(mode), loops);
-  return as_rvector(res);
+  IVector res(igraph_vcount(&graph));
+  igraph_degree(&graph, res.data(), igraph_vss_all(), static_cast<igraph_neimode_t>(mode), loops);
+  return res;
 }
 
 // [[Rcpp::export]]
 Rcpp::NumericVector
 impl_degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode = 3, bool loops = true) {
-  igraph_vector_t res;
-  igraph_vector_init(&res, vs.size());
-  igraph_vector_t ivs;
-  igraph_vector_view(&ivs, &(vs[0]), vs.size());
-  igraph_degree(&graph, &res, igraph_vss_vector(&ivs), static_cast<igraph_neimode_t>(mode), loops);
-  return as_rvector(res);
+  IVector res(vs.size());
+  IVectorView ivs(vs);
+  igraph_degree(&graph, res.data(), igraph_vss_vector(ivs.data()), static_cast<igraph_neimode_t>(mode), loops);
+  return res;
 }
 
 // [[Rcpp::export]]
@@ -113,36 +155,24 @@ void set_gattr(igraph_t* graph, const char* name, SEXP value) {
 
 // [[Rcpp::export]]
 Rcpp::NumericVector get_van(const igraph_t& graph, const char* name) {
-  const auto n = igraph_vcount(&graph);
-  igraph_vector_t res;
-  igraph_vector_init(&res, n);
-  igraph_cattribute_VANV(&graph, name, igraph_vss_all(), &res);
-  return as_rvector(res);
+  IVector res(igraph_vcount(&graph));
+  igraph_cattribute_VANV(&graph, name, igraph_vss_all(), res.data());
+  return res;
 }
 
 // [[Rcpp::export]]
 Rcpp::StringVector get_vas(const igraph_t& graph, const char* name) {
-  const auto n = igraph_vcount(&graph);
-  igraph_strvector_t res;
-  igraph_strvector_init(&res, n);
-  igraph_cattribute_VASV(&graph, name, igraph_vss_all(), &res);
-  return as_rvector(res);
+  IStrVector res(igraph_vcount(&graph));
+  igraph_cattribute_VASV(&graph, name, igraph_vss_all(), res.data());
+  return res;
 }
 
 void set_van(igraph_t* graph, const char* name, const Rcpp::NumericVector& values) {
-  igraph_vector_t iv;
-  igraph_vector_view(&iv, &(values[0]), values.size());
-  igraph_cattribute_VAN_setv(graph, name, &iv);
+  igraph_cattribute_VAN_setv(graph, name, IVectorView(values).data());
 }
 
 void set_vas(igraph_t* graph, const char* name, const Rcpp::StringVector& values) {
-  const auto n = static_cast<int>(values.size());
-  igraph_strvector_t iv;
-  igraph_strvector_init(&iv, n);
-  for (int i = 0; i < n; ++i) {
-    igraph_strvector_set(&iv, i, values[i]);
-  }
-  igraph_cattribute_VAS_setv(graph, name, &iv);
+  igraph_cattribute_VAS_setv(graph, name, IStrVector(values).data());
 }
 
 // [[Rcpp::export]]
