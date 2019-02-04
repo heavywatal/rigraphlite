@@ -7,6 +7,19 @@
 #include <igraph/igraph_constructors.h>
 #include <igraph/igraph_attributes.h>
 
+Rcpp::StringVector as_rvector(const igraph_strvector_t& x) {
+  const int n = igraph_strvector_size(&x);
+  Rcpp::StringVector output(n);
+  for (int i = 0; i < n; ++i) {
+    output[i] = x.data[i];
+  }
+  return output;
+}
+
+Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
+  return Rcpp::NumericVector(x.stor_begin, x.stor_end);
+}
+
 RCPP_MODULE(igraph) {
   Rcpp::class_<igraph_t>("igraph_t");
 
@@ -16,11 +29,11 @@ RCPP_MODULE(igraph) {
 }
 
 Rcpp::NumericVector from(const igraph_t& graph) {
-  return Rcpp::NumericVector(graph.from.stor_begin, graph.from.stor_end);
+  return as_rvector(graph.from);
 }
 
 Rcpp::NumericVector to(const igraph_t& graph) {
-  return Rcpp::NumericVector(graph.to.stor_begin, graph.to.stor_end);
+  return as_rvector(graph.to);
 }
 
 // [[Rcpp::export]]
@@ -57,7 +70,7 @@ impl_degree_all(const igraph_t& graph, int mode = 3, bool loops = true) {
   igraph_vector_t res;
   igraph_vector_init(&res, igraph_vcount(&graph));
   igraph_degree(&graph, &res, igraph_vss_all(), static_cast<igraph_neimode_t>(mode), loops);
-  return Rcpp::NumericVector(res.stor_begin, res.stor_end);
+  return as_rvector(res);
 }
 
 // [[Rcpp::export]]
@@ -68,7 +81,7 @@ impl_degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode = 3, 
   igraph_vector_t ivs;
   igraph_vector_view(&ivs, &(vs[0]), vs.size());
   igraph_degree(&graph, &res, igraph_vss_vector(&ivs), static_cast<igraph_neimode_t>(mode), loops);
-  return Rcpp::NumericVector(res.stor_begin, res.stor_end);
+  return as_rvector(res);
 }
 
 // [[Rcpp::export]]
@@ -104,7 +117,7 @@ Rcpp::NumericVector get_van(const igraph_t& graph, const char* name) {
   igraph_vector_t res;
   igraph_vector_init(&res, n);
   igraph_cattribute_VANV(&graph, name, igraph_vss_all(), &res);
-  return Rcpp::NumericVector(res.stor_begin, res.stor_end);
+  return as_rvector(res);
 }
 
 // [[Rcpp::export]]
@@ -113,11 +126,7 @@ Rcpp::StringVector get_vas(const igraph_t& graph, const char* name) {
   igraph_strvector_t res;
   igraph_strvector_init(&res, n);
   igraph_cattribute_VASV(&graph, name, igraph_vss_all(), &res);
-  Rcpp::StringVector output(n);
-  for (int i = 0; i < n; ++i) {
-    output[i] = res.data[i];
-  }
-  return output;
+  return as_rvector(res);
 }
 
 void set_van(igraph_t* graph, const char* name, const Rcpp::NumericVector& values) {
