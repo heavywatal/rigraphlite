@@ -17,8 +17,12 @@ make_tree <- function(n, children = 2L, mode = 0L) {
     .Call(`_igraphlite_make_tree`, n, children, mode)
 }
 
-degree <- function(graph, vs, mode = 3L, loops = FALSE) {
-    .Call(`_igraphlite_degree`, graph, vs, mode, loops)
+impl_degree_all <- function(graph, mode = 3L, loops = TRUE) {
+    .Call(`_igraphlite_impl_degree_all`, graph, mode, loops)
+}
+
+impl_degree <- function(graph, vs, mode = 3L, loops = TRUE) {
+    .Call(`_igraphlite_impl_degree`, graph, vs, mode, loops)
 }
 
 gname <- function(graph) {

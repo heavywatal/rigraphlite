@@ -53,11 +53,20 @@ igraph_t make_tree(int n, int children = 2, int mode = 0) {
 
 // [[Rcpp::export]]
 Rcpp::NumericVector
-degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode = 3, bool loops = false) {
-  igraph_vector_t ivs;
-  igraph_vector_view(&ivs, &(vs[0]), vs.size());
+impl_degree_all(const igraph_t& graph, int mode = 3, bool loops = true) {
+  igraph_vector_t res;
+  igraph_vector_init(&res, igraph_vcount(&graph));
+  igraph_degree(&graph, &res, igraph_vss_all(), static_cast<igraph_neimode_t>(mode), loops);
+  return Rcpp::NumericVector(res.stor_begin, res.stor_end);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector
+impl_degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode = 3, bool loops = true) {
   igraph_vector_t res;
   igraph_vector_init(&res, vs.size());
+  igraph_vector_t ivs;
+  igraph_vector_view(&ivs, &(vs[0]), vs.size());
   igraph_degree(&graph, &res, igraph_vss_vector(&ivs), static_cast<igraph_neimode_t>(mode), loops);
   return Rcpp::NumericVector(res.stor_begin, res.stor_end);
 }

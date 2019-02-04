@@ -55,9 +55,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// degree
-Rcpp::NumericVector degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode, bool loops);
-RcppExport SEXP _igraphlite_degree(SEXP graphSEXP, SEXP vsSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
+// impl_degree_all
+Rcpp::NumericVector impl_degree_all(const igraph_t& graph, int mode, bool loops);
+RcppExport SEXP _igraphlite_impl_degree_all(SEXP graphSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
+    Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
+    rcpp_result_gen = Rcpp::wrap(impl_degree_all(graph, mode, loops));
+    return rcpp_result_gen;
+END_RCPP
+}
+// impl_degree
+Rcpp::NumericVector impl_degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode, bool loops);
+RcppExport SEXP _igraphlite_impl_degree(SEXP graphSEXP, SEXP vsSEXP, SEXP modeSEXP, SEXP loopsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -65,7 +78,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type vs(vsSEXP);
     Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
     Rcpp::traits::input_parameter< bool >::type loops(loopsSEXP);
-    rcpp_result_gen = Rcpp::wrap(degree(graph, vs, mode, loops));
+    rcpp_result_gen = Rcpp::wrap(impl_degree(graph, vs, mode, loops));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -133,7 +146,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_make_empty_graph", (DL_FUNC) &_igraphlite_make_empty_graph, 2},
     {"_igraphlite_make_graph", (DL_FUNC) &_igraphlite_make_graph, 3},
     {"_igraphlite_make_tree", (DL_FUNC) &_igraphlite_make_tree, 3},
-    {"_igraphlite_degree", (DL_FUNC) &_igraphlite_degree, 4},
+    {"_igraphlite_impl_degree_all", (DL_FUNC) &_igraphlite_impl_degree_all, 3},
+    {"_igraphlite_impl_degree", (DL_FUNC) &_igraphlite_impl_degree, 4},
     {"_igraphlite_gname", (DL_FUNC) &_igraphlite_gname, 1},
     {"_igraphlite_set_gname", (DL_FUNC) &_igraphlite_set_gname, 2},
     {"_igraphlite_vname", (DL_FUNC) &_igraphlite_vname, 1},
