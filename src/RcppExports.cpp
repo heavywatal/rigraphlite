@@ -82,6 +82,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// attribute_list
+Rcpp::List attribute_list(const igraph_t& graph);
+RcppExport SEXP _igraphlite_attribute_list(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(attribute_list(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
 // get_gan
 double get_gan(const igraph_t& graph, const char* name);
 RcppExport SEXP _igraphlite_get_gan(SEXP graphSEXP, SEXP nameSEXP) {
@@ -176,6 +187,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_make_tree", (DL_FUNC) &_igraphlite_make_tree, 3},
     {"_igraphlite_impl_degree_all", (DL_FUNC) &_igraphlite_impl_degree_all, 3},
     {"_igraphlite_impl_degree", (DL_FUNC) &_igraphlite_impl_degree, 4},
+    {"_igraphlite_attribute_list", (DL_FUNC) &_igraphlite_attribute_list, 1},
     {"_igraphlite_get_gan", (DL_FUNC) &_igraphlite_get_gan, 2},
     {"_igraphlite_get_gas", (DL_FUNC) &_igraphlite_get_gas, 2},
     {"_igraphlite_set_gattr", (DL_FUNC) &_igraphlite_set_gattr, 3},

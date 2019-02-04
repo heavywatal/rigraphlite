@@ -127,6 +127,25 @@ impl_degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode = 3, 
 }
 
 // [[Rcpp::export]]
+Rcpp::List attribute_list(const igraph_t& graph) {
+  IStrVector gnames, vnames, enames;
+  IVector    gtypes, vtypes, etypes;
+  igraph_cattribute_list(&graph,
+    gnames.data(), gtypes.data(),
+    vnames.data(), vtypes.data(),
+    enames.data(), etypes.data()
+  );
+  return Rcpp::List::create(
+    Rcpp::Named("gnames") = Rcpp::StringVector(gnames),
+    Rcpp::Named("gtypes") = Rcpp::NumericVector(gtypes),
+    Rcpp::Named("vnames") = Rcpp::StringVector(vnames),
+    Rcpp::Named("vtypes") = Rcpp::NumericVector(vtypes),
+    Rcpp::Named("enames") = Rcpp::StringVector(enames),
+    Rcpp::Named("etypes") = Rcpp::NumericVector(etypes)
+  );
+}
+
+// [[Rcpp::export]]
 double get_gan(const igraph_t& graph, const char* name) {
   return igraph_cattribute_GAN(&graph, name);
 }

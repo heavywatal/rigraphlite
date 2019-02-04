@@ -25,6 +25,10 @@ impl_degree <- function(graph, vs, mode = 3L, loops = TRUE) {
     .Call(`_igraphlite_impl_degree`, graph, vs, mode, loops)
 }
 
+attribute_list <- function(graph) {
+    .Call(`_igraphlite_attribute_list`, graph)
+}
+
 get_gan <- function(graph, name) {
     .Call(`_igraphlite_get_gan`, graph, name)
 }
