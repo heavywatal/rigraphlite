@@ -25,20 +25,28 @@ impl_degree <- function(graph, vs, mode = 3L, loops = TRUE) {
     .Call(`_igraphlite_impl_degree`, graph, vs, mode, loops)
 }
 
-gname <- function(graph) {
-    .Call(`_igraphlite_gname`, graph)
+get_gan <- function(graph, name) {
+    .Call(`_igraphlite_get_gan`, graph, name)
 }
 
-set_gname <- function(graph, value) {
-    invisible(.Call(`_igraphlite_set_gname`, graph, value))
+get_gas <- function(graph, name) {
+    .Call(`_igraphlite_get_gas`, graph, name)
 }
 
-vname <- function(graph) {
-    .Call(`_igraphlite_vname`, graph)
+set_gattr <- function(graph, name, value) {
+    invisible(.Call(`_igraphlite_set_gattr`, graph, name, value))
 }
 
-set_vname <- function(graph, values) {
-    invisible(.Call(`_igraphlite_set_vname`, graph, values))
+get_van <- function(graph, name) {
+    .Call(`_igraphlite_get_van`, graph, name)
+}
+
+get_vas <- function(graph, name) {
+    .Call(`_igraphlite_get_vas`, graph, name)
+}
+
+set_vattr <- function(graph, name, values) {
+    invisible(.Call(`_igraphlite_set_vattr`, graph, name, values))
 }
 
 len <- function(args) {

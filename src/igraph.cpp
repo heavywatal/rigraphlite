@@ -72,36 +72,77 @@ impl_degree(const igraph_t& graph, const Rcpp::NumericVector& vs, int mode = 3, 
 }
 
 // [[Rcpp::export]]
-const char* gname(igraph_t* graph) {
-  return igraph_cattribute_GAS(graph, "name");
+double get_gan(const igraph_t& graph, const char* name) {
+  return igraph_cattribute_GAN(&graph, name);
 }
 
 // [[Rcpp::export]]
-void set_gname(igraph_t* graph, const char* value) {
-  igraph_cattribute_GAS_set(graph, "name", value);
+const char* get_gas(const igraph_t& graph, const char* name) {
+  return igraph_cattribute_GAS(&graph, name);
+}
+
+void set_gan(igraph_t* graph, const char* name, const Rcpp::NumericVector& value) {
+  igraph_cattribute_GAN_set(graph, name, value[0]);
+}
+
+void set_gas(igraph_t* graph, const char* name, const Rcpp::StringVector& value) {
+  igraph_cattribute_GAS_set(graph, name, value[0]);
 }
 
 // [[Rcpp::export]]
-Rcpp::StringVector vname(igraph_t* graph) {
-  igraph_strvector_t sv;
-  igraph_strvector_init(&sv, igraph_vcount(graph));
-  igraph_cattribute_VASV(graph, "name", igraph_vss_all(), &sv);
-  Rcpp::StringVector result(sv.len);
-  for (long i = 0; i < sv.len; ++i) {
-    result[i] = sv.data[i];
+void set_gattr(igraph_t* graph, const char* name, SEXP value) {
+  if (Rf_isNumber(value)) {
+    return set_gan(graph, name, value);
+  } else {
+    return set_gas(graph, name, value);
   }
-  return result;
 }
 
 // [[Rcpp::export]]
-void set_vname(igraph_t* graph, const Rcpp::StringVector& values) {
-  const auto n = static_cast<long>(values.size());
-  igraph_strvector_t sv;
-  igraph_strvector_init(&sv, n);
-  for (long i = 0; i < n; ++i) {
-    igraph_strvector_set(&sv, i, values[i]);
+Rcpp::NumericVector get_van(const igraph_t& graph, const char* name) {
+  const auto n = igraph_vcount(&graph);
+  igraph_vector_t res;
+  igraph_vector_init(&res, n);
+  igraph_cattribute_VANV(&graph, name, igraph_vss_all(), &res);
+  return Rcpp::NumericVector(res.stor_begin, res.stor_end);
+}
+
+// [[Rcpp::export]]
+Rcpp::StringVector get_vas(const igraph_t& graph, const char* name) {
+  const auto n = igraph_vcount(&graph);
+  igraph_strvector_t res;
+  igraph_strvector_init(&res, n);
+  igraph_cattribute_VASV(&graph, name, igraph_vss_all(), &res);
+  Rcpp::StringVector output(n);
+  for (int i = 0; i < n; ++i) {
+    output[i] = res.data[i];
   }
-  igraph_cattribute_VAS_setv(graph, "name", &sv);
+  return output;
+}
+
+void set_van(igraph_t* graph, const char* name, const Rcpp::NumericVector& values) {
+  igraph_vector_t iv;
+  igraph_vector_view(&iv, &(values[0]), values.size());
+  igraph_cattribute_VAN_setv(graph, name, &iv);
+}
+
+void set_vas(igraph_t* graph, const char* name, const Rcpp::StringVector& values) {
+  const auto n = static_cast<int>(values.size());
+  igraph_strvector_t iv;
+  igraph_strvector_init(&iv, n);
+  for (int i = 0; i < n; ++i) {
+    igraph_strvector_set(&iv, i, values[i]);
+  }
+  igraph_cattribute_VAS_setv(graph, name, &iv);
+}
+
+// [[Rcpp::export]]
+void set_vattr(igraph_t* graph, const char* name, SEXP values) {
+  if (Rf_isNumber(values)) {
+    return set_van(graph, name, values);
+  } else {
+    return set_vas(graph, name, values);
+  }
 }
 
 void error_handler(const char* reason, const char* file, int line, int igraph_errno) {

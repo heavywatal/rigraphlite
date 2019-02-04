@@ -82,47 +82,75 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// gname
-const char* gname(igraph_t* graph);
-RcppExport SEXP _igraphlite_gname(SEXP graphSEXP) {
+// get_gan
+double get_gan(const igraph_t& graph, const char* name);
+RcppExport SEXP _igraphlite_get_gan(SEXP graphSEXP, SEXP nameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
-    rcpp_result_gen = Rcpp::wrap(gname(graph));
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_gan(graph, name));
     return rcpp_result_gen;
 END_RCPP
 }
-// set_gname
-void set_gname(igraph_t* graph, const char* value);
-RcppExport SEXP _igraphlite_set_gname(SEXP graphSEXP, SEXP valueSEXP) {
+// get_gas
+const char* get_gas(const igraph_t& graph, const char* name);
+RcppExport SEXP _igraphlite_get_gas(SEXP graphSEXP, SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_gas(graph, name));
+    return rcpp_result_gen;
+END_RCPP
+}
+// set_gattr
+void set_gattr(igraph_t* graph, const char* name, SEXP value);
+RcppExport SEXP _igraphlite_set_gattr(SEXP graphSEXP, SEXP nameSEXP, SEXP valueSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type value(valueSEXP);
-    set_gname(graph, value);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type value(valueSEXP);
+    set_gattr(graph, name, value);
     return R_NilValue;
 END_RCPP
 }
-// vname
-Rcpp::StringVector vname(igraph_t* graph);
-RcppExport SEXP _igraphlite_vname(SEXP graphSEXP) {
+// get_van
+Rcpp::NumericVector get_van(const igraph_t& graph, const char* name);
+RcppExport SEXP _igraphlite_get_van(SEXP graphSEXP, SEXP nameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
-    rcpp_result_gen = Rcpp::wrap(vname(graph));
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_van(graph, name));
     return rcpp_result_gen;
 END_RCPP
 }
-// set_vname
-void set_vname(igraph_t* graph, const Rcpp::StringVector& values);
-RcppExport SEXP _igraphlite_set_vname(SEXP graphSEXP, SEXP valuesSEXP) {
+// get_vas
+Rcpp::StringVector get_vas(const igraph_t& graph, const char* name);
+RcppExport SEXP _igraphlite_get_vas(SEXP graphSEXP, SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const igraph_t& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_vas(graph, name));
+    return rcpp_result_gen;
+END_RCPP
+}
+// set_vattr
+void set_vattr(igraph_t* graph, const char* name, SEXP values);
+RcppExport SEXP _igraphlite_set_vattr(SEXP graphSEXP, SEXP nameSEXP, SEXP valuesSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< igraph_t* >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::StringVector& >::type values(valuesSEXP);
-    set_vname(graph, values);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type values(valuesSEXP);
+    set_vattr(graph, name, values);
     return R_NilValue;
 END_RCPP
 }
@@ -148,10 +176,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_make_tree", (DL_FUNC) &_igraphlite_make_tree, 3},
     {"_igraphlite_impl_degree_all", (DL_FUNC) &_igraphlite_impl_degree_all, 3},
     {"_igraphlite_impl_degree", (DL_FUNC) &_igraphlite_impl_degree, 4},
-    {"_igraphlite_gname", (DL_FUNC) &_igraphlite_gname, 1},
-    {"_igraphlite_set_gname", (DL_FUNC) &_igraphlite_set_gname, 2},
-    {"_igraphlite_vname", (DL_FUNC) &_igraphlite_vname, 1},
-    {"_igraphlite_set_vname", (DL_FUNC) &_igraphlite_set_vname, 2},
+    {"_igraphlite_get_gan", (DL_FUNC) &_igraphlite_get_gan, 2},
+    {"_igraphlite_get_gas", (DL_FUNC) &_igraphlite_get_gas, 2},
+    {"_igraphlite_set_gattr", (DL_FUNC) &_igraphlite_set_gattr, 3},
+    {"_igraphlite_get_van", (DL_FUNC) &_igraphlite_get_van, 2},
+    {"_igraphlite_get_vas", (DL_FUNC) &_igraphlite_get_vas, 2},
+    {"_igraphlite_set_vattr", (DL_FUNC) &_igraphlite_set_vattr, 3},
     {"_igraphlite_len", (DL_FUNC) &_igraphlite_len, 1},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {"_rcpp_module_boot_test", (DL_FUNC) &_rcpp_module_boot_test, 0},
