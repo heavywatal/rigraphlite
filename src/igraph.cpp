@@ -9,6 +9,8 @@ RCPP_MODULE(igraph) {
     .const_method("to", &IGraph::to)
     .const_method("vcount", &IGraph::vcount)
     .const_method("ecount", &IGraph::ecount)
+    .property("V", &IGraph::getV, &IGraph::setV)
+    .property("E", &IGraph::getE, &IGraph::setE)
   ;
 
   // Workaround: free functions in RcppExport.cpp cannot return incomplete class
