@@ -47,6 +47,9 @@ class IGraph {
     }
 
     void init_attr() {
+      Rcpp::StringVector cls{"tbl_df", "tbl", "data.frame"};
+      Vattr_.attr("class") = cls;
+      Eattr_.attr("class") = cls;
       Vattr_.attr("row.names") = Rcpp::seq_len(vcount());
       Eattr_.attr("row.names") = Rcpp::seq_len(ecount());
     }
