@@ -1,6 +1,10 @@
 #include "igraphlite_types.h"
 #include "igraph.hpp"
 
+#include "vector.hpp"
+
+#include <igraph/igraph_constructors.h>
+
 RCPP_MODULE(igraph) {
   Rcpp::class_<IGraph>("IGraph")
     .constructor<int, bool>() // igraph_empty()
@@ -33,12 +37,52 @@ RCPP_MODULE(igraph) {
   );
 }
 
-void IGraph::init_attr() {
-  Rcpp::StringVector cls{"tbl_df", "tbl", "data.frame"};
-  Vattr_.attr("class") = cls;
-  Eattr_.attr("class") = cls;
-  Vattr_.attr("row.names") = Rcpp::seq_len(vcount());
-  Eattr_.attr("row.names") = Rcpp::seq_len(ecount());
+
+IGraph::~IGraph() noexcept {
+  igraph_destroy(&data_);
+}
+
+IGraph::IGraph(const IGraph& other) {
+  igraph_copy(&data_, &other.data_);
+  Vattr_ = other.Vattr_;
+  Eattr_ = other.Eattr_;
+}
+
+IGraph::IGraph(IGraph&& other) {
+  data_ = std::move(other.data_);
+  Vattr_ = std::move(other.Vattr_);
+  Eattr_ = std::move(other.Eattr_);
+}
+
+
+IGraph::IGraph(int n, bool directed) {
+  igraph_empty(&data_, n, directed);
+  init_attr();
+}
+
+IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed) {
+  igraph_create(&data_, IVectorView(edges).data(), n, directed);
+  init_attr();
+}
+
+IGraph IGraph::create(const Rcpp::NumericVector& edges, int n, bool directed) {
+  return IGraph(edges, n, directed);
+}
+
+IGraph IGraph::tree(int n, int children, int mode) {
+  IGraph g;
+  igraph_tree(g.data(), n, children, static_cast<igraph_tree_mode_t>(mode));
+  g.init_attr();
+  return g;
+}
+
+
+long IGraph::vcount() const {
+  return igraph_vcount(&data_);
+}
+
+long IGraph::ecount() const {
+  return igraph_ecount(&data_);
 }
 
 Rcpp::NumericVector
@@ -46,6 +90,10 @@ IGraph::neighbors(const int node, const int mode) const {
   IVector iv;
   igraph_neighbors(&data_, iv.data(), node, static_cast<igraph_neimode_t>(mode));
   return iv;
+}
+
+bool IGraph::is_directed() const {
+  return igraph_is_directed(&data_);
 }
 
 Rcpp::NumericVector
@@ -61,3 +109,15 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
   igraph_degree(&data_, res.data(), std::move(vs), static_cast<igraph_neimode_t>(mode), loops);
   return res;
 }
+
+
+void IGraph::init_attr() {
+  Rcpp::StringVector cls{"tbl_df", "tbl", "data.frame"};
+  Vattr_.attr("class") = cls;
+  Eattr_.attr("class") = cls;
+  Vattr_.attr("row.names") = Rcpp::seq_len(vcount());
+  Eattr_.attr("row.names") = Rcpp::seq_len(ecount());
+}
+
+Rcpp::NumericVector IGraph::from() const {return as_rvector(data_.from) + 1;}
+Rcpp::NumericVector IGraph::to() const {return as_rvector(data_.to) + 1;}

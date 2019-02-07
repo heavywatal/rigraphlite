@@ -1,4 +1,6 @@
 #include "igraph.hpp"
+
+#include "vector.hpp"
 #include "matrix.hpp"
 
 #include <igraph/igraph_structural.h>

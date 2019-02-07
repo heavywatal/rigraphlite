@@ -6,100 +6,10 @@
 
 using namespace Rcpp;
 
-// attribute_list
-Rcpp::List attribute_list(const IGraph& graph);
-RcppExport SEXP _igraphlite_attribute_list(SEXP graphSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    rcpp_result_gen = Rcpp::wrap(attribute_list(graph));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_gan
-double get_gan(const IGraph& graph, const char* name);
-RcppExport SEXP _igraphlite_get_gan(SEXP graphSEXP, SEXP nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_gan(graph, name));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_gas
-const char* get_gas(const IGraph& graph, const char* name);
-RcppExport SEXP _igraphlite_get_gas(SEXP graphSEXP, SEXP nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_gas(graph, name));
-    return rcpp_result_gen;
-END_RCPP
-}
-// set_gattr
-void set_gattr(IGraph* graph, const char* name, SEXP value);
-RcppExport SEXP _igraphlite_set_gattr(SEXP graphSEXP, SEXP nameSEXP, SEXP valueSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IGraph* >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type value(valueSEXP);
-    set_gattr(graph, name, value);
-    return R_NilValue;
-END_RCPP
-}
-// get_van
-Rcpp::NumericVector get_van(const IGraph& graph, const char* name);
-RcppExport SEXP _igraphlite_get_van(SEXP graphSEXP, SEXP nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_van(graph, name));
-    return rcpp_result_gen;
-END_RCPP
-}
-// get_vas
-Rcpp::StringVector get_vas(const IGraph& graph, const char* name);
-RcppExport SEXP _igraphlite_get_vas(SEXP graphSEXP, SEXP nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_vas(graph, name));
-    return rcpp_result_gen;
-END_RCPP
-}
-// set_vattr
-void set_vattr(IGraph* graph, const char* name, SEXP values);
-RcppExport SEXP _igraphlite_set_vattr(SEXP graphSEXP, SEXP nameSEXP, SEXP valuesSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IGraph* >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type values(valuesSEXP);
-    set_vattr(graph, name, values);
-    return R_NilValue;
-END_RCPP
-}
 
 RcppExport SEXP _rcpp_module_boot_igraph();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_igraphlite_attribute_list", (DL_FUNC) &_igraphlite_attribute_list, 1},
-    {"_igraphlite_get_gan", (DL_FUNC) &_igraphlite_get_gan, 2},
-    {"_igraphlite_get_gas", (DL_FUNC) &_igraphlite_get_gas, 2},
-    {"_igraphlite_set_gattr", (DL_FUNC) &_igraphlite_set_gattr, 3},
-    {"_igraphlite_get_van", (DL_FUNC) &_igraphlite_get_van, 2},
-    {"_igraphlite_get_vas", (DL_FUNC) &_igraphlite_get_vas, 2},
-    {"_igraphlite_set_vattr", (DL_FUNC) &_igraphlite_set_vattr, 3},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {NULL, NULL, 0}
 };

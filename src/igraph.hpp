@@ -4,67 +4,32 @@
 
 #include <Rcpp.h>
 
-#include "vector.hpp"
-
 #include <igraph/igraph_interface.h>
-#include <igraph/igraph_constructors.h>
 
 class IGraph {
   public:
-    ~IGraph() noexcept {
-      igraph_destroy(&data_);
-    }
-    IGraph(const IGraph& other) {
-      igraph_copy(&data_, &other.data_);
-      Vattr_ = other.Vattr_;
-      Eattr_ = other.Eattr_;
-    }
-    IGraph(IGraph&& other) {
-      data_ = std::move(other.data_);
-      Vattr_ = std::move(other.Vattr_);
-      Eattr_ = std::move(other.Eattr_);
-    }
+    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+    // Graph generators
 
-    IGraph(int n, bool directed) {
-      igraph_empty(&data_, n, directed);
-      init_attr();
-    }
+    ~IGraph() noexcept;
+    IGraph(const IGraph& other);
+    IGraph(IGraph&& other);
 
-    IGraph(const Rcpp::NumericVector& edges, int n, bool directed) {
-      igraph_create(&data_, IVectorView(edges).data(), n, directed);
-      init_attr();
-    }
+    IGraph(int n, bool directed);
+    IGraph(const Rcpp::NumericVector& edges, int n, bool directed);
 
-    void init_attr();
+    // Workaround: Rcpp Module cannot expose constructors with default values
+    static IGraph create(const Rcpp::NumericVector& edges, int n, bool directed);
+    static IGraph tree(int n, int children, int mode);
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Basic interface
 
-    long vcount() const {return igraph_vcount(&data_);}
-    long ecount() const {return igraph_ecount(&data_);}
-    // edge()
-    // get_eid()
-    // get_eids()
-    // get_eids_multi()
+    long vcount() const;
+    long ecount() const;
     Rcpp::NumericVector neighbors(int node, int mode) const;
-    // incident()
-    bool is_directed() const {return igraph_is_directed(&data_);}
+    bool is_directed() const;
     Rcpp::NumericVector degree(const Rcpp::NumericVector& vids, int mode, bool loops) const;
-
-    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
-    // Graph generators
-    // Workaround: Rcpp Module cannot expose constructors with default values
-
-    static IGraph create(const Rcpp::NumericVector& edges, int n, bool directed) {
-      return IGraph(edges, n, directed);
-    }
-
-    static IGraph tree(int n, int children, int mode) {
-      IGraph g;
-      igraph_tree(g.data(), n, children, static_cast<igraph_tree_mode_t>(mode));
-      g.init_attr();
-      return g;
-    }
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Structural properties
@@ -78,9 +43,11 @@ class IGraph {
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
+    void init_attr();
+
     Rcpp::NumericMatrix edgelist() const {return Rcpp::cbind(from(), to());}
-    Rcpp::NumericVector from() const {return as_rvector(data_.from) + 1;}
-    Rcpp::NumericVector to() const {return as_rvector(data_.to) + 1;}
+    Rcpp::NumericVector from() const;
+    Rcpp::NumericVector to() const;
 
     igraph_t* data() {return &data_;}
     void setV(Rcpp::DataFrame other) {Vattr_ = other;}
