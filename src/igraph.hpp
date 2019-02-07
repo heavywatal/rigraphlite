@@ -4,7 +4,9 @@
 
 #include <Rcpp.h>
 
-#include <igraph/igraph_interface.h>
+#include <memory>
+
+typedef struct igraph_s igraph_t;
 
 class IGraph {
   public:
@@ -12,8 +14,8 @@ class IGraph {
     // Graph generators
 
     ~IGraph() noexcept;
-    IGraph(const IGraph& other);
-    IGraph(IGraph&& other);
+    IGraph(const IGraph& other) noexcept;
+    IGraph(IGraph&& other) = default;
 
     IGraph(int n, bool directed);
     IGraph(const Rcpp::NumericVector& edges, int n, bool directed);
@@ -49,18 +51,18 @@ class IGraph {
     Rcpp::NumericVector from() const;
     Rcpp::NumericVector to() const;
 
-    igraph_t* data() {return &data_;}
+    igraph_t* data() {return data_.get();}
     void setV(Rcpp::DataFrame other) {Vattr_ = other;}
     void setE(Rcpp::DataFrame other) {Eattr_ = other;}
 
-    const igraph_t* data() const {return &data_;}
+    const igraph_t* data() const {return data_.get();}
     Rcpp::DataFrame getV() const {return Vattr_;}
     Rcpp::DataFrame getE() const {return Eattr_;}
 
   private:
     IGraph() = default;
 
-    igraph_t data_;
+    std::unique_ptr<igraph_t> data_ = std::make_unique<igraph_t>();
     Rcpp::DataFrame Vattr_;
     Rcpp::DataFrame Eattr_;
 };
