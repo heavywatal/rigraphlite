@@ -5,7 +5,7 @@
 
 void error_handler(const char* reason, const char* file, int line, int igraph_errno) {
   igraph_error_handler_printignore(reason, file, line, igraph_errno);
-  Rcpp::stop(reason);
+  Rcpp::stop("%s: %s", reason, igraph_strerror(igraph_errno));
 }
 
 // [[Rcpp::init]]
