@@ -6,6 +6,7 @@
 
 #include <igraph/igraph_vector.h>
 #include <igraph/igraph_strvector.h>
+#include <igraph/igraph_iterators.h>
 
 inline Rcpp::StringVector as_rvector(const igraph_strvector_t& x) {
   const int n = igraph_strvector_size(&x);
@@ -28,8 +29,9 @@ class IVector {
     ~IVector() {
       igraph_vector_destroy(&data_);
     }
+    igraph_vs_t vss() const {return igraph_vss_vector(&data_);}
     igraph_vector_t* data() {return &data_;}
-    operator Rcpp::NumericVector() {return as_rvector(data_);}
+    operator Rcpp::NumericVector() const {return as_rvector(data_);}
   private:
     igraph_vector_t data_;
 };
@@ -40,8 +42,9 @@ class IVectorView {
       igraph_vector_view(&data_, &(x[0]), x.size());
     }
     ~IVectorView() = default;
+    igraph_vs_t vss() const {return igraph_vss_vector(&data_);}
     igraph_vector_t* data() {return &data_;}
-    operator Rcpp::NumericVector() {return as_rvector(data_);}
+    operator Rcpp::NumericVector() const {return as_rvector(data_);}
   private:
     igraph_vector_t data_;
 };
@@ -62,7 +65,7 @@ class IStrVector {
       igraph_strvector_destroy(&data_);
     }
     igraph_strvector_t* data() {return &data_;}
-    operator Rcpp::StringVector() {return as_rvector(data_);}
+    operator Rcpp::StringVector() const {return as_rvector(data_);}
   private:
     igraph_strvector_t data_;
 };
