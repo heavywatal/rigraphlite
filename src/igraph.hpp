@@ -35,10 +35,30 @@ class IGraph {
       init_attr();
     }
 
+    void init_attr();
+
+    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+    // Basic interface
+
+    long vcount() const {return igraph_vcount(&data_);}
+    long ecount() const {return igraph_ecount(&data_);}
+    // edge()
+    // get_eid()
+    // get_eids()
+    // get_eids_multi()
+    Rcpp::NumericVector neighbors(int node, int mode) const;
+    // incident()
+    bool is_directed() const {return igraph_is_directed(&data_);}
+    Rcpp::NumericVector degree(const Rcpp::NumericVector& vids, int mode, bool loops) const;
+
+    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+    // Graph generators
     // Workaround: Rcpp Module cannot expose constructors with default values
+
     static IGraph create(const Rcpp::NumericVector& edges, int n, bool directed) {
       return IGraph(edges, n, directed);
     }
+
     static IGraph tree(int n, int children, int mode) {
       IGraph g;
       igraph_tree(g.data(), n, children, static_cast<igraph_tree_mode_t>(mode));
@@ -46,23 +66,15 @@ class IGraph {
       return g;
     }
 
-    void init_attr() {
-      Rcpp::StringVector cls{"tbl_df", "tbl", "data.frame"};
-      Vattr_.attr("class") = cls;
-      Eattr_.attr("class") = cls;
-      Vattr_.attr("row.names") = Rcpp::seq_len(vcount());
-      Eattr_.attr("row.names") = Rcpp::seq_len(ecount());
-    }
+    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
-    void setV(Rcpp::DataFrame other) {Vattr_ = other;}
-    void setE(Rcpp::DataFrame other) {Eattr_ = other;}
-    igraph_t* data() {return &data_;}
-
-    bool is_directed() const {return igraph_is_directed(&data_);}
+    Rcpp::NumericMatrix edgelist() const {return Rcpp::cbind(from(), to());}
     Rcpp::NumericVector from() const {return as_rvector(data_.from) + 1;}
     Rcpp::NumericVector to() const {return as_rvector(data_.to) + 1;}
-    long vcount() const {return igraph_vcount(&data_);}
-    long ecount() const {return igraph_ecount(&data_);}
+
+    igraph_t* data() {return &data_;}
+    void setV(Rcpp::DataFrame other) {Vattr_ = other;}
+    void setE(Rcpp::DataFrame other) {Eattr_ = other;}
 
     const igraph_t* data() const {return &data_;}
     Rcpp::DataFrame getV() const {return Vattr_;}

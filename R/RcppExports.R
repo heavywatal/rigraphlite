@@ -29,15 +29,3 @@ set_vattr <- function(graph, name, values) {
     invisible(.Call(`_igraphlite_set_vattr`, graph, name, values))
 }
 
-edgelist <- function(graph) {
-    .Call(`_igraphlite_edgelist`, graph)
-}
-
-impl_degree_all <- function(graph, mode = 3L, loops = TRUE) {
-    .Call(`_igraphlite_impl_degree_all`, graph, mode, loops)
-}
-
-impl_degree <- function(graph, vs, mode = 3L, loops = TRUE) {
-    .Call(`_igraphlite_impl_degree`, graph, vs, mode, loops)
-}
-

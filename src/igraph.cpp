@@ -4,11 +4,17 @@
 RCPP_MODULE(igraph) {
   Rcpp::class_<IGraph>("IGraph")
     .constructor<int, bool>() // igraph_empty()
-    .const_method("is_directed", &IGraph::is_directed)
-    .const_method("from", &IGraph::from)
-    .const_method("to", &IGraph::to)
+
+    // Basic interface
     .const_method("vcount", &IGraph::vcount)
     .const_method("ecount", &IGraph::ecount)
+    .const_method("neighbors", &IGraph::neighbors)
+    .const_method("is_directed", &IGraph::is_directed)
+    .const_method("degree", &IGraph::degree)
+
+    .const_method("edgelist", &IGraph::edgelist)
+    .const_method("from", &IGraph::from)
+    .const_method("to", &IGraph::to)
     .property("V", &IGraph::getV, &IGraph::setV)
     .property("E", &IGraph::getE, &IGraph::setE)
   ;
@@ -23,24 +29,32 @@ RCPP_MODULE(igraph) {
   );
 }
 
-// [[Rcpp::export]]
-Rcpp::NumericMatrix edgelist(const IGraph& graph) {
-  return Rcpp::cbind(graph.from(), graph.to());
+void IGraph::init_attr() {
+  Rcpp::StringVector cls{"tbl_df", "tbl", "data.frame"};
+  Vattr_.attr("class") = cls;
+  Eattr_.attr("class") = cls;
+  Vattr_.attr("row.names") = Rcpp::seq_len(vcount());
+  Eattr_.attr("row.names") = Rcpp::seq_len(ecount());
 }
 
-// [[Rcpp::export]]
 Rcpp::NumericVector
-impl_degree_all(const IGraph& graph, int mode = 3, bool loops = true) {
-  IVector res(graph.vcount());
-  igraph_degree(graph.data(), res.data(), igraph_vss_all(), static_cast<igraph_neimode_t>(mode), loops);
-  return res;
+IGraph::neighbors(const int node, const int mode) const {
+  IVector iv;
+  igraph_neighbors(&data_, iv.data(), node, static_cast<igraph_neimode_t>(mode));
+  return iv;
 }
 
-// [[Rcpp::export]]
 Rcpp::NumericVector
-impl_degree(const IGraph& graph, const Rcpp::NumericVector& vs, int mode = 3, bool loops = true) {
-  IVector res(vs.size());
-  IVectorView ivs(vs);
-  igraph_degree(graph.data(), res.data(), igraph_vss_vector(ivs.data()), static_cast<igraph_neimode_t>(mode), loops);
+IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops) const {
+  const R_xlen_t n = vids.size();
+  IVector res(n > 0 ? n : vcount());
+  igraph_vs_t vs;
+  if (n > 0) {
+    IVectorView ivs(vids);
+    igraph_vs_vector(&vs, ivs.data());
+  } else {
+    igraph_vs_all(&vs);
+  }
+  igraph_degree(&data_, res.data(), std::move(vs), static_cast<igraph_neimode_t>(mode), loops);
   return res;
 }

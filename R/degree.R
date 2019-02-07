@@ -2,16 +2,14 @@
 #'
 #' This function calculates the in-, out- or total degree of the specified vertices.
 #' @param graph IGraph object.
-#' @param vs vertices of which the degree will be calculated.
-#' @param mode type of the degree.
+#' @param vids vertices of which the degree will be calculated.
+#' @param mode edge type to count; {1: out, 2: in, 3: all}
 #' @param loops whether self-loop should be counted.
 #' @export
-degree = function(graph, vs = NA, mode = c("all", "out", "in", "total"), loops = TRUE) {
-  mode = match.arg(mode)
-  mode = switch(mode, out = 1L, `in` = 2L, all = 3L, total = 3L)
-  if (isTRUE(is.na(vs))) {
-    impl_degree_all(graph, mode = mode, loops = loops)
-  } else {
-    impl_degree(graph, vs - 1, mode = mode, loops = loops)
-  }
+degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
+  graph$degree(vids, mode, loops)
+}
+
+neighbors = function(graph, v, mode = 3L) {
+  graph$neighbors(v, mode)
 }
