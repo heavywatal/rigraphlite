@@ -67,6 +67,16 @@ class IGraph {
     }
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+    // Structural properties
+
+    Rcpp::LogicalVector are_connected(int v1, int v2) const;
+    Rcpp::NumericMatrix shortest_paths(const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, int mode) const;
+    Rcpp::NumericMatrix shortest_paths_dijkstra(
+      const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
+      const Rcpp::NumericVector& weights, int mode) const;
+    Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode) const;
+
+    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
     Rcpp::NumericMatrix edgelist() const {return Rcpp::cbind(from(), to());}
     Rcpp::NumericVector from() const {return as_rvector(data_.from) + 1;}

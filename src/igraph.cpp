@@ -12,6 +12,10 @@ RCPP_MODULE(igraph) {
     .const_method("is_directed", &IGraph::is_directed)
     .const_method("degree", &IGraph::degree)
 
+    .const_method("are_connected", &IGraph::are_connected)
+    .const_method("shortest_paths", &IGraph::shortest_paths)
+    .const_method("neighborhood_size", &IGraph::neighborhood_size)
+
     .const_method("edgelist", &IGraph::edgelist)
     .const_method("from", &IGraph::from)
     .const_method("to", &IGraph::to)
@@ -50,8 +54,7 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
   IVector res(n > 0 ? n : vcount());
   igraph_vs_t vs;
   if (n > 0) {
-    IVectorView ivs(vids);
-    igraph_vs_vector(&vs, ivs.data());
+    igraph_vs_vector(&vs, IVectorView(vids).data());
   } else {
     igraph_vs_all(&vs);
   }
