@@ -17,9 +17,8 @@ IGraph::are_connected(int v1, int v2) const {
 Rcpp::NumericMatrix
 IGraph::shortest_paths(const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, int mode) const {
   IMatrix res(from.size(), to.size());
-  igraph_shortest_paths(data_.get(), res.data(),
-    IVectorView(from).vss(),
-    IVectorView(to).vss(),
+  igraph_shortest_paths(
+    data_.get(), res.data(), ISelector(from), ISelector(to),
     static_cast<igraph_neimode_t>(mode));
   return res;
 }
@@ -27,10 +26,9 @@ IGraph::shortest_paths(const Rcpp::NumericVector& from, const Rcpp::NumericVecto
 Rcpp::NumericMatrix
 IGraph::shortest_paths_dijkstra(const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, const Rcpp::NumericVector& weights, int mode) const {
   IMatrix res(from.size(), to.size());
-  igraph_shortest_paths_dijkstra(data_.get(), res.data(),
-    IVectorView(from).vss(),
-    IVectorView(to).vss(),
-    IVectorView(weights).data(),
+  igraph_shortest_paths_dijkstra(
+    data_.get(), res.data(), ISelector(from), ISelector(to),
+    IVector(weights).data(),
     static_cast<igraph_neimode_t>(mode));
   return res;
 }
@@ -38,6 +36,8 @@ IGraph::shortest_paths_dijkstra(const Rcpp::NumericVector& from, const Rcpp::Num
 Rcpp::NumericVector
 IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode) const {
   IVector res(vids.size());
-  igraph_neighborhood_size(data_.get(), res.data(), IVectorView(vids).vss(), order, static_cast<igraph_neimode_t>(mode));
+  igraph_neighborhood_size(
+    data_.get(), res.data(), ISelector(vids), order,
+    static_cast<igraph_neimode_t>(mode));
   return res;
 }

@@ -28,6 +28,9 @@ class IVector {
     IVector(long n = 0) {
       igraph_vector_init(data_.get(), n);
     }
+    IVector(const Rcpp::NumericVector& x): data_(nullptr) {
+      igraph_vector_view(data_.get(), &(x[0]), x.size());
+    }
     IVector(const IVector& other) noexcept {
       igraph_vector_copy(data_.get(), other.data_.get());
     }
@@ -35,26 +38,10 @@ class IVector {
     ~IVector() noexcept {
       if (data_) igraph_vector_destroy(data_.get());
     }
-    igraph_vs_t vss() const {return igraph_vss_vector(data_.get());}
     igraph_vector_t* data() {return data_.get();}
     operator Rcpp::NumericVector() const {return as_rvector(*data_);}
   private:
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
-};
-
-class IVectorView {
-  public:
-    IVectorView(const Rcpp::NumericVector& x) {
-      igraph_vector_view(&data_, &(x[0]), x.size());
-    }
-    IVectorView(const IVectorView&) noexcept = default;
-    IVectorView(IVectorView&&) noexcept = default;
-    ~IVectorView() noexcept = default;
-    igraph_vs_t vss() const {return igraph_vss_vector(&data_);}
-    igraph_vector_t* data() {return &data_;}
-    operator Rcpp::NumericVector() const {return as_rvector(data_);}
-  private:
-    igraph_vector_t data_;
 };
 
 class IStrVector {
@@ -80,6 +67,23 @@ class IStrVector {
     operator Rcpp::StringVector() const {return as_rvector(*data_);}
   private:
     std::unique_ptr<igraph_strvector_t> data_ = std::make_unique<igraph_strvector_t>();
+};
+
+class ISelector {
+  public:
+    ISelector(const Rcpp::NumericVector& x) noexcept {
+      igraph_vector_view(data_.get(), &(x[0]), x.size());
+      igraph_vector_add_constant(data_.get(), -1.0);
+    }
+    ISelector(const ISelector&) = delete;
+    ISelector(ISelector&&) = delete;
+    ~ISelector() noexcept = default;
+    operator igraph_es_t() const {return igraph_ess_vector(data_.get());}
+    operator igraph_vs_t() const {return igraph_vss_vector(data_.get());}
+    operator Rcpp::NumericVector() const {return as_rvector(*data_) + 1.0;}
+    igraph_vector_t* data() {return data_.get();}
+  private:
+    std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
 };
 
 #endif // IGRAPHLITE_VECTOR_HPP_

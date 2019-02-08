@@ -55,7 +55,7 @@ IGraph::IGraph(int n, bool directed) {
 }
 
 IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed) {
-  igraph_create(data_.get(), IVectorView(edges).data(), n, directed);
+  igraph_create(data_.get(), ISelector(edges).data(), n, directed);
   init_attr();
 }
 
@@ -94,13 +94,10 @@ Rcpp::NumericVector
 IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops) const {
   const R_xlen_t n = vids.size();
   IVector res(n > 0 ? n : vcount());
-  igraph_vs_t vs;
-  if (n > 0) {
-    igraph_vs_vector(&vs, IVectorView(vids).data());
-  } else {
-    igraph_vs_all(&vs);
-  }
-  igraph_degree(data_.get(), res.data(), std::move(vs), static_cast<igraph_neimode_t>(mode), loops);
+  igraph_degree(
+    data_.get(), res.data(),
+    (n > 0) ? ISelector(vids) : igraph_vss_all(),
+    static_cast<igraph_neimode_t>(mode), loops);
   return res;
 }
 
