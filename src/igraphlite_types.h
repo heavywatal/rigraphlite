@@ -5,4 +5,6 @@
 #include <RcppCommon.h>
 RCPP_EXPOSED_CLASS(IGraph);
 
+#include "igraph.hpp"
+
 #endif // IGRAPHLITE_TYPES_H_

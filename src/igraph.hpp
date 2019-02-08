@@ -15,7 +15,7 @@ class IGraph {
 
     ~IGraph() noexcept;
     IGraph(const IGraph& other) noexcept;
-    IGraph(IGraph&& other) = default;
+    IGraph(IGraph&& other);
 
     IGraph(int n, bool directed);
     IGraph(const Rcpp::NumericVector& edges, int n, bool directed);
@@ -62,9 +62,9 @@ class IGraph {
     Rcpp::DataFrame getE() const {return Eattr_;}
 
   private:
-    IGraph() = default;
+    IGraph();
 
-    std::unique_ptr<igraph_t> data_ = std::make_unique<igraph_t>();
+    std::unique_ptr<igraph_t> data_;
     Rcpp::DataFrame Vattr_;
     Rcpp::DataFrame Eattr_;
 };

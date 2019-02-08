@@ -1,5 +1,4 @@
 #include "igraphlite_types.h"
-#include "igraph.hpp"
 
 #include "vector.hpp"
 
@@ -46,23 +45,26 @@ RCPP_MODULE(igraph) {
   );
 }
 
+IGraph::IGraph(): data_(std::make_unique<igraph_t>()) {}
 
 IGraph::~IGraph() noexcept {
   if (data_) igraph_destroy(data_.get());
 }
 
-IGraph::IGraph(const IGraph& other) noexcept {
+IGraph::IGraph(const IGraph& other) noexcept: IGraph::IGraph() {
   igraph_copy(data_.get(), other.data_.get());
   Vattr_ = other.Vattr_;
   Eattr_ = other.Eattr_;
 }
 
-IGraph::IGraph(int n, bool directed) {
+IGraph::IGraph(IGraph&& other) = default;
+
+IGraph::IGraph(int n, bool directed): IGraph::IGraph() {
   igraph_empty(data_.get(), n, directed);
   init_attr();
 }
 
-IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed) {
+IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed): IGraph::IGraph() {
   igraph_create(data_.get(), ISelector(edges).data(), n, directed);
   init_attr();
 }
