@@ -26,23 +26,6 @@ RCPP_MODULE(igraph) {
     .property("V", &IGraph::getV, &IGraph::setV)
     .property("E", &IGraph::getE, &IGraph::setE)
   ;
-
-  // Workaround: free functions in RcppExport.cpp cannot return incomplete class
-  Rcpp::function("graph_from_symbolic_edgelist", &IGraph::graph_from_symbolic_edgelist,
-    Rcpp::List::create(Rcpp::_["edgelist"], Rcpp::_["directed"] = true)
-  );
-
-  Rcpp::function("graph_from_edgelist", &IGraph::graph_from_edgelist,
-    Rcpp::List::create(Rcpp::_["edgelist"], Rcpp::_["directed"] = true)
-  );
-
-  Rcpp::function("igraph_create", &IGraph::create,
-    Rcpp::List::create(Rcpp::_["edges"], Rcpp::_["n"] = 0, Rcpp::_["directed"] = true)
-  );
-
-  Rcpp::function("igraph_tree", &IGraph::tree,
-    Rcpp::List::create(Rcpp::_["n"], Rcpp::_["children"] = 2, Rcpp::_["mode"] = 0)
-  );
 }
 
 IGraph::IGraph(): data_(std::make_unique<igraph_t>()) {}
@@ -69,6 +52,11 @@ IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed): IGraph::
   init_attr();
 }
 
+IGraph::IGraph(int n, int children, int mode): IGraph::IGraph() {
+  igraph_tree(data_.get(), n, children, static_cast<igraph_tree_mode_t>(mode));
+  init_attr();
+}
+
 inline Rcpp::CharacterVector tibble_class() {
   return Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame");
 }
@@ -84,28 +72,29 @@ inline void mutate(Rcpp::DataFrame& df, const char* name, Rcpp::RObject value) {
   Rf_copyMostAttrib(attr_holder, df);
 }
 
-IGraph IGraph::graph_from_symbolic_edgelist(Rcpp::IntegerMatrix edgelist, bool directed) {
+// [[Rcpp::export]]
+IGraph graph_from_symbolic_edgelist(Rcpp::IntegerMatrix edgelist, bool directed = true) {
   auto sym_edges = Rcpp::as_vector(Rcpp::transpose(edgelist));
   auto symbols = Rcpp::sort_unique(sym_edges);
   auto edges = Rcpp::match(sym_edges, symbols);
   IGraph g(Rcpp::as<Rcpp::NumericVector>(edges), 0, directed);
-  mutate(g.Vattr_, "name", symbols);
+  g.setV("name", symbols);
   return g;
 }
 
-IGraph IGraph::graph_from_edgelist(Rcpp::NumericMatrix edgelist, bool directed) {
+// [[Rcpp::export]]
+IGraph graph_from_edgelist(Rcpp::NumericMatrix edgelist, bool directed = true) {
   return IGraph(Rcpp::transpose(edgelist), 0, directed);
 }
 
-IGraph IGraph::create(const Rcpp::NumericVector& edges, int n, bool directed) {
+// [[Rcpp::export]]
+IGraph graph_create(const Rcpp::NumericVector& edges, int n = 0, bool directed = true) {
   return IGraph(edges, n, directed);
 }
 
-IGraph IGraph::tree(int n, int children, int mode) {
-  IGraph g;
-  igraph_tree(g.data(), n, children, static_cast<igraph_tree_mode_t>(mode));
-  g.init_attr();
-  return g;
+// [[Rcpp::export]]
+IGraph graph_tree(int n, int children = 2, int mode = 0) {
+  return IGraph(n, children, mode);
 }
 
 
@@ -139,6 +128,14 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
   return res;
 }
 
+
+void IGraph::setV(const char* name, Rcpp::RObject value) {
+  mutate(Vattr_, name, value);
+}
+
+void IGraph::setE(const char* name, Rcpp::RObject value) {
+  mutate(Eattr_, name, value);
+}
 
 void IGraph::init_attr() {
   Vattr_.attr("class") = tibble_class();
