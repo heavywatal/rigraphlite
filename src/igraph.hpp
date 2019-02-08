@@ -21,6 +21,8 @@ class IGraph {
     IGraph(const Rcpp::NumericVector& edges, int n, bool directed);
 
     // Workaround: Rcpp Module cannot expose constructors with default values
+    static IGraph graph_from_symbolic_edgelist(Rcpp::IntegerMatrix, bool directed);
+    static IGraph graph_from_edgelist(Rcpp::NumericMatrix, bool directed);
     static IGraph create(const Rcpp::NumericVector& edges, int n, bool directed);
     static IGraph tree(int n, int children, int mode);
 

@@ -4,15 +4,14 @@
 \alias{degree}
 \title{The degree of some vertices in a graph}
 \usage{
-degree(graph, vs = NA, mode = c("all", "out", "in", "total"),
-  loops = TRUE)
+degree(graph, vids = numeric(0), mode = 3L, loops = TRUE)
 }
 \arguments{
 \item{graph}{IGraph object.}
 
-\item{vs}{vertices of which the degree will be calculated.}
+\item{vids}{vertices of which the degree will be calculated.}
 
-\item{mode}{type of the degree.}
+\item{mode}{edge type to count; {1: out, 2: in, 3: all}}
 
 \item{loops}{whether self-loop should be counted.}
 }
