@@ -5,6 +5,10 @@ graph_from_symbolic_edgelist <- function(edgelist, directed = TRUE) {
     .Call(`_igraphlite_graph_from_symbolic_edgelist`, edgelist, directed)
 }
 
+graph_from_data_frame <- function(df, directed = TRUE) {
+    .Call(`_igraphlite_graph_from_data_frame`, df, directed)
+}
+
 graph_from_edgelist <- function(edgelist, directed = TRUE) {
     .Call(`_igraphlite_graph_from_edgelist`, edgelist, directed)
 }

@@ -72,14 +72,54 @@ inline void mutate(Rcpp::DataFrame& df, const char* name, Rcpp::RObject value) {
   Rf_copyMostAttrib(attr_holder, df);
 }
 
-// [[Rcpp::export]]
-IGraph graph_from_symbolic_edgelist(Rcpp::IntegerMatrix edgelist, bool directed = true) {
+namespace impl {
+
+template <int RTYPE> inline
+IGraph graph_from_symbolic_edgelist(Rcpp::Matrix<RTYPE> edgelist, bool directed) {
   auto sym_edges = Rcpp::as_vector(Rcpp::transpose(edgelist));
   auto symbols = Rcpp::sort_unique(sym_edges);
   auto edges = Rcpp::match(sym_edges, symbols);
   IGraph g(Rcpp::as<Rcpp::NumericVector>(edges), 0, directed);
   g.setV("name", symbols);
   return g;
+}
+
+template <int RTYPE> inline
+IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed = true) {
+  using T = Rcpp::Vector<RTYPE>;
+  auto g = graph_from_symbolic_edgelist(Rcpp::cbind<T, T>(df.at(0), df.at(1)), directed);
+  const long n = df.ncol();
+  if (n > 2) {
+    Rcpp::StringVector names = df.attr("names");
+    for (long i = 2; i < n; ++i) {
+      g.setE(names[i], df[i]);
+    }
+  }
+  return g;
+}
+
+}
+
+// [[Rcpp::export]]
+IGraph graph_from_symbolic_edgelist(Rcpp::RObject edgelist, bool directed = true) {
+  switch (edgelist.sexp_type()) {
+    case INTSXP:  return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<INTSXP>(edgelist), directed);
+    case REALSXP: return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<REALSXP>(edgelist), directed);
+    case STRSXP:  return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<STRSXP>(edgelist), directed);
+    default:
+      throw std::range_error("Invalid type for vertex names");
+  }
+}
+
+// [[Rcpp::export]]
+IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed = true) {
+  switch (TYPEOF(df.at(0))) {
+    case INTSXP:  return impl::graph_from_data_frame<INTSXP>(df, directed);
+    case REALSXP: return impl::graph_from_data_frame<REALSXP>(df, directed);
+    case STRSXP:  return impl::graph_from_data_frame<STRSXP>(df, directed);
+    default:
+      throw std::range_error("Invalid type for vertex names");
+  }
 }
 
 // [[Rcpp::export]]

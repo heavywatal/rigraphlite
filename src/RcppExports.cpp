@@ -7,14 +7,26 @@
 using namespace Rcpp;
 
 // graph_from_symbolic_edgelist
-IGraph graph_from_symbolic_edgelist(Rcpp::IntegerMatrix edgelist, bool directed);
+IGraph graph_from_symbolic_edgelist(Rcpp::RObject edgelist, bool directed);
 RcppExport SEXP _igraphlite_graph_from_symbolic_edgelist(SEXP edgelistSEXP, SEXP directedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::IntegerMatrix >::type edgelist(edgelistSEXP);
+    Rcpp::traits::input_parameter< Rcpp::RObject >::type edgelist(edgelistSEXP);
     Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
     rcpp_result_gen = Rcpp::wrap(graph_from_symbolic_edgelist(edgelist, directed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// graph_from_data_frame
+IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed);
+RcppExport SEXP _igraphlite_graph_from_data_frame(SEXP dfSEXP, SEXP directedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    rcpp_result_gen = Rcpp::wrap(graph_from_data_frame(df, directed));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -61,6 +73,7 @@ RcppExport SEXP _rcpp_module_boot_igraph();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_from_symbolic_edgelist", (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist, 2},
+    {"_igraphlite_graph_from_data_frame", (DL_FUNC) &_igraphlite_graph_from_data_frame, 2},
     {"_igraphlite_graph_from_edgelist", (DL_FUNC) &_igraphlite_graph_from_edgelist, 2},
     {"_igraphlite_graph_create", (DL_FUNC) &_igraphlite_graph_create, 3},
     {"_igraphlite_graph_tree", (DL_FUNC) &_igraphlite_graph_tree, 3},
