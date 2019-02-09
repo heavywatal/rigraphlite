@@ -5,6 +5,8 @@
 #' @param weights numeric edge weights; TRUE to use graph$E$weight
 #' @param mode edge type to count; {1: OUT, 2: IN, 3: ALL}
 #' @param algorithm character
+#' @rdname structural
+#' @export
 shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
   algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
 

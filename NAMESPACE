@@ -3,5 +3,6 @@
 export(degree)
 export(induced_subgraph)
 export(neighbors)
+export(shortest_paths)
 import(Rcpp)
 useDynLib(igraphlite, .registration = TRUE)
