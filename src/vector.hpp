@@ -77,10 +77,11 @@ class ISelector {
     }
     ISelector(const ISelector&) = delete;
     ISelector(ISelector&&) = delete;
-    ~ISelector() noexcept = default;
+    ~ISelector() noexcept {
+      igraph_vector_add_constant(data_.get(), 1.0);
+    }
     operator igraph_es_t() const {return igraph_ess_vector(data_.get());}
     operator igraph_vs_t() const {return igraph_vss_vector(data_.get());}
-    operator Rcpp::NumericVector() const {return as_rvector(*data_) + 1.0;}
     igraph_vector_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
