@@ -38,6 +38,7 @@ class IGraph {
     Rcpp::NumericMatrix shortest_paths_dijkstra(
       const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
       const Rcpp::NumericVector& weights, int mode) const;
+    Rcpp::NumericVector path_length_hist(bool directed) const;
     Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////

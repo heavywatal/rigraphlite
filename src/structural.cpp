@@ -34,6 +34,14 @@ IGraph::shortest_paths_dijkstra(const Rcpp::NumericVector& from, const Rcpp::Num
 }
 
 Rcpp::NumericVector
+IGraph::path_length_hist(bool directed) const {
+  IVector res(vcount()); // rough estimate; resized as needed
+  double unconnected;
+  igraph_path_length_hist(data_.get(), res.data(), &unconnected, directed);
+  return res;
+}
+
+Rcpp::NumericVector
 IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode) const {
   IVector res(vids.size());
   igraph_neighborhood_size(
