@@ -35,13 +35,11 @@ class IGraph {
     // Structural properties
 
     Rcpp::LogicalVector are_connected(int v1, int v2) const;
-    Rcpp::NumericMatrix shortest_paths(const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, int mode) const;
-    Rcpp::NumericMatrix shortest_paths_dijkstra(
+    Rcpp::NumericMatrix shortest_paths(
       const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
-      const Rcpp::NumericVector& weights, int mode) const;
+      const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
     Rcpp::NumericVector path_length_hist(bool directed) const;
     Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode) const;
-    IGraph induced_subgraph(const Rcpp::NumericVector& vids, int impl) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 

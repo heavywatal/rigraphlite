@@ -14,23 +14,51 @@ IGraph::are_connected(int v1, int v2) const {
   return static_cast<bool>(res);
 }
 
-Rcpp::NumericMatrix
-IGraph::shortest_paths(const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, int mode) const {
-  IMatrix res(from.size(), to.size());
-  igraph_shortest_paths(
-    data_.get(), res.data(), ISelector(from), ISelector(to),
-    static_cast<igraph_neimode_t>(mode));
-  return res;
+namespace impl {
+  inline void shortest_paths(
+    const igraph_t* graph, igraph_matrix_t* res,
+    igraph_vs_t from, igraph_vs_t to,
+    const igraph_vector_t* weights, igraph_neimode_t mode,
+    const std::string& algorithm) {
+
+    if (algorithm.empty() || algorithm == "unweighted") {
+      igraph_shortest_paths(graph, res, from, to, mode);
+    } else if (algorithm == "dijkstra") {
+      igraph_shortest_paths_dijkstra(graph, res, from, to, weights, mode);
+    } else if (algorithm == "bellman-ford") {
+      igraph_shortest_paths_bellman_ford(graph, res, from, to, weights, mode);
+    } else if (algorithm == "johnson") {
+      igraph_shortest_paths_johnson(graph, res, from, to, weights);
+    }
+  }
 }
 
 Rcpp::NumericMatrix
-IGraph::shortest_paths_dijkstra(const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, const Rcpp::NumericVector& weights, int mode) const {
-  IMatrix res(from.size(), to.size());
-  igraph_shortest_paths_dijkstra(
-    data_.get(), res.data(), ISelector(from), ISelector(to),
-    IVector(weights).data(),
-    static_cast<igraph_neimode_t>(mode));
-  return res;
+IGraph::shortest_paths(
+  const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
+  const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
+
+  const bool all = from.size() > 0;
+  IMatrix res(all ? vcount() : from.size(), all ? vcount() : to.size());
+  if (all) {
+    impl::shortest_paths(
+      data_.get(), res.data(),
+      ISelector(from), ISelector(to),
+      weights.size() ? IVector(weights).data() : nullptr,
+      static_cast<igraph_neimode_t>(mode), algorithm);
+  } else {
+    impl::shortest_paths(
+      data_.get(), res.data(),
+      igraph_vss_all(), igraph_vss_all(),
+      weights.size() ? IVector(weights).data() : nullptr,
+      static_cast<igraph_neimode_t>(mode), algorithm);
+  }
+  Rcpp::NumericMatrix out(res);
+  if (all) {
+    Rcpp::rownames(out) = Rcpp::StringVector(from);
+    Rcpp::colnames(out) = Rcpp::StringVector(to);
+  }
+  return out;
 }
 
 Rcpp::NumericVector
@@ -55,9 +83,4 @@ IGraph::IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl): 
     other.data_.get(), data_.get(), ISelector(vids),
     static_cast<igraph_subgraph_implementation_t>(impl));
   init_attr();
-}
-
-IGraph
-IGraph::induced_subgraph(const Rcpp::NumericVector& vids, int impl) const {
-  return IGraph(*this, vids, impl);
 }

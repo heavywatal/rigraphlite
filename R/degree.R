@@ -9,7 +9,3 @@
 degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
   graph$degree(vids, mode, loops)
 }
-
-neighbors = function(graph, v, mode = 3L) {
-  graph$neighbors(v, mode)
-}
