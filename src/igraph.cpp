@@ -59,6 +59,8 @@ IGraph::IGraph(int n, int children, int mode): IGraph::IGraph() {
   init_attr();
 }
 
+namespace impl {
+
 inline Rcpp::CharacterVector tibble_class() {
   return Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame");
 }
@@ -67,18 +69,39 @@ inline void set_rownames(Rcpp::DataFrame& df, int n) {
   df.attr("row.names") = Rcpp::IntegerVector{Rcpp::IntegerVector::get_na(), -n};
 }
 
-inline void mutate(Rcpp::DataFrame& df, const char* name, Rcpp::RObject value) {
+inline void mutate(Rcpp::DataFrame& df, const char* name, const Rcpp::RObject& value) {
   Rcpp::List attr_holder;
   Rf_copyMostAttrib(df, attr_holder);
   df[name] = value;
   Rf_copyMostAttrib(attr_holder, df);
 }
 
-namespace impl {
+template <int RTYPE> inline
+Rcpp::Vector<RTYPE> flatten_edgelist(const Rcpp::Matrix<RTYPE>& edgelist) {
+  const long nrow = edgelist.nrow();
+  Rcpp::Vector<RTYPE> edges(2 * nrow);
+  long i = -1;
+  for (long r = 0; r < nrow; ++r) {
+    edges[++i] = edgelist[r];
+    edges[++i] = edgelist[r + nrow];
+  }
+  return edges;
+}
 
 template <int RTYPE> inline
-IGraph graph_from_symbolic_edgelist(Rcpp::Matrix<RTYPE> edgelist, bool directed) {
-  auto sym_edges = Rcpp::as_vector(Rcpp::transpose(edgelist));
+Rcpp::Vector<RTYPE> flatten_edgelist(const Rcpp::Vector<RTYPE>& from, const Rcpp::Vector<RTYPE>& to) {
+  const long nrow = from.length();
+  Rcpp::Vector<RTYPE> edges(2 * nrow);
+  long i = -1;
+  for (long r = 0; r < nrow; ++r) {
+    edges[++i] = from[r];
+    edges[++i] = to[r];
+  }
+  return edges;
+}
+
+template <int RTYPE> inline
+IGraph graph_from_symbolic_edges(const Rcpp::Vector<RTYPE>& sym_edges, bool directed) {
   auto symbols = Rcpp::sort_unique(sym_edges);
   auto edges = Rcpp::match(sym_edges, symbols);
   IGraph g(Rcpp::as<Rcpp::NumericVector>(edges), 0, directed);
@@ -87,12 +110,17 @@ IGraph graph_from_symbolic_edgelist(Rcpp::Matrix<RTYPE> edgelist, bool directed)
 }
 
 template <int RTYPE> inline
-IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed = true) {
-  using T = Rcpp::Vector<RTYPE>;
-  auto g = graph_from_symbolic_edgelist(Rcpp::cbind<T, T>(df.at(0), df.at(1)), directed);
+IGraph graph_from_symbolic_edgelist(const Rcpp::Matrix<RTYPE>& edgelist, bool directed) {
+  return graph_from_symbolic_edges(flatten_edgelist(edgelist), directed);
+}
+
+template <int RTYPE> inline
+IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed = true) {
+  const auto edges = flatten_edgelist<RTYPE>(df.at(0), df.at(1));
+  auto g = graph_from_symbolic_edges(edges, directed);
   const long n = df.ncol();
   if (n > 2) {
-    Rcpp::StringVector names = df.attr("names");
+    const Rcpp::StringVector names = df.attr("names");
     for (long i = 2; i < n; ++i) {
       g.setE(names[i], df[i]);
     }
@@ -103,7 +131,7 @@ IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed = true) {
 }
 
 // [[Rcpp::export]]
-IGraph graph_from_symbolic_edgelist(Rcpp::RObject edgelist, bool directed = true) {
+IGraph graph_from_symbolic_edgelist(const Rcpp::RObject& edgelist, bool directed = true) {
   switch (edgelist.sexp_type()) {
     case INTSXP:  return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<INTSXP>(edgelist), directed);
     case REALSXP: return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<REALSXP>(edgelist), directed);
@@ -114,7 +142,7 @@ IGraph graph_from_symbolic_edgelist(Rcpp::RObject edgelist, bool directed = true
 }
 
 // [[Rcpp::export]]
-IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed = true) {
+IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed = true) {
   switch (TYPEOF(df.at(0))) {
     case INTSXP:  return impl::graph_from_data_frame<INTSXP>(df, directed);
     case REALSXP: return impl::graph_from_data_frame<REALSXP>(df, directed);
@@ -125,8 +153,8 @@ IGraph graph_from_data_frame(Rcpp::DataFrame df, bool directed = true) {
 }
 
 // [[Rcpp::export]]
-IGraph graph_from_edgelist(Rcpp::NumericMatrix edgelist, bool directed = true) {
-  return IGraph(Rcpp::transpose(edgelist), 0, directed);
+IGraph graph_from_edgelist(const Rcpp::NumericMatrix& edgelist, bool directed = true) {
+  return IGraph(impl::flatten_edgelist(edgelist), 0, directed);
 }
 
 // [[Rcpp::export]]
@@ -171,19 +199,19 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
 }
 
 
-void IGraph::setV(const char* name, Rcpp::RObject value) {
-  mutate(Vattr_, name, value);
+void IGraph::setV(const char* name, const Rcpp::RObject& value) {
+  impl::mutate(Vattr_, name, value);
 }
 
-void IGraph::setE(const char* name, Rcpp::RObject value) {
-  mutate(Eattr_, name, value);
+void IGraph::setE(const char* name, const Rcpp::RObject& value) {
+  impl::mutate(Eattr_, name, value);
 }
 
 void IGraph::init_attr() {
-  Vattr_.attr("class") = tibble_class();
-  Eattr_.attr("class") = tibble_class();
-  set_rownames(Vattr_, vcount());
-  set_rownames(Eattr_, ecount());
+  Vattr_.attr("class") = impl::tibble_class();
+  Eattr_.attr("class") = impl::tibble_class();
+  impl::set_rownames(Vattr_, vcount());
+  impl::set_rownames(Eattr_, ecount());
 }
 
 Rcpp::NumericVector IGraph::from() const {return as_rvector(data_->from) + 1;}

@@ -48,8 +48,8 @@ class IGraph {
     Rcpp::NumericVector to() const;
 
     igraph_t* data() {return data_.get();}
-    void setV(const char* name, Rcpp::RObject value);
-    void setE(const char* name, Rcpp::RObject value);
+    void setV(const char* name, const Rcpp::RObject& value);
+    void setE(const char* name, const Rcpp::RObject& value);
     void setV(Rcpp::DataFrame other) {Vattr_ = other;}
     void setE(Rcpp::DataFrame other) {Eattr_ = other;}
 
