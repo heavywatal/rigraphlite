@@ -20,6 +20,7 @@ class IGraph {
     IGraph(int n, bool directed); // empty
     IGraph(const Rcpp::NumericVector& edges, int n, bool directed); // create
     IGraph(int n, int children, int mode); // tree
+    IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl); // induced_subgraph
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Basic interface
@@ -40,6 +41,7 @@ class IGraph {
       const Rcpp::NumericVector& weights, int mode) const;
     Rcpp::NumericVector path_length_hist(bool directed) const;
     Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode) const;
+    IGraph induced_subgraph(const Rcpp::NumericVector& vids, int impl) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 

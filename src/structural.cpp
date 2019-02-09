@@ -49,3 +49,15 @@ IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, cons
     static_cast<igraph_neimode_t>(mode));
   return res;
 }
+
+IGraph::IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl): IGraph::IGraph() {
+  igraph_induced_subgraph(
+    other.data_.get(), data_.get(), ISelector(vids),
+    static_cast<igraph_subgraph_implementation_t>(impl));
+  init_attr();
+}
+
+IGraph
+IGraph::induced_subgraph(const Rcpp::NumericVector& vids, int impl) const {
+  return IGraph(*this, vids, impl);
+}
