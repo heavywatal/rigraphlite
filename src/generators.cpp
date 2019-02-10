@@ -56,6 +56,18 @@ namespace impl {
 
 }
 
+//' Graph Generators
+//'
+//' @param df data.frame that includes an edgelist and edge attributes.
+//' @param edgelist Two-column matrix.
+//' @param edges The edges to add, the first two elements are the first edge, etc.
+//' @param directed Boolean
+//' @param n Integer, the number of vertices in the graph.
+//' @param children Integer, the number of children of a vertex in the tree.
+//' @param mode `igraph_tree_mode_t` {1: OUT, 2: IN, 3: UNDIRECTED}
+//' @seealso <https://igraph.org/c/doc/igraph-Generators.html>
+//' @rdname generators
+//' @export
 // [[Rcpp::export]]
 IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed = true) {
   switch (TYPEOF(df.at(0))) {
@@ -67,6 +79,8 @@ IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed = true) {
   }
 }
 
+//' @rdname generators
+//' @export
 // [[Rcpp::export]]
 IGraph graph_from_symbolic_edgelist(const Rcpp::RObject& edgelist, bool directed = true) {
   switch (edgelist.sexp_type()) {
@@ -78,16 +92,22 @@ IGraph graph_from_symbolic_edgelist(const Rcpp::RObject& edgelist, bool directed
   }
 }
 
+//' @rdname generators
+//' @export
 // [[Rcpp::export]]
 IGraph graph_from_edgelist(const Rcpp::NumericMatrix& edgelist, bool directed = true) {
   return IGraph(impl::flatten_edgelist(edgelist), 0, directed);
 }
 
+//' @rdname generators
+//' @export
 // [[Rcpp::export]]
 IGraph graph_create(const Rcpp::NumericVector& edges, int n = 0, bool directed = true) {
   return IGraph(edges, n, directed);
 }
 
+//' @rdname generators
+//' @export
 // [[Rcpp::export]]
 IGraph graph_tree(int n, int children = 2, int mode = 0) {
   return IGraph(n, children, mode);
