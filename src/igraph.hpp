@@ -43,6 +43,7 @@ class IGraph {
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
+    Rcpp::DataFrame as_data_frame() const;
     Rcpp::NumericMatrix edgelist() const {return Rcpp::cbind(from(), to());}
     Rcpp::NumericVector from() const;
     Rcpp::NumericVector to() const;

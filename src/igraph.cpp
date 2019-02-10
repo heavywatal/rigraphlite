@@ -22,6 +22,7 @@ RCPP_MODULE(igraph) {
     .const_method("path_length_hist", &IGraph::path_length_hist)
     .const_method("neighborhood_size", &IGraph::neighborhood_size)
 
+    .const_method("as_data_frame", &IGraph::as_data_frame)
     .const_method("edgelist", &IGraph::edgelist)
     .const_method("from", &IGraph::from)
     .const_method("to", &IGraph::to)
@@ -121,6 +122,20 @@ namespace impl {
     Rf_copyMostAttrib(attr_holder, df);
   }
 
+}
+
+Rcpp::DataFrame IGraph::as_data_frame() const {
+  auto df = Rcpp::DataFrame::create(
+    Rcpp::_["from"] = from(),
+    Rcpp::_["to"] = to()
+  );
+  const long n = Eattr_.ncol();
+  const Rcpp::StringVector names = Eattr_.attr("names");
+  for (long i = 0; i < n; ++i) {
+    impl::mutate(df, names[i], Eattr_[i]);
+  }
+  df.attr("class") = impl::tibble_class();
+  return df;
 }
 
 void IGraph::setV(const char* name, const Rcpp::RObject& value) {
