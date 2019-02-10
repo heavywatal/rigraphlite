@@ -25,6 +25,10 @@ RCPP_MODULE(igraph) {
     .const_method("edgelist", &IGraph::edgelist)
     .const_method("from", &IGraph::from)
     .const_method("to", &IGraph::to)
+    .const_method("oi", &IGraph::oi)
+    .const_method("ii", &IGraph::ii)
+    .const_method("os", &IGraph::os)
+    .const_method("is", &IGraph::is)
     .property("V", &IGraph::getV, &IGraph::setV)
     .property("E", &IGraph::getE, &IGraph::setE)
   ;
@@ -92,6 +96,10 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
 
 Rcpp::NumericVector IGraph::from() const {return as_rvector(data_->from) + 1;}
 Rcpp::NumericVector IGraph::to() const {return as_rvector(data_->to) + 1;}
+Rcpp::NumericVector IGraph::oi() const {return as_rvector(data_->oi) + 1;}
+Rcpp::NumericVector IGraph::ii() const {return as_rvector(data_->ii) + 1;}
+Rcpp::NumericVector IGraph::os() const {return as_rvector(data_->os) + 1;}
+Rcpp::NumericVector IGraph::is() const {return as_rvector(data_->is) + 1;}
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 // Attributes

@@ -46,6 +46,10 @@ class IGraph {
     Rcpp::NumericMatrix edgelist() const {return Rcpp::cbind(from(), to());}
     Rcpp::NumericVector from() const;
     Rcpp::NumericVector to() const;
+    Rcpp::NumericVector oi() const;
+    Rcpp::NumericVector ii() const;
+    Rcpp::NumericVector os() const;
+    Rcpp::NumericVector is() const;
 
     igraph_t* data() {return data_.get();}
     void setV(const char* name, const Rcpp::RObject& value);
