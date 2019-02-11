@@ -29,6 +29,19 @@ neighbors = function(graph, v, mode = 3L) {
   graph$neighbors(v, mode)
 }
 
+#' @param order integer
+#' @rdname structural
+#' @export
+neighborhood_size = function(graph, v, order = 1L, mode = 1L) {
+  graph$neighborhood_size(v, order, mode)
+}
+
+#' @rdname structural
+#' @export
+neighborhood = function(graph, v, order = 1L, mode = 1L) {
+  graph$neighborhood(v, order, mode)
+}
+
 #' @param impl how to construct a new graph:
 #'             {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}
 #' @rdname structural

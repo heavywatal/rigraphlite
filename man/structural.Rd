@@ -3,6 +3,8 @@
 \name{shortest_paths}
 \alias{shortest_paths}
 \alias{neighbors}
+\alias{neighborhood_size}
+\alias{neighborhood}
 \alias{induced_subgraph}
 \title{Structural Properties of Graphs}
 \usage{
@@ -11,6 +13,10 @@ shortest_paths(graph, from = numeric(0L), to = from,
   "unweighted", "dijkstra", "bellman-ford", "johnson"))
 
 neighbors(graph, v, mode = 3L)
+
+neighborhood_size(graph, v, order = 1L, mode = 1L)
+
+neighborhood(graph, v, order = 1L, mode = 1L)
 
 induced_subgraph(graph, vids, impl = 0L)
 }
@@ -24,6 +30,8 @@ induced_subgraph(graph, vids, impl = 0L)
 \item{algorithm}{character}
 
 \item{v, vids, from, to}{vertices of interest}
+
+\item{order}{integer}
 
 \item{impl}{how to construct a new graph:
 {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}}
