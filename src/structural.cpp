@@ -80,17 +80,12 @@ IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, cons
 
 Rcpp::List
 IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int mode) const {
-  igraph_vector_ptr_t res;
   const long n = vids.size();
-  igraph_vector_ptr_init(&res, n);
+  IVectorPtr res(n);
   igraph_neighborhood(
-    data_.get(), &res, ISelector(vids), order,
+    data_.get(), res.data(), ISelector(vids), order,
     static_cast<igraph_neimode_t>(mode));
-  Rcpp::List output(n);
-  for (long i = 0; i < n; ++i) {
-    output[i] = as_rvector(*reinterpret_cast<igraph_vector_t*>(igraph_vector_ptr_e(&res, i))) + 1.0;
-  }
-  return output;
+  return res;
 }
 
 IGraph::IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl): IGraph::IGraph() {

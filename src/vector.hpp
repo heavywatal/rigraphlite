@@ -5,6 +5,7 @@
 #include <Rcpp.h>
 
 #include <igraph/igraph_vector.h>
+#include <igraph/igraph_vector_ptr.h>
 #include <igraph/igraph_strvector.h>
 #include <igraph/igraph_iterators.h>
 
@@ -20,6 +21,11 @@ inline Rcpp::StringVector as_rvector(const igraph_strvector_t& x) {
 }
 
 inline Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
+  return Rcpp::NumericVector(x.stor_begin, x.end);
+}
+
+inline Rcpp::NumericVector as_rindex(igraph_vector_t&& x) {
+  igraph_vector_add_constant(&x, 1.0);
   return Rcpp::NumericVector(x.stor_begin, x.end);
 }
 
@@ -42,6 +48,31 @@ class IVector {
     operator Rcpp::NumericVector() const {return as_rvector(*data_);}
   private:
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
+};
+
+class IVectorPtr {
+  public:
+    IVectorPtr(long n = 0) {
+      igraph_vector_ptr_init(data_.get(), n);
+    }
+    IVectorPtr(const IVectorPtr&) = delete;
+    IVectorPtr(IVectorPtr&&) = delete;
+    ~IVectorPtr() noexcept {
+      igraph_vector_ptr_destroy(data_.get());
+    }
+    operator Rcpp::List() const {
+      const long n = igraph_vector_ptr_size(data_.get());
+      Rcpp::List output(n);
+      for (long i = 0; i < n; ++i) {
+        auto elem = reinterpret_cast<igraph_vector_t*>(igraph_vector_ptr_e(data_.get(), i));
+        output[i] = as_rindex(std::move(*elem));
+        // TODO: Add option for index base
+      }
+      return output;
+    }
+    igraph_vector_ptr_t* data() {return data_.get();}
+  private:
+    std::unique_ptr<igraph_vector_ptr_t> data_ = std::make_unique<igraph_vector_ptr_t>();
 };
 
 class IStrVector {
