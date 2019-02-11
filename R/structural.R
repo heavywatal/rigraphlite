@@ -1,7 +1,7 @@
 #' Structural Properties of Graphs
 #'
 #' @param graph IGraph object.
-#' @param v,vids,from,to vertices of interest
+#' @param vids,from,to vertices of interest
 #' @param weights numeric edge weights; TRUE to use graph$E$weight
 #' @param mode edge type to count; {1: OUT, 2: IN, 3: ALL}
 #' @param algorithm character
@@ -23,23 +23,17 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
   graph$shortest_paths(from, to, weights, mode, algorithm)
 }
 
-#' @rdname structural
-#' @export
-neighbors = function(graph, v, mode = 3L) {
-  graph$neighbors(v, mode)
-}
-
 #' @param order integer
 #' @rdname structural
 #' @export
-neighborhood_size = function(graph, v, order = 1L, mode = 1L) {
-  graph$neighborhood_size(v, order, mode)
+neighborhood_size = function(graph, vids, order = 1L, mode = 1L) {
+  graph$neighborhood_size(vids, order, mode)
 }
 
 #' @rdname structural
 #' @export
-neighborhood = function(graph, v, order = 1L, mode = 1L) {
-  graph$neighborhood(v, order, mode)
+neighborhood = function(graph, vids, order = 1L, mode = 1L) {
+  graph$neighborhood(vids, order, mode)
 }
 
 #' @param impl how to construct a new graph:

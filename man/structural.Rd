@@ -2,7 +2,6 @@
 % Please edit documentation in R/structural.R
 \name{shortest_paths}
 \alias{shortest_paths}
-\alias{neighbors}
 \alias{neighborhood_size}
 \alias{neighborhood}
 \alias{induced_subgraph}
@@ -12,11 +11,9 @@ shortest_paths(graph, from = numeric(0L), to = from,
   weights = numeric(0L), mode = 3L, algorithm = c("auto",
   "unweighted", "dijkstra", "bellman-ford", "johnson"))
 
-neighbors(graph, v, mode = 3L)
+neighborhood_size(graph, vids, order = 1L, mode = 1L)
 
-neighborhood_size(graph, v, order = 1L, mode = 1L)
-
-neighborhood(graph, v, order = 1L, mode = 1L)
+neighborhood(graph, vids, order = 1L, mode = 1L)
 
 induced_subgraph(graph, vids, impl = 0L)
 }
@@ -29,7 +26,7 @@ induced_subgraph(graph, vids, impl = 0L)
 
 \item{algorithm}{character}
 
-\item{v, vids, from, to}{vertices of interest}
+\item{vids, from, to}{vertices of interest}
 
 \item{order}{integer}
 
