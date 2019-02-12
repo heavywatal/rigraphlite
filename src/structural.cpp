@@ -44,13 +44,13 @@ IGraph::shortest_paths(
     impl::shortest_paths(
       data_.get(), res.data(),
       ISelector(from), ISelector(to),
-      weights.size() ? IVector(weights).data() : nullptr,
+      weights.size() ? IVectorView(weights).data() : nullptr,
       static_cast<igraph_neimode_t>(mode), algorithm);
   } else {
     impl::shortest_paths(
       data_.get(), res.data(),
       igraph_vss_all(), igraph_vss_all(),
-      weights.size() ? IVector(weights).data() : nullptr,
+      weights.size() ? IVectorView(weights).data() : nullptr,
       static_cast<igraph_neimode_t>(mode), algorithm);
   }
   Rcpp::NumericMatrix out(res);

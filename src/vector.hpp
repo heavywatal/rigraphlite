@@ -24,9 +24,9 @@ inline Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
   return Rcpp::NumericVector(x.stor_begin, x.end);
 }
 
-inline Rcpp::NumericVector as_rindex(igraph_vector_t&& x) {
-  igraph_vector_add_constant(&x, 1.0);
-  return Rcpp::NumericVector(x.stor_begin, x.end);
+inline Rcpp::NumericVector as_rindex(igraph_vector_t* x) {
+  igraph_vector_add_constant(x, 1.0);
+  return Rcpp::NumericVector(x->stor_begin, x->end);
 }
 
 class IVector {
@@ -34,18 +34,26 @@ class IVector {
     IVector(long n = 0) {
       igraph_vector_init(data_.get(), n);
     }
-    IVector(const Rcpp::NumericVector& x): data_(nullptr) {
+    IVector(const IVector& other) = delete;
+    IVector(IVector&& other) = delete;
+    ~IVector() noexcept {
+      igraph_vector_destroy(data_.get());
+    }
+    operator Rcpp::NumericVector() const {return as_rvector(*data_);}
+    igraph_vector_t* data() {return data_.get();}
+  private:
+    std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
+};
+
+class IVectorView {
+  public:
+    IVectorView(const Rcpp::NumericVector& x) {
       igraph_vector_view(data_.get(), &(x[0]), x.size());
     }
-    IVector(const IVector& other) noexcept {
-      igraph_vector_copy(data_.get(), other.data_.get());
-    }
-    IVector(IVector&& other) noexcept = default;
-    ~IVector() noexcept {
-      if (data_) igraph_vector_destroy(data_.get());
-    }
+    IVectorView(const IVector& other) = delete;
+    IVectorView(IVector&& other) = delete;
+    ~IVectorView() noexcept = default;
     igraph_vector_t* data() {return data_.get();}
-    operator Rcpp::NumericVector() const {return as_rvector(*data_);}
   private:
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
 };
@@ -65,7 +73,7 @@ class IVectorPtr {
       Rcpp::List output(n);
       for (long i = 0; i < n; ++i) {
         auto elem = reinterpret_cast<igraph_vector_t*>(igraph_vector_ptr_e(data_.get(), i));
-        output[i] = as_rindex(std::move(*elem));
+        output[i] = as_rindex(elem);
         // TODO: Add option for index base
       }
       return output;
