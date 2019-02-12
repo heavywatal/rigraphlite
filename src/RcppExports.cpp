@@ -68,6 +68,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// igraph_version
+Rcpp::StringVector igraph_version();
+RcppExport SEXP _igraphlite_igraph_version() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(igraph_version());
+    return rcpp_result_gen;
+END_RCPP
+}
 
 RcppExport SEXP _rcpp_module_boot_igraph();
 
@@ -77,6 +87,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_from_edgelist", (DL_FUNC) &_igraphlite_graph_from_edgelist, 2},
     {"_igraphlite_graph_create", (DL_FUNC) &_igraphlite_graph_create, 3},
     {"_igraphlite_graph_tree", (DL_FUNC) &_igraphlite_graph_tree, 3},
+    {"_igraphlite_igraph_version", (DL_FUNC) &_igraphlite_igraph_version, 0},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {NULL, NULL, 0}
 };

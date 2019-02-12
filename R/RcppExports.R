@@ -41,3 +41,11 @@ graph_tree <- function(n, children = 2L, mode = 0L) {
     .Call(`_igraphlite_graph_tree`, n, children, mode)
 }
 
+#' Check and return igraph version.h
+#'
+#' @rdname version
+#' @export
+igraph_version <- function() {
+    .Call(`_igraphlite_igraph_version`)
+}
+
