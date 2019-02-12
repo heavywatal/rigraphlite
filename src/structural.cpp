@@ -81,7 +81,7 @@ IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, cons
 Rcpp::List
 IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int mode) const {
   const long n = vids.size();
-  IVectorPtr res(n);
+  IVectorPtr<AsIndices> res(n);
   igraph_neighborhood(
     data_.get(), res.data(), ISelector(vids), order,
     static_cast<igraph_neimode_t>(mode));

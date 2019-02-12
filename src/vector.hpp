@@ -24,10 +24,18 @@ inline Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
   return Rcpp::NumericVector(x.stor_begin, x.end);
 }
 
-inline Rcpp::NumericVector as_rindex(igraph_vector_t* x) {
-  igraph_vector_add_constant(x, 1.0);
-  return Rcpp::NumericVector(x->stor_begin, x->end);
-}
+struct AsValues {
+  Rcpp::NumericVector operator()(igraph_vector_t* x) const {
+    return Rcpp::NumericVector(x->stor_begin, x->end);
+  }
+};
+
+struct AsIndices {
+  Rcpp::NumericVector operator()(igraph_vector_t* x) const {
+    igraph_vector_add_constant(x, 1.0);
+    return Rcpp::NumericVector(x->stor_begin, x->end);
+  }
+};
 
 class IVector {
   public:
@@ -58,6 +66,7 @@ class IVectorView {
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
 };
 
+template <class Converter>
 class IVectorPtr {
   public:
     IVectorPtr(long n = 0) {
@@ -73,14 +82,14 @@ class IVectorPtr {
       Rcpp::List output(n);
       for (long i = 0; i < n; ++i) {
         auto elem = reinterpret_cast<igraph_vector_t*>(igraph_vector_ptr_e(data_.get(), i));
-        output[i] = as_rindex(elem);
-        // TODO: Add option for index base
+        output[i] = convert_(elem);
       }
       return output;
     }
     igraph_vector_ptr_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_ptr_t> data_ = std::make_unique<igraph_vector_ptr_t>();
+    Converter convert_;
 };
 
 class IStrVector {
