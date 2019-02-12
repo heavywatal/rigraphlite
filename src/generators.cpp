@@ -26,9 +26,24 @@ namespace impl {
     return edges;
   }
 
+  // temporary; for compatibility with rigraph
+  template <int RTYPE> inline
+  Rcpp::Vector<RTYPE> unique_stable(const Rcpp::Vector<RTYPE>& x) {
+    using T = typename Rcpp::Vector<RTYPE>::stored_type;
+    std::vector<T> res;
+    res.reserve(x.size());
+    std::unordered_set<T> set;
+    for (const auto& elem: x) {
+      if (set.insert(elem).second) {
+        res.push_back(elem);
+      }
+    }
+    return Rcpp::wrap(res);
+  }
+
   template <int RTYPE> inline
   IGraph graph_from_symbolic_edges(const Rcpp::Vector<RTYPE>& sym_edges, bool directed) {
-    auto symbols = Rcpp::sort_unique(sym_edges);
+    auto symbols = unique_stable(sym_edges);
     auto edges = Rcpp::match(sym_edges, symbols);
     IGraph g(Rcpp::as<Rcpp::NumericVector>(edges), 0, directed);
     g.setV("name", symbols);
