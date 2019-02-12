@@ -11,9 +11,9 @@ shortest_paths(graph, from = numeric(0L), to = from,
   weights = numeric(0L), mode = 3L, algorithm = c("auto",
   "unweighted", "dijkstra", "bellman-ford", "johnson"))
 
-neighborhood_size(graph, vids, order = 1L, mode = 1L)
+neighborhood_size(graph, vids, order = 1L, mode = 1L, mindist = 0L)
 
-neighborhood(graph, vids, order = 1L, mode = 1L)
+neighborhood(graph, vids, order = 1L, mode = 1L, mindist = 0L)
 
 induced_subgraph(graph, vids, impl = 0L)
 }
@@ -29,6 +29,8 @@ induced_subgraph(graph, vids, impl = 0L)
 \item{vids, from, to}{vertices of interest}
 
 \item{order}{integer}
+
+\item{mindist}{The minimum distance to include a vertex in the counting.}
 
 \item{impl}{how to construct a new graph:
 {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}}

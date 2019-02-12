@@ -39,8 +39,8 @@ class IGraph {
       const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
       const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
     Rcpp::NumericVector path_length_hist(bool directed) const;
-    Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode) const;
-    Rcpp::List neighborhood(const Rcpp::NumericVector& vids, int order, int mode) const;
+    Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
+    Rcpp::List neighborhood(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 

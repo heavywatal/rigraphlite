@@ -70,21 +70,21 @@ IGraph::path_length_hist(bool directed) const {
 }
 
 Rcpp::NumericVector
-IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode) const {
+IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
   IVector res(vids.size());
   igraph_neighborhood_size(
     data_.get(), res.data(), ISelector(vids), order,
-    static_cast<igraph_neimode_t>(mode));
+    static_cast<igraph_neimode_t>(mode), mindist);
   return res;
 }
 
 Rcpp::List
-IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int mode) const {
+IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
   const long n = vids.size();
   IVectorPtr<AsIndices> res(n);
   igraph_neighborhood(
     data_.get(), res.data(), ISelector(vids), order,
-    static_cast<igraph_neimode_t>(mode));
+    static_cast<igraph_neimode_t>(mode), mindist);
   return res;
 }
 

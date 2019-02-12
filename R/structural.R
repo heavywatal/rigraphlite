@@ -24,16 +24,17 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
 }
 
 #' @param order integer
+#' @param mindist The minimum distance to include a vertex in the counting.
 #' @rdname structural
 #' @export
-neighborhood_size = function(graph, vids, order = 1L, mode = 1L) {
-  graph$neighborhood_size(vids, order, mode)
+neighborhood_size = function(graph, vids, order = 1L, mode = 1L, mindist = 0L) {
+  graph$neighborhood_size(vids, order, mode, mindist)
 }
 
 #' @rdname structural
 #' @export
-neighborhood = function(graph, vids, order = 1L, mode = 1L) {
-  graph$neighborhood(vids, order, mode)
+neighborhood = function(graph, vids, order = 1L, mode = 1L, mindist = 0L) {
+  graph$neighborhood(vids, order, mode, mindist)
 }
 
 #' @param impl how to construct a new graph:
