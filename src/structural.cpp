@@ -38,23 +38,23 @@ IGraph::shortest_paths(
   const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
   const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
 
-  const bool all = from.size() > 0;
+  const bool all = (from.size() == 0);
   IMatrix res(all ? vcount() : from.size(), all ? vcount() : to.size());
   if (all) {
-    impl::shortest_paths(
-      data_.get(), res.data(),
-      ISelector(from), ISelector(to),
-      weights.size() ? IVectorView(weights).data() : nullptr,
-      static_cast<igraph_neimode_t>(mode), algorithm);
-  } else {
     impl::shortest_paths(
       data_.get(), res.data(),
       igraph_vss_all(), igraph_vss_all(),
       weights.size() ? IVectorView(weights).data() : nullptr,
       static_cast<igraph_neimode_t>(mode), algorithm);
+  } else {
+    impl::shortest_paths(
+      data_.get(), res.data(),
+      ISelector(from), ISelector(to),
+      weights.size() ? IVectorView(weights).data() : nullptr,
+      static_cast<igraph_neimode_t>(mode), algorithm);
   }
   Rcpp::NumericMatrix out(res);
-  if (all) {
+  if (!all) {
     Rcpp::rownames(out) = Rcpp::StringVector(from);
     Rcpp::colnames(out) = Rcpp::StringVector(to);
   }
