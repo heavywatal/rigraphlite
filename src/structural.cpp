@@ -76,9 +76,10 @@ path_length_count_within(const IGraph& graph, const Rcpp::NumericVector& vids, b
   IMatrix res(1, 1);
   const auto cvids = Rcpp::as<Rcpp::IntegerVector>(vids) - 1;
   for (const int i: cvids) {
+    auto vs_i = igraph_vss_1(i);
     for (const int j: cvids) {
       if (i <= j) continue;
-      igraph_shortest_paths(graph.data(), res.data(), igraph_vss_1(i), igraph_vss_1(j), IGRAPH_ALL);
+      igraph_shortest_paths(graph.data(), res.data(), vs_i, igraph_vss_1(j), IGRAPH_ALL);
       ++counter[static_cast<int>(res.at(0, 0))];
     }
   }
@@ -95,12 +96,15 @@ Rcpp::IntegerVector
 path_length_count_between(const IGraph& graph, const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, bool directed) {
   std::map<double, int> counter;
   IMatrix res(1, 1);
-  for (const double ri: from) {
-    const auto i = static_cast<int>(ri) - 1;
-    for (const double rj: to) {
-      const auto j = static_cast<int>(rj) - 1;
-      if (i == j) continue;
-      igraph_shortest_paths(graph.data(), res.data(), igraph_vss_1(i), igraph_vss_1(j), IGRAPH_ALL);
+  const int nrow = from.size();
+  const int ncol = to.size();
+  const auto cfrom = Rcpp::as<Rcpp::IntegerVector>(from) - 1;
+  const auto cto = Rcpp::as<Rcpp::IntegerVector>(to) - 1;
+  for (int i = 0; i < nrow; ++i) {
+    auto vs_i = igraph_vss_1(cfrom[i]);
+    for (int j = 0; j < ncol; ++j) {
+      if (i <= j) continue;
+      igraph_shortest_paths(graph.data(), res.data(), vs_i, igraph_vss_1(cto[j]), IGRAPH_ALL);
       ++counter[res.at(0, 0)];
     }
   }
