@@ -63,6 +63,9 @@ class IGraph {
     Rcpp::DataFrame getV() const {return Vattr_;}
     Rcpp::DataFrame getE() const {return Eattr_;}
 
+    Rcpp::sugar::SeqLen V() const {return Rcpp::seq_len(vcount());}
+    Rcpp::sugar::SeqLen E() const {return Rcpp::seq_len(ecount());}
+
   private:
     IGraph();
     void init_attr();

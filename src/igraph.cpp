@@ -31,8 +31,10 @@ RCPP_MODULE(igraph) {
     .const_method("ii", &IGraph::ii)
     .const_method("os", &IGraph::os)
     .const_method("is", &IGraph::is)
-    .property("V", &IGraph::getV, &IGraph::setV)
-    .property("E", &IGraph::getE, &IGraph::setE)
+    .property("Vattr", &IGraph::getV, &IGraph::setV)
+    .property("Eattr", &IGraph::getE, &IGraph::setE)
+    .property("V", &IGraph::V)
+    .property("E", &IGraph::E)
   ;
 }
 
