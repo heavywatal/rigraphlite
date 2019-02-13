@@ -71,11 +71,13 @@ class IVectorPtr {
   public:
     IVectorPtr(long n = 0) {
       igraph_vector_ptr_init(data_.get(), n);
+      igraph_vector_ptr_set_item_destructor(data_.get(),
+        reinterpret_cast<igraph_finally_func_t*>(igraph_vector_destroy));
     }
     IVectorPtr(const IVectorPtr&) = delete;
     IVectorPtr(IVectorPtr&&) = delete;
     ~IVectorPtr() noexcept {
-      igraph_vector_ptr_destroy(data_.get());
+      igraph_vector_ptr_destroy_all(data_.get());
     }
     operator Rcpp::List() const {
       const long n = igraph_vector_ptr_size(data_.get());
