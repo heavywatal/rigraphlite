@@ -11,10 +11,10 @@ RCPP_MODULE(igraph) {
     .constructor<const IGraph&, Rcpp::NumericVector, int>()
 
     // Basic interface
-    .const_method("vcount", &IGraph::vcount)
-    .const_method("ecount", &IGraph::ecount)
+    .property("vcount", &IGraph::vcount)
+    .property("ecount", &IGraph::ecount)
+    .property("is_directed", &IGraph::is_directed)
     .const_method("neighbors", &IGraph::neighbors)
-    .const_method("is_directed", &IGraph::is_directed)
     .const_method("degree", &IGraph::degree)
 
     .const_method("are_connected", &IGraph::are_connected)
@@ -23,14 +23,14 @@ RCPP_MODULE(igraph) {
     .const_method("neighborhood_size", &IGraph::neighborhood_size)
     .const_method("neighborhood", &IGraph::neighborhood)
 
-    .const_method("as_data_frame", &IGraph::as_data_frame)
-    .const_method("edgelist", &IGraph::edgelist)
-    .const_method("from", &IGraph::from)
-    .const_method("to", &IGraph::to)
-    .const_method("oi", &IGraph::oi)
-    .const_method("ii", &IGraph::ii)
-    .const_method("os", &IGraph::os)
-    .const_method("is", &IGraph::is)
+    .property("as_data_frame", &IGraph::as_data_frame)
+    .property("as_edgelist", &IGraph::as_edgelist)
+    .property("from", &IGraph::from)
+    .property("to", &IGraph::to)
+    .property("oi", &IGraph::oi)
+    .property("ii", &IGraph::ii)
+    .property("os", &IGraph::os)
+    .property("is", &IGraph::is)
     .property("is_sink", &IGraph::is_sink)
     .property("is_source", &IGraph::is_source)
     .property("sink", &IGraph::sink)
@@ -80,15 +80,15 @@ long IGraph::ecount() const {
   return igraph_ecount(data_.get());
 }
 
+bool IGraph::is_directed() const {
+  return igraph_is_directed(data_.get());
+}
+
 Rcpp::NumericVector
 IGraph::neighbors(const int node, const int mode) const {
   IVector iv;
   igraph_neighbors(data_.get(), iv.data(), node, static_cast<igraph_neimode_t>(mode));
   return iv;
-}
-
-bool IGraph::is_directed() const {
-  return igraph_is_directed(data_.get());
 }
 
 Rcpp::NumericVector

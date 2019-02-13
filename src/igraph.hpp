@@ -27,8 +27,8 @@ class IGraph {
 
     long vcount() const;
     long ecount() const;
-    Rcpp::NumericVector neighbors(int node, int mode) const;
     bool is_directed() const;
+    Rcpp::NumericVector neighbors(int node, int mode) const;
     Rcpp::NumericVector degree(const Rcpp::NumericVector& vids, int mode, bool loops) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
@@ -50,7 +50,7 @@ class IGraph {
     Rcpp::IntegerVector source() const;
 
     Rcpp::DataFrame as_data_frame() const;
-    Rcpp::NumericMatrix edgelist() const {return Rcpp::cbind(from(), to());}
+    Rcpp::NumericMatrix as_edgelist() const {return Rcpp::cbind(from(), to());}
     Rcpp::NumericVector from() const;
     Rcpp::NumericVector to() const;
     Rcpp::NumericVector oi() const;
