@@ -9,3 +9,8 @@ addons:
 env:
   global:
   - CXX=g++-8
+before_script:
+- mkdir -p ~/.R
+- echo "CXX = $CXX" > ~/.R/Makevars
+- echo "CXX14 = $CXX" >> ~/.R/Makevars
+- echo "CXX14FLAGS = $(R CMD config CXXFLAGS)" >> ~/.R/Makevars
