@@ -19,6 +19,7 @@ class IMatrix {
     IMatrix(IMatrix&& other) noexcept = delete;
     ~IMatrix() noexcept = default;
     operator Rcpp::NumericMatrix() {return robj_;}
+    double at(long i, long j) const {return MATRIX(*data_, i, j);}
     igraph_matrix_t* data() {return data_.get();}
   private:
     Rcpp::NumericMatrix robj_;
