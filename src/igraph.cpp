@@ -31,6 +31,10 @@ RCPP_MODULE(igraph) {
     .const_method("ii", &IGraph::ii)
     .const_method("os", &IGraph::os)
     .const_method("is", &IGraph::is)
+    .property("is_sink", &IGraph::is_sink)
+    .property("is_source", &IGraph::is_source)
+    .property("sink", &IGraph::sink)
+    .property("source", &IGraph::source)
     .property("Vattr", &IGraph::getV, &IGraph::setV)
     .property("Eattr", &IGraph::getE, &IGraph::setE)
     .property("V", &IGraph::V)
@@ -96,6 +100,22 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
     (n > 0) ? ISelector(vids) : igraph_vss_all(),
     static_cast<igraph_neimode_t>(mode), loops);
   return res;
+}
+
+Rcpp::LogicalVector IGraph::is_sink() const {
+  return degree(Rcpp::NumericVector(0L), 1L, true) == 0;
+}
+
+Rcpp::LogicalVector IGraph::is_source() const {
+  return degree(Rcpp::NumericVector(0L), 2L, true) == 0;
+}
+
+Rcpp::IntegerVector IGraph::sink() const{
+  return Rcpp::IntegerVector(V())[is_sink()];
+}
+
+Rcpp::IntegerVector IGraph::source() const{
+  return Rcpp::IntegerVector(V())[is_source()];
 }
 
 Rcpp::NumericVector IGraph::from() const {return as_rvector(data_->from) + 1;}
