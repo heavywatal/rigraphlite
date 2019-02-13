@@ -49,3 +49,11 @@ igraph_version <- function() {
     .Call(`_igraphlite_igraph_version`)
 }
 
+path_length_count_within <- function(graph, vids, directed) {
+    .Call(`_igraphlite_path_length_count_within`, graph, vids, directed)
+}
+
+path_length_count_between <- function(graph, from, to, directed) {
+    .Call(`_igraphlite_path_length_count_between`, graph, from, to, directed)
+}
+

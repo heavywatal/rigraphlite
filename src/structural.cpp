@@ -69,6 +69,49 @@ IGraph::path_length_hist(bool directed) const {
   return res;
 }
 
+// [[Rcpp::export]]
+Rcpp::IntegerVector
+path_length_count_within(const IGraph& graph, const Rcpp::NumericVector& vids, bool directed) {
+  std::map<int, int> counter;
+  IMatrix res(1, 1);
+  const auto cvids = Rcpp::as<Rcpp::IntegerVector>(vids) - 1;
+  for (const int i: cvids) {
+    for (const int j: cvids) {
+      if (i <= j) continue;
+      igraph_shortest_paths(graph.data(), res.data(), igraph_vss_1(i), igraph_vss_1(j), IGRAPH_ALL);
+      ++counter[static_cast<int>(res.at(0, 0))];
+    }
+  }
+  const int max_len = counter.rbegin()->first;
+  Rcpp::IntegerVector output(max_len);
+  for (const auto& p: counter) {
+    output[p.first - 1] = p.second;
+  }
+  return output;
+}
+
+// [[Rcpp::export]]
+Rcpp::IntegerVector
+path_length_count_between(const IGraph& graph, const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, bool directed) {
+  std::map<double, int> counter;
+  IMatrix res(1, 1);
+  for (const double ri: from) {
+    const auto i = static_cast<int>(ri) - 1;
+    for (const double rj: to) {
+      const auto j = static_cast<int>(rj) - 1;
+      if (i == j) continue;
+      igraph_shortest_paths(graph.data(), res.data(), igraph_vss_1(i), igraph_vss_1(j), IGRAPH_ALL);
+      ++counter[res.at(0, 0)];
+    }
+  }
+  const int max_len = static_cast<int>(counter.rbegin()->first);
+  Rcpp::IntegerVector output(max_len);
+  for (const auto& p: counter) {
+    output[static_cast<int>(p.first) - 1] = p.second;
+  }
+  return output;
+}
+
 Rcpp::NumericVector
 IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
   IVector res(vids.size());

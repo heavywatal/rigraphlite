@@ -78,6 +78,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// path_length_count_within
+Rcpp::IntegerVector path_length_count_within(const IGraph& graph, const Rcpp::NumericVector& vids, bool directed);
+RcppExport SEXP _igraphlite_path_length_count_within(SEXP graphSEXP, SEXP vidsSEXP, SEXP directedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type vids(vidsSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    rcpp_result_gen = Rcpp::wrap(path_length_count_within(graph, vids, directed));
+    return rcpp_result_gen;
+END_RCPP
+}
+// path_length_count_between
+Rcpp::IntegerVector path_length_count_between(const IGraph& graph, const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, bool directed);
+RcppExport SEXP _igraphlite_path_length_count_between(SEXP graphSEXP, SEXP fromSEXP, SEXP toSEXP, SEXP directedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type from(fromSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type to(toSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    rcpp_result_gen = Rcpp::wrap(path_length_count_between(graph, from, to, directed));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 RcppExport SEXP _rcpp_module_boot_igraph();
 
@@ -88,6 +115,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_create", (DL_FUNC) &_igraphlite_graph_create, 3},
     {"_igraphlite_graph_tree", (DL_FUNC) &_igraphlite_graph_tree, 3},
     {"_igraphlite_igraph_version", (DL_FUNC) &_igraphlite_igraph_version, 0},
+    {"_igraphlite_path_length_count_within", (DL_FUNC) &_igraphlite_path_length_count_within, 3},
+    {"_igraphlite_path_length_count_between", (DL_FUNC) &_igraphlite_path_length_count_between, 4},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},
     {NULL, NULL, 0}
 };
