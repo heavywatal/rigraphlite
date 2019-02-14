@@ -1,5 +1,7 @@
 language: R
 cache: packages
+git:
+  submodules: false
 addons:
   apt:
     sources:
@@ -13,4 +15,4 @@ before_script:
 - mkdir -p ~/.R
 - echo "CXX = $CXX" > ~/.R/Makevars
 - echo "CXX14 = $CXX" >> ~/.R/Makevars
-- echo "CXX14FLAGS = $(R CMD config CXXFLAGS)" >> ~/.R/Makevars
+- echo "CXX14FLAGS = $(R CMD config CXXFLAGS) -fPIC" >> ~/.R/Makevars
