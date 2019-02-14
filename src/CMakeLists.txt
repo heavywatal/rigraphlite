@@ -7,46 +7,60 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
 include(GNUInstallDirs)
 
-find_library(igraph NAMES igraph HINTS $ENV{HOME}/local/lib)
-if(igraph)
-  message(STATUS "igraph: ${igraph}")
-  get_filename_component(igraph_LIBDIR "${igraph}" DIRECTORY)
-  get_filename_component(igraph_INCLUDEDIR "${igraph_LIBDIR}/../include" ABSOLUTE)
-  message(STATUS "igraph_LIBDIR: ${igraph_LIBDIR}")
-  message(STATUS "igraph_INCLUDEDIR: ${igraph_INCLUDEDIR}")
-  set(CPPFLAGS "-I${igraph_INCLUDEDIR}")
-  set(LDFLAGS "-L${igraph_LIBDIR} -Wl,-rpath,${igraph_LIBDIR}")
+if(DEFINED ENV{IGRAPH_INSTALL_PREFIX})
+  set(IGRAPH_INSTALL_PREFIX "$ENV{IGRAPH_INSTALL_PREFIX}")
 else()
+  set(IGRAPH_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+endif()
+message(STATUS "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX}")
+set(LIBDIR "${IGRAPH_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+set(CPPFLAGS "-I${IGRAPH_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}")
+set(LDFLAGS "-L${LIBDIR} -Wl,-rpath,${LIBDIR}")
+set(LDLIBS "-ligraph")
+
+find_library(igraph NAMES igraph HINTS "${LIBDIR}")
+if(igraph)
+  message(STATUS "Using preinstalled igraph: ${igraph}")
+else()
+  find_package(Git)
   get_filename_component(IGRAPH_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/../igraph" ABSOLUTE)
-  message(STATUS "IGRAPH_SOURCE: ${IGRAPH_SOURCE}")
   if(EXISTS "${IGRAPH_SOURCE}")
-    message(STATUS "IGRAPH_SOURCE exists")
-  else()
-    message(STATUS "IGRAPH_SOURCE does not exist")
-    execute_process(COMMAND pwd)
-    find_package(Git)
+    # source repo
     execute_process(COMMAND
-      ${GIT_EXECUTABLE} clone --depth=1 --branch=master https://github.com/heavywatal/igraph.git ${IGRAPH_SOURCE}
+      ${GIT_EXECUTABLE} submodule update --init --recursive
+      WORKING_DIRECTORY "${IGRAPH_SOURCE}"
+    )
+  else()
+    # bundled package
+    set(IGRAPH_GIT "https://github.com/heavywatal/igraph.git")
+    set(IGRAPH_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/igraph")
+    execute_process(COMMAND
+      ${GIT_EXECUTABLE} clone --depth=1 --single-branch ${IGRAPH_GIT} ${IGRAPH_SOURCE}
+    )
+  endif()
+endif()
+
+if(DEFINED IGRAPH_SOURCE)
+  message(STATUS "IGRAPH_SOURCE: ${IGRAPH_SOURCE}")
+  if("${IGRAPH_SOURCE}/.git" IS_NEWER_THAN "${IGRAPH_SOURCE}/configure")
+    execute_process(COMMAND
+      ./bootstrap.sh
+      WORKING_DIRECTORY "${IGRAPH_SOURCE}"
+    )
+  endif()
+  if("${IGRAPH_SOURCE}/configure" IS_NEWER_THAN "${IGRAPH_SOURCE}/Makefile")
+    execute_process(COMMAND
+      ./configure --prefix=${IGRAPH_INSTALL_PREFIX}
+      WORKING_DIRECTORY "${IGRAPH_SOURCE}"
     )
   endif()
   execute_process(COMMAND
-    ./bootstrap.sh
-    WORKING_DIRECTORY "${IGRAPH_SOURCE}"
-  )
-  execute_process(COMMAND
-    ./configure --prefix=${CMAKE_INSTALL_PREFIX}
-    WORKING_DIRECTORY "${IGRAPH_SOURCE}"
-  )
-  execute_process(COMMAND
     make -j2 install
     WORKING_DIRECTORY "${IGRAPH_SOURCE}"
+    ERROR_QUIET
   )
 endif()
 
-set(LIBDIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
-set(CPPFLAGS "${CPPFLAGS} -I${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}")
-set(LDFLAGS "${LDFLAGS} -L${LIBDIR} -Wl,-rpath,${LIBDIR}")
-set(LDLIBS "-ligraph")
 message(STATUS "CPPFLAGS: ${CPPFLAGS}")
 message(STATUS "LDFLAGS: ${LDFLAGS}")
 configure_file(
