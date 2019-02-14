@@ -50,8 +50,9 @@ if(DEFINED IGRAPH_SOURCE)
   endif()
   if("${IGRAPH_SOURCE}/configure" IS_NEWER_THAN "${IGRAPH_SOURCE}/Makefile")
     execute_process(COMMAND
-      ./configure --prefix=${IGRAPH_INSTALL_PREFIX}
+      ./configure --prefix=${IGRAPH_INSTALL_PREFIX} --disable-static --with-external-blas --with-external-lapack
       WORKING_DIRECTORY "${IGRAPH_SOURCE}"
+      OUTPUT_QUIET
     )
   endif()
   execute_process(COMMAND
