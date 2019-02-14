@@ -15,6 +15,15 @@ setMethod("show", "Rcpp_IGraph", function(object){
   methods::callNextMethod(object)
   cat("$V  ")
   utils::str(object$Vattr)
-  print(object$as_data_frame())
+  print(object$as_data_frame)
   invisible(object)
 })
+
+#' IGraph class
+#'
+#' @param x object to be tested.
+#' @rdname igraph-class
+#' @export
+is_igraph = function(x) {
+  inherits(x, "Rcpp_IGraph")
+}
