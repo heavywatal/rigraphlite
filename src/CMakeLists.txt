@@ -10,9 +10,9 @@ set(CMAKE_INSTALL_LIBDIR libs)
 set(LIBDIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
 find_library(igraph NAMES igraph HINTS ${LIBDIR} $ENV{HOME}/local/lib)
-message(STATUS "igraph: ${igraph}")
-
-if(NOT igraph)
+if(igraph)
+  message(STATUS "igraph: ${igraph}")
+else()
   execute_process(COMMAND
     ./bootstrap.sh
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../igraph
