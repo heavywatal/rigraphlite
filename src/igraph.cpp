@@ -62,7 +62,7 @@ IGraph::IGraph(int n, bool directed): IGraph::IGraph() {
 }
 
 IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed): IGraph::IGraph() {
-  igraph_create(data_.get(), ISelector(edges).data(), n, directed);
+  igraph_create(data_.get(), ISelectorInPlace(edges).data(), n, directed);
   init_attr();
 }
 
@@ -86,7 +86,7 @@ bool IGraph::is_directed() const {
 
 Rcpp::NumericVector
 IGraph::neighbors(int node, const int mode) const {
-  IVector<AsIndicesInPlace> res;
+  IVector<AsIndicesInPlace> res(1);
   igraph_neighbors(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res;
 }
@@ -97,7 +97,7 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
   IVector<AsValues> res(n > 0 ? n : vcount());
   igraph_degree(
     data_.get(), res.data(),
-    (n > 0) ? ISelector(vids) : igraph_vss_all(),
+    (n > 0) ? ISelectorInPlace(vids) : igraph_vss_all(),
     static_cast<igraph_neimode_t>(mode), loops);
   return res;
 }

@@ -120,7 +120,7 @@ Rcpp::NumericVector
 IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
   IVector<AsValues> res(vids.size());
   igraph_neighborhood_size(
-    data_.get(), res.data(), ISelector(vids), order,
+    data_.get(), res.data(), ISelectorInPlace(vids), order,
     static_cast<igraph_neimode_t>(mode), mindist);
   return res;
 }
@@ -130,14 +130,14 @@ IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int
   const long n = vids.size();
   IVectorPtr<AsIndicesInPlace> res(n);
   igraph_neighborhood(
-    data_.get(), res.data(), ISelector(vids), order,
+    data_.get(), res.data(), ISelectorInPlace(vids), order,
     static_cast<igraph_neimode_t>(mode), mindist);
   return res;
 }
 
 IGraph::IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl): IGraph::IGraph() {
   igraph_induced_subgraph(
-    other.data_.get(), data_.get(), ISelector(vids),
+    other.data_.get(), data_.get(), ISelectorInPlace(vids),
     static_cast<igraph_subgraph_implementation_t>(impl));
   init_attr();
 }
