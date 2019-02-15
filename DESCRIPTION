@@ -15,4 +15,5 @@ Imports:
     methods,
     Rcpp
 Suggests:
+    covr,
     testthat

@@ -1,3 +1,4 @@
+# nocov start
 
 upstream_vertices = function(graph, vids) {
   vlist = neighborhood(graph, vids, order = 2147483647L, mode = 2L)
@@ -24,3 +25,5 @@ mean_branch_length_m = function(graph, from = numeric(0), to = from) {
   }
   sum(m) / (nrow(m) * ncol(m) - nzero)
 }
+
+# nocov end
