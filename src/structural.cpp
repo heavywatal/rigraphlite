@@ -38,27 +38,23 @@ IGraph::shortest_paths(
   const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
   const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
 
-  const bool all = (from.size() == 0);
-  IMatrix res(all ? vcount() : from.size(), all ? vcount() : to.size());
-  if (all) {
-    impl::shortest_paths(
-      data_.get(), res.data(),
-      igraph_vss_all(), igraph_vss_all(),
-      weights.size() ? IVectorView(weights).data() : nullptr,
-      static_cast<igraph_neimode_t>(mode), algorithm);
-  } else {
-    impl::shortest_paths(
-      data_.get(), res.data(),
-      ISelector(from), ISelector(to),
-      weights.size() ? IVectorView(weights).data() : nullptr,
-      static_cast<igraph_neimode_t>(mode), algorithm);
+  const long from_size = from.size();
+  const long to_size = to.size();
+  const long nrow = from_size > 0 ? from_size : vcount();
+  const long ncol = to_size > 0 ? to_size : vcount();
+  IMatrix res(nrow, ncol);
+  impl::shortest_paths(data_.get(), res.data(),
+                       from_size > 0 ? ISelector(from) : igraph_vss_all(),
+                       to_size > 0 ? ISelector(to) : igraph_vss_all(),
+                       weights.size() ? IVectorView(weights).data() : nullptr,
+                       static_cast<igraph_neimode_t>(mode), algorithm);
+  if (from_size > 0) {
+    res.rownames(Rcpp::StringVector(from));
   }
-  Rcpp::NumericMatrix out(res);
-  if (!all) {
-    Rcpp::rownames(out) = Rcpp::StringVector(from);
-    Rcpp::colnames(out) = Rcpp::StringVector(to);
+  if (to_size > 0) {
+    res.colnames(Rcpp::StringVector(to));
   }
-  return out;
+  return res;
 }
 
 Rcpp::NumericVector
@@ -118,9 +114,10 @@ path_length_count_between(const IGraph& graph, const Rcpp::NumericVector& from, 
 
 Rcpp::NumericVector
 IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
-  IVector<AsValues> res(vids.size());
+  const long n = vids.size();
+  IVector<AsValues> res(n);
   igraph_neighborhood_size(
-    data_.get(), res.data(), ISelectorInPlace(vids), order,
+    data_.get(), res.data(), n ? ISelectorInPlace(vids) : igraph_vss_all(), order,
     static_cast<igraph_neimode_t>(mode), mindist);
   return res;
 }
@@ -130,7 +127,7 @@ IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int
   const long n = vids.size();
   IVectorPtr<AsIndicesInPlace> res(n);
   igraph_neighborhood(
-    data_.get(), res.data(), ISelectorInPlace(vids), order,
+    data_.get(), res.data(), n ? ISelectorInPlace(vids) : igraph_vss_all(), order,
     static_cast<igraph_neimode_t>(mode), mindist);
   return res;
 }
