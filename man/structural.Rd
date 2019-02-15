@@ -11,9 +11,11 @@ shortest_paths(graph, from = numeric(0L), to = from,
   weights = numeric(0L), mode = 3L, algorithm = c("auto",
   "unweighted", "dijkstra", "bellman-ford", "johnson"))
 
-neighborhood_size(graph, vids, order = 1L, mode = 1L, mindist = 0L)
+neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
+  mindist = 0L)
 
-neighborhood(graph, vids, order = 1L, mode = 1L, mindist = 0L)
+neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L,
+  mindist = 0L)
 
 induced_subgraph(graph, vids, impl = 0L)
 }

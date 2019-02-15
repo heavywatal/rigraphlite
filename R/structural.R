@@ -27,13 +27,13 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
 #' @param mindist The minimum distance to include a vertex in the counting.
 #' @rdname structural
 #' @export
-neighborhood_size = function(graph, vids, order = 1L, mode = 1L, mindist = 0L) {
+neighborhood_size = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist = 0L) {
   graph$neighborhood_size(vids, order, mode, mindist)
 }
 
 #' @rdname structural
 #' @export
-neighborhood = function(graph, vids, order = 1L, mode = 1L, mindist = 0L) {
+neighborhood = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist = 0L) {
   graph$neighborhood(vids, order, mode, mindist)
 }
 
@@ -43,8 +43,8 @@ neighborhood = function(graph, vids, order = 1L, mode = 1L, mindist = 0L) {
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {
   subg = IGraph$new(graph, vids, impl)
-  eids = (graph$from() %in% vids) & (graph$to() %in% vids)
-  subg$V = graph$V[vids,]
-  subg$E = graph$E[eids,]
+  eids = (graph$from %in% vids) & (graph$to %in% vids)
+  subg$Vattr = graph$Vattr[vids,]
+  subg$Eattr = graph$Eattr[eids,]
   subg
 }
