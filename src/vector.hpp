@@ -11,7 +11,7 @@
 
 #include <memory>
 
-inline Rcpp::StringVector as_rvector(const igraph_strvector_t& x) {
+inline Rcpp::StringVector wrap(const igraph_strvector_t& x) {
   const long n = igraph_strvector_size(&x);
   Rcpp::StringVector output(n);
   for (long i = 0; i < n; ++i) {
@@ -20,23 +20,26 @@ inline Rcpp::StringVector as_rvector(const igraph_strvector_t& x) {
   return output;
 }
 
-inline Rcpp::NumericVector as_rvector(const igraph_vector_t& x) {
-  return Rcpp::NumericVector(x.stor_begin, x.end);
-}
-
 struct AsValues {
-  Rcpp::NumericVector operator()(igraph_vector_t* x) const {
+  static Rcpp::NumericVector wrap(const igraph_vector_t* x) {
     return Rcpp::NumericVector(x->stor_begin, x->end);
   }
 };
 
 struct AsIndices {
-  Rcpp::NumericVector operator()(igraph_vector_t* x) const {
+  static Rcpp::NumericVector wrap(const igraph_vector_t* x) {
+    return Rcpp::NumericVector(x->stor_begin, x->end) + 1.0;
+  }
+};
+
+struct AsIndicesInPlace {
+  static Rcpp::NumericVector wrap(igraph_vector_t* x) {
     igraph_vector_add_constant(x, 1.0);
     return Rcpp::NumericVector(x->stor_begin, x->end);
   }
 };
 
+template <class WrapPolicy>
 class IVector {
   public:
     IVector(long n = 0) {
@@ -47,7 +50,9 @@ class IVector {
     ~IVector() noexcept {
       igraph_vector_destroy(data_.get());
     }
-    operator Rcpp::NumericVector() const {return as_rvector(*data_);}
+    operator Rcpp::NumericVector() {// non-const for AsIndicesInPlace
+      return WrapPolicy::wrap(data_.get());
+    }
     igraph_vector_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
@@ -58,15 +63,15 @@ class IVectorView {
     IVectorView(const Rcpp::NumericVector& x) {
       igraph_vector_view(data_.get(), &(x[0]), x.size());
     }
-    IVectorView(const IVector& other) = delete;
-    IVectorView(IVector&& other) = delete;
+    IVectorView(const IVectorView& other) = delete;
+    IVectorView(IVectorView&& other) = delete;
     ~IVectorView() noexcept = default;
     igraph_vector_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
 };
 
-template <class Converter>
+template <class WrapPolicy>
 class IVectorPtr {
   public:
     IVectorPtr(long n = 0) {
@@ -84,14 +89,13 @@ class IVectorPtr {
       Rcpp::List output(n);
       for (long i = 0; i < n; ++i) {
         auto elem = reinterpret_cast<igraph_vector_t*>(igraph_vector_ptr_e(data_.get(), i));
-        output[i] = convert_(elem);
+        output[i] = WrapPolicy::wrap(elem);
       }
       return output;
     }
     igraph_vector_ptr_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_ptr_t> data_ = std::make_unique<igraph_vector_ptr_t>();
-    Converter convert_;
 };
 
 class IStrVector {
@@ -114,7 +118,7 @@ class IStrVector {
       if (data_) igraph_strvector_destroy(data_.get());
     }
     igraph_strvector_t* data() {return data_.get();}
-    operator Rcpp::StringVector() const {return as_rvector(*data_);}
+    operator Rcpp::StringVector() const {return wrap(*data_);}
   private:
     std::unique_ptr<igraph_strvector_t> data_ = std::make_unique<igraph_strvector_t>();
 };

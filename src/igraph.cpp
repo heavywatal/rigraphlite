@@ -85,16 +85,16 @@ bool IGraph::is_directed() const {
 }
 
 Rcpp::NumericVector
-IGraph::neighbors(const int node, const int mode) const {
-  IVector iv;
-  igraph_neighbors(data_.get(), iv.data(), node, static_cast<igraph_neimode_t>(mode));
-  return iv;
+IGraph::neighbors(int node, const int mode) const {
+  IVector<AsIndicesInPlace> res;
+  igraph_neighbors(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
+  return res;
 }
 
 Rcpp::NumericVector
 IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops) const {
   const R_xlen_t n = vids.size();
-  IVector res(n > 0 ? n : vcount());
+  IVector<AsValues> res(n > 0 ? n : vcount());
   igraph_degree(
     data_.get(), res.data(),
     (n > 0) ? ISelector(vids) : igraph_vss_all(),
@@ -118,12 +118,12 @@ Rcpp::IntegerVector IGraph::source() const{
   return Rcpp::IntegerVector(V())[is_source()];
 }
 
-Rcpp::NumericVector IGraph::from() const {return as_rvector(data_->from) + 1;}
-Rcpp::NumericVector IGraph::to() const {return as_rvector(data_->to) + 1;}
-Rcpp::NumericVector IGraph::oi() const {return as_rvector(data_->oi) + 1;}
-Rcpp::NumericVector IGraph::ii() const {return as_rvector(data_->ii) + 1;}
-Rcpp::NumericVector IGraph::os() const {return as_rvector(data_->os) + 1;}
-Rcpp::NumericVector IGraph::is() const {return as_rvector(data_->is) + 1;}
+Rcpp::NumericVector IGraph::from() const {return AsIndices::wrap(&data_->from);}
+Rcpp::NumericVector IGraph::to() const {return AsIndices::wrap(&data_->to);}
+Rcpp::NumericVector IGraph::oi() const {return AsIndices::wrap(&data_->oi);}
+Rcpp::NumericVector IGraph::ii() const {return AsIndices::wrap(&data_->ii);}
+Rcpp::NumericVector IGraph::os() const {return AsIndices::wrap(&data_->os);}
+Rcpp::NumericVector IGraph::is() const {return AsIndices::wrap(&data_->is);}
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 // Attributes

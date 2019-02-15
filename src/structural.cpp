@@ -63,7 +63,7 @@ IGraph::shortest_paths(
 
 Rcpp::NumericVector
 IGraph::path_length_hist(bool directed) const {
-  IVector res(vcount()); // rough estimate; resized as needed
+  IVector<AsValues> res(vcount()); // rough estimate; resized as needed
   double unconnected;
   igraph_path_length_hist(data_.get(), res.data(), &unconnected, directed);
   return res;
@@ -118,7 +118,7 @@ path_length_count_between(const IGraph& graph, const Rcpp::NumericVector& from, 
 
 Rcpp::NumericVector
 IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
-  IVector res(vids.size());
+  IVector<AsValues> res(vids.size());
   igraph_neighborhood_size(
     data_.get(), res.data(), ISelector(vids), order,
     static_cast<igraph_neimode_t>(mode), mindist);
@@ -128,7 +128,7 @@ IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, cons
 Rcpp::List
 IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int mode, const int mindist) const {
   const long n = vids.size();
-  IVectorPtr<AsIndices> res(n);
+  IVectorPtr<AsIndicesInPlace> res(n);
   igraph_neighborhood(
     data_.get(), res.data(), ISelector(vids), order,
     static_cast<igraph_neimode_t>(mode), mindist);
