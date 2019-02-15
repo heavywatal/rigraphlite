@@ -17,3 +17,5 @@ before_script:
 - echo "CXX = $CXX" > ~/.R/Makevars
 - echo "CXX14 = $CXX" >> ~/.R/Makevars
 - echo "CXX14FLAGS = $(R CMD config CXXFLAGS) -fPIC" >> ~/.R/Makevars
+after_success:
+- Rscript -e 'covr::codecov()'
