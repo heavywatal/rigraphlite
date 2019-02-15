@@ -4,11 +4,6 @@
 #include <igraph/igraph_error.h>
 #include <igraph/igraph_version.h>
 
-void error_handler(const char* reason, const char* file, int line, int igraph_errno) {
-  igraph_error_handler_printignore(reason, file, line, igraph_errno);
-  Rcpp::stop("%s: %s", reason, igraph_strerror(igraph_errno));
-}
-
 //' Check and return igraph version.h
 //'
 //' @rdname version
@@ -24,8 +19,17 @@ Rcpp::StringVector igraph_version() {
   return version_string;
 }
 
+void error_handler(const char* reason, const char* file, int line, int igraph_errno) {
+  Rcpp::stop("%s:%d: %s: %s", file, line, reason, igraph_strerror(igraph_errno));
+}
+
+void warning_handler(const char* reason, const char* file, int line, int) {
+  Rcpp::warning("%s:%d: %s", file, line, reason);
+}
+
 // [[Rcpp::init]]
 void igraphlite_init(DllInfo *dll) {
   igraph_version();
   igraph_set_error_handler(&error_handler);
+  igraph_set_warning_handler(&warning_handler);
 }
