@@ -10,6 +10,8 @@ test_that("shortest_paths works", {
   expect_equal(dim(shortest_paths(g, from, to)), c(length(from), length(to)))
   expect_is(shortest_paths(g, weights = g$E), "matrix")
   expect_error(shortest_paths(g, weights = TRUE))
+  g$Eattr["weight"] = g$E
+  expect_is(shortest_paths(g, weights = TRUE), "matrix")
 })
 
 test_that("neighborhood_size works", {
