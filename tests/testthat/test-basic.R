@@ -8,6 +8,14 @@ test_that("neighbors works", {
   expect_equal(neighbors(g, 1L, mode = 3L), c(2, 3))
 })
 
+test_that("neighbors works", {
+  g = graph_tree(7L)
+  expect_error(incident(g, 0L))
+  expect_equal(incident(g, 1L, mode = 1L), c(1, 2))
+  expect_equal(incident(g, 1L, mode = 2L), numeric(0L))
+  expect_equal(incident(g, 1L, mode = 3L), c(1, 2))
+})
+
 test_that("degree works", {
   g = graph_tree(7L)
   vids = seq_len(3L)

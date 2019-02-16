@@ -15,6 +15,7 @@ RCPP_MODULE(igraph) {
     .property("ecount", &IGraph::ecount)
     .property("is_directed", &IGraph::is_directed)
     .const_method("neighbors", &IGraph::neighbors)
+    .const_method("incident", &IGraph::incident)
     .const_method("degree", &IGraph::degree)
 
     .const_method("are_connected", &IGraph::are_connected)
@@ -88,6 +89,13 @@ Rcpp::NumericVector
 IGraph::neighbors(int node, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_neighbors(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
+  return res;
+}
+
+Rcpp::NumericVector
+IGraph::incident(int node, const int mode) const {
+  IVector<AsIndicesInPlace> res(1);
+  igraph_incident(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res;
 }
 

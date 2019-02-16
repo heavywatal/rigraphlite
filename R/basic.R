@@ -13,6 +13,14 @@ neighbors = function(graph, v, mode = 3L) {
 }
 
 #' @details
+#' `incident()`: Gives the incident edges of a vertex.
+#' @rdname basic
+#' @export
+incident = function(graph, v, mode = 3L) {
+  graph$incident(v, mode)
+}
+
+#' @details
 #' `degree()`: The degree of some vertices in a graph.
 #' @rdname basic
 #' @export

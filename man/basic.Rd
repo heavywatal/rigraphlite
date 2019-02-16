@@ -2,10 +2,13 @@
 % Please edit documentation in R/basic.R
 \name{neighbors}
 \alias{neighbors}
+\alias{incident}
 \alias{degree}
 \title{Basic interface}
 \usage{
 neighbors(graph, v, mode = 3L)
+
+incident(graph, v, mode = 3L)
 
 degree(graph, vids = numeric(0), mode = 3L, loops = TRUE)
 }
@@ -23,6 +26,8 @@ Basic interface
 }
 \details{
 \code{neighbors()}: Adjacent vertices to a vertex.
+
+\code{incident()}: Gives the incident edges of a vertex.
 
 \code{degree()}: The degree of some vertices in a graph.
 }

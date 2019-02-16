@@ -29,6 +29,7 @@ class IGraph {
     long ecount() const;
     bool is_directed() const;
     Rcpp::NumericVector neighbors(int node, int mode) const;
+    Rcpp::NumericVector incident(int node, int mode) const;
     Rcpp::NumericVector degree(const Rcpp::NumericVector& vids, int mode, bool loops) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
