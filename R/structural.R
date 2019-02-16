@@ -11,7 +11,10 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
   algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
 
   algorithm = match.arg(algorithm)
-  if (isTRUE(weights)) weights = graph$E$weight
+  if (isTRUE(weights)) {
+    stopifnot(utils::hasName(graph$Eattr, "weight"))
+    weights = graph$Eattr$weight
+  }
   if (algorithm == "auto") {
     if (length(weights)) {
       algorithm = "dijkstra"
@@ -19,7 +22,6 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
       algorithm = "unweighted"
     }
   }
-  if (is.null(weights)) weights = numeric(0L) # NumericVector does not accept NULL
   graph$shortest_paths(from, to, weights, mode, algorithm)
 }
 
