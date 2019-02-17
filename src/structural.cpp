@@ -56,8 +56,8 @@ IGraph::shortest_paths(
   const long ncol = to_size > 0 ? to_size : vcount();
   IMatrix res(nrow, ncol);
   impl::shortest_paths(data_.get(), res.data(),
-                       from_size > 0 ? ISelector(from) : igraph_vss_all(),
-                       to_size > 0 ? ISelector(to) : igraph_vss_all(),
+                       from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
+                       to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
                        weights.size() ? IVectorView(weights).data() : nullptr,
                        static_cast<igraph_neimode_t>(mode), algorithm);
   if (from_size > 0) {
@@ -66,7 +66,7 @@ IGraph::shortest_paths(
   if (to_size > 0) {
     res.colnames(Rcpp::StringVector(to));
   }
-  return res;
+  return res.wrap();
 }
 
 Rcpp::List
@@ -75,13 +75,13 @@ IGraph::get_shortest_paths(
   const Rcpp::NumericVector& weights, int mode) const {
 
   const long to_size = to.size();
-  IVectorPtr<AsIndices> res(to_size > 0 ? to_size : vcount());
+  IVectorPtr<AsIndicesInPlace> res(to_size > 0 ? to_size : vcount());
   res.init_elements();
   impl::get_shortest_paths(data_.get(), res.data(), --from,
-                           to_size > 0 ? ISelector(to) : igraph_vss_all(),
+                           to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
                            weights.size() ? IVectorView(weights).data() : nullptr,
                            static_cast<igraph_neimode_t>(mode));
-  return res;
+  return res.wrap();
 }
 
 double
@@ -96,7 +96,7 @@ IGraph::path_length_hist(bool directed) const {
   IVector<AsValues> res(vcount()); // rough estimate; resized as needed
   double unconnected;
   igraph_path_length_hist(data_.get(), res.data(), &unconnected, directed);
-  return res;
+  return res.wrap();
 }
 
 // [[Rcpp::export]]
@@ -151,9 +151,9 @@ IGraph::neighborhood_size(const Rcpp::NumericVector& vids, const int order, cons
   const long n = vids.size();
   IVector<AsValues> res(n);
   igraph_neighborhood_size(
-    data_.get(), res.data(), n ? ISelectorInPlace(vids) : igraph_vss_all(), order,
+    data_.get(), res.data(), n ? ISelectorInPlace(vids).vss() : igraph_vss_all(), order,
     static_cast<igraph_neimode_t>(mode), mindist);
-  return res;
+  return res.wrap();
 }
 
 Rcpp::List
@@ -161,16 +161,16 @@ IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int
   const long n = vids.size();
   IVectorPtr<AsIndicesInPlace> res(n);
   igraph_neighborhood(
-    data_.get(), res.data(), n ? ISelectorInPlace(vids) : igraph_vss_all(), order,
+    data_.get(), res.data(), n ? ISelectorInPlace(vids).vss() : igraph_vss_all(), order,
     static_cast<igraph_neimode_t>(mode), mindist);
-  return res;
+  return res.wrap();
 }
 
 Rcpp::NumericVector
 IGraph::subcomponent(const double v, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_subcomponent(data_.get(), res.data(), v - 1.0, static_cast<igraph_neimode_t>(mode));
-  return res;
+  return res.wrap();
 }
 
 // experimental
@@ -189,7 +189,7 @@ IGraph::subcomponents(const Rcpp::NumericVector& vids, const int mode) const {
 
 IGraph::IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl): IGraph::IGraph() {
   igraph_induced_subgraph(
-    other.data_.get(), data_.get(), ISelectorInPlace(vids),
+    other.data_.get(), data_.get(), ISelectorInPlace(vids).vss(),
     static_cast<igraph_subgraph_implementation_t>(impl));
   init_attr();
 }

@@ -93,14 +93,14 @@ Rcpp::NumericVector
 IGraph::neighbors(int node, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_neighbors(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
-  return res;
+  return res.wrap();
 }
 
 Rcpp::NumericVector
 IGraph::incident(int node, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_incident(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
-  return res;
+  return res.wrap();
 }
 
 Rcpp::NumericVector
@@ -109,9 +109,9 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
   IVector<AsValues> res(n > 0 ? n : vcount());
   igraph_degree(
     data_.get(), res.data(),
-    (n > 0) ? ISelectorInPlace(vids) : igraph_vss_all(),
+    (n > 0) ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
     static_cast<igraph_neimode_t>(mode), loops);
-  return res;
+  return res.wrap();
 }
 
 Rcpp::LogicalVector IGraph::is_sink() const {

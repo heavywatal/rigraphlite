@@ -36,7 +36,6 @@ class IStrVector {
       }
       return output;
     }
-    operator Rcpp::StringVector() const {return wrap();}
     igraph_strvector_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_strvector_t> data_ = std::make_unique<igraph_strvector_t>();
