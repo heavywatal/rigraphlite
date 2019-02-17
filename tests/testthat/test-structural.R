@@ -30,6 +30,17 @@ test_that("get_shortest_paths works", {
   expect_is(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
+test_that("path_length_hist and average_path_length works", {
+  mean_hist = function(x) sum(x * seq_along(x)) / sum(x)
+  g = graph_tree(7L)
+  h = path_length_hist(g, FALSE)
+  expect_length(h, 4L)
+  expect_equal(mean_hist(h), average_path_length(g, FALSE))
+  h = path_length_hist(g, TRUE)
+  expect_length(h, 2L)
+  expect_equal(mean_hist(h), average_path_length(g, TRUE))
+})
+
 test_that("neighborhood_size works", {
   g = graph_tree(7L)
   vids = seq_len(3L)

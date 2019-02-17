@@ -35,6 +35,20 @@ get_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0
   graph$get_shortest_paths(from, to, weights, mode)
 }
 
+#' @param directed Boolean, whether to consider directed paths.
+#'        Ignored for undirected graphs.
+#' @rdname structural
+#' @export
+average_path_length = function(graph, directed = FALSE) {
+  graph$average_path_length(directed)
+}
+
+#' @rdname structural
+#' @export
+path_length_hist = function(graph, directed = FALSE) {
+  graph$path_length_hist(directed)
+}
+
 #' @param order integer
 #' @param mindist The minimum distance to include a vertex in the counting.
 #' @rdname structural

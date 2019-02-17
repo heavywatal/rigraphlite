@@ -84,6 +84,13 @@ IGraph::get_shortest_paths(
   return res;
 }
 
+double
+IGraph::average_path_length(bool directed) const {
+  double res;
+  igraph_average_path_length(data_.get(), &res, directed, true);
+  return res;
+}
+
 Rcpp::NumericVector
 IGraph::path_length_hist(bool directed) const {
   IVector<AsValues> res(vcount()); // rough estimate; resized as needed

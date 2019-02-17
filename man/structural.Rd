@@ -3,6 +3,8 @@
 \name{shortest_paths}
 \alias{shortest_paths}
 \alias{get_shortest_paths}
+\alias{average_path_length}
+\alias{path_length_hist}
 \alias{neighborhood_size}
 \alias{neighborhood}
 \alias{induced_subgraph}
@@ -14,6 +16,10 @@ shortest_paths(graph, from = numeric(0L), to = from,
 
 get_shortest_paths(graph, from, to = numeric(0L),
   weights = numeric(0L), mode = 3L)
+
+average_path_length(graph, directed = FALSE)
+
+path_length_hist(graph, directed = FALSE)
 
 neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
   mindist = 0L)
@@ -31,6 +37,9 @@ induced_subgraph(graph, vids, impl = 0L)
 \item{mode}{edge type to count; {1: OUT, 2: IN, 3: ALL}}
 
 \item{algorithm}{character}
+
+\item{directed}{Boolean, whether to consider directed paths.
+Ignored for undirected graphs.}
 
 \item{vids, from, to}{vertices of interest}
 
