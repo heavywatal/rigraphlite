@@ -46,6 +46,8 @@ class IGraph {
     Rcpp::NumericVector path_length_hist(bool directed) const;
     Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
     Rcpp::List neighborhood(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
+    Rcpp::NumericVector subcomponent(double v, int mode) const;
+    Rcpp::List subcomponents(const Rcpp::NumericVector& vids, int mode) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 

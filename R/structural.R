@@ -63,6 +63,12 @@ neighborhood = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist
   graph$neighborhood(vids, order, mode, mindist)
 }
 
+#' @rdname structural
+#' @export
+subcomponent = function(graph, from, mode = 1L) {
+  graph$subcomponent(from, mode)
+}
+
 #' @param impl how to construct a new graph:
 #'             {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}
 #' @rdname structural

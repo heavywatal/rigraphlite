@@ -7,6 +7,7 @@
 \alias{path_length_hist}
 \alias{neighborhood_size}
 \alias{neighborhood}
+\alias{subcomponent}
 \alias{induced_subgraph}
 \title{Structural Properties of Graphs}
 \usage{
@@ -26,6 +27,8 @@ neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
 
 neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L,
   mindist = 0L)
+
+subcomponent(graph, from, mode = 1L)
 
 induced_subgraph(graph, vids, impl = 0L)
 }

@@ -25,6 +25,8 @@ RCPP_MODULE(igraph) {
     .const_method("path_length_hist", &IGraph::path_length_hist)
     .const_method("neighborhood_size", &IGraph::neighborhood_size)
     .const_method("neighborhood", &IGraph::neighborhood)
+    .const_method("subcomponent", &IGraph::subcomponent)
+    .const_method("subcomponents", &IGraph::subcomponents)
 
     .property("as_data_frame", &IGraph::as_data_frame)
     .property("as_edgelist", &IGraph::as_edgelist)

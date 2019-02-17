@@ -166,6 +166,27 @@ IGraph::neighborhood(const Rcpp::NumericVector& vids, const int order, const int
   return res;
 }
 
+Rcpp::NumericVector
+IGraph::subcomponent(const double v, const int mode) const {
+  IVector<AsIndicesInPlace> res(1);
+  igraph_subcomponent(data_.get(), res.data(), v - 1.0, static_cast<igraph_neimode_t>(mode));
+  return res;
+}
+
+// experimental
+Rcpp::List
+IGraph::subcomponents(const Rcpp::NumericVector& vids, const int mode) const {
+  const ISelector cvids(vids);
+  const long n = vids.size();
+  Rcpp::List output(n);
+  IVector<AsIndicesInPlace> res(1);
+  for (long i = 0; i < n; ++i) {
+    igraph_subcomponent(data_.get(), res.data(), cvids.at(i), static_cast<igraph_neimode_t>(mode));
+    output[i] = res.wrap();
+  }
+  return output;
+}
+
 IGraph::IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl): IGraph::IGraph() {
   igraph_induced_subgraph(
     other.data_.get(), data_.get(), ISelectorInPlace(vids),

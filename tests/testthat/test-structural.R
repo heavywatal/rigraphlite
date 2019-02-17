@@ -63,6 +63,14 @@ test_that("neighborhood works", {
   expect_equal(neighborhood(g, order = 42L, mindist = 42L), rep(list(numeric(0L)), g$vcount))
 })
 
+test_that("subcomponent works", {
+  g = graph_tree(7L)
+  expect_equal(subcomponent(g, 1, mode = 1L), g$V)
+  expect_equal(subcomponent(g, 2, mode = 1L), c(2, 4, 5))
+  expect_equal(subcomponent(g, 4, mode = 2L), c(4, 2, 1))
+  expect_setequal(subcomponent(g, 2, mode = 3L), g$V)
+})
+
 test_that("induced_subgraph works", {
   g = graph_tree(7L)
   vids = seq_len(3L)
