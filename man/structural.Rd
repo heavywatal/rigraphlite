@@ -2,6 +2,7 @@
 % Please edit documentation in R/structural.R
 \name{shortest_paths}
 \alias{shortest_paths}
+\alias{get_shortest_paths}
 \alias{neighborhood_size}
 \alias{neighborhood}
 \alias{induced_subgraph}
@@ -10,6 +11,9 @@
 shortest_paths(graph, from = numeric(0L), to = from,
   weights = numeric(0L), mode = 3L, algorithm = c("auto",
   "unweighted", "dijkstra", "bellman-ford", "johnson"))
+
+get_shortest_paths(graph, from, to = numeric(0L),
+  weights = numeric(0L), mode = 3L)
 
 neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
   mindist = 0L)

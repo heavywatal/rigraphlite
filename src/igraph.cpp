@@ -20,6 +20,7 @@ RCPP_MODULE(igraph) {
 
     .const_method("are_connected", &IGraph::are_connected)
     .const_method("shortest_paths", &IGraph::shortest_paths)
+    .const_method("get_shortest_paths", &IGraph::get_shortest_paths)
     .const_method("path_length_hist", &IGraph::path_length_hist)
     .const_method("neighborhood_size", &IGraph::neighborhood_size)
     .const_method("neighborhood", &IGraph::neighborhood)

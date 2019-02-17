@@ -31,6 +31,18 @@ namespace impl {
       igraph_shortest_paths_johnson(graph, res, from, to, weights);
     }
   }
+
+  inline void get_shortest_paths(
+    const igraph_t* graph, igraph_vector_ptr_t* res,
+    igraph_integer_t from, igraph_vs_t&& to,
+    const igraph_vector_t* weights, igraph_neimode_t mode) {
+
+    if (weights == nullptr) {
+      igraph_get_shortest_paths(graph, res, nullptr, from, std::move(to), mode, nullptr, nullptr);
+    } else {
+      igraph_get_shortest_paths_dijkstra(graph, res, nullptr, from, std::move(to), weights, mode, nullptr, nullptr);
+    }
+  }
 }
 
 Rcpp::NumericMatrix
@@ -54,6 +66,21 @@ IGraph::shortest_paths(
   if (to_size > 0) {
     res.colnames(Rcpp::StringVector(to));
   }
+  return res;
+}
+
+Rcpp::List
+IGraph::get_shortest_paths(
+  int from, const Rcpp::NumericVector& to,
+  const Rcpp::NumericVector& weights, int mode) const {
+
+  const long to_size = to.size();
+  IVectorPtr<AsIndices> res(to_size > 0 ? to_size : vcount());
+  res.init_elements();
+  impl::get_shortest_paths(data_.get(), res.data(), --from,
+                           to_size > 0 ? ISelector(to) : igraph_vss_all(),
+                           weights.size() ? IVectorView(weights).data() : nullptr,
+                           static_cast<igraph_neimode_t>(mode));
   return res;
 }
 

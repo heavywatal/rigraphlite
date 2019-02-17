@@ -25,6 +25,16 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
   graph$shortest_paths(from, to, weights, mode, algorithm)
 }
 
+#' @rdname structural
+#' @export
+get_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0L), mode = 3L) {
+  if (isTRUE(weights)) {
+    stopifnot(utils::hasName(graph$Eattr, "weight"))
+    weights = graph$Eattr$weight
+  }
+  graph$get_shortest_paths(from, to, weights, mode)
+}
+
 #' @param order integer
 #' @param mindist The minimum distance to include a vertex in the counting.
 #' @rdname structural

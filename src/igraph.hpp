@@ -39,6 +39,9 @@ class IGraph {
     Rcpp::NumericMatrix shortest_paths(
       const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
       const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
+    Rcpp::List get_shortest_paths(
+      int from, const Rcpp::NumericVector& to,
+      const Rcpp::NumericVector& weights, int mode) const;
     Rcpp::NumericVector path_length_hist(bool directed) const;
     Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
     Rcpp::List neighborhood(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;

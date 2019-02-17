@@ -109,6 +109,14 @@ class IVectorPtr {
     ~IVectorPtr() noexcept {
       igraph_vector_ptr_destroy_all(data_.get());
     }
+    void init_elements(long n = 1) {
+      const long len = igraph_vector_ptr_size(data_.get());
+      for (long i = 0; i < len; ++i) {
+        igraph_vector_t* elem = new igraph_vector_t;
+        igraph_vector_init(elem, n);
+        igraph_vector_ptr_set(data_.get(), i, elem);
+      }
+    }
     operator Rcpp::List() const {
       const long n = igraph_vector_ptr_size(data_.get());
       Rcpp::List output(n);

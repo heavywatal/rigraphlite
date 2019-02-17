@@ -9,9 +9,25 @@ test_that("shortest_paths works", {
   expect_equal(dim(shortest_paths(g, from)), c(length(from), length(from)))
   expect_equal(dim(shortest_paths(g, from, to)), c(length(from), length(to)))
   expect_is(shortest_paths(g, weights = g$E), "matrix")
-  expect_error(shortest_paths(g, weights = TRUE))
+  expect_error(shortest_paths(g, weights = TRUE), "hasName")
   g$Eattr["weight"] = g$E
   expect_is(shortest_paths(g, weights = TRUE), "matrix")
+})
+
+test_that("get_shortest_paths works", {
+  g = graph_tree(7L)
+  to = seq_len(3L)
+  expect_is(get_shortest_paths(g, 1L), "list")
+  expect_length(get_shortest_paths(g, 1L), g$vcount)
+  expect_length(get_shortest_paths(g, 1L, to), length(to))
+  expect_equal(get_shortest_paths(g, 1L, to), list(1, c(1, 2), c(1, 3)))
+  expect_error(get_shortest_paths(g, c(1L, 2L), to),
+    "Expecting a single value")
+  expect_warning(get_shortest_paths(g, 1L, mode = 2L),
+    "Couldn't reach some vertices")
+  expect_error(get_shortest_paths(g, 1L, weights = TRUE), "hasName")
+  g$Eattr["weight"] = g$E
+  expect_is(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
 test_that("neighborhood_size works", {
