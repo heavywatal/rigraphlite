@@ -6,15 +6,6 @@
 
 #include <igraph/igraph_strvector.h>
 
-inline Rcpp::StringVector wrap(const igraph_strvector_t* x) {
-  const long n = igraph_strvector_size(&x);
-  Rcpp::StringVector output(n);
-  for (long i = 0; i < n; ++i) {
-    output[i] = x->data[i];
-  }
-  return output;
-}
-
 class IStrVector {
   public:
     IStrVector(long n = 0) {
@@ -34,8 +25,19 @@ class IStrVector {
     ~IStrVector() noexcept {
       if (data_) igraph_strvector_destroy(data_.get());
     }
+    const char* at(long pos) {
+      return data_.get()->data[pos];
+    }
+    Rcpp::StringVector wrap() const {
+      const long n = igraph_strvector_size(data_.get());
+      Rcpp::StringVector output(n);
+      for (long i = 0; i < n; ++i) {
+        output[i] = at(i);
+      }
+      return output;
+    }
+    operator Rcpp::StringVector() const {return wrap();}
     igraph_strvector_t* data() {return data_.get();}
-    operator Rcpp::StringVector() const {return wrap(data_.get());}
   private:
     std::unique_ptr<igraph_strvector_t> data_ = std::make_unique<igraph_strvector_t>();
 };

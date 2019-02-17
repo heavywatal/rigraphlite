@@ -81,9 +81,13 @@ class IVector {
     ~IVector() noexcept {
       StoragePolicy::destroy(data_.get());
     }
-    operator Rcpp::NumericVector() {// non-const for AsIndicesInPlace
+    double at(long pos) const {
+      return igraph_vector_e(data_.get(), pos);
+    }
+    Rcpp::NumericVector wrap() {// non-const for AsIndicesInPlace
       return WrapPolicy::wrap(data_.get());
     }
+    operator Rcpp::NumericVector() {return wrap();}
     operator igraph_es_t() const {return igraph_ess_vector(data_.get());}
     operator igraph_vs_t() const {return igraph_vss_vector(data_.get());}
     igraph_vector_t* data() {return data_.get();}
@@ -117,7 +121,7 @@ class IVectorPtr {
         igraph_vector_ptr_set(data_.get(), i, elem);
       }
     }
-    operator Rcpp::List() const {
+    Rcpp::List wrap() {
       const long n = igraph_vector_ptr_size(data_.get());
       Rcpp::List output(n);
       for (long i = 0; i < n; ++i) {
@@ -126,6 +130,7 @@ class IVectorPtr {
       }
       return output;
     }
+    operator Rcpp::List() {return wrap();}
     igraph_vector_ptr_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_ptr_t> data_ = std::make_unique<igraph_vector_ptr_t>();
