@@ -26,7 +26,7 @@ test_that("degree works", {
   expect_equal(degree(g, mode = 3L), c(2, 3, 3, 1, 1, 1, 1))
 })
 
-test_that("add_edges/add_vertices works", {
+test_that("add_edges/add_vertices work", {
   g = graph_tree(7L)
   g$Vattr$id = g$V
   g$Vattr$name = LETTERS[g$V]
@@ -39,4 +39,21 @@ test_that("add_edges/add_vertices works", {
   expect_length(g$V, 9L)
   expect_length(g$Vattr[[1L]], 9L)
   expect_equal(nrow(g$Vattr), 9L)
+})
+
+test_that("delete_edges/delete_vertices work", {
+  g = graph_tree(7L)
+  g$Vattr$id = g$V
+  g$Vattr$name = LETTERS[g$V]
+  g$Eattr$id = g$E
+  g$Eattr$name = LETTERS[g$E]
+  g$delete_edges(c(2, 4))
+  expect_length(g$E, 4L)
+  expect_length(g$Eattr[[1L]], 4L)
+  expect_equal(nrow(g$Eattr), 4L)
+  g$delete_vertices(c(2, 4))
+  expect_length(g$V, 5L)
+  expect_length(g$Vattr[[1L]], 5L)
+  expect_equal(nrow(g$Vattr), 5L)
+  expect_equal(nrow(g$Eattr), g$ecount)
 })

@@ -20,6 +20,8 @@ RCPP_MODULE(igraph) {
     .const_method("degree", &IGraph::degree)
     .method("add_edges", &IGraph::add_edges)
     .method("add_vertices", &IGraph::add_vertices)
+    .method("delete_edges", &IGraph::delete_edges)
+    .method("delete_vertices", &IGraph::delete_vertices)
 
     .const_method("are_connected", &IGraph::are_connected)
     .const_method("shortest_paths", &IGraph::shortest_paths)
@@ -189,9 +191,17 @@ namespace impl {
     return res;
   }
 
+  inline Rcpp::LogicalVector negate(const Rcpp::IntegerVector& idx, long n) {
+    return !Rcpp::in(Rcpp::Range(0, n - 1), idx);
+  }
+
+  template <int RTYPE, class T> inline
+  Rcpp::Vector<RTYPE> subset(const Rcpp::Vector<RTYPE>& x, const T& idx) {
+    return x[idx];
+  }
+
   inline void append_na_rows(Rcpp::DataFrame& df, long n) {
     Rcpp::List attr_holder;
-    Rf_copyMostAttrib(df, attr_holder);
     const Rcpp::StringVector names = df.attr("names");
     for (const char* name: names) {
       switch (TYPEOF(df[name])) {
@@ -201,8 +211,22 @@ namespace impl {
         default: Rcpp::stop("Invalid type for attributes: %d", TYPEOF(df[name]));
       }
     }
-    Rf_copyMostAttrib(attr_holder, df);
     impl::set_rownames(df, df.nrow() + n);
+  }
+
+  template <class T>
+  inline void filter(Rcpp::DataFrame& df, const T& idx) {
+    Rcpp::List attr_holder;
+    const Rcpp::StringVector names = df.attr("names");
+    for (const char* name: names) {
+      switch (TYPEOF(df[name])) {
+        case INTSXP:  mutate(df, name, subset<INTSXP>(df[name], idx)); break;
+        case REALSXP: mutate(df, name, subset<REALSXP>(df[name], idx)); break;
+        case STRSXP:  mutate(df, name, subset<STRSXP>(df[name], idx)); break;
+        default: Rcpp::stop("Invalid type for attributes: %d", TYPEOF(df[name]));
+      }
+    }
+    impl::set_rownames(df, Rcpp::sum(idx));
   }
 }
 
@@ -216,6 +240,22 @@ void IGraph::add_edges(const Rcpp::NumericVector& edges) {
 void IGraph::add_vertices(int n) {
   igraph_add_vertices(data_.get(), n, nullptr);
   impl::append_na_rows(Vattr_, n);
+}
+
+void IGraph::delete_edges(const Rcpp::NumericVector& eids) {
+  ISelectorInPlace ceids(eids);
+  auto idx = Rcpp::as<Rcpp::IntegerVector>(ceids.wrap());
+  impl::filter(Eattr_, impl::negate(idx, ecount()));
+  igraph_delete_edges(data_.get(), ceids.ess());
+}
+
+void IGraph::delete_vertices(const Rcpp::NumericVector& vids) {
+  Rcpp::LogicalVector eidx = Rcpp::in(from(), vids) | Rcpp::in(to(), vids);
+  impl::filter(Eattr_, !eidx);
+  ISelectorInPlace cvids(vids);
+  auto idx = Rcpp::as<Rcpp::IntegerVector>(cvids.wrap());
+  impl::filter(Vattr_, impl::negate(idx, vcount()));
+  igraph_delete_vertices(data_.get(), cvids.vss());
 }
 
 Rcpp::DataFrame IGraph::as_data_frame() const {

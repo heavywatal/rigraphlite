@@ -86,6 +86,9 @@ class IVector {
     double at(long pos) const {
       return igraph_vector_e(data_.get(), pos);
     }
+    long size() const {
+      return igraph_vector_size(data_.get());
+    }
     Rcpp::NumericVector wrap() {// non-const for AsIndicesInPlace
       return WrapPolicy::wrap(data_.get());
     }

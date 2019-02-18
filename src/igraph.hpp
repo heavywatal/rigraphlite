@@ -35,6 +35,8 @@ class IGraph {
 
     void add_edges(const Rcpp::NumericVector& edges);
     void add_vertices(int n);
+    void delete_edges(const Rcpp::NumericVector& eids);
+    void delete_vertices(const Rcpp::NumericVector& vids);
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Structural properties
