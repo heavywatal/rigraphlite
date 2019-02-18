@@ -14,6 +14,7 @@ RCPP_MODULE(igraph) {
     .property("vcount", &IGraph::vcount)
     .property("ecount", &IGraph::ecount)
     .property("is_directed", &IGraph::is_directed)
+    .const_method("edge", &IGraph::edge)
     .const_method("neighbors", &IGraph::neighbors)
     .const_method("incident", &IGraph::incident)
     .const_method("degree", &IGraph::degree)
@@ -87,6 +88,13 @@ long IGraph::ecount() const {
 
 bool IGraph::is_directed() const {
   return igraph_is_directed(data_.get());
+}
+
+Rcpp::IntegerVector
+IGraph::edge(int eid) const {
+  Rcpp::IntegerVector res(2);
+  igraph_edge(data_.get(), --eid, &res[0], &res[1]);
+  return res + 1;
 }
 
 Rcpp::NumericVector
