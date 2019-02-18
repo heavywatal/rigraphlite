@@ -18,6 +18,8 @@ RCPP_MODULE(igraph) {
     .const_method("neighbors", &IGraph::neighbors)
     .const_method("incident", &IGraph::incident)
     .const_method("degree", &IGraph::degree)
+    .method("add_edges", &IGraph::add_edges)
+    .method("add_vertices", &IGraph::add_vertices)
 
     .const_method("are_connected", &IGraph::are_connected)
     .const_method("shortest_paths", &IGraph::shortest_paths)
@@ -165,6 +167,55 @@ namespace impl {
     Rf_copyMostAttrib(attr_holder, df);
   }
 
+  template <class T> inline
+  T na() {return T{};}
+  template <> inline
+  int na<int>() {return R_NaInt;}
+  template <> inline
+  double na<double>() {return R_NaReal;}
+  template <> inline
+  SEXP na<SEXP>() {return R_NaString;}
+
+  template <int RTYPE, class T> inline
+  Rcpp::Vector<RTYPE> elongate(const Rcpp::Vector<RTYPE>& x, long n) {
+    long len = x.size();
+    Rcpp::Vector<RTYPE> res(len + n);
+    for (long i = 0; i < len; ++i) {
+      res[i] = x[i];
+    }
+    for (long i = len; i < res.size(); ++i) {
+      res[i] = na<T>();
+    }
+    return res;
+  }
+
+  inline void append_na_rows(Rcpp::DataFrame& df, long n) {
+    Rcpp::List attr_holder;
+    Rf_copyMostAttrib(df, attr_holder);
+    const Rcpp::StringVector names = df.attr("names");
+    for (const char* name: names) {
+      switch (TYPEOF(df[name])) {
+        case INTSXP:  mutate(df, name, elongate<INTSXP, int>(df[name], n)); break;
+        case REALSXP: mutate(df, name, elongate<REALSXP, double>(df[name], n)); break;
+        case STRSXP:  mutate(df, name, elongate<STRSXP, SEXP>(df[name], n)); break;
+        default: Rcpp::stop("Invalid type for attributes: %d", TYPEOF(df[name]));
+      }
+    }
+    Rf_copyMostAttrib(attr_holder, df);
+    impl::set_rownames(df, df.nrow() + n);
+  }
+}
+
+void IGraph::add_edges(const Rcpp::NumericVector& edges) {
+  const long new_vs = static_cast<long>(Rcpp::max(edges)) - vcount();
+  if (new_vs) add_vertices(new_vs);
+  igraph_add_edges(data_.get(), ISelectorInPlace(edges).data(), nullptr);
+  impl::append_na_rows(Eattr_, edges.size() / 2);
+}
+
+void IGraph::add_vertices(int n) {
+  igraph_add_vertices(data_.get(), n, nullptr);
+  impl::append_na_rows(Vattr_, n);
 }
 
 Rcpp::DataFrame IGraph::as_data_frame() const {
