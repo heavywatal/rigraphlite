@@ -126,19 +126,25 @@ class IVectorPtr {
       igraph_vector_ptr_destroy_all(data_.get());
     }
     void init_elements(long n = 1) {
-      const long len = igraph_vector_ptr_size(data_.get());
+      const long len = size();
       for (long i = 0; i < len; ++i) {
         igraph_vector_t* elem = new igraph_vector_t;
         igraph_vector_init(elem, n);
         igraph_vector_ptr_set(data_.get(), i, elem);
       }
     }
+    Rcpp::NumericVector at(long pos) {
+      void* elem = igraph_vector_ptr_e(data_.get(), pos);
+      return WrapPolicy::wrap(reinterpret_cast<igraph_vector_t*>(elem));
+    }
+    long size() const {
+      return igraph_vector_ptr_size(data_.get());
+    }
     Rcpp::List wrap() {
-      const long n = igraph_vector_ptr_size(data_.get());
-      Rcpp::List output(n);
-      for (long i = 0; i < n; ++i) {
-        auto elem = reinterpret_cast<igraph_vector_t*>(igraph_vector_ptr_e(data_.get(), i));
-        output[i] = WrapPolicy::wrap(elem);
+      const long len = size();
+      Rcpp::List output(len);
+      for (long i = 0; i < len; ++i) {
+        output[i] = at(i);
       }
       return output;
     }
