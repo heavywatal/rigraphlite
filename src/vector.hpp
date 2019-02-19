@@ -54,11 +54,17 @@ struct AsValues {
   static Rcpp::NumericVector wrap(const igraph_vector_t* x) {
     return Rcpp::NumericVector(x->stor_begin, x->end);
   }
+  static Rcpp::IntegerVector wrap(const igraph_vector_int_t* x) {
+    return Rcpp::IntegerVector(x->stor_begin, x->end);
+  }
 };
 
 struct AsIndices {
   static Rcpp::NumericVector wrap(const igraph_vector_t* x) {
     return Rcpp::NumericVector(x->stor_begin, x->end) + 1.0;
+  }
+  static Rcpp::IntegerVector wrap(const igraph_vector_int_t* x) {
+    return Rcpp::IntegerVector(x->stor_begin, x->end) + 1;
   }
 };
 
@@ -66,6 +72,10 @@ struct AsIndicesInPlace {
   static Rcpp::NumericVector wrap(igraph_vector_t* x) {
     igraph_vector_add_constant(x, 1.0);
     return Rcpp::NumericVector(x->stor_begin, x->end);
+  }
+  static Rcpp::IntegerVector wrap(igraph_vector_int_t* x) {
+    igraph_vector_int_add_constant(x, 1);
+    return Rcpp::IntegerVector(x->stor_begin, x->end);
   }
 };
 
