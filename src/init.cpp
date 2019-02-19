@@ -6,6 +6,7 @@
 
 //' Check and return igraph version.h
 //'
+//' @seealso <https://igraph.org/c/doc/igraph-Nongraph.html>
 //' @rdname version
 //' @export
 // [[Rcpp::export]]

@@ -43,6 +43,7 @@ graph_tree <- function(n, children = 2L, mode = 0L) {
 
 #' Check and return igraph version.h
 #'
+#' @seealso <https://igraph.org/c/doc/igraph-Nongraph.html>
 #' @rdname version
 #' @export
 igraph_version <- function() {

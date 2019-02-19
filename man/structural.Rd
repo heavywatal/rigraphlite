@@ -56,3 +56,6 @@ Ignored for undirected graphs.}
 \description{
 Structural Properties of Graphs
 }
+\seealso{
+\url{https://igraph.org/c/doc/igraph-Structural.html}
+}

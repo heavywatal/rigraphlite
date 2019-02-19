@@ -2,7 +2,7 @@ Package: igraphlite
 Title: Lightweight R Interface to Igraph Network Analysis Library
 Version: 0.0.0.9000
 Authors@R:
-    person(given = "Watal M.", family = "Iwasaki", role = c("aut", "cre"), email = "heavy.watal@gmail.com")
+    person(given = "Watal M.", family = "Iwasaki", role = c("aut", "cre"), email = "heavy.watal@gmail.com", comment = c(ORCID="0000-0002-4718-7605"))
 Description:
     This is an Rcpp-powered R package interface to igraph network analysis
     library. It is not a fork of the existing R igraph package, but a reboot

@@ -9,3 +9,6 @@ igraph_version()
 \description{
 Check and return igraph version.h
 }
+\seealso{
+\url{https://igraph.org/c/doc/igraph-Nongraph.html}
+}

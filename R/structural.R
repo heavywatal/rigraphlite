@@ -1,5 +1,6 @@
 #' Structural Properties of Graphs
 #'
+#' @seealso <https://igraph.org/c/doc/igraph-Structural.html>
 #' @param graph IGraph object.
 #' @param vids,from,to vertices of interest
 #' @param weights numeric edge weights; TRUE to use graph$E$weight
