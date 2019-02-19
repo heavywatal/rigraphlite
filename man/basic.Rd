@@ -31,3 +31,6 @@ Basic interface
 
 \code{degree()}: The degree of some vertices in a graph.
 }
+\seealso{
+\code{as_adjlist} and \code{as_inclist} for all-vertices version.
+}

@@ -26,6 +26,17 @@ test_that("degree works", {
   expect_equal(degree(g, mode = 3L), c(2, 3, 3, 1, 1, 1, 1))
 })
 
+test_that("as_adjlist and as_inclist work", {
+  n = 7L
+  g = graph_tree(n)
+  for (mode in seq_len(3L)) {
+    expect_equal(as_adjlist(g, mode)[[1L]], neighbors(g, 1L, mode = mode))
+    expect_equal(as_inclist(g, mode)[[1L]], incident(g, 1L, mode = mode))
+    expect_equal(lengths(as_adjlist(g, mode)), degree(g, mode = mode))
+    expect_equal(lengths(as_inclist(g, mode)), degree(g, mode = mode))
+  }
+})
+
 test_that("add_edges/add_vertices work", {
   g = graph_tree(7L)
   g$Vattr$id = g$V

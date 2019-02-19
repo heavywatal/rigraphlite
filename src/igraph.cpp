@@ -33,6 +33,8 @@ RCPP_MODULE(igraph) {
     .const_method("subcomponent", &IGraph::subcomponent)
     .const_method("subcomponents", &IGraph::subcomponents)
 
+    .const_method("as_adjlist", &IGraph::as_adjlist)
+    .const_method("as_inclist", &IGraph::as_inclist)
     .property("as_data_frame", &IGraph::as_data_frame)
     .property("as_edgelist", &IGraph::as_edgelist)
     .property("from", &IGraph::from)
@@ -134,12 +136,20 @@ Rcpp::LogicalVector IGraph::is_source() const {
   return degree(Rcpp::NumericVector(0L), 2L, true) == 0;
 }
 
-Rcpp::IntegerVector IGraph::sink() const{
+Rcpp::IntegerVector IGraph::sink() const {
   return Rcpp::IntegerVector(V())[is_sink()];
 }
 
-Rcpp::IntegerVector IGraph::source() const{
+Rcpp::IntegerVector IGraph::source() const {
   return Rcpp::IntegerVector(V())[is_source()];
+}
+
+Rcpp::List IGraph::as_adjlist(const int mode) const {
+  return IAdjList<AsIndicesInPlace>(data_.get(), mode).wrap();
+}
+
+Rcpp::List IGraph::as_inclist(const int mode) const {
+  return IIncList<AsIndicesInPlace>(data_.get(), mode).wrap();
 }
 
 Rcpp::NumericVector IGraph::from() const {return AsIndices::wrap(&data_->from);}

@@ -62,6 +62,8 @@ class IGraph {
     Rcpp::IntegerVector sink() const;
     Rcpp::IntegerVector source() const;
 
+    Rcpp::List as_adjlist(int mode) const;
+    Rcpp::List as_inclist(int mode) const;
     Rcpp::DataFrame as_data_frame() const;
     Rcpp::NumericMatrix as_edgelist() const {return Rcpp::cbind(from(), to());}
     Rcpp::NumericVector from() const;
