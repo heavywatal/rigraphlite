@@ -1,4 +1,3 @@
-// [[Rcpp::plugins(cpp14)]]
 #include <Rcpp.h>
 
 #include <igraph/igraph_error.h>
