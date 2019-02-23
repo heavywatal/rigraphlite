@@ -7,6 +7,9 @@
 \alias{graph_create}
 \alias{graph_tree}
 \title{Deterministic Graph Generators}
+\source{
+\url{https://igraph.org/c/doc/igraph-Generators.html}
+}
 \usage{
 graph_from_data_frame(df, directed = TRUE)
 
@@ -35,7 +38,4 @@ graph_tree(n, children = 2L, mode = 0L)
 }
 \description{
 Deterministic Graph Generators
-}
-\seealso{
-\url{https://igraph.org/c/doc/igraph-Generators.html}
 }

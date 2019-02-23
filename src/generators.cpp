@@ -80,7 +80,7 @@ namespace impl {
 //' @param n Integer, the number of vertices in the graph.
 //' @param children Integer, the number of children of a vertex in the tree.
 //' @param mode `igraph_tree_mode_t` {1: OUT, 2: IN, 3: UNDIRECTED}
-//' @seealso <https://igraph.org/c/doc/igraph-Generators.html>
+//' @source <https://igraph.org/c/doc/igraph-Generators.html>
 //' @rdname generators
 //' @export
 // [[Rcpp::export]]

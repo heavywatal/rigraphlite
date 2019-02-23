@@ -4,6 +4,9 @@
 \alias{as_adjlist}
 \alias{as_inclist}
 \title{Adjacency lists}
+\source{
+\url{https://igraph.org/c/doc/ch07.html#igraph-Adjlists}
+}
 \usage{
 as_adjlist(graph, mode = 3L)
 
@@ -24,6 +27,4 @@ These functions are all-vertices version of \code{neighbors()} and \code{inciden
 }
 \seealso{
 \code{\link[=neighbors]{neighbors()}} and \code{\link[=incident]{incident()}} for single-vertex version.
-
-\url{https://igraph.org/c/doc/ch07.html#igraph-Adjlists}
 }

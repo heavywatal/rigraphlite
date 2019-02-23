@@ -5,6 +5,9 @@
 \alias{incident}
 \alias{degree}
 \title{Basic Query Operations}
+\source{
+\url{https://igraph.org/c/doc/igraph-Basic.html}
+}
 \usage{
 neighbors(graph, v, mode = 3L)
 
@@ -35,6 +38,4 @@ Basic Query Operations
 }
 \seealso{
 \code{\link[=as_adjlist]{as_adjlist()}} and \code{\link[=as_inclist]{as_inclist()}} for all-vertices version.
-
-\url{https://igraph.org/c/doc/igraph-Basic.html}
 }

@@ -3,6 +3,9 @@
 \name{induced_subgraph}
 \alias{induced_subgraph}
 \title{Graph Components}
+\source{
+\url{https://igraph.org/c/doc/igraph-Structural.html#idm470926080896}
+}
 \usage{
 induced_subgraph(graph, vids, impl = 0L)
 }
@@ -16,7 +19,4 @@ induced_subgraph(graph, vids, impl = 0L)
 }
 \description{
 Graph Components
-}
-\seealso{
-\url{https://igraph.org/c/doc/igraph-Structural.html#idm470926080896}
 }

@@ -1,7 +1,7 @@
 #' Basic Query Operations
 #'
 #' @seealso [as_adjlist()] and [as_inclist()] for all-vertices version.
-#' @seealso <https://igraph.org/c/doc/igraph-Basic.html>
+#' @source <https://igraph.org/c/doc/igraph-Basic.html>
 #' @details
 #' `neighbors()`: Adjacent vertices to a vertex.
 #' @param loops whether self-loop should be counted.
@@ -33,7 +33,7 @@ degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
 #'
 #' These functions are all-vertices version of `neighbors()` and `incident()`.
 #' @seealso [neighbors()] and [incident()] for single-vertex version.
-#' @seealso <https://igraph.org/c/doc/ch07.html#igraph-Adjlists>
+#' @source <https://igraph.org/c/doc/ch07.html#igraph-Adjlists>
 #' @details
 #' `as_adjlist()`: Convert a graph to a list of adjacent vertices.
 #' @inheritParams common_params

@@ -1,6 +1,6 @@
 #' Shortest Path Related Functions
 #'
-#' @seealso <https://igraph.org/c/doc/igraph-Structural.html#idm470927281168>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470927281168>
 #' @param algorithm character
 #' @inheritParams common_params
 #' @rdname shortest_paths
@@ -47,7 +47,7 @@ path_length_hist = function(graph, directed = FALSE) {
 
 #' Neighborhood of vertices
 #'
-#' @seealso <https://igraph.org/c/doc/igraph-Structural.html#idm470926156912>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470926156912>
 #' @param order integer
 #' @param mindist The minimum distance to include a vertex in the counting.
 #' @inheritParams common_params
@@ -71,7 +71,7 @@ subcomponent = function(graph, from, mode = 1L) {
 
 #' Graph Components
 #'
-#' @seealso <https://igraph.org/c/doc/igraph-Structural.html#idm470926080896>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470926080896>
 #' @param impl how to construct a new graph:
 #'             {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}
 #' @inheritParams common_params

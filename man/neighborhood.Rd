@@ -5,6 +5,9 @@
 \alias{neighborhood}
 \alias{subcomponent}
 \title{Neighborhood of vertices}
+\source{
+\url{https://igraph.org/c/doc/igraph-Structural.html#idm470926156912}
+}
 \usage{
 neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
   mindist = 0L)
@@ -29,7 +32,4 @@ subcomponent(graph, from, mode = 1L)
 }
 \description{
 Neighborhood of vertices
-}
-\seealso{
-\url{https://igraph.org/c/doc/igraph-Structural.html#idm470926156912}
 }

@@ -3,12 +3,12 @@
 \name{igraph_version}
 \alias{igraph_version}
 \title{Check and return igraph version.h}
+\source{
+\url{https://igraph.org/c/doc/igraph-Nongraph.html}
+}
 \usage{
 igraph_version()
 }
 \description{
 Check and return igraph version.h
-}
-\seealso{
-\url{https://igraph.org/c/doc/igraph-Nongraph.html}
 }
