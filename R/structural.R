@@ -1,10 +1,7 @@
 #' Structural Properties of Graphs
 #'
 #' @seealso <https://igraph.org/c/doc/igraph-Structural.html>
-#' @param graph IGraph object.
-#' @param vids,from,to vertices of interest
-#' @param weights numeric edge weights; TRUE to use graph$E$weight
-#' @param mode edge type to count; {1: OUT, 2: IN, 3: ALL}
+#' @eval common_params(graph, vids, from, to, weights, mode, directed)
 #' @param algorithm character
 #' @rdname structural
 #' @export
@@ -36,8 +33,6 @@ get_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0
   graph$get_shortest_paths(from, to, weights, mode)
 }
 
-#' @param directed Boolean, whether to consider directed paths.
-#'        Ignored for undirected graphs.
 #' @rdname structural
 #' @export
 average_path_length = function(graph, directed = FALSE) {

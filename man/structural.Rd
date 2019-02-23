@@ -35,16 +35,19 @@ induced_subgraph(graph, vids, impl = 0L)
 \arguments{
 \item{graph}{IGraph object.}
 
-\item{weights}{numeric edge weights; TRUE to use graph$E$weight}
+\item{from}{Vertices of interest.}
 
-\item{mode}{edge type to count; {1: OUT, 2: IN, 3: ALL}}
+\item{to}{Vertices of interest.}
+
+\item{weights}{Numeric edge weights; \code{TRUE} to use \code{graph$Eattr$weight}.}
+
+\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
 
 \item{algorithm}{character}
 
-\item{directed}{Boolean, whether to consider directed paths.
-Ignored for undirected graphs.}
+\item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
 
-\item{vids, from, to}{vertices of interest}
+\item{vids}{Vertices of interest.}
 
 \item{order}{integer}
 

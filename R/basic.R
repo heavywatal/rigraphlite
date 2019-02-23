@@ -4,10 +4,8 @@
 #' @seealso <https://igraph.org/c/doc/igraph-Basic.html>
 #' @details
 #' `neighbors()`: Adjacent vertices to a vertex.
-#' @param graph IGraph object.
-#' @param v,vids vertices of which the degree will be calculated.
-#' @param mode edge type to count; {1: out, 2: in, 3: all}
 #' @param loops whether self-loop should be counted.
+#' @eval common_params(graph, v, vids, mode)
 #' @rdname basic
 #' @export
 neighbors = function(graph, v, mode = 3L) {
@@ -38,8 +36,7 @@ degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
 #' @seealso <https://igraph.org/c/doc/ch07.html#igraph-Adjlists>
 #' @details
 #' `as_adjlist()`: Convert a graph to a list of adjacent vertices.
-#' @param graph IGraph object.
-#' @param mode edge type to count; {1: out, 2: in, 3: all}
+#' @eval common_params(graph, mode)
 #' @rdname adjlist
 #' @export
 as_adjlist = function(graph, mode = 3L) {

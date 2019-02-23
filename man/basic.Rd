@@ -15,9 +15,11 @@ degree(graph, vids = numeric(0), mode = 3L, loops = TRUE)
 \arguments{
 \item{graph}{IGraph object.}
 
-\item{v, vids}{vertices of which the degree will be calculated.}
+\item{v}{Vertices of interest.}
 
-\item{mode}{edge type to count; {1: out, 2: in, 3: all}}
+\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+
+\item{vids}{Vertices of interest.}
 
 \item{loops}{whether self-loop should be counted.}
 }
@@ -35,11 +37,4 @@ Basic interface
 \code{\link[=as_adjlist]{as_adjlist()}} and \code{\link[=as_inclist]{as_inclist()}} for all-vertices version.
 
 \url{https://igraph.org/c/doc/igraph-Basic.html}
-
-Other adjacency functions: \code{\link{as_adjlist}}
-
-Other adjacency functions: \code{\link{as_adjlist}}
-
-Other adjacency functions: \code{\link{as_adjlist}}
 }
-\concept{adjacency functions}
