@@ -1,3 +1,14 @@
+#' Basic Properties
+#'
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470927297936>
+#' @inheritParams common_params
+#' @rdname connected
+#' @export
+are_connected = function(graph, from, to) {
+  graph$are_connected(from, to)
+}
+
+
 #' Shortest Path Related Functions
 #'
 #' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470927281168>
@@ -45,6 +56,7 @@ path_length_hist = function(graph, directed = FALSE) {
   graph$path_length_hist(directed)
 }
 
+
 #' Neighborhood of vertices
 #'
 #' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470926156912>
@@ -63,18 +75,25 @@ neighborhood = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist
   graph$neighborhood(vids, order, mode, mindist)
 }
 
-#' @rdname neighborhood
-#' @export
-subcomponent = function(graph, from, mode = 1L) {
-  graph$subcomponent(from, mode)
-}
 
 #' Graph Components
 #'
 #' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470926080896>
+#' @inheritParams common_params
+#' @rdname component
+#' @export
+subcomponent = function(graph, vid, mode = 1L) {
+  graph$subcomponent(vid, mode)
+}
+
+#' @rdname component
+#' @export
+subcomponents = function(graph, vids, mode = 1L) {
+  graph$subcomponents(vids, mode)
+}
+
 #' @param impl how to construct a new graph:
 #'             {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}
-#' @inheritParams common_params
 #' @rdname component
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {

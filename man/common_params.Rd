@@ -11,8 +11,6 @@ common_params(graph, vids, v, from, to, mode, weights, directed)
 
 \item{vids}{Vertices of interest.}
 
-\item{v}{Vertices of interest.}
-
 \item{from}{Vertices of interest.}
 
 \item{to}{Vertices of interest.}
@@ -22,6 +20,12 @@ common_params(graph, vids, v, from, to, mode, weights, directed)
 \item{weights}{Numeric edge weights; \code{TRUE} to use \code{graph$Eattr$weight}.}
 
 \item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
+
+\item{vid}{Vertices of interest.}
+
+\item{eids}{Edges of interest.}
+
+\item{eid}{Edges of interest.}
 }
 \description{
 This function does nothing. It is designed to be used with @inheritParams.

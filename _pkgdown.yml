@@ -5,6 +5,8 @@ reference:
   contents:
   - IGraph
   - is_igraph
+  - vcount
+  - edge
   - neighbors
   - incident
   - degree
@@ -20,9 +22,11 @@ reference:
 - title: Structural Properties
   desc: https://igraph.org/c/doc/igraph-Structural.html
   contents:
+  - are_connected
   - shortest_paths
   - neighborhood
-  - ends_with("subgraph")
+  - subcomponent
+  - induced_subgraph
 - title: Misc.
   desc: https://igraph.org/c/doc/igraph-Nongraph.html
   contents:

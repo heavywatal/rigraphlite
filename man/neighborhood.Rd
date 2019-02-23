@@ -3,7 +3,6 @@
 \name{neighborhood_size}
 \alias{neighborhood_size}
 \alias{neighborhood}
-\alias{subcomponent}
 \title{Neighborhood of vertices}
 \source{
 \url{https://igraph.org/c/doc/igraph-Structural.html#idm470926156912}
@@ -14,8 +13,6 @@ neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
 
 neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L,
   mindist = 0L)
-
-subcomponent(graph, from, mode = 1L)
 }
 \arguments{
 \item{graph}{IGraph object.}
@@ -27,8 +24,6 @@ subcomponent(graph, from, mode = 1L)
 \item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
 
 \item{mindist}{The minimum distance to include a vertex in the counting.}
-
-\item{from}{Vertices of interest.}
 }
 \description{
 Neighborhood of vertices

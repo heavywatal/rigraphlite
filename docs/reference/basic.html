@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Basic Query Operations — neighbors • igraphlite</title>
+<title>Basic Query Operations — vcount • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Basic Query Operations — neighbors" />
+<meta property="og:title" content="Basic Query Operations — vcount" />
 
 <meta property="og:description" content="Basic Query Operations" />
 <meta name="twitter:card" content="summary" />
@@ -110,9 +110,17 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>neighbors</span>(<span class='no'>graph</span>, <span class='no'>v</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>)
+    <pre class="usage"><span class='fu'>vcount</span>(<span class='no'>graph</span>)
 
-<span class='fu'>incident</span>(<span class='no'>graph</span>, <span class='no'>v</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>)
+<span class='fu'>ecount</span>(<span class='no'>graph</span>)
+
+<span class='fu'>edge</span>(<span class='no'>graph</span>, <span class='no'>eid</span>)
+
+<span class='fu'>neighbors</span>(<span class='no'>graph</span>, <span class='no'>vid</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>)
+
+<span class='fu'>incident</span>(<span class='no'>graph</span>, <span class='no'>vid</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>)
+
+<span class='fu'>is_directed</span>(<span class='no'>graph</span>)
 
 <span class='fu'>degree</span>(<span class='no'>graph</span>, <span class='kw'>vids</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0</span>), <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>loops</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -124,7 +132,11 @@
       <td><p>IGraph object.</p></td>
     </tr>
     <tr>
-      <th>v</th>
+      <th>eid</th>
+      <td><p>Edges of interest.</p></td>
+    </tr>
+    <tr>
+      <th>vid</th>
       <td><p>Vertices of interest.</p></td>
     </tr>
     <tr>
@@ -147,8 +159,12 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>neighbors()</code>: Adjacent vertices to a vertex.</p>
+    <p><code>vcount()</code>: The number of vertices in a graph.</p>
+<p><code>ecount()</code>: The number of edges in a graph.</p>
+<p><code>edge()</code>: Gives the head and tail vertices of an edge.</p>
+<p><code>neighbors()</code>: Adjacent vertices to a vertex.</p>
 <p><code>incident()</code>: Gives the incident edges of a vertex.</p>
+<p><code>is_directed()</code>: Is this a directed graph?</p>
 <p><code>degree()</code>: The degree of some vertices in a graph.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

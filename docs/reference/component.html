@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Graph Components — induced_subgraph • igraphlite</title>
+<title>Graph Components — subcomponent • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Graph Components — induced_subgraph" />
+<meta property="og:title" content="Graph Components — subcomponent" />
 
 <meta property="og:description" content="Graph Components" />
 <meta name="twitter:card" content="summary" />
@@ -110,7 +110,11 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>induced_subgraph</span>(<span class='no'>graph</span>, <span class='no'>vids</span>, <span class='kw'>impl</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
+    <pre class="usage"><span class='fu'>subcomponent</span>(<span class='no'>graph</span>, <span class='no'>vid</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+
+<span class='fu'>subcomponents</span>(<span class='no'>graph</span>, <span class='no'>vids</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
+
+<span class='fu'>induced_subgraph</span>(<span class='no'>graph</span>, <span class='no'>vids</span>, <span class='kw'>impl</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -118,6 +122,14 @@
     <tr>
       <th>graph</th>
       <td><p>IGraph object.</p></td>
+    </tr>
+    <tr>
+      <th>vid</th>
+      <td><p>Vertices of interest.</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>Edge type to count; 1: OUT, 2: IN, 3: ALL.</p></td>
     </tr>
     <tr>
       <th>vids</th>

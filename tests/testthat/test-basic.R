@@ -1,5 +1,13 @@
 context("test-basic")
 
+test_that("basic queries work", {
+  g = graph_tree(7L)
+  expect_equal(vcount(g), 7L)
+  expect_equal(ecount(g), 6L)
+  expect_equal(edge(g, 1L), c(1, 2))
+  expect_true(is_directed(g))
+})
+
 test_that("neighbors works", {
   g = graph_tree(7L)
   expect_error(neighbors(g, 0L))
