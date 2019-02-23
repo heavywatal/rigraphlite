@@ -105,8 +105,28 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-basic-interface" class="hasAnchor"><a href="#section-basic-interface" class="anchor"></a>Basic Interface</h2>
+          <p class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Basic.html" class="uri">https://igraph.org/c/doc/igraph-Basic.html</a></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">degree()</a></code> </p>
+        </td>
+        <td><p>Basic Query Operations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="igraph-class.html">is_igraph()</a></code> </p>
+        </td>
+        <td><p>IGraph class</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-structure" class="hasAnchor"><a href="#section-data-structure" class="anchor"></a>Data Structure</h2>
+          <p class="section-desc"><p><a href="https://igraph.org/c/doc/ch07.html" class="uri">https://igraph.org/c/doc/ch07.html</a></p></p>
         </th>
       </tr>
       <tr>
@@ -115,36 +135,72 @@
           <p><code><a href="adjlist.html">as_adjlist()</a></code> <code><a href="adjlist.html">as_inclist()</a></code> </p>
         </td>
         <td><p>Adjacency lists</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">degree()</a></code> </p>
-        </td>
-        <td><p>Basic interface</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-graph-generators" class="hasAnchor"><a href="#section-graph-generators" class="anchor"></a>Graph Generators</h2>
+          <p class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Generators.html" class="uri">https://igraph.org/c/doc/igraph-Generators.html</a></p></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="generators.html">graph_from_data_frame()</a></code> <code><a href="generators.html">graph_from_symbolic_edgelist()</a></code> <code><a href="generators.html">graph_from_edgelist()</a></code> <code><a href="generators.html">graph_create()</a></code> <code><a href="generators.html">graph_tree()</a></code> </p>
         </td>
-        <td><p>Graph Generators</p></td>
+        <td><p>Deterministic Graph Generators</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="igraph-class.html">is_igraph()</a></code> <code><a href="igraph-class.html">as_igraph()</a></code> </p>
+          <p><code><a href="as_igraph.html">as_igraph()</a></code> </p>
         </td>
-        <td><p>IGraph class</p></td>
+        <td><p>Shortcut to deterministic graph generators</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-structural-properties" class="hasAnchor"><a href="#section-structural-properties" class="anchor"></a>Structural Properties</h2>
+          <p class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Structural.html" class="uri">https://igraph.org/c/doc/igraph-Structural.html</a></p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="shortest_paths.html">shortest_paths()</a></code> <code><a href="shortest_paths.html">get_shortest_paths()</a></code> <code><a href="shortest_paths.html">average_path_length()</a></code> <code><a href="shortest_paths.html">path_length_hist()</a></code> </p>
+        </td>
+        <td><p>Shortest Path Related Functions</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="structural.html">shortest_paths()</a></code> <code><a href="structural.html">get_shortest_paths()</a></code> <code><a href="structural.html">average_path_length()</a></code> <code><a href="structural.html">path_length_hist()</a></code> <code><a href="structural.html">neighborhood_size()</a></code> <code><a href="structural.html">neighborhood()</a></code> <code><a href="structural.html">subcomponent()</a></code> <code><a href="structural.html">induced_subgraph()</a></code> </p>
+          <p><code><a href="neighborhood.html">neighborhood_size()</a></code> <code><a href="neighborhood.html">neighborhood()</a></code> <code><a href="neighborhood.html">subcomponent()</a></code> </p>
         </td>
-        <td><p>Structural Properties of Graphs</p></td>
+        <td><p>Neighborhood of vertices</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="component.html">induced_subgraph()</a></code> </p>
+        </td>
+        <td><p>Graph Components</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-misc-" class="hasAnchor"><a href="#section-misc-" class="anchor"></a>Misc.</h2>
+          <p class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Nongraph.html" class="uri">https://igraph.org/c/doc/igraph-Nongraph.html</a></p></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="version.html">igraph_version()</a></code> </p>
         </td>
         <td><p>Check and return igraph version.h</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="common_params.html">common_params()</a></code> </p>
+        </td>
+        <td><p>Common parameters used throughout the package</p></td>
       </tr>
     </tbody>
     </table>
@@ -153,7 +209,11 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-basic-interface">Basic Interface</a></li>
+      <li><a href="#section-data-structure">Data Structure</a></li>
+      <li><a href="#section-graph-generators">Graph Generators</a></li>
+      <li><a href="#section-structural-properties">Structural Properties</a></li>
+      <li><a href="#section-misc-">Misc.</a></li>
     </ul>
   </div>
 </div>

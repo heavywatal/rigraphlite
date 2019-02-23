@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Basic interface — neighbors • igraphlite</title>
+<title>Basic Query Operations — neighbors • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Basic interface — neighbors" />
+<meta property="og:title" content="Basic Query Operations — neighbors" />
 
-<meta property="og:description" content="Basic interface" />
+<meta property="og:description" content="Basic Query Operations" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,14 +94,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Basic interface</h1>
+    <h1>Basic Query Operations</h1>
     
     <div class="hidden name"><code>basic.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Basic interface</p>
+    <p>Basic Query Operations</p>
     
     </div>
 
@@ -119,12 +119,16 @@
       <td><p>IGraph object.</p></td>
     </tr>
     <tr>
-      <th>v, vids</th>
-      <td><p>vertices of which the degree will be calculated.</p></td>
+      <th>v</th>
+      <td><p>Vertices of interest.</p></td>
     </tr>
     <tr>
       <th>mode</th>
-      <td><p>edge type to count; 1: out, 2: in, 3: all</p></td>
+      <td><p>Edge type to count; 1: OUT, 2: IN, 3: ALL.</p></td>
+    </tr>
+    <tr>
+      <th>vids</th>
+      <td><p>Vertices of interest.</p></td>
     </tr>
     <tr>
       <th>loops</th>

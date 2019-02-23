@@ -1,9 +1,9 @@
-#' Structural Properties of Graphs
+#' Shortest Path Related Functions
 #'
-#' @seealso <https://igraph.org/c/doc/igraph-Structural.html>
+#' @seealso <https://igraph.org/c/doc/igraph-Structural.html#idm470927281168>
 #' @param algorithm character
 #' @inheritParams common_params
-#' @rdname structural
+#' @rdname shortest_paths
 #' @export
 shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
   algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
@@ -23,7 +23,7 @@ shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeri
   graph$shortest_paths(from, to, weights, mode, algorithm)
 }
 
-#' @rdname structural
+#' @rdname shortest_paths
 #' @export
 get_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0L), mode = 3L) {
   if (isTRUE(weights)) {
@@ -33,41 +33,49 @@ get_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0
   graph$get_shortest_paths(from, to, weights, mode)
 }
 
-#' @rdname structural
+#' @rdname shortest_paths
 #' @export
 average_path_length = function(graph, directed = FALSE) {
   graph$average_path_length(directed)
 }
 
-#' @rdname structural
+#' @rdname shortest_paths
 #' @export
 path_length_hist = function(graph, directed = FALSE) {
   graph$path_length_hist(directed)
 }
 
+#' Neighborhood of vertices
+#'
+#' @seealso <https://igraph.org/c/doc/igraph-Structural.html#idm470926156912>
 #' @param order integer
 #' @param mindist The minimum distance to include a vertex in the counting.
-#' @rdname structural
+#' @inheritParams common_params
+#' @rdname neighborhood
 #' @export
 neighborhood_size = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist = 0L) {
   graph$neighborhood_size(vids, order, mode, mindist)
 }
 
-#' @rdname structural
+#' @rdname neighborhood
 #' @export
 neighborhood = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist = 0L) {
   graph$neighborhood(vids, order, mode, mindist)
 }
 
-#' @rdname structural
+#' @rdname neighborhood
 #' @export
 subcomponent = function(graph, from, mode = 1L) {
   graph$subcomponent(from, mode)
 }
 
+#' Graph Components
+#'
+#' @seealso <https://igraph.org/c/doc/igraph-Structural.html#idm470926080896>
 #' @param impl how to construct a new graph:
 #'             {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}
-#' @rdname structural
+#' @inheritParams common_params
+#' @rdname component
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {
   subg = IGraph$new(graph, vids, impl)

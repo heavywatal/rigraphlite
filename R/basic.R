@@ -1,4 +1,4 @@
-#' Basic interface
+#' Basic Query Operations
 #'
 #' @seealso [as_adjlist()] and [as_inclist()] for all-vertices version.
 #' @seealso <https://igraph.org/c/doc/igraph-Basic.html>

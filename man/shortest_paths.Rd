@@ -5,11 +5,7 @@
 \alias{get_shortest_paths}
 \alias{average_path_length}
 \alias{path_length_hist}
-\alias{neighborhood_size}
-\alias{neighborhood}
-\alias{subcomponent}
-\alias{induced_subgraph}
-\title{Structural Properties of Graphs}
+\title{Shortest Path Related Functions}
 \usage{
 shortest_paths(graph, from = numeric(0L), to = from,
   weights = numeric(0L), mode = 3L, algorithm = c("auto",
@@ -21,16 +17,6 @@ get_shortest_paths(graph, from, to = numeric(0L),
 average_path_length(graph, directed = FALSE)
 
 path_length_hist(graph, directed = FALSE)
-
-neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
-  mindist = 0L)
-
-neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L,
-  mindist = 0L)
-
-subcomponent(graph, from, mode = 1L)
-
-induced_subgraph(graph, vids, impl = 0L)
 }
 \arguments{
 \item{graph}{IGraph object.}
@@ -46,19 +32,10 @@ induced_subgraph(graph, vids, impl = 0L)
 \item{algorithm}{character}
 
 \item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
-
-\item{vids}{Vertices of interest.}
-
-\item{order}{integer}
-
-\item{mindist}{The minimum distance to include a vertex in the counting.}
-
-\item{impl}{how to construct a new graph:
-{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}}
 }
 \description{
-Structural Properties of Graphs
+Shortest Path Related Functions
 }
 \seealso{
-\url{https://igraph.org/c/doc/igraph-Structural.html}
+\url{https://igraph.org/c/doc/igraph-Structural.html#idm470927281168}
 }

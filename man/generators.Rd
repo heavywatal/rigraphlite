@@ -6,7 +6,7 @@
 \alias{graph_from_edgelist}
 \alias{graph_create}
 \alias{graph_tree}
-\title{Graph Generators}
+\title{Deterministic Graph Generators}
 \usage{
 graph_from_data_frame(df, directed = TRUE)
 
@@ -34,7 +34,7 @@ graph_tree(n, children = 2L, mode = 0L)
 \item{mode}{\code{igraph_tree_mode_t} {1: OUT, 2: IN, 3: UNDIRECTED}}
 }
 \description{
-Graph Generators
+Deterministic Graph Generators
 }
 \seealso{
 \url{https://igraph.org/c/doc/igraph-Generators.html}

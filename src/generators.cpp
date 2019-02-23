@@ -71,7 +71,7 @@ namespace impl {
 
 }
 
-//' Graph Generators
+//' Deterministic Graph Generators
 //'
 //' @param df data.frame that includes an edgelist and edge attributes.
 //' @param edgelist Two-column matrix.

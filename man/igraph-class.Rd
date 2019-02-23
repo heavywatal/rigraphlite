@@ -2,21 +2,9 @@
 % Please edit documentation in R/igraphlite-package.R
 \name{is_igraph}
 \alias{is_igraph}
-\alias{as_igraph}
-\alias{as_igraph.default}
-\alias{as_igraph.matrix}
-\alias{as_igraph.data.frame}
 \title{IGraph class}
 \usage{
 is_igraph(x)
-
-as_igraph(x)
-
-\method{as_igraph}{default}(x)
-
-\method{as_igraph}{matrix}(x)
-
-\method{as_igraph}{data.frame}(x)
 }
 \arguments{
 \item{x}{object to be tested.}

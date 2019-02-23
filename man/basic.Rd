@@ -4,7 +4,7 @@
 \alias{neighbors}
 \alias{incident}
 \alias{degree}
-\title{Basic interface}
+\title{Basic Query Operations}
 \usage{
 neighbors(graph, v, mode = 3L)
 
@@ -24,7 +24,7 @@ degree(graph, vids = numeric(0), mode = 3L, loops = TRUE)
 \item{loops}{whether self-loop should be counted.}
 }
 \description{
-Basic interface
+Basic Query Operations
 }
 \details{
 \code{neighbors()}: Adjacent vertices to a vertex.

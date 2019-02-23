@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Structural Properties of Graphs — shortest_paths • igraphlite</title>
+<title>Subgraph — induced_subgraph • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Structural Properties of Graphs — shortest_paths" />
+<meta property="og:title" content="Subgraph — induced_subgraph" />
 
-<meta property="og:description" content="Structural Properties of Graphs" />
+<meta property="og:description" content="Subgraph" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -94,37 +94,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Structural Properties of Graphs</h1>
+    <h1>Subgraph</h1>
     
     <div class="hidden name"><code>structural.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Structural Properties of Graphs</p>
+    <p>Subgraph</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>shortest_paths</span>(<span class='no'>graph</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>), <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>from</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>), <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>,
-  <span class='st'>"unweighted"</span>, <span class='st'>"dijkstra"</span>, <span class='st'>"bellman-ford"</span>, <span class='st'>"johnson"</span>))
-
-<span class='fu'>get_shortest_paths</span>(<span class='no'>graph</span>, <span class='no'>from</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>),
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>), <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>)
-
-<span class='fu'>average_path_length</span>(<span class='no'>graph</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>path_length_hist</span>(<span class='no'>graph</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>neighborhood_size</span>(<span class='no'>graph</span>, <span class='kw'>vids</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0</span>), <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>mindist</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
-
-<span class='fu'>neighborhood</span>(<span class='no'>graph</span>, <span class='kw'>vids</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0</span>), <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>1L</span>,
-  <span class='kw'>mindist</span> <span class='kw'>=</span> <span class='fl'>0L</span>)
-
-<span class='fu'>subcomponent</span>(<span class='no'>graph</span>, <span class='no'>from</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>1L</span>)
-
-<span class='fu'>induced_subgraph</span>(<span class='no'>graph</span>, <span class='no'>vids</span>, <span class='kw'>impl</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
+    <pre class="usage"><span class='fu'>induced_subgraph</span>(<span class='no'>graph</span>, <span class='no'>vids</span>, <span class='kw'>impl</span> <span class='kw'>=</span> <span class='fl'>0L</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,33 +115,8 @@
       <td><p>IGraph object.</p></td>
     </tr>
     <tr>
-      <th>weights</th>
-      <td><p>numeric edge weights; TRUE to use graph$E$weight</p></td>
-    </tr>
-    <tr>
-      <th>mode</th>
-      <td><p>edge type to count; 1: OUT, 2: IN, 3: ALL</p></td>
-    </tr>
-    <tr>
-      <th>algorithm</th>
-      <td><p>character</p></td>
-    </tr>
-    <tr>
-      <th>directed</th>
-      <td><p>Boolean, whether to consider directed paths.
-Ignored for undirected graphs.</p></td>
-    </tr>
-    <tr>
-      <th>vids, from, to</th>
-      <td><p>vertices of interest</p></td>
-    </tr>
-    <tr>
-      <th>order</th>
-      <td><p>integer</p></td>
-    </tr>
-    <tr>
-      <th>mindist</th>
-      <td><p>The minimum distance to include a vertex in the counting.</p></td>
+      <th>vids</th>
+      <td><p>Vertices of interest.</p></td>
     </tr>
     <tr>
       <th>impl</th>
@@ -169,19 +125,13 @@ Ignored for undirected graphs.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='https://igraph.org/c/doc/igraph-Structural.html'>https://igraph.org/c/doc/igraph-Structural.html</a></p></div>
-    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>
