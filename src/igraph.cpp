@@ -23,6 +23,7 @@ RCPP_MODULE(igraph) {
     .method("delete_edges", &IGraph::delete_edges)
     .method("delete_vertices", &IGraph::delete_vertices)
 
+    // Structural properties
     .const_method("are_connected", &IGraph::are_connected)
     .const_method("shortest_paths", &IGraph::shortest_paths)
     .const_method("get_shortest_paths", &IGraph::get_shortest_paths)
@@ -35,22 +36,26 @@ RCPP_MODULE(igraph) {
 
     .const_method("as_adjlist", &IGraph::as_adjlist)
     .const_method("as_inclist", &IGraph::as_inclist)
-    .property("as_data_frame", &IGraph::as_data_frame)
-    .property("as_edgelist", &IGraph::as_edgelist)
+    .const_method("as_edgelist", &IGraph::as_edgelist)
+    .const_method("as_data_frame", &IGraph::as_data_frame)
+
+    .property("is_sink", &IGraph::is_sink)
+    .property("is_source", &IGraph::is_source)
+    .property("sink", &IGraph::sink)
+    .property("source", &IGraph::source)
+
+    .property("Vattr", &IGraph::getV, &IGraph::setV)
+    .property("Eattr", &IGraph::getE, &IGraph::setE)
+    .property("V", &IGraph::V)
+    .property("E", &IGraph::E)
+
+    // igraph_t
     .property("from", &IGraph::from)
     .property("to", &IGraph::to)
     .property("oi", &IGraph::oi)
     .property("ii", &IGraph::ii)
     .property("os", &IGraph::os)
     .property("is", &IGraph::is)
-    .property("is_sink", &IGraph::is_sink)
-    .property("is_source", &IGraph::is_source)
-    .property("sink", &IGraph::sink)
-    .property("source", &IGraph::source)
-    .property("Vattr", &IGraph::getV, &IGraph::setV)
-    .property("Eattr", &IGraph::getE, &IGraph::setE)
-    .property("V", &IGraph::V)
-    .property("E", &IGraph::E)
   ;
 }
 

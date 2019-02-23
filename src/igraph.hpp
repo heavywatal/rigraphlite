@@ -57,15 +57,17 @@ class IGraph {
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
+    Rcpp::List as_adjlist(int mode) const;
+    Rcpp::List as_inclist(int mode) const;
+    Rcpp::NumericMatrix as_edgelist() const {return Rcpp::cbind(from(), to());}
+    Rcpp::DataFrame as_data_frame() const;
+
     Rcpp::LogicalVector is_sink() const;
     Rcpp::LogicalVector is_source() const;
     Rcpp::IntegerVector sink() const;
     Rcpp::IntegerVector source() const;
 
-    Rcpp::List as_adjlist(int mode) const;
-    Rcpp::List as_inclist(int mode) const;
-    Rcpp::DataFrame as_data_frame() const;
-    Rcpp::NumericMatrix as_edgelist() const {return Rcpp::cbind(from(), to());}
+    // igraph_t getter
     Rcpp::NumericVector from() const;
     Rcpp::NumericVector to() const;
     Rcpp::NumericVector oi() const;
