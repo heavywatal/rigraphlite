@@ -3,10 +3,11 @@ reference:
 - title: Basic Interface
   desc: https://igraph.org/c/doc/igraph-Basic.html
   contents:
+  - IGraph
+  - is_igraph
   - neighbors
   - incident
   - degree
-  - is_igraph
 - title: Data Structure
   desc: https://igraph.org/c/doc/ch07.html
   contents:

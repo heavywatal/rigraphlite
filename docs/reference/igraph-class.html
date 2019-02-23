@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>IGraph class — is_igraph • igraphlite</title>
+<title>IGraph class: thin wrapper of <code>igraph_t</code>. — IGraph • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="IGraph class — is_igraph" />
+<meta property="og:title" content="IGraph class: thin wrapper of <code>igraph_t</code>. — IGraph" />
 
-<meta property="og:description" content="IGraph class" />
+<meta property="og:description" content="IGraph class: thin wrapper of igraph_t." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,35 +99,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>IGraph class</h1>
+    <h1>IGraph class: thin wrapper of <code>igraph_t</code>.</h1>
     <small class="dont-index">Source: <a href='https://github.com/heavywatal/rigraphlite/blob/master/R/igraphlite-package.R'><code>R/igraphlite-package.R</code></a></small>
     <div class="hidden name"><code>igraph-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>IGraph class</p>
+    <p>IGraph class: thin wrapper of <code>igraph_t</code>.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>is_igraph</span>(<span class='no'>x</span>)</pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>Reference Class (RC) exposed by Rcpp Modules.</p>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>object to be tested.</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h'>https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h</a></p>
+    
+    <h2 class="hasAnchor" id="fields"><a class="anchor" href="#fields"></a>Fields</h2>
+
+    
+    <dl class='dl-horizontal'>
+<dt><code>V</code></dt><dd><p>Vertex IDs in a numeric vector</p></dd>
+    <dt><code>E</code></dt><dd><p>Edge IDs in a numeric vector</p></dd>
+    <dt><code>Vattr</code></dt><dd><p>Vertex attributes in a data.frame</p></dd>
+    <dt><code>Eattr</code></dt><dd><p>Edge attributes in a data.frame</p></dd>
+    <dt><code>from</code></dt><dd><p>The first column of the edge list.</p></dd>
+    <dt><code>to</code></dt><dd><p>The second column of the edge list.</p></dd>
+    <dt><code>oi</code></dt><dd><p>The index of the edge list by the first column.</p></dd>
+    <dt><code>ii</code></dt><dd><p>The index of the edge list by the second column.</p></dd>
+    <dt><code>os</code></dt><dd><p>The pointers to the outgoing edges.</p></dd>
+    <dt><code>is</code></dt><dd><p>The pointers to the incoming edges.</p></dd>
+</dl>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='generators.html'>graph_from_edgelist()</a></code>, <a href='generators.html'>graph_from_data_frame</a>, <code><a href='generators.html'>graph_tree()</a></code>
+for object instanciation.</p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#source">Source</a></li>
+
+      <li><a href="#fields">Fields</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+          </ul>
 
   </div>
 </div>

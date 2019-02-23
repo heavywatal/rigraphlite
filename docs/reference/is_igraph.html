@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shortest Path Related Functions — shortest_paths • igraphlite</title>
+<title>Check if an object is IGraph class — is_igraph • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Shortest Path Related Functions — shortest_paths" />
+<meta property="og:title" content="Check if an object is IGraph class — is_igraph" />
 
-<meta property="og:description" content="Shortest Path Related Functions" />
+<meta property="og:description" content="Check if an object is IGraph class" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,64 +99,27 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shortest Path Related Functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/heavywatal/rigraphlite/blob/master/R/structural.R'><code>R/structural.R</code></a></small>
-    <div class="hidden name"><code>shortest_paths.Rd</code></div>
+    <h1>Check if an object is IGraph class</h1>
+    <small class="dont-index">Source: <a href='https://github.com/heavywatal/rigraphlite/blob/master/R/igraphlite-package.R'><code>R/igraphlite-package.R</code></a></small>
+    <div class="hidden name"><code>is_igraph.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Shortest Path Related Functions</p>
+    <p>Check if an object is IGraph class</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>shortest_paths</span>(<span class='no'>graph</span>, <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>), <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>from</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>), <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"auto"</span>,
-  <span class='st'>"unweighted"</span>, <span class='st'>"dijkstra"</span>, <span class='st'>"bellman-ford"</span>, <span class='st'>"johnson"</span>))
-
-<span class='fu'>get_shortest_paths</span>(<span class='no'>graph</span>, <span class='no'>from</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>),
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric</a></span>(<span class='fl'>0L</span>), <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fl'>3L</span>)
-
-<span class='fu'>average_path_length</span>(<span class='no'>graph</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>path_length_hist</span>(<span class='no'>graph</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>is_igraph</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>graph</th>
-      <td><p>IGraph object.</p></td>
-    </tr>
-    <tr>
-      <th>from</th>
-      <td><p>Vertices of interest.</p></td>
-    </tr>
-    <tr>
-      <th>to</th>
-      <td><p>Vertices of interest.</p></td>
-    </tr>
-    <tr>
-      <th>weights</th>
-      <td><p>Numeric edge weights; <code>TRUE</code> to use <code>graph$Eattr$weight</code>.</p></td>
-    </tr>
-    <tr>
-      <th>mode</th>
-      <td><p>Edge type to count; 1: OUT, 2: IN, 3: ALL.</p></td>
-    </tr>
-    <tr>
-      <th>algorithm</th>
-      <td><p>character</p></td>
-    </tr>
-    <tr>
-      <th>directed</th>
-      <td><p>Boolean, whether to consider directed paths. Ignored for undirected graphs.</p></td>
+      <th>x</th>
+      <td><p>object to be tested.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p><a href='https://igraph.org/c/doc/igraph-Structural.html#idm470927281168'>https://igraph.org/c/doc/igraph-Structural.html#idm470927281168</a></p>
     
 
   </div>
@@ -164,9 +127,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#source">Source</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>
