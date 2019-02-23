@@ -1,6 +1,6 @@
 #' Basic interface
 #'
-#' @seealso `as_adjlist()` and `as_inclist()` for all-vertices version.
+#' @seealso [as_adjlist()] and [as_inclist()] for all-vertices version.
 #' @seealso <https://igraph.org/c/doc/igraph-Basic.html>
 #' @details
 #' `neighbors()`: Adjacent vertices to a vertex.
@@ -34,7 +34,7 @@ degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
 #' Adjacency lists
 #'
 #' These functions are all-vertices version of `neighbors()` and `incident()`.
-#' @seealso `neighbors()` and `incident()` for single-vertex version.
+#' @seealso [neighbors()] and [incident()] for single-vertex version.
 #' @seealso <https://igraph.org/c/doc/ch07.html#igraph-Adjlists>
 #' @details
 #' `as_adjlist()`: Convert a graph to a list of adjacent vertices.

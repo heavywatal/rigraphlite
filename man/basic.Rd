@@ -32,7 +32,14 @@ Basic interface
 \code{degree()}: The degree of some vertices in a graph.
 }
 \seealso{
-\code{as_adjlist()} and \code{as_inclist()} for all-vertices version.
+\code{\link[=as_adjlist]{as_adjlist()}} and \code{\link[=as_inclist]{as_inclist()}} for all-vertices version.
 
 \url{https://igraph.org/c/doc/igraph-Basic.html}
+
+Other adjacency functions: \code{\link{as_adjlist}}
+
+Other adjacency functions: \code{\link{as_adjlist}}
+
+Other adjacency functions: \code{\link{as_adjlist}}
 }
+\concept{adjacency functions}

@@ -23,7 +23,12 @@ These functions are all-vertices version of \code{neighbors()} and \code{inciden
 \code{as_inclist()}: Convert a graph to a list of incident edges.
 }
 \seealso{
-\code{neighbors()} and \code{incident()} for single-vertex version.
+\code{\link[=neighbors]{neighbors()}} and \code{\link[=incident]{incident()}} for single-vertex version.
 
 \url{https://igraph.org/c/doc/ch07.html#igraph-Adjlists}
+
+Other adjacency functions: \code{\link{neighbors}}
+
+Other adjacency functions: \code{\link{neighbors}}
 }
+\concept{adjacency functions}
