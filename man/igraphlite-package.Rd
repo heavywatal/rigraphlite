@@ -11,6 +11,15 @@ This is an Rcpp-powered R package interface to igraph network analysis
     from scratch striving for good performance, simple codebase, and the
     consistency with the C implementation.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://heavywatal.github.io/rigraphlite/}
+  \item \url{https://github.com/heavywatal/rigraphlite}
+  \item Report bugs at \url{https://github.com/heavywatal/rigraphlite/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Watal M. Iwasaki \email{heavy.watal@gmail.com} (0000-0002-4718-7605)
 
