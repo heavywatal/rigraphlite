@@ -5,7 +5,7 @@
 #' @details
 #' `neighbors()`: Adjacent vertices to a vertex.
 #' @param loops whether self-loop should be counted.
-#' @eval common_params(graph, v, vids, mode)
+#' @inheritParams common_params
 #' @rdname basic
 #' @export
 neighbors = function(graph, v, mode = 3L) {
@@ -36,7 +36,7 @@ degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
 #' @seealso <https://igraph.org/c/doc/ch07.html#igraph-Adjlists>
 #' @details
 #' `as_adjlist()`: Convert a graph to a list of adjacent vertices.
-#' @eval common_params(graph, mode)
+#' @inheritParams common_params
 #' @rdname adjlist
 #' @export
 as_adjlist = function(graph, mode = 3L) {

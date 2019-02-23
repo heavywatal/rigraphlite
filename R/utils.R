@@ -1,16 +1,15 @@
-# Use this function with @eval tag
-common_params = function(...) {
-  dots = as.character(substitute(...()))
-  params = c(
-    graph = "IGraph object.",
-    vids = "Vertices of interest.",
-    mode = "Edge type to count; {1: OUT, 2: IN, 3: ALL}.",
-    weights = "Numeric edge weights; `TRUE` to use `graph$Eattr$weight`.",
-    directed = "Boolean, whether to consider directed paths. Ignored for undirected graphs."
-  )
-  params["v"] = params["vids"]
-  params["from"] = params["vids"]
-  params["to"] = params["vids"]
-  lines = setNames(paste("@param", names(params), params), names(params))
-  lines[dots]
+#' Common parameters used throughout the package
+#'
+#' This function does nothing. It is designed to be used with @@inheritParams.
+#' @param graph IGraph object.
+#' @param vids Vertices of interest.
+#' @param v    Vertices of interest.
+#' @param from Vertices of interest.
+#' @param to   Vertices of interest.
+#' @param mode Edge type to count; {1: OUT, 2: IN, 3: ALL}.
+#' @param weights Numeric edge weights; `TRUE` to use `graph$Eattr$weight`.
+#' @param directed Boolean, whether to consider directed paths. Ignored for undirected graphs.
+#' @keywords internal
+common_params = function(graph, vids, v, from, to, mode, weights, directed) {
+  invisible(NULL)
 }

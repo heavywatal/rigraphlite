@@ -1,8 +1,8 @@
 #' Structural Properties of Graphs
 #'
 #' @seealso <https://igraph.org/c/doc/igraph-Structural.html>
-#' @eval common_params(graph, vids, from, to, weights, mode, directed)
 #' @param algorithm character
+#' @inheritParams common_params
 #' @rdname structural
 #' @export
 shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
