@@ -21,5 +21,6 @@ Imports:
     methods,
     Rcpp
 Suggests:
+    ape,
     covr,
     testthat

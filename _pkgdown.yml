@@ -32,3 +32,6 @@ reference:
   contents:
   - ends_with("version")
   - common_params
+- title: Other Packages
+  contents:
+  - as_phylo
