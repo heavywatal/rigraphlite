@@ -23,14 +23,14 @@ void IGraph::layout_drl() {
   mutate_Vattr_layout(res.wrap());
 }
 
-void IGraph::layout_fruchterman_reingold() {
+void IGraph::layout_fruchterman_reingold(int grid) {
   IMatrix res(vcount(), 2);
   igraph_layout_fruchterman_reingold(
     data_.get(), res.data(),
     false,               // use_seed
     500,                 // niter
     std::sqrt(vcount()), // start_temp
-    IGRAPH_LAYOUT_NOGRID,
+    static_cast<igraph_layout_grid_t>(grid),
     nullptr,             // weight
     nullptr,             // minx
     nullptr,             // maxx

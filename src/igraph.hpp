@@ -64,7 +64,7 @@ class IGraph {
 
     void layout_random();
     void layout_drl();
-    void layout_fruchterman_reingold();
+    void layout_fruchterman_reingold(int grid);
     void layout_mds();
     void layout_reingold_tilford(int mode);
     void layout_reingold_tilford_circular(int mode);
