@@ -15,3 +15,5 @@
 common_params = function(graph, vids, v, from, to, mode, weights, directed) {
   invisible(NULL)
 }
+
+"%||%" = function(a, b) if (is.null(a)) b else a

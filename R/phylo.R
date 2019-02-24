@@ -6,7 +6,8 @@
 #' @export
 as_igraph.phylo = function(x) {
   g = graph_from_edgelist(x[["edge"]])
-  g$Vattr[["name"]] = c(x[["tip.label"]], rep(NA, x[["Nnode"]]))
+  node.label = x[["node.label"]] %||% rep(NA, x[["Nnode"]])
+  g$Vattr[["name"]] = c(x[["tip.label"]], node.label)
   g$Eattr[["edge.length"]] = x[["edge.length"]]
   g
 }
@@ -14,11 +15,14 @@ as_igraph.phylo = function(x) {
 #' @rdname phylo
 #' @export
 as_phylo = function(x) {
+  labels = Vname(x)
+  is_sink = x$is_sink
   structure(list(
     edge = phylo_edge(x),
-    tip.label = phylo_tip_label(x),
+    tip.label = labels[is_sink],
+    node.label = labels[!is_sink],
     edge.length = phylo_edge_length(x),
-    Nnode = x$vcount - sum(x$is_sink)
+    Nnode = sum(!is_sink)
   ), class = "phylo", order = "cladewise")
 }
 
@@ -32,20 +36,10 @@ phylo_edge = function(graph) {
   edge
 }
 
-phylo_tip_label = function(graph) {
-  tip.label = graph$Vattr[["name"]]
-  if (is.null(tip.label)) {
-    tip.label = graph$sink
-  } else {
-    tip.label = tip.label[graph$is_sink]
-  }
-  as.character(tip.label)
+Vname = function(graph) {
+  graph$Vattr[["name"]] %||% graph$V
 }
 
 phylo_edge_length = function(graph) {
-  edge.length = graph$Eattr[["edge.length"]]
-  if (is.null(edge.length)) {
-    edge.length = rep(1, graph$ecount)
-  }
-  edge.length
+  graph$Eattr[["edge.length"]] %||% rep(1, graph$ecount)
 }
