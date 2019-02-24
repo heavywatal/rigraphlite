@@ -34,6 +34,14 @@ RCPP_MODULE(igraph) {
     .const_method("subcomponent", &IGraph::subcomponent)
     .const_method("subcomponents", &IGraph::subcomponents)
 
+    // Layout
+    .method("layout_random", &IGraph::layout_random)
+    .method("layout_drl", &IGraph::layout_drl)
+    .method("layout_fruchterman_reingold", &IGraph::layout_fruchterman_reingold)
+    .method("layout_mds", &IGraph::layout_mds)
+    .method("layout_reingold_tilford", &IGraph::layout_reingold_tilford)
+    .method("layout_reingold_tilford_circular", &IGraph::layout_reingold_tilford_circular)
+
     .const_method("as_adjlist", &IGraph::as_adjlist)
     .const_method("as_inclist", &IGraph::as_inclist)
     .const_method("as_edgelist", &IGraph::as_edgelist)
@@ -44,8 +52,8 @@ RCPP_MODULE(igraph) {
     .property("sink", &IGraph::sink)
     .property("source", &IGraph::source)
 
-    .property("Vattr", &IGraph::getV, &IGraph::setV)
-    .property("Eattr", &IGraph::getE, &IGraph::setE)
+    .property("Vattr", &IGraph::getVattr, &IGraph::setVattr)
+    .property("Eattr", &IGraph::getEattr, &IGraph::setEattr)
     .property("V", &IGraph::V)
     .property("E", &IGraph::E)
 
@@ -307,12 +315,17 @@ Rcpp::DataFrame IGraph::as_data_frame() const {
   return df;
 }
 
-void IGraph::setV(const char* name, const Rcpp::RObject& value) {
+void IGraph::mutate_Vattr(const char* name, const Rcpp::RObject& value) {
   impl::mutate(Vattr_, name, value);
 }
 
-void IGraph::setE(const char* name, const Rcpp::RObject& value) {
+void IGraph::mutate_Eattr(const char* name, const Rcpp::RObject& value) {
   impl::mutate(Eattr_, name, value);
+}
+
+void IGraph::mutate_Vattr_layout(const Rcpp::NumericMatrix& mat) {
+  mutate_Vattr("x", Rcpp::NumericVector(mat.column(0)));
+  mutate_Vattr("y", Rcpp::NumericVector(mat.column(1)));
 }
 
 void IGraph::init_attr() {

@@ -15,6 +15,11 @@ class IMatrix {
       data_->nrow = nrow;
       data_->ncol = ncol;
     }
+    IMatrix(Rcpp::NumericMatrix&& obj): robj_(std::move(obj)) {
+      igraph_vector_view(&data_->data, &(robj_[0]), robj_.nrow() * robj_.ncol());
+      data_->nrow = robj_.nrow();
+      data_->ncol = robj_.ncol();
+    }
     IMatrix(const IMatrix& other) noexcept = delete;
     IMatrix(IMatrix&& other) noexcept = delete;
     ~IMatrix() noexcept = default;

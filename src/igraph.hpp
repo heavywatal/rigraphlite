@@ -60,6 +60,16 @@ class IGraph {
     Rcpp::List subcomponents(const Rcpp::NumericVector& vids, int mode) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+    // Layout
+
+    void layout_random();
+    void layout_drl();
+    void layout_fruchterman_reingold();
+    void layout_mds();
+    void layout_reingold_tilford(int mode);
+    void layout_reingold_tilford_circular(int mode);
+
+    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 
     Rcpp::List as_adjlist(int mode) const;
     Rcpp::List as_inclist(int mode) const;
@@ -71,6 +81,9 @@ class IGraph {
     Rcpp::IntegerVector sink() const;
     Rcpp::IntegerVector source() const;
 
+    Rcpp::sugar::SeqLen V() const {return Rcpp::seq_len(vcount());}
+    Rcpp::sugar::SeqLen E() const {return Rcpp::seq_len(ecount());}
+
     // igraph_t getter
     Rcpp::NumericVector from() const;
     Rcpp::NumericVector to() const;
@@ -79,22 +92,21 @@ class IGraph {
     Rcpp::NumericVector os() const;
     Rcpp::NumericVector is() const;
 
+    void mutate_Vattr(const char* name, const Rcpp::RObject& value);
+    void mutate_Eattr(const char* name, const Rcpp::RObject& value);
+    void setVattr(Rcpp::DataFrame other) {Vattr_ = other;}
+    void setEattr(Rcpp::DataFrame other) {Eattr_ = other;}
+    Rcpp::DataFrame getVattr() const {return Vattr_;}
+    Rcpp::DataFrame getEattr() const {return Eattr_;}
+
     igraph_t* data() {return data_.get();}
-    void setV(const char* name, const Rcpp::RObject& value);
-    void setE(const char* name, const Rcpp::RObject& value);
-    void setV(Rcpp::DataFrame other) {Vattr_ = other;}
-    void setE(Rcpp::DataFrame other) {Eattr_ = other;}
-
     const igraph_t* data() const {return data_.get();}
-    Rcpp::DataFrame getV() const {return Vattr_;}
-    Rcpp::DataFrame getE() const {return Eattr_;}
-
-    Rcpp::sugar::SeqLen V() const {return Rcpp::seq_len(vcount());}
-    Rcpp::sugar::SeqLen E() const {return Rcpp::seq_len(ecount());}
 
   private:
     IGraph();
     void init_attr();
+
+    void mutate_Vattr_layout(const Rcpp::NumericMatrix&);
 
     std::unique_ptr<igraph_t> data_;
     Rcpp::DataFrame Vattr_;

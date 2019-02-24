@@ -46,7 +46,7 @@ namespace impl {
     auto symbols = unique_stable(sym_edges);
     auto edges = Rcpp::match(sym_edges, symbols);
     IGraph g(Rcpp::as<Rcpp::NumericVector>(edges), 0, directed);
-    g.setV("name", symbols);
+    g.mutate_Vattr("name", symbols);
     return g;
   }
 
@@ -63,7 +63,7 @@ namespace impl {
     if (n > 2) {
       const Rcpp::StringVector names = df.attr("names");
       for (long i = 2; i < n; ++i) {
-        g.setE(names[i], df[i]);
+        g.mutate_Eattr(names[i], df[i]);
       }
     }
     return g;

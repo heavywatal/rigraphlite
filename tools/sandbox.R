@@ -10,6 +10,14 @@ g$V[g$is_source]
 g$sink
 g$source
 
+g = graph_tree(17)
+g$Vattr %>% ggplot(aes(x, y)) + geom_point() + coord_fixed()
+
+g$layout_drl()
+g$layout_fruchterman_reingold()
+g$layout_mds()
+g$layout_reingold_tilford(3)
+g$layout_reingold_tilford_circular(3)
 
 bench::mark(
   g$V[g$is_sink],
