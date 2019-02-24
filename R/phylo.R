@@ -2,6 +2,7 @@
 #'
 #' @source <https://cran.r-project.org/package=ape>
 #' @param x An object to convert.
+
 #' @rdname phylo
 #' @export
 as_igraph.phylo = function(x) {
@@ -29,8 +30,8 @@ as_phylo = function(x) {
 # Tips must have younger IDs
 phylo_edge = function(graph) {
   edgelist = graph$as_edgelist()
-  target = c(graph$sink, setdiff(graph$V, graph$sink))
-  edge = match(edgelist, target)
+  old_ids = c(graph$sink, setdiff(graph$V, graph$sink))
+  edge = match(edgelist, old_ids)
   class(edge) = "integer"
   dim(edge) = dim(edgelist)
   edge
