@@ -19,7 +19,11 @@ class IGraph {
 
     IGraph(int n, bool directed); // empty
     IGraph(const Rcpp::NumericVector& edges, int n, bool directed); // create
+    IGraph(int n, int mode, double center); // star
+    IGraph(const Rcpp::NumericVector& dim, int nei, bool directed, bool mutual, bool circular); // lattice
+    IGraph(int n, bool directed, bool mutual, bool circular); // ring
     IGraph(int n, int children, int mode); // tree
+    IGraph(int n, bool directed, bool loops); // full
     IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl); // induced_subgraph
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////

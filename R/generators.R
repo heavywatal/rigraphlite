@@ -1,6 +1,6 @@
-#' Shortcut to deterministic graph generators
+#' Create graph from R objects
 #'
-#' @seealso [graph_create()], [graph_from_edgelist()], [graph_from_data_frame()]
+#' @seealso [graph_create()]
 #' @param x A vector, matrix, or data.frame.
 #' @rdname as_igraph
 #' @export

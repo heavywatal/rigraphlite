@@ -83,11 +83,31 @@ IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed): IGraph::
   init_attr();
 }
 
+IGraph::IGraph(int n, int mode, double center): IGraph::IGraph() {
+  // double center to distinguish overloaded contructors (vs tree).
+  igraph_star(data_.get(), n, static_cast<igraph_star_mode_t>(mode), static_cast<int>(center));
+  init_attr();
+}
+
+IGraph::IGraph(const Rcpp::NumericVector& dim, int nei, bool directed, bool mutual, bool circular): IGraph::IGraph() {
+  igraph_lattice(data_.get(), ISelectorInPlace(dim).data(), nei, directed, mutual, circular);
+  init_attr();
+}
+
+IGraph::IGraph(int n, bool directed, bool mutual, bool circular): IGraph::IGraph() {
+  igraph_ring(data_.get(), n, directed, mutual, circular);
+  init_attr();
+}
+
 IGraph::IGraph(int n, int children, int mode): IGraph::IGraph() {
   igraph_tree(data_.get(), n, children, static_cast<igraph_tree_mode_t>(mode));
   init_attr();
 }
 
+IGraph::IGraph(int n, bool directed, bool loops): IGraph::IGraph() {
+  igraph_full(data_.get(), n, directed, loops);
+  init_attr();
+}
 
 long IGraph::vcount() const {
   return igraph_vcount(data_.get());

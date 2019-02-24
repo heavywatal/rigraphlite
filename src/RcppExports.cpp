@@ -55,6 +55,48 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// graph_star
+IGraph graph_star(int n, int mode, int center);
+RcppExport SEXP _igraphlite_graph_star(SEXP nSEXP, SEXP modeSEXP, SEXP centerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
+    Rcpp::traits::input_parameter< int >::type center(centerSEXP);
+    rcpp_result_gen = Rcpp::wrap(graph_star(n, mode, center));
+    return rcpp_result_gen;
+END_RCPP
+}
+// graph_lattice
+IGraph graph_lattice(const Rcpp::NumericVector& dim, int nei, bool directed, bool mutual, bool circular);
+RcppExport SEXP _igraphlite_graph_lattice(SEXP dimSEXP, SEXP neiSEXP, SEXP directedSEXP, SEXP mutualSEXP, SEXP circularSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type dim(dimSEXP);
+    Rcpp::traits::input_parameter< int >::type nei(neiSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    Rcpp::traits::input_parameter< bool >::type mutual(mutualSEXP);
+    Rcpp::traits::input_parameter< bool >::type circular(circularSEXP);
+    rcpp_result_gen = Rcpp::wrap(graph_lattice(dim, nei, directed, mutual, circular));
+    return rcpp_result_gen;
+END_RCPP
+}
+// graph_ring
+IGraph graph_ring(int n, bool directed, bool mutual, bool circular);
+RcppExport SEXP _igraphlite_graph_ring(SEXP nSEXP, SEXP directedSEXP, SEXP mutualSEXP, SEXP circularSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    Rcpp::traits::input_parameter< bool >::type mutual(mutualSEXP);
+    Rcpp::traits::input_parameter< bool >::type circular(circularSEXP);
+    rcpp_result_gen = Rcpp::wrap(graph_ring(n, directed, mutual, circular));
+    return rcpp_result_gen;
+END_RCPP
+}
 // graph_tree
 IGraph graph_tree(int n, int children, int mode);
 RcppExport SEXP _igraphlite_graph_tree(SEXP nSEXP, SEXP childrenSEXP, SEXP modeSEXP) {
@@ -65,6 +107,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type children(childrenSEXP);
     Rcpp::traits::input_parameter< int >::type mode(modeSEXP);
     rcpp_result_gen = Rcpp::wrap(graph_tree(n, children, mode));
+    return rcpp_result_gen;
+END_RCPP
+}
+// graph_full
+IGraph graph_full(int n, bool directed, bool mutual);
+RcppExport SEXP _igraphlite_graph_full(SEXP nSEXP, SEXP directedSEXP, SEXP mutualSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
+    Rcpp::traits::input_parameter< bool >::type mutual(mutualSEXP);
+    rcpp_result_gen = Rcpp::wrap(graph_full(n, directed, mutual));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -113,7 +168,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_from_symbolic_edgelist", (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist, 2},
     {"_igraphlite_graph_from_edgelist", (DL_FUNC) &_igraphlite_graph_from_edgelist, 2},
     {"_igraphlite_graph_create", (DL_FUNC) &_igraphlite_graph_create, 3},
+    {"_igraphlite_graph_star", (DL_FUNC) &_igraphlite_graph_star, 3},
+    {"_igraphlite_graph_lattice", (DL_FUNC) &_igraphlite_graph_lattice, 5},
+    {"_igraphlite_graph_ring", (DL_FUNC) &_igraphlite_graph_ring, 4},
     {"_igraphlite_graph_tree", (DL_FUNC) &_igraphlite_graph_tree, 3},
+    {"_igraphlite_graph_full", (DL_FUNC) &_igraphlite_graph_full, 3},
     {"_igraphlite_igraph_version", (DL_FUNC) &_igraphlite_igraph_version, 0},
     {"_igraphlite_path_length_count_within", (DL_FUNC) &_igraphlite_path_length_count_within, 3},
     {"_igraphlite_path_length_count_between", (DL_FUNC) &_igraphlite_path_length_count_between, 4},

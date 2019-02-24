@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shortcut to deterministic graph generators — as_igraph • igraphlite</title>
+<title>Create graph from R objects — graph_from_data_frame • igraphlite</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Shortcut to deterministic graph generators — as_igraph" />
+<meta property="og:title" content="Create graph from R objects — graph_from_data_frame" />
 
-<meta property="og:description" content="Shortcut to deterministic graph generators" />
+<meta property="og:description" content="Create graph from R objects" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -99,18 +99,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shortcut to deterministic graph generators</h1>
-    <small class="dont-index">Source: <a href='https://github.com/heavywatal/rigraphlite/blob/master/R/generators.R'><code>R/generators.R</code></a></small>
+    <h1>Create graph from R objects</h1>
+    <small class="dont-index">Source: <a href='https://github.com/heavywatal/rigraphlite/blob/master/R/RcppExports.R'><code>R/RcppExports.R</code></a>, <a href='https://github.com/heavywatal/rigraphlite/blob/master/R/generators.R'><code>R/generators.R</code></a></small>
     <div class="hidden name"><code>as_igraph.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Shortcut to deterministic graph generators</p>
+    <p>Create graph from R objects</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>as_igraph</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>graph_from_data_frame</span>(<span class='no'>df</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>graph_from_symbolic_edgelist</span>(<span class='no'>edgelist</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>graph_from_edgelist</span>(<span class='no'>edgelist</span>, <span class='kw'>directed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>as_igraph</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>as_igraph</span>(<span class='no'>x</span>)
@@ -125,6 +131,18 @@
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>df</th>
+      <td><p>data.frame that includes an edgelist and edge attributes.</p></td>
+    </tr>
+    <tr>
+      <th>directed</th>
+      <td><p>Boolean</p></td>
+    </tr>
+    <tr>
+      <th>edgelist</th>
+      <td><p>Two-column matrix.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>A vector, matrix, or data.frame.</p></td>
     </tr>
@@ -132,7 +150,7 @@
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='generators.html'>graph_create()</a></code>, <code><a href='generators.html'>graph_from_edgelist()</a></code>, <code><a href='generators.html'>graph_from_data_frame()</a></code></p></div>
+    <div class='dont-index'><p><code><a href='generators.html'>graph_create()</a></code></p></div>
     
 
   </div>
