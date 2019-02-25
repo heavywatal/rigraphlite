@@ -3,3 +3,4 @@
 *.so
 *.dll
 /Makevars
+/igraph

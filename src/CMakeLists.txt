@@ -21,26 +21,30 @@ if(igraph)
   message(STATUS "Using preinstalled igraph: ${igraph}")
 else()
   find_package(Git)
-  get_filename_component(IGRAPH_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/../igraph" ABSOLUTE)
-  if(EXISTS "${IGRAPH_SOURCE}")
+  get_filename_component(PACKAGE_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
+  if(EXISTS "${PACKAGE_ROOT_DIR}/.git")
     # source repo
+    set(IGRAPH_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/igraph")
+  else()
+    # bundled package
+    set(IGRAPH_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/igraph")
+  endif()
+  if(EXISTS "${IGRAPH_SOURCE}")
     execute_process(COMMAND
-      ${GIT_EXECUTABLE} submodule update --init --recursive
+      ${GIT_EXECUTABLE} pull --ff-only
       WORKING_DIRECTORY "${IGRAPH_SOURCE}"
     )
   else()
-    # bundled package
-    set(IGRAPH_GIT "https://github.com/heavywatal/igraph.git")
-    set(IGRAPH_SOURCE "${CMAKE_CURRENT_BINARY_DIR}/igraph")
+    set(IGRAPH_REMOTE "https://github.com/heavywatal/igraph.git")
     execute_process(COMMAND
-      ${GIT_EXECUTABLE} clone --depth=1 --single-branch ${IGRAPH_GIT} ${IGRAPH_SOURCE}
+      ${GIT_EXECUTABLE} clone --depth=1 --single-branch ${IGRAPH_REMOTE} ${IGRAPH_SOURCE}
     )
   endif()
 endif()
 
 if(DEFINED IGRAPH_SOURCE)
   message(STATUS "IGRAPH_SOURCE: ${IGRAPH_SOURCE}")
-  if("${IGRAPH_SOURCE}/.git" IS_NEWER_THAN "${IGRAPH_SOURCE}/configure")
+  if("${IGRAPH_SOURCE}/.git/index" IS_NEWER_THAN "${IGRAPH_SOURCE}/configure")
     execute_process(COMMAND
       ./bootstrap.sh
       WORKING_DIRECTORY "${IGRAPH_SOURCE}"
