@@ -1,8 +1,10 @@
 language: R
 cache: packages
+r:
+- oldrel
+- release
+- devel
 warnings_are_errors: false
-git:
-  submodules: false
 addons:
   apt:
     sources:
