@@ -13,6 +13,7 @@ URL: https://heavywatal.github.io/rigraphlite/, https://github.com/heavywatal/ri
 BugReports: https://github.com/heavywatal/rigraphlite/issues
 Encoding: UTF-8
 LazyData: true
+StagedInstall: no
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 LinkingTo:
