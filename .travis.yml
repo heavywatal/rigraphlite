@@ -14,6 +14,9 @@ addons:
 env:
   global:
   - CXX=g++-8
+  - _R_CHECK_FORCE_SUGGESTS_=FALSE
+  - _R_CHECK_SYSTEM_CLOCK_=FALSE
+  - MAKEFLAGS="-j 2"
 before_script:
 - mkdir -p ~/.R
 - echo "CXX = $CXX" > ~/.R/Makevars
