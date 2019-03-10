@@ -26,17 +26,11 @@ else
     IGRAPH_REMOTE="https://github.com/heavywatal/igraph.git"
     git clone --depth=1 --single-branch $IGRAPH_REMOTE $IGRAPH_SOURCE
   fi
-  if [ "${IGRAPH_SOURCE}/.git/index" -nt "${IGRAPH_SOURCE}/configure" ]; then
-    cd $IGRAPH_SOURCE
-    ./bootstrap.sh
-    cd ..
-  fi
-  if [ "${IGRAPH_SOURCE}/configure" -nt "${IGRAPH_SOURCE}/Makefile" ]; then
-    cd $IGRAPH_SOURCE
-    ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack
-    cd ..
-  fi
-  make -j2 -C $IGRAPH_SOURCE install-exec
+  cd $IGRAPH_SOURCE
+  ./bootstrap.sh
+  ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack
+  make -j2 install-exec
+  cd ..
 fi
 
 cat <<EOS >src/Makevars
