@@ -1,5 +1,10 @@
 #!/bin/sh
-which cmake
+if ! cmake --version; then
+  echo 'Please install CMake to build this package.'
+  echo 'The easiest way is to use Homebrew: `brew install cmake`'
+  echo 'Otherwise, use an installer available at https://cmake.org/download/'
+  exit 1
+fi
 echo "CXX: ${CXX:=$(${R_HOME}/bin/R CMD config CXX)}"
 echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
 BUILD_DIR=${R_SESSION_TMPDIR}/../igraphlite
