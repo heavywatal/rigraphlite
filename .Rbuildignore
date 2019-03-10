@@ -3,4 +3,4 @@
 ^docs$
 ^codecov\.yml$
 ^\.travis\.yml$
-^igraph$
+^src/igraph$

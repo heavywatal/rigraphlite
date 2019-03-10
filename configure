@@ -1,14 +1,46 @@
 #!/bin/sh
-if ! cmake --version; then
-  echo 'Please install CMake to build this package.'
-  echo 'The easiest way is to use Homebrew: `brew install cmake`'
-  echo 'Otherwise, use an installer available at https://cmake.org/download/'
-  exit 1
-fi
 echo "CXX: ${CXX:=$(${R_HOME}/bin/R CMD config CXX)}"
 echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
-BUILD_DIR=${R_SESSION_TMPDIR}/../igraphlite
-echo "BUILD_DIR: $BUILD_DIR"
-rm -r ${BUILD_DIR}/CMake*
-cmake -Hsrc -B$BUILD_DIR -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_INSTALL_PREFIX=$R_PACKAGE_DIR
-cmake --build $BUILD_DIR -- -j2
+echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX:=${R_PACKAGE_DIR}}"
+PKG_CPPFLAGS="-DSTRICT_R_HEADERS -I${IGRAPH_INSTALL_PREFIX}/include"
+LIBDIR="${IGRAPH_INSTALL_PREFIX}/lib"
+LDFLAGS="-L${LIBDIR} -Wl,-rpath,${LIBDIR}"
+LDLIBS="-ligraph"
+PKG_LIBS="$LDFLAGS $LDLIBS"
+
+if [ -e "${IGRAPH_INSTALL_PREFIX}/include/igraph/igraph.h" ]; then
+  echo "Using preinstalled igraph: ${IGRAPH_INSTALL_PREFIX}"
+else
+  if [ -e ".git" ]; then
+    # source repo
+    IGRAPH_SOURCE="src/igraph"
+  else
+    # bundled package
+    BUILD_DIR="${R_SESSION_TMPDIR}/../igraphlite"
+    IGRAPH_SOURCE="${BUILD_DIR}/igraph"
+  fi
+  echo "IGRAPH_SOURCE: ${IGRAPH_SOURCE}"
+  if [ -e "$IGRAPH_SOURCE" ]; then
+    git -C $IGRAPH_SOURCE pull --ff-only
+  else
+    IGRAPH_REMOTE="https://github.com/heavywatal/igraph.git"
+    git clone --depth=1 --single-branch $IGRAPH_REMOTE $IGRAPH_SOURCE
+  fi
+  if [ "${IGRAPH_SOURCE}/.git/index" -nt "${IGRAPH_SOURCE}/configure" ]; then
+    cd $IGRAPH_SOURCE
+    ./bootstrap.sh
+    cd ..
+  fi
+  if [ "${IGRAPH_SOURCE}/configure" -nt "${IGRAPH_SOURCE}/Makefile" ]; then
+    cd $IGRAPH_SOURCE
+    ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack
+    cd ..
+  fi
+  make -j2 -C $IGRAPH_SOURCE install-exec
+fi
+
+cat <<EOS >src/Makevars
+CXX_STD = CXX14
+PKG_CPPFLAGS = $PKG_CPPFLAGS
+PKG_LIBS = $PKG_LIBS
+EOS
