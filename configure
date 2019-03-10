@@ -29,7 +29,7 @@ else
   cd $IGRAPH_SOURCE
   ./bootstrap.sh
   ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack >/dev/null
-  make -j2 install-exec 2>/dev/null
+  make -j2 install 2>/dev/null
   cd $OLDPWD
 fi
 
