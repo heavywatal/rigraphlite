@@ -28,9 +28,9 @@ else
   fi
   cd $IGRAPH_SOURCE
   ./bootstrap.sh
-  ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack
-  make -j2 install-exec
-  cd ..
+  ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack >/dev/null
+  make -j2 install-exec 2>/dev/null
+  cd $OLDPWD
 fi
 
 cat <<EOS >src/Makevars
