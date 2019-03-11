@@ -46,6 +46,16 @@ get_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0
 
 #' @rdname shortest_paths
 #' @export
+get_all_shortest_paths = function(graph, from, to = numeric(0L), weights = numeric(0L), mode = 3L) {
+  if (isTRUE(weights)) {
+    stopifnot(utils::hasName(graph$Eattr, "weight"))
+    weights = graph$Eattr$weight
+  }
+  graph$get_all_shortest_paths(from, to, weights, mode)
+}
+
+#' @rdname shortest_paths
+#' @export
 average_path_length = function(graph, directed = FALSE) {
   graph$average_path_length(directed)
 }

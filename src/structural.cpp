@@ -37,10 +37,22 @@ namespace impl {
     igraph_integer_t from, igraph_vs_t&& to,
     const igraph_vector_t* weights, igraph_neimode_t mode) {
 
-    if (weights == nullptr) {
-      igraph_get_shortest_paths(graph, res, nullptr, from, std::move(to), mode, nullptr, nullptr);
-    } else {
+    if (weights) {
       igraph_get_shortest_paths_dijkstra(graph, res, nullptr, from, std::move(to), weights, mode, nullptr, nullptr);
+    } else {
+      igraph_get_shortest_paths(graph, res, nullptr, from, std::move(to), mode, nullptr, nullptr);
+    }
+  }
+
+  inline void get_all_shortest_paths(
+    const igraph_t* graph, igraph_vector_ptr_t* res,
+    igraph_integer_t from, igraph_vs_t&& to,
+    const igraph_vector_t* weights, igraph_neimode_t mode) {
+
+    if (weights) {
+      igraph_get_all_shortest_paths_dijkstra(graph, res, nullptr, from, std::move(to), weights, mode);
+    } else {
+      igraph_get_all_shortest_paths(graph, res, nullptr, from, std::move(to), mode);
     }
   }
 }
@@ -77,10 +89,27 @@ IGraph::get_shortest_paths(
   const long to_size = to.size();
   IVectorPtr<AsIndicesInPlace> res(to_size > 0 ? to_size : vcount());
   res.init_elements();
-  impl::get_shortest_paths(data_.get(), res.data(), --from,
-                           to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
-                           weights.size() ? IVectorView(weights).data() : nullptr,
-                           static_cast<igraph_neimode_t>(mode));
+  impl::get_shortest_paths(
+    data_.get(), res.data(), --from,
+    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    weights.size() ? IVectorView(weights).data() : nullptr,
+    static_cast<igraph_neimode_t>(mode));
+  return res.wrap();
+}
+
+Rcpp::List
+IGraph::get_all_shortest_paths(
+  int from, const Rcpp::NumericVector& to,
+  const Rcpp::NumericVector& weights, int mode) const {
+
+  const long to_size = to.size();
+  IVectorPtr<AsIndicesInPlace> res(to_size > 0 ? to_size : vcount());
+  res.init_elements();
+  impl::get_all_shortest_paths(
+    data_.get(), res.data(), --from,
+    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    weights.size() ? IVectorView(weights).data() : nullptr,
+    static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 

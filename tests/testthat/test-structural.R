@@ -30,6 +30,21 @@ test_that("get_shortest_paths works", {
   expect_is(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
+test_that("get_all_shortest_paths works", {
+  g = graph_tree(7L)
+  to = seq_len(3L)
+  expect_is(get_all_shortest_paths(g, 1L), "list")
+  expect_length(get_all_shortest_paths(g, 1L), g$vcount)
+  expect_length(get_all_shortest_paths(g, 1L, to), length(to))
+  expect_equal(get_all_shortest_paths(g, 1L, to), list(1, c(1, 2), c(1, 3)))
+  expect_error(get_all_shortest_paths(g, c(1L, 2L), to),
+    "Expecting a single value")
+  expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
+  expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
+  g$Eattr["weight"] = g$E
+  expect_is(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
+})
+
 test_that("path_length_hist and average_path_length works", {
   mean_hist = function(x) sum(x * seq_along(x)) / sum(x)
   g = graph_tree(7L)
