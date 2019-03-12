@@ -17,8 +17,7 @@ are_connected = function(graph, from, to) {
 #' @rdname shortest_paths
 #' @export
 shortest_paths = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
-  algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
-
+                          algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
     stopifnot(utils::hasName(graph$Eattr, "weight"))
@@ -109,7 +108,7 @@ subcomponents = function(graph, vids, mode = 1L) {
 induced_subgraph = function(graph, vids, impl = 0L) {
   subg = IGraph$new(graph, vids, impl)
   eids = (graph$from %in% vids) & (graph$to %in% vids)
-  subg$Vattr = graph$Vattr[vids,]
-  subg$Eattr = graph$Eattr[eids,]
+  subg$Vattr = graph$Vattr[vids, ]
+  subg$Eattr = graph$Eattr[eids, ]
   subg
 }

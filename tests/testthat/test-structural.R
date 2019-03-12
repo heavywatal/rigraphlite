@@ -21,10 +21,14 @@ test_that("get_shortest_paths works", {
   expect_length(get_shortest_paths(g, 1L), g$vcount)
   expect_length(get_shortest_paths(g, 1L, to), length(to))
   expect_equal(get_shortest_paths(g, 1L, to), list(1, c(1, 2), c(1, 3)))
-  expect_error(get_shortest_paths(g, c(1L, 2L), to),
-    "Expecting a single value")
-  expect_warning(get_shortest_paths(g, 1L, mode = 2L),
-    "Couldn't reach some vertices")
+  expect_error(
+    get_shortest_paths(g, c(1L, 2L), to),
+    "Expecting a single value"
+  )
+  expect_warning(
+    get_shortest_paths(g, 1L, mode = 2L),
+    "Couldn't reach some vertices"
+  )
   expect_error(get_shortest_paths(g, 1L, weights = TRUE), "hasName")
   g$Eattr["weight"] = g$E
   expect_is(get_shortest_paths(g, 1L, weights = TRUE), "list")
@@ -37,8 +41,10 @@ test_that("get_all_shortest_paths works", {
   expect_length(get_all_shortest_paths(g, 1L), g$vcount)
   expect_length(get_all_shortest_paths(g, 1L, to), length(to))
   expect_equal(get_all_shortest_paths(g, 1L, to), list(1, c(1, 2), c(1, 3)))
-  expect_error(get_all_shortest_paths(g, c(1L, 2L), to),
-    "Expecting a single value")
+  expect_error(
+    get_all_shortest_paths(g, c(1L, 2L), to),
+    "Expecting a single value"
+  )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
   expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
   g$Eattr["weight"] = g$E
