@@ -2,11 +2,6 @@
 echo "CXX: ${CXX:=$(${R_HOME}/bin/R CMD config CXX)}"
 echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
 echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX:=${R_PACKAGE_DIR}}"
-PKG_CPPFLAGS="-DSTRICT_R_HEADERS -I${IGRAPH_INSTALL_PREFIX}/include"
-LIBDIR="${IGRAPH_INSTALL_PREFIX}/lib"
-LDFLAGS="-L${LIBDIR} -Wl,-rpath,${LIBDIR}"
-LDLIBS="-ligraph"
-PKG_LIBS="$LDFLAGS $LDLIBS"
 
 if [ -e "${IGRAPH_INSTALL_PREFIX}/include/igraph/igraph.h" ]; then
   echo "Using preinstalled igraph: ${IGRAPH_INSTALL_PREFIX}"
@@ -29,12 +24,17 @@ else
   cd $IGRAPH_SOURCE
   ./bootstrap.sh
   ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack >/dev/null
-  make -j2 install 2>/dev/null
+  make ${MAKEFLAGS:=-j2} install 2>/dev/null
   cd $OLDPWD
 fi
 
+CPPFLAGS="-DSTRICT_R_HEADERS -I${IGRAPH_INSTALL_PREFIX}/include"
+LIBDIR="${IGRAPH_INSTALL_PREFIX}/lib"
+LDFLAGS="-L${LIBDIR} -Wl,-rpath,${LIBDIR}"
+LDLIBS="-ligraph"
+
 cat <<EOS >src/Makevars
 CXX_STD = CXX14
-PKG_CPPFLAGS = $PKG_CPPFLAGS
-PKG_LIBS = $PKG_LIBS
+PKG_CPPFLAGS = $CPPFLAGS
+PKG_LIBS = $LDFLAGS $LDLIBS
 EOS
