@@ -29,7 +29,7 @@ reference:
   - induced_subgraph
 - title: Attributes of Graph, Vertices, and Edges
   contents:
-  - as_vids
+  - Vnames
 - title: Misc.
   desc: https://igraph.org/c/doc/igraph-Nongraph.html
   contents:

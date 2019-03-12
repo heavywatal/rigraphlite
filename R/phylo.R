@@ -16,7 +16,7 @@ as_igraph.phylo = function(x) {
 #' @rdname phylo
 #' @export
 as_phylo = function(x) {
-  labels = Vname(x)
+  labels = Vnames(x)
   is_sink = x$is_sink
   structure(list(
     edge = phylo_edge(x),
@@ -35,10 +35,6 @@ phylo_edge = function(graph) {
   class(edge) = "integer"
   dim(edge) = dim(edgelist)
   edge
-}
-
-Vname = function(graph) {
-  graph$Vattr[["name"]] %||% graph$V
 }
 
 phylo_edge_length = function(graph) {

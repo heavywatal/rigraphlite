@@ -24,7 +24,7 @@ as_tbl_tree = function(x) {
   res["branch.length"] = c(NA_real_, branch_length(x))
   res = res[order(res[["node"]]),]
   old_ids = c(x$sink, setdiff(x$V, x$sink))
-  res["label"] = Vname(x)[old_ids[res[["node"]]]]
+  res["label"] = Vnames(x)[old_ids[res[["node"]]]]
   row.names(res) = seq_len(nrow(res))
   class(res) = c("tbl_tree", "tbl_df", "tbl", "data.frame")
   res
