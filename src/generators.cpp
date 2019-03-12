@@ -5,6 +5,20 @@
 #include <igraph/igraph_constructors.h>
 
 namespace impl {
+  namespace traits {
+    template <int RTYPE> struct storage_type {
+      using type = SEXP;
+    };
+    template <> struct storage_type<INTSXP> {
+      using type = int;
+    };
+    template <> struct storage_type<REALSXP> {
+      using type = double;
+    };
+    template <> struct storage_type<STRSXP> {
+      using type = const char*;
+    };
+  }
 
   template <int RTYPE> inline
   Rcpp::Vector<RTYPE> flatten_edgelist(const Rcpp::Matrix<RTYPE>& edgelist) {
@@ -33,7 +47,7 @@ namespace impl {
   // temporary; for compatibility with rigraph
   template <int RTYPE> inline
   Rcpp::Vector<RTYPE> unique_stable(const Rcpp::Vector<RTYPE>& x) {
-    using T = typename Rcpp::Vector<RTYPE>::stored_type;
+    using T = typename traits::storage_type<RTYPE>::type;
     std::vector<T> res;
     res.reserve(x.size());
     std::unordered_set<T> set;
