@@ -1,5 +1,12 @@
 context("test-structural")
 
+test_that("are_connected works", {
+  g = graph_tree(7L)
+  expect_true(are_connected(g, 1L, 2L))
+  expect_true(are_connected(g, 1L, 3L))
+  expect_false(are_connected(g, 2L, 3L))
+})
+
 test_that("shortest_paths works", {
   g = graph_tree(7L)
   from = seq_len(3L)
