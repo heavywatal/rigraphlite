@@ -10,42 +10,57 @@
 #include <igraph/igraph_adjlist.h>
 
 struct InitSize {
+  using data_type = igraph_vector_t;
   using value_type = long;
-  static void init(igraph_vector_t* data, const value_type n) {
+  static void init(data_type* data, const value_type n) {
     igraph_vector_init(data, n);
   }
-  static void destroy(igraph_vector_t* data) {
+  static void destroy(data_type* data) {
     igraph_vector_destroy(data);
   }
 };
 
+struct InitSizeInt {
+  using data_type = igraph_vector_int_t;
+  using value_type = long;
+  static void init(igraph_vector_int_t* data, const value_type n) {
+    igraph_vector_int_init(data, n);
+  }
+  static void destroy(igraph_vector_int_t* data) {
+    igraph_vector_int_destroy(data);
+  }
+};
+
 struct InitView {
+  using data_type = igraph_vector_t;
   using value_type = Rcpp::NumericVector;
-  static void init(igraph_vector_t* data, const value_type& x) {
+  static void init(data_type* data, const value_type& x) {
     igraph_vector_view(data, &(x[0]), x.size());
   }
-  static void destroy(igraph_vector_t*) {}
+  static void destroy(data_type*) {}
 };
 
 struct InitIndices {
+  using data_type = igraph_vector_t;
   using value_type = Rcpp::NumericVector;
-  static void init(igraph_vector_t* data, const value_type& x) {
+  static void init(data_type* data, const value_type& x) {
     igraph_vector_init_copy(data, &(x[0]), x.size());
     igraph_vector_add_constant(data, -1.0);
   }
-  static void destroy(igraph_vector_t* data) {
+  static void destroy(data_type* data) {
     igraph_vector_destroy(data);
   }
 };
 
 struct InitIndicesInPlace {
+  using data_type = igraph_vector_t;
   using value_type = Rcpp::NumericVector;
-  static void init(igraph_vector_t* data, const value_type& x) {
+  static void init(data_type* data, const value_type& x) {
     // x is const, but its data is modified
     igraph_vector_view(data, &(x[0]), x.size());
     igraph_vector_add_constant(data, -1.0);
   }
-  static void destroy(igraph_vector_t* data) {
+  static void destroy(data_type* data) {
     igraph_vector_add_constant(data, 1.0);
   }
 };
@@ -83,6 +98,7 @@ struct AsIndicesInPlace {
 
 template <class WrapPolicy, class StoragePolicy = InitSize>
 class IVector {
+    using data_type = typename StoragePolicy::data_type;
   public:
     explicit IVector(const typename StoragePolicy::value_type& x) {
       StoragePolicy::init(data_.get(), x);
@@ -100,12 +116,12 @@ class IVector {
     long size() const {
       return igraph_vector_size(data_.get());
     }
-    Rcpp::NumericVector wrap() {// non-const for AsIndicesInPlace
+    auto wrap() {// non-const for AsIndicesInPlace
       return WrapPolicy::wrap(data_.get());
     }
-    igraph_vector_t* data() {return data_.get();}
+    data_type* data() {return data_.get();}
   private:
-    std::unique_ptr<igraph_vector_t> data_ = std::make_unique<igraph_vector_t>();
+    std::unique_ptr<data_type> data_ = std::make_unique<data_type>();
 };
 
 using IVectorView = IVector<AsValues, InitView>;
