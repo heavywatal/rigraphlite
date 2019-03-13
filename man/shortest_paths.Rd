@@ -4,6 +4,7 @@
 \alias{shortest_paths}
 \alias{get_shortest_paths}
 \alias{get_all_shortest_paths}
+\alias{get_all_simple_paths}
 \alias{average_path_length}
 \alias{path_length_hist}
 \title{Shortest Path Related Functions}
@@ -20,6 +21,8 @@ get_shortest_paths(graph, from, to = numeric(0L),
 
 get_all_shortest_paths(graph, from, to = numeric(0L),
   weights = numeric(0L), mode = 3L)
+
+get_all_simple_paths(graph, from, to = numeric(0L), mode = 3L)
 
 average_path_length(graph, directed = FALSE)
 

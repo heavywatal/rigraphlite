@@ -23,6 +23,7 @@ RCPP_MODULE(igraph) {
     .const_method("shortest_paths", &IGraph::shortest_paths)
     .const_method("get_shortest_paths", &IGraph::get_shortest_paths)
     .const_method("get_all_shortest_paths", &IGraph::get_all_shortest_paths)
+    .const_method("get_all_simple_paths", &IGraph::get_all_simple_paths)
     .const_method("average_path_length", &IGraph::average_path_length)
     .const_method("path_length_hist", &IGraph::path_length_hist)
     .const_method("neighborhood_size", &IGraph::neighborhood_size)

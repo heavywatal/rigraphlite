@@ -55,6 +55,12 @@ get_all_shortest_paths = function(graph, from, to = numeric(0L), weights = numer
 
 #' @rdname shortest_paths
 #' @export
+get_all_simple_paths = function(graph, from, to = numeric(0L), mode = 3L) {
+  graph$get_all_simple_paths(from, to, mode)
+}
+
+#' @rdname shortest_paths
+#' @export
 average_path_length = function(graph, directed = FALSE) {
   graph$average_path_length(directed)
 }
