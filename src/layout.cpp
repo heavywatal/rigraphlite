@@ -1,5 +1,5 @@
 #include "igraph.hpp"
-
+#include "vector.hpp"
 #include "matrix.hpp"
 
 #include <igraph/igraph_layout.h>
@@ -50,16 +50,18 @@ void IGraph::layout_mds() {
 
 void IGraph::layout_reingold_tilford(int mode) {
   IMatrix res(vcount(), 2);
+  auto root = Rcpp::as<Rcpp::NumericVector>(source());
   igraph_layout_reingold_tilford(
     data_.get(), res.data(),
-    static_cast<igraph_neimode_t>(mode), nullptr, nullptr);
+    static_cast<igraph_neimode_t>(mode), ISelectorInPlace(root).data(), nullptr);
   mutate_Vattr_layout(res.wrap());
 }
 
 void IGraph::layout_reingold_tilford_circular(int mode) {
   IMatrix res(vcount(), 2);
+  auto root = Rcpp::as<Rcpp::NumericVector>(source());
   igraph_layout_reingold_tilford_circular(
     data_.get(), res.data(),
-    static_cast<igraph_neimode_t>(mode), nullptr, nullptr);
+    static_cast<igraph_neimode_t>(mode), ISelectorInPlace(root).data(), nullptr);
   mutate_Vattr_layout(res.wrap());
 }
