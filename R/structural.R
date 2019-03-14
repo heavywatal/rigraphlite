@@ -56,7 +56,9 @@ get_all_shortest_paths = function(graph, from, to = numeric(0L), weights = numer
 #' @rdname shortest_paths
 #' @export
 get_all_simple_paths = function(graph, from, to = numeric(0L), mode = 3L) {
-  graph$get_all_simple_paths(from, to, mode)
+  res = graph$get_all_simple_paths(from, to, mode)
+  pos = which(res %in% 0L)
+  split_at(res[-pos], pos - seq_along(pos))
 }
 
 #' @rdname shortest_paths

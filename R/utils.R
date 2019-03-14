@@ -16,4 +16,8 @@ common_params = function(graph, vids, v, from, to, mode, weights, directed) {
   invisible(NULL)
 }
 
+split_at = function(x, pos) {
+  unname(split(x, findInterval(seq_along(x), pos + 1L)))
+}
+
 "%||%" = function(a, b) if (is.null(a)) b else a

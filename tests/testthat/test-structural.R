@@ -59,10 +59,8 @@ test_that("get_all_shortest_paths works", {
 })
 
 test_that("get_all_simple_paths works", {
-  g = graph_tree(7L)
-  to = seq_len(3L)
-  expect_type(get_all_simple_paths(g, 1L), "integer")
-  #TODO: split a result vector to a list
+  g = graph_create(c(1, 2, 2, 3, 1, 3))
+  expect_equal(get_all_simple_paths(g, 1L, 3L), list(c(1, 2, 3), c(1, 3)))
 })
 
 test_that("path_length_hist and average_path_length works", {
