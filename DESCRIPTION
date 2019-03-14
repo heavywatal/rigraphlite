@@ -19,9 +19,11 @@ RoxygenNote: 6.1.1
 LinkingTo:
     Rcpp
 Imports:
+    generics,
     methods,
     Rcpp
 Suggests:
     ape,
     covr,
+    ggplot2,
     testthat

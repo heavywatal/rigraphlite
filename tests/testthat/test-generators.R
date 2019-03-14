@@ -18,7 +18,7 @@ test_that("generator functions work", {
   expect_error(graph_create(seq_len(n - 1L)))
 })
 
-test_that("S3/S4 methods work", {
+test_that("as_/is_ functions work", {
   n = 8L
   edges = seq_len(n)
   el = matrix(as.numeric(edges), ncol = 2L)
@@ -29,8 +29,4 @@ test_that("S3/S4 methods work", {
   expect_true(is_igraph(as_igraph(el)))
   expect_true(is_igraph(as_igraph(symel)))
   expect_true(is_igraph(as_igraph(df)))
-  g = as_igraph(df)
-  expect_output(show(g))
-  expect_s3_class(as.data.frame(g), c("tbl_df", "tbl", "data.frame"))
-  expect_is(as.matrix(g), "matrix")
 })
