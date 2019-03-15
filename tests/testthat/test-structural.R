@@ -107,9 +107,11 @@ test_that("subcomponent works", {
 })
 
 test_that("induced_subgraph works", {
-  g = graph_tree(7L)
-  vids = seq_len(3L)
-  subg = induced_subgraph(g, vids)
+  el = matrix(seq_len(8L), ncol = 2L)
+  g = graph_from_symbolic_edgelist(el)
+  g$Eattr$name = as.character(g$E)
+  vids = seq_len(4L)
+  expect_warning({subg = induced_subgraph(g, vids)})
   expect_s4_class(subg, "Rcpp_IGraph")
   expect_length(subg$V, length(vids))
   expect_equal(nrow(subg$Vattr), subg$vcount)
