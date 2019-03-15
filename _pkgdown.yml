@@ -29,7 +29,16 @@ reference:
   - induced_subgraph
 - title: Attributes of Graph, Vertices, and Edges
   contents:
+  - vertex_attr
   - Vnames
+- title: Generating Layouts for Graph Drawing
+  desc: https://igraph.org/c/doc/igraph-Layout.html
+  contents:
+  - layout_nicely
+- title: Random numbers
+  desc: https://igraph.org/c/doc/igraph-Random.html
+  contents:
+  - rng_seed
 - title: Misc.
   desc: https://igraph.org/c/doc/igraph-Nongraph.html
   contents:
