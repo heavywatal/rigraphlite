@@ -133,6 +133,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rng_seed
+void rng_seed(long seed);
+RcppExport SEXP _igraphlite_rng_seed(SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< long >::type seed(seedSEXP);
+    rng_seed(seed);
+    return R_NilValue;
+END_RCPP
+}
 // path_length_count_within
 Rcpp::IntegerVector path_length_count_within(const IGraph& graph, const Rcpp::NumericVector& vids, bool directed);
 RcppExport SEXP _igraphlite_path_length_count_within(SEXP graphSEXP, SEXP vidsSEXP, SEXP directedSEXP) {
@@ -174,6 +184,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_tree", (DL_FUNC) &_igraphlite_graph_tree, 3},
     {"_igraphlite_graph_full", (DL_FUNC) &_igraphlite_graph_full, 3},
     {"_igraphlite_igraph_version", (DL_FUNC) &_igraphlite_igraph_version, 0},
+    {"_igraphlite_rng_seed", (DL_FUNC) &_igraphlite_rng_seed, 1},
     {"_igraphlite_path_length_count_within", (DL_FUNC) &_igraphlite_path_length_count_within, 3},
     {"_igraphlite_path_length_count_between", (DL_FUNC) &_igraphlite_path_length_count_between, 4},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},

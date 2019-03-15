@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 
 #include <igraph/igraph_error.h>
+#include <igraph/igraph_random.h>
 #include <igraph/igraph_version.h>
 
 //' Check and return igraph version.h
@@ -32,4 +33,15 @@ void igraphlite_init(DllInfo *dll) {
   igraph_version();
   igraph_set_error_handler(&error_handler);
   igraph_set_warning_handler(&warning_handler);
+}
+
+//' Random numbers
+//'
+//' @source <https://igraph.org/c/doc/igraph-Random.html>
+//' @param seed An integer.
+//' @rdname random
+//' @export
+// [[Rcpp::export]]
+void rng_seed(long seed) {
+  igraph_rng_seed(igraph_rng_default(), static_cast<unsigned long>(seed));
 }

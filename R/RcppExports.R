@@ -83,6 +83,16 @@ igraph_version <- function() {
     .Call(`_igraphlite_igraph_version`)
 }
 
+#' Random numbers
+#'
+#' @source <https://igraph.org/c/doc/igraph-Random.html>
+#' @param seed An integer.
+#' @rdname random
+#' @export
+rng_seed <- function(seed) {
+    invisible(.Call(`_igraphlite_rng_seed`, seed))
+}
+
 path_length_count_within <- function(graph, vids, directed) {
     .Call(`_igraphlite_path_length_count_within`, graph, vids, directed)
 }
