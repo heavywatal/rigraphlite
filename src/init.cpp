@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 
 #include <igraph/igraph_error.h>
+#include <igraph/igraph_interrupt.h>
 #include <igraph/igraph_random.h>
 #include <igraph/igraph_version.h>
 
@@ -28,11 +29,17 @@ void warning_handler(const char* reason, const char* file, int line, int) {
   Rcpp::warning("%s:%d: %s", file, line, reason);
 }
 
+int interruption_handler(void*) {
+  Rcpp::checkUserInterrupt();
+  return IGRAPH_SUCCESS;
+}
+
 // [[Rcpp::init]]
 void igraphlite_init(DllInfo *dll) {
   igraph_version();
   igraph_set_error_handler(&error_handler);
   igraph_set_warning_handler(&warning_handler);
+  igraph_set_interruption_handler(&interruption_handler);
 }
 
 //' Random numbers
