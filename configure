@@ -28,13 +28,12 @@ else
   cd $OLDPWD
 fi
 
-CPPFLAGS="-DSTRICT_R_HEADERS -I${IGRAPH_INSTALL_PREFIX}/include"
+CPPFLAGS="-I${IGRAPH_INSTALL_PREFIX}/include"
 LIBDIR="${IGRAPH_INSTALL_PREFIX}/lib"
 LDFLAGS="-L${LIBDIR} -Wl,-rpath,${LIBDIR}"
 LDLIBS="-ligraph"
 
-cat <<EOS >src/Makevars
-CXX_STD = CXX14
-PKG_CPPFLAGS = $CPPFLAGS
-PKG_LIBS = $LDFLAGS $LDLIBS
-EOS
+cat src/Makevars.in | \
+  sed 's|@CPPFLAGS@|'"${CPPFLAGS}"'|' | \
+  sed 's|@LDFLAGS@|'"${LDFLAGS}"'|' | \
+  sed 's|@LDLIBS@|'"${LDLIBS}"'|' > src/Makevars
