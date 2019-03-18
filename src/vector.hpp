@@ -31,6 +31,18 @@ struct InitSizeInt {
   }
 };
 
+struct InitValue {
+  using data_type = igraph_vector_t;
+  using value_type = double;
+  static void init(data_type* data, value_type x) {
+    igraph_vector_init(data, 1);
+    igraph_vector_set(data, 0, x);
+  }
+  static void destroy(data_type* data) {
+    igraph_vector_destroy(data);
+  }
+};
+
 struct InitView {
   using data_type = igraph_vector_t;
   using value_type = Rcpp::NumericVector;
@@ -64,7 +76,6 @@ struct InitIndicesInPlace {
     igraph_vector_add_constant(data, 1.0);
   }
 };
-
 
 struct AsValues {
   static Rcpp::NumericVector wrap(const igraph_vector_t* x) {
