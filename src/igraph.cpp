@@ -31,6 +31,8 @@ RCPP_MODULE(igraph) {
     .const_method("subcomponent", &IGraph::subcomponent)
     .const_method("subcomponents", &IGraph::subcomponents)
 
+    .const_method("mean_distances", &IGraph::mean_distances)
+
     // Layout
     .method("layout_random", &IGraph::layout_random)
     .method("layout_drl", &IGraph::layout_drl)

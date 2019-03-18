@@ -64,6 +64,10 @@ class IGraph {
     Rcpp::NumericVector subcomponent(double v, int mode) const;
     Rcpp::List subcomponents(const Rcpp::NumericVector& vids, int mode) const;
 
+    Rcpp::NumericVector mean_distances(
+      const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
+      const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
+
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Layout
 

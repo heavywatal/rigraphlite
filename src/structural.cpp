@@ -81,6 +81,35 @@ IGraph::shortest_paths(
   return res.wrap();
 }
 
+// experimental
+Rcpp::NumericVector
+IGraph::mean_distances(
+  const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
+  const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
+
+  const long from_size = from.size();
+  const long to_size = to.size();
+  const long nrow = from_size > 0 ? from_size : vcount();
+  const long ncol = to_size > 0 ? to_size : vcount();
+  const ISelector from_selector(from);
+  const igraph_vs_t from_vss(from_size > 0 ? from_selector.vss() : igraph_vss_all());
+  const Rcpp::NumericVector to_copied = to_size > 0 ? to : Rcpp::as<Rcpp::NumericVector>(Rcpp::IntegerVector(V()));
+  const igraph_vector_t* cweights = weights.size() ? IVectorView(weights).data() : nullptr;
+  IMatrix res(nrow, 1);
+  double total = 0.0;
+  for (const double to_i: to_copied) {
+    impl::shortest_paths(data_.get(), res.data(),
+                         from_vss,
+                         IVector<AsIndices, InitValue>(to_i - 1.0).vss(),
+                         cweights,
+                         static_cast<igraph_neimode_t>(mode), algorithm);
+    total += igraph_vector_sum(&res.data()->data);
+    //TODO: count 0 and IGRAPH_INFINITY to exclude from n
+  }
+  auto n = nrow * ncol;
+  return Rcpp::NumericVector(1, total / n);
+}
+
 Rcpp::List
 IGraph::get_shortest_paths(
   int from, const Rcpp::NumericVector& to,

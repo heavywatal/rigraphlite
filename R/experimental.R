@@ -1,5 +1,28 @@
 # nocov start
 
+mean_distances = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
+                          algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
+  algorithm = match.arg(algorithm)
+  if (isTRUE(weights)) {
+    stopifnot(utils::hasName(graph$Eattr, "weight"))
+    weights = graph$Eattr$weight
+  }
+  if (algorithm == "auto") {
+    if (length(weights)) {
+      algorithm = "dijkstra"
+    } else {
+      algorithm = "unweighted"
+    }
+  }
+  graph$mean_distances(from, to, weights, mode, algorithm)
+}
+
+mean_distances_mat = function(graph, from = graph$V, to = from) {
+  d = shortest_paths(graph, from = from, to = to, algorithm = "unweighted")
+  n = length(from) * length(to) - sum(from %in% to)
+  sum(d) / n
+}
+
 upstream_vertices = function(graph, vids) {
   vlist = neighborhood(graph, vids, order = 2147483647L, mode = 2L)
   unique(unlist(vlist, use.names = FALSE))
