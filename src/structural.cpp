@@ -97,17 +97,22 @@ IGraph::mean_distances(
   const igraph_vector_t* cweights = weights.size() ? IVectorView(weights).data() : nullptr;
   IMatrix res(nrow, 1);
   double total = 0.0;
+  long num_paths = 0;
   for (const double to_i: to_copied) {
     impl::shortest_paths(data_.get(), res.data(),
                          from_vss,
                          IVector<AsIndices, InitValue>(to_i - 1.0).vss(),
                          cweights,
                          static_cast<igraph_neimode_t>(mode), algorithm);
-    total += igraph_vector_sum(&res.data()->data);
-    //TODO: count 0 and IGRAPH_INFINITY to exclude from n
+    const auto& v = res.data()->data;
+    for (auto p = v.stor_begin; p < v.end; ++p) {
+      if ((*p != 0) && (*p != IGRAPH_INFINITY)) {
+        total += *p;
+        ++num_paths;
+      }
+    }
   }
-  auto n = nrow * ncol;
-  return Rcpp::NumericVector(1, total / n);
+  return Rcpp::NumericVector(1, total / num_paths);
 }
 
 Rcpp::List
