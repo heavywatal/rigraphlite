@@ -90,19 +90,16 @@ IGraph::mean_distances(
   const long from_size = from.size();
   const long to_size = to.size();
   const long nrow = from_size > 0 ? from_size : vcount();
-  const long ncol = to_size > 0 ? to_size : vcount();
   const ISelector from_selector(from);
   const igraph_vs_t from_vss(from_size > 0 ? from_selector.vss() : igraph_vss_all());
-  const Rcpp::NumericVector to_copied = to_size > 0 ? to : Rcpp::as<Rcpp::NumericVector>(Rcpp::IntegerVector(V()));
+  const Rcpp::IntegerVector cto = (to_size > 0 ? Rcpp::as<Rcpp::IntegerVector>(to) : V()) - 1;
   const igraph_vector_t* cweights = weights.size() ? IVectorView(weights).data() : nullptr;
   IMatrix res(nrow, 1);
   double total = 0.0;
   long num_paths = 0;
-  for (const double to_i: to_copied) {
+  for (const int to_i: cto) {
     impl::shortest_paths(data_.get(), res.data(),
-                         from_vss,
-                         IVector<AsIndices, InitValue>(to_i - 1.0).vss(),
-                         cweights,
+                         from_vss, igraph_vss_1(to_i), cweights,
                          static_cast<igraph_neimode_t>(mode), algorithm);
     const auto& v = res.data()->data;
     for (auto p = v.stor_begin; p < v.end; ++p) {
