@@ -1,5 +1,4 @@
 n = 10000L
-n = 10L
 rigraph = igraph::make_tree(n)
 ligraph = igraphlite::graph_tree(n)
 
@@ -9,7 +8,7 @@ bench::mark(
   check = FALSE
 )
 
-df = ligraph$as_data_frame
+df = as.data.frame(ligraph)
 bench::mark(
   igraph::graph_from_data_frame(df),
   igraphlite::graph_from_data_frame(df),
@@ -18,7 +17,7 @@ bench::mark(
 
 bench::mark(
   igraph::as_data_frame(rigraph),
-  ligraph$as_data_frame,
+  as.data.frame(ligraph),
   check = FALSE
 )
 
@@ -34,30 +33,55 @@ bench::mark(
   check = FALSE
 )
 
-n = 10L
-ligraph = igraphlite::graph_tree(n)
 bench::mark(
-  # igraph::degree(rigraph),
-  ligraph$degree(numeric(0), mode = 3L, loop = TRUE),
-  degree(ligraph),
+  igraph::degree(rigraph),
   igraphlite::degree(ligraph),
-  degreep(ligraph),
-  degreer(ligraph),
-  ligraph$degreem()
+  degree(ligraph),
+  ligraph$degree(numeric(0), mode = 3L, loop = TRUE)
 )
 
-n = 1000L
+load_all()
+n = 1023L
 rigraph = igraph::make_tree(n)
 ligraph = igraphlite::graph_tree(n)
+plot(ligraph)
 bench::mark(
   igraph::distances(rigraph),
   igraphlite::shortest_paths(ligraph)
 )
 
-v = seq_len(n / 2)
+from = ligraph$sink %>% head(length(.) / 2L)
+to = ligraph$sink %>% tail(length(.) / 2L)
 bench::mark(
-  igraph::distances(rigraph, v, v),
-  igraphlite::shortest_paths(ligraph, v, v),
+  igraph::distances(rigraph, from, to),
+  igraphlite::shortest_paths(ligraph, from, to),
+  check = FALSE
+)
+
+bench::mark(
+  mean_distances(ligraph, from, to),
+  mean_distances_mat(ligraph, from, to),
+  mean_distances_vec(ligraph, from, to),
+  mean_distances_hist(ligraph, from, to),
+  mean_distances_avg(ligraph, from, to),
+  check = FALSE
+)
+
+bench::mark(
+  mean_distances(ligraph, ligraph$sink),
+  mean_distances_mat(ligraph, ligraph$sink),
+  mean_distances_vec(ligraph, ligraph$sink),
+  mean_distances_hist(ligraph, ligraph$sink),
+  mean_distances_avg(ligraph, ligraph$sink),
+  check = FALSE
+)
+
+bench::mark(
+  mean_distances(ligraph),
+  mean_distances_mat(ligraph),
+  mean_distances_vec(ligraph),
+  mean_distances_hist(ligraph),
+  mean_distances_avg(ligraph),
   check = FALSE
 )
 
