@@ -183,8 +183,8 @@ IGraph graph_from_edgelist(const Rcpp::NumericMatrix& edgelist, bool directed = 
 //' @param mutual Boolean
 //' @param circular Boolean
 //' @param mode Integer;
-//'   `igraph_star_mode_t` {1: OUT, 2: IN, 3: MUTUAL, 4: UNDIRECTED};
-//'   `igraph_tree_mode_t` {1: OUT, 2: IN, 3: UNDIRECTED};
+//'   - `igraph_star_mode_t` \\{0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\\}
+//'   - `igraph_tree_mode_t` \\{0: OUT, 1: IN, 2: UNDIRECTED\\}
 //' @seealso [as_igraph()], [graph_from_data_frame()]
 //' @source <https://igraph.org/c/doc/igraph-Generators.html>
 //' @rdname generators

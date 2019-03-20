@@ -33,8 +33,10 @@ graph_full(n, directed = FALSE, mutual = FALSE)
 \item{directed}{Boolean}
 
 \item{mode}{Integer;
-\code{igraph_star_mode_t} {1: OUT, 2: IN, 3: MUTUAL, 4: UNDIRECTED};
-\code{igraph_tree_mode_t} {1: OUT, 2: IN, 3: UNDIRECTED};}
+\itemize{
+\item \code{igraph_star_mode_t} \{0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\}
+\item \code{igraph_tree_mode_t} \{0: OUT, 1: IN, 2: UNDIRECTED\}
+}}
 
 \item{center}{Id of the vertex which will be the center of the graph.}
 
