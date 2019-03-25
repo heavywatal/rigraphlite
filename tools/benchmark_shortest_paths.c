@@ -42,6 +42,15 @@ int main() {
   clock_gettime(CLOCK_REALTIME, &ts);
   printf("%ld.%ld\n", ts.tv_sec, ts.tv_nsec);
 
+  printf("igraph_shortest_paths [1 x %d] x %d\n", sink_size, sink_size);
+  igraph_matrix_t res1row;
+  igraph_matrix_init(&res1row, 1, sink_size);
+  for (int i = sink_first; i < vcount; ++i) {
+    igraph_shortest_paths(&graph, &res1row, igraph_vss_1(i), to, IGRAPH_ALL);
+  }
+  clock_gettime(CLOCK_REALTIME, &ts);
+  printf("%ld.%ld\n", ts.tv_sec, ts.tv_nsec);
+
   igraph_matrix_destroy(&res);
   igraph_matrix_destroy(&res1col);
   igraph_destroy(&graph);
