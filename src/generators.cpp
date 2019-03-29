@@ -151,7 +151,7 @@ IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed = true) {
     case REALSXP: return impl::graph_from_data_frame<REALSXP>(df, directed);
     case STRSXP:  return impl::graph_from_data_frame<STRSXP>(df, directed);
     default:
-      throw std::range_error("Invalid type for vertex names");
+      Rcpp::stop("Invalid type for vertex names: %d", TYPEOF(df.at(0)));
   }
 }
 
@@ -164,7 +164,7 @@ IGraph graph_from_symbolic_edgelist(const Rcpp::RObject& edgelist, bool directed
     case REALSXP: return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<REALSXP>(edgelist), directed);
     case STRSXP:  return impl::graph_from_symbolic_edgelist(Rcpp::Matrix<STRSXP>(edgelist), directed);
     default:
-      throw std::range_error("Invalid type for vertex names");
+      Rcpp::stop("Invalid type for vertex names: %d", edgelist.sexp_type());
   }
 }
 
