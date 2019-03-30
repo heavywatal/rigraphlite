@@ -16,12 +16,14 @@ LazyData: true
 StagedInstall: no
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+Depends:
+    R (>= 3.4.0)
 LinkingTo:
     Rcpp
 Imports:
     generics,
     methods,
-    Rcpp
+    Rcpp (>= 1.0.1)
 Suggests:
     ape,
     covr,
