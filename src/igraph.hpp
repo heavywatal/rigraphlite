@@ -80,10 +80,11 @@ class IGraph {
     void layout_reingold_tilford_circular(int mode);
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
+    // Original methods
 
     Rcpp::List as_adjlist(int mode) const;
     Rcpp::List as_inclist(int mode) const;
-    Rcpp::NumericMatrix as_edgelist() const {return Rcpp::cbind(from(), to());}
+    Rcpp::NumericMatrix as_edgelist() const;
     Rcpp::DataFrame as_data_frame() const;
 
     Rcpp::LogicalVector is_sink() const;
