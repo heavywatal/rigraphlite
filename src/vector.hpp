@@ -7,7 +7,6 @@
 #include <igraph/igraph_vector.h>
 #include <igraph/igraph_vector_ptr.h>
 #include <igraph/igraph_iterators.h>
-#include <igraph/igraph_adjlist.h>
 
 struct InitSize {
   using data_type = igraph_vector_t;
@@ -179,68 +178,6 @@ class IVectorPtr {
     igraph_vector_ptr_t* data() {return data_.get();}
   private:
     std::unique_ptr<igraph_vector_ptr_t> data_ = std::make_unique<igraph_vector_ptr_t>();
-};
-
-template <class WrapPolicy>
-class IAdjList {
-  public:
-    IAdjList(const igraph_t* graph, int mode) {
-      igraph_adjlist_init(graph, data_.get(), static_cast<igraph_neimode_t>(mode));
-    }
-    IAdjList() = delete;
-    IAdjList(const IAdjList&) = delete;
-    IAdjList(IAdjList&&) = delete;
-    ~IAdjList() noexcept {
-      if (data_) igraph_adjlist_destroy(data_.get());
-    }
-    Rcpp::IntegerVector at(int pos) {
-      return WrapPolicy::wrap(&data_->adjs[pos]);
-    }
-    int size() const {
-      return data_->length;
-    }
-    Rcpp::List wrap() {
-      const int len = size();
-      Rcpp::List output(len);
-      for (int i = 0; i < len; ++i) {
-        output[i] = at(i);
-      }
-      return output;
-    }
-    igraph_adjlist_t* data() {return data_.get();}
-  private:
-    std::unique_ptr<igraph_adjlist_t> data_ = std::make_unique<igraph_adjlist_t>();
-};
-
-template <class WrapPolicy>
-class IIncList {
-  public:
-    IIncList(const igraph_t* graph, int mode) {
-      igraph_inclist_init(graph, data_.get(), static_cast<igraph_neimode_t>(mode));
-    }
-    IIncList() = delete;
-    IIncList(const IIncList&) = delete;
-    IIncList(IIncList&&) = delete;
-    ~IIncList() noexcept {
-      if (data_) igraph_inclist_destroy(data_.get());
-    }
-    Rcpp::IntegerVector at(int pos) {
-      return WrapPolicy::wrap(&data_->incs[pos]);
-    }
-    int size() const {
-      return data_->length;
-    }
-    Rcpp::List wrap() {
-      const int len = size();
-      Rcpp::List output(len);
-      for (int i = 0; i < len; ++i) {
-        output[i] = at(i);
-      }
-      return output;
-    }
-    igraph_inclist_t* data() {return data_.get();}
-  private:
-    std::unique_ptr<igraph_inclist_t> data_ = std::make_unique<igraph_inclist_t>();
 };
 
 #endif // IGRAPHLITE_VECTOR_HPP_

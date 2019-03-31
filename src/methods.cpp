@@ -1,5 +1,6 @@
 #include "igraph.hpp"
 #include "vector.hpp"
+#include "adjlist.hpp"
 #include "dataframe.hpp"
 
 Rcpp::List IGraph::as_adjlist(const int mode) const {
