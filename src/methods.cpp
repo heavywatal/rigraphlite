@@ -1,5 +1,4 @@
 #include "igraph.hpp"
-#include "vector.hpp"
 #include "adjlist.hpp"
 #include "dataframe.hpp"
 

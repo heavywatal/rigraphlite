@@ -6,6 +6,8 @@
 
 #include <igraph/igraph_adjlist.h>
 
+#include "policy.hpp"
+
 template <class WrapPolicy>
 class IAdjList {
   public:
