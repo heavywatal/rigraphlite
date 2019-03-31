@@ -123,6 +123,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// graph_famous
+IGraph graph_famous(const char* name);
+RcppExport SEXP _igraphlite_graph_famous(SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    rcpp_result_gen = Rcpp::wrap(graph_famous(name));
+    return rcpp_result_gen;
+END_RCPP
+}
 // igraph_version
 Rcpp::StringVector igraph_version();
 RcppExport SEXP _igraphlite_igraph_version() {
@@ -183,6 +194,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_ring", (DL_FUNC) &_igraphlite_graph_ring, 4},
     {"_igraphlite_graph_tree", (DL_FUNC) &_igraphlite_graph_tree, 3},
     {"_igraphlite_graph_full", (DL_FUNC) &_igraphlite_graph_full, 3},
+    {"_igraphlite_graph_famous", (DL_FUNC) &_igraphlite_graph_famous, 1},
     {"_igraphlite_igraph_version", (DL_FUNC) &_igraphlite_igraph_version, 0},
     {"_igraphlite_rng_seed", (DL_FUNC) &_igraphlite_rng_seed, 1},
     {"_igraphlite_path_length_count_within", (DL_FUNC) &_igraphlite_path_length_count_within, 3},

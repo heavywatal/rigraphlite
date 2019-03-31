@@ -7,6 +7,7 @@
 \alias{graph_ring}
 \alias{graph_tree}
 \alias{graph_full}
+\alias{graph_famous}
 \title{Deterministic Graph Generators}
 \source{
 \url{https://igraph.org/c/doc/igraph-Generators.html}
@@ -24,6 +25,8 @@ graph_ring(n, directed = FALSE, mutual = FALSE, circular = TRUE)
 graph_tree(n, children = 2L, mode = 0L)
 
 graph_full(n, directed = FALSE, mutual = FALSE)
+
+graph_famous(name)
 }
 \arguments{
 \item{edges}{The edges to add, the first two elements are the first edge, etc.}

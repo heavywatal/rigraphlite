@@ -139,6 +139,11 @@ IGraph::IGraph(int n, bool directed, bool loops): IGraph::IGraph() {
   init_attr();
 }
 
+IGraph::IGraph(const char* name): IGraph::IGraph() {
+  igraph_famous(data_.get(), name);
+  init_attr();
+}
+
 //' @param df data.frame that includes an edgelist and edge attributes.
 //' @param edgelist Two-column matrix.
 //' @param directed Boolean
@@ -231,4 +236,11 @@ IGraph graph_tree(int n, int children = 2, int mode = 0) {
 // [[Rcpp::export]]
 IGraph graph_full(int n, bool directed = false, bool mutual = false) {
   return IGraph(n, directed, mutual);
+}
+
+//' @rdname generators
+//' @export
+// [[Rcpp::export]]
+IGraph graph_famous(const char* name) {
+  return IGraph(name);
 }

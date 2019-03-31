@@ -74,6 +74,12 @@ graph_full <- function(n, directed = FALSE, mutual = FALSE) {
     .Call(`_igraphlite_graph_full`, n, directed, mutual)
 }
 
+#' @rdname generators
+#' @export
+graph_famous <- function(name) {
+    .Call(`_igraphlite_graph_famous`, name)
+}
+
 #' Check and return igraph version.h
 #'
 #' @source <https://igraph.org/c/doc/igraph-Nongraph.html>
