@@ -2,8 +2,7 @@
 
 RCPP_MODULE(igraph) {
   Rcpp::class_<IGraph>("IGraph")
-    .constructor<int, bool>() // igraph_empty()
-    .constructor<const IGraph&, Rcpp::NumericVector, int>()
+    .constructor<const IGraph&, Rcpp::NumericVector, int>() // induced_subgraph
 
     // Basic interface
     .property("vcount", &IGraph::vcount)
@@ -41,6 +40,7 @@ RCPP_MODULE(igraph) {
     .method("layout_reingold_tilford", &IGraph::layout_reingold_tilford)
     .method("layout_reingold_tilford_circular", &IGraph::layout_reingold_tilford_circular)
 
+    // Original methods
     .const_method("as_adjlist", &IGraph::as_adjlist)
     .const_method("as_inclist", &IGraph::as_inclist)
     .const_method("as_edgelist", &IGraph::as_edgelist)
