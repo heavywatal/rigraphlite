@@ -117,8 +117,6 @@ class IGraph {
     IGraph();
     void init_attr();
 
-    void mutate_Vattr_layout(const Rcpp::NumericMatrix&);
-
     std::unique_ptr<igraph_t> data_;
     Rcpp::DataFrame Vattr_;
     Rcpp::DataFrame Eattr_;

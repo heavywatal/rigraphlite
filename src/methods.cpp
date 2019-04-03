@@ -59,11 +59,6 @@ void IGraph::mutate_Eattr(const char* name, const Rcpp::RObject& value) {
   impl::mutate(Eattr_, name, value);
 }
 
-void IGraph::mutate_Vattr_layout(const Rcpp::NumericMatrix& mat) {
-  mutate_Vattr("x", Rcpp::NumericVector(mat.column(0)));
-  mutate_Vattr("y", Rcpp::NumericVector(mat.column(1)));
-}
-
 void IGraph::init_attr() {
   Vattr_.attr("class") = impl::tibble_class();
   Eattr_.attr("class") = impl::tibble_class();
