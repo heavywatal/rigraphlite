@@ -19,16 +19,21 @@ as.matrix.Rcpp_IGraph = function(x, ...) {
 #' @export
 generics::augment
 
+#' @param layout A function or resulting data.frame
 #' @export
-augment.Rcpp_IGraph = function(x, ...) {
-  if (!all(utils::hasName(x$Vattr, c("x", "y")))) {
+augment.Rcpp_IGraph = function(x, layout = NULL, ...) {
+  layout = if (is.null(layout)) {
     layout_nicely(x)
+  } else if (is.function(layout)) {
+    layout(x)
+  } else if (!is.data.frame(layout)) {
+    stop("Invalid type '", typeof(layout), "' for argument 'layout'")
   }
   root = x$source
   from = c(root, x$from)
   to = c(root, x$to)
-  df_from = stats::setNames(x$Vattr[from, c("x", "y")], c("xfrom", "yfrom"))
-  df_to = x$Vattr[to, c("x", "y")]
+  df_from = stats::setNames(layout[from, c("x", "y")], c("xfrom", "yfrom"))
+  df_to = layout[to, c("x", "y")]
   df = cbind(from = as_vnames(x, from), to = as_vnames(x, to), df_to, df_from)
   class(df) = c("tbl_df", "tbl", "data.frame")
   df
