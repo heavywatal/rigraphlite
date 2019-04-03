@@ -19,14 +19,19 @@ as.matrix.Rcpp_IGraph = function(x, ...) {
 #' @export
 generics::augment
 
-#' @param layout A function or resulting data.frame
+#' @param layout A function or resulting data.frame.
+#'   If not provided, [layout_nicely] is applied.
 #' @export
 augment.Rcpp_IGraph = function(x, layout = NULL, ...) {
-  layout = if (is.null(layout)) {
-    layout_nicely(x)
+  if (is.null(layout)) {
+    layout = layout_nicely(x)
   } else if (is.function(layout)) {
-    layout(x)
-  } else if (!is.data.frame(layout)) {
+    layout = layout(x)
+  }
+  if (is.data.frame(layout)) {
+    stopifnot(all(utils::hasName(layout, c("x", "y"))))
+    stopifnot(nrow(layout) == x$vcount)
+  } else {
     stop("Invalid type '", typeof(layout), "' for argument 'layout'")
   }
   root = x$source
