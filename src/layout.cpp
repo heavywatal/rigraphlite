@@ -1,14 +1,17 @@
 #include "igraph.hpp"
 #include "vector.hpp"
 #include "matrix.hpp"
+#include "dataframe.hpp"
 
 #include <igraph/igraph_layout.h>
 
 inline Rcpp::DataFrame as_named_data_frame(const Rcpp::NumericMatrix& mat) {
-  return Rcpp::DataFrame::create(
+  auto df = Rcpp::DataFrame::create(
     Rcpp::_["x"] = Rcpp::NumericVector(mat.column(0)),
     Rcpp::_["y"] = Rcpp::NumericVector(mat.column(1))
   );
+  df.attr("class") = impl::tibble_class();
+  return df;
 }
 
 Rcpp::DataFrame IGraph::layout_random() const {
