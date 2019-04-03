@@ -238,6 +238,12 @@ IGraph graph_full(int n, bool directed = false, bool mutual = false) {
   return IGraph(n, directed, mutual);
 }
 
+//' @param name \\{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
+//'   Dodecahedron, Folkman, Franklin, Frucht, Grotzsch, Heawood, Herschel, House,
+//'   HouseX, Icosahedral, Icosahedron, Krackhardt_Kite, Levi, McGee, Meredith,
+//'   Noperfectmatching, Nonline, Octahedral, Octahedron, Petersen, Robertson,
+//'   Smallestcyclicgroup, Tetrahedral, Tetrahedron, Thomassen, Tutte,
+//'   Uniquely3colorable, Walther, Zachary\\}
 //' @rdname generators
 //' @export
 // [[Rcpp::export]]

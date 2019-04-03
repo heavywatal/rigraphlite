@@ -74,6 +74,12 @@ graph_full <- function(n, directed = FALSE, mutual = FALSE) {
     .Call(`_igraphlite_graph_full`, n, directed, mutual)
 }
 
+#' @param name \\{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
+#'   Dodecahedron, Folkman, Franklin, Frucht, Grotzsch, Heawood, Herschel, House,
+#'   HouseX, Icosahedral, Icosahedron, Krackhardt_Kite, Levi, McGee, Meredith,
+#'   Noperfectmatching, Nonline, Octahedral, Octahedron, Petersen, Robertson,
+#'   Smallestcyclicgroup, Tetrahedral, Tetrahedron, Thomassen, Tutte,
+#'   Uniquely3colorable, Walther, Zachary\\}
 #' @rdname generators
 #' @export
 graph_famous <- function(name) {
