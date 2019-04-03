@@ -72,12 +72,12 @@ class IGraph {
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Layout
 
-    void layout_random();
-    void layout_drl();
-    void layout_fruchterman_reingold(int grid);
-    void layout_mds();
-    void layout_reingold_tilford(int mode);
-    void layout_reingold_tilford_circular(int mode);
+    Rcpp::DataFrame layout_random() const;
+    Rcpp::DataFrame layout_drl() const;
+    Rcpp::DataFrame layout_fruchterman_reingold(int grid) const;
+    Rcpp::DataFrame layout_mds() const;
+    Rcpp::DataFrame layout_reingold_tilford(int mode) const;
+    Rcpp::DataFrame layout_reingold_tilford_circular(int mode) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Original methods

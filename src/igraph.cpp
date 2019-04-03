@@ -33,12 +33,12 @@ RCPP_MODULE(igraph) {
     .const_method("mean_distances", &IGraph::mean_distances)
 
     // Layout
-    .method("layout_random", &IGraph::layout_random)
-    .method("layout_drl", &IGraph::layout_drl)
-    .method("layout_fruchterman_reingold", &IGraph::layout_fruchterman_reingold)
-    .method("layout_mds", &IGraph::layout_mds)
-    .method("layout_reingold_tilford", &IGraph::layout_reingold_tilford)
-    .method("layout_reingold_tilford_circular", &IGraph::layout_reingold_tilford_circular)
+    .const_method("layout_random", &IGraph::layout_random)
+    .const_method("layout_drl", &IGraph::layout_drl)
+    .const_method("layout_fruchterman_reingold", &IGraph::layout_fruchterman_reingold)
+    .const_method("layout_mds", &IGraph::layout_mds)
+    .const_method("layout_reingold_tilford", &IGraph::layout_reingold_tilford)
+    .const_method("layout_reingold_tilford_circular", &IGraph::layout_reingold_tilford_circular)
 
     // Original methods
     .const_method("as_adjlist", &IGraph::as_adjlist)
