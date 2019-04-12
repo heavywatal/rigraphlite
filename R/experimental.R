@@ -1,3 +1,26 @@
+#' Experimental functions
+#'
+#' @inheritParams common_params
+
+#' @rdname experimental
+#' @export
+find_common_ancestors = function(graph, vids) {
+  vlist = neighborhood(graph, vids, order = 2147483647L, mode = 2L)
+  Reduce(intersect, vlist)
+}
+
+#' @param to_mrca Boolean.
+#' @rdname experimental
+#' @export
+upstream_vertices = function(graph, vids, to_mrca = TRUE) {
+  vlist = neighborhood(graph, vids, order = 2147483647L, mode = 2L)
+  vids = unique(unlist(vlist, use.names = FALSE))
+  if (to_mrca) {
+    vids = setdiff(vids, Reduce(intersect, vlist)[-1L])
+  }
+  vids
+}
+
 # nocov start
 
 mean_distances = function(graph, from = numeric(0L), to = from) {
@@ -57,11 +80,6 @@ mean_distances_avg = function(graph, from = NULL, to = from) {
   }
   # TODO: Exclude internal nodes
   graph$average_path_length(FALSE)
-}
-
-upstream_vertices = function(graph, vids) {
-  vlist = neighborhood(graph, vids, order = 2147483647L, mode = 2L)
-  unique(unlist(vlist, use.names = FALSE))
 }
 
 # nocov end

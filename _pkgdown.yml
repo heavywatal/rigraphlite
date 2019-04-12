@@ -44,6 +44,8 @@ reference:
   contents:
   - ends_with("version")
   - common_params
+  - find_common_ancestors
+  - upstream_vertices
 - title: Other Packages
   contents:
   - as_phylo
