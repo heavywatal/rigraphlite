@@ -58,20 +58,20 @@ Rcpp::DataFrame IGraph::layout_mds() const {
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode) const {
+Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode, const Rcpp::NumericVector& roots) const {
   IMatrix res(vcount(), 2);
-  auto root = Rcpp::as<Rcpp::NumericVector>(source());
   igraph_layout_reingold_tilford(
     data_.get(), res.data(),
-    static_cast<igraph_neimode_t>(mode), ISelectorInPlace(root).data(), nullptr);
+    static_cast<igraph_neimode_t>(mode),
+    roots.size() ? ISelectorInPlace(roots).data() : nullptr, nullptr);
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_reingold_tilford_circular(int mode) const {
+Rcpp::DataFrame IGraph::layout_reingold_tilford_circular(int mode, const Rcpp::NumericVector& roots) const {
   IMatrix res(vcount(), 2);
-  auto root = Rcpp::as<Rcpp::NumericVector>(source());
   igraph_layout_reingold_tilford_circular(
     data_.get(), res.data(),
-    static_cast<igraph_neimode_t>(mode), ISelectorInPlace(root).data(), nullptr);
+    static_cast<igraph_neimode_t>(mode),
+    roots.size() ? ISelectorInPlace(roots).data() : nullptr, nullptr);
   return as_named_data_frame(res.wrap());
 }

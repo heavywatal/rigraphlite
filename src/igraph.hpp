@@ -76,8 +76,8 @@ class IGraph {
     Rcpp::DataFrame layout_drl() const;
     Rcpp::DataFrame layout_fruchterman_reingold(int grid) const;
     Rcpp::DataFrame layout_mds() const;
-    Rcpp::DataFrame layout_reingold_tilford(int mode) const;
-    Rcpp::DataFrame layout_reingold_tilford_circular(int mode) const;
+    Rcpp::DataFrame layout_reingold_tilford(int mode, const Rcpp::NumericVector& roots) const;
+    Rcpp::DataFrame layout_reingold_tilford_circular(int mode, const Rcpp::NumericVector& roots) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Original methods

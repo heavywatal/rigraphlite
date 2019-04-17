@@ -23,9 +23,9 @@ layout_fruchterman_reingold(graph, grid = 2L)
 
 layout_mds(graph)
 
-layout_reingold_tilford(graph, mode = 1L)
+layout_reingold_tilford(graph, mode = 1L, roots = numeric(0))
 
-layout_reingold_tilford_circular(graph, mode = 1L)
+layout_reingold_tilford_circular(graph, mode = 1L, roots = numeric(0))
 }
 \arguments{
 \item{graph}{IGraph object.}
@@ -36,6 +36,8 @@ layout_reingold_tilford_circular(graph, mode = 1L)
 {0: GRID, 1: NOGRID, 2: AUTOGRID}.}
 
 \item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+
+\item{roots}{Root vertices.}
 }
 \description{
 Layouts for Graph Drawing

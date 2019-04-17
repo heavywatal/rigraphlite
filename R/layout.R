@@ -35,14 +35,15 @@ layout_mds = function(graph) {
   graph$layout_mds()
 }
 
+#' @param roots Root vertices.
 #' @rdname layout
 #' @export
-layout_reingold_tilford = function(graph, mode = 1L) {
-  graph$layout_reingold_tilford(mode = mode)
+layout_reingold_tilford = function(graph, mode = 1L, roots = numeric(0)) {
+  graph$layout_reingold_tilford(mode, roots)
 }
 
 #' @rdname layout
 #' @export
-layout_reingold_tilford_circular = function(graph, mode = 1L) {
-  graph$layout_reingold_tilford_circular(mode = mode)
+layout_reingold_tilford_circular = function(graph, mode = 1L, roots = numeric(0)) {
+  graph$layout_reingold_tilford_circular(mode, roots)
 }
