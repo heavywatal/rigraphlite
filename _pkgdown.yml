@@ -35,6 +35,8 @@ reference:
   desc: https://igraph.org/c/doc/igraph-Layout.html
   contents:
   - layout_nicely
+  - starts_with("augment")
+  - starts_with("plot")
 - title: Random numbers
   desc: https://igraph.org/c/doc/igraph-Random.html
   contents:

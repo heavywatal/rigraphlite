@@ -19,14 +19,19 @@ as.matrix.Rcpp_IGraph = function(x, ...) {
 #' @export
 generics::augment
 
+#' Methods for quick visualization
+#'
+#' @param x Rcpp_Igraph object.
 #' @param layout A function or resulting data.frame.
 #'   If not provided, [layout_nicely] is applied.
+#' @param ... passed to [augment] or layout function.
+#' @rdname plot
 #' @export
 augment.Rcpp_IGraph = function(x, layout = NULL, ...) {
   if (is.null(layout)) {
-    layout = layout_nicely(x)
+    layout = layout_nicely(x, ...)
   } else if (is.function(layout)) {
-    layout = layout(x)
+    layout = layout(x, ...)
   }
   if (is.data.frame(layout)) {
     stopifnot(all(utils::hasName(layout, c("x", "y"))))
@@ -54,6 +59,9 @@ segment_df = function(from, to, x, y) {
   df
 }
 
+#' @param lwd passed to [ggplot2::geom_segment].
+#' @param cex,col,pch passed to [ggplot2::geom_point] and [ggplot2::geom_text].
+#' @rdname plot
 #' @export
 plot.Rcpp_IGraph = function(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16) {
   data = augment(x, ...)
