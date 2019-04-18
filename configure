@@ -22,6 +22,17 @@ else
     git clone --depth=1 --single-branch $IGRAPH_REMOTE $IGRAPH_SOURCE
   fi
   cd $IGRAPH_SOURCE
+  autoconf --version || brew install autoconf
+  automake --version || brew install automake
+  if ! autoconf --version >/dev/null || ! automake --version >/dev/null; then
+    echo 'Please install "autoconf" and "automake" to build this package.'
+    echo 'The easiest way is to use Homebrew (https://brew.sh/):'
+    echo '  brew install autoconf automake'
+    echo 'Otherwise, follow the official instruction:'
+    echo '  https://www.gnu.org/software/autoconf/'
+    echo '  https://www.gnu.org/software/automake/'
+    exit 1
+  fi
   ./bootstrap.sh
   ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack >/dev/null
   make ${MAKEFLAGS:=-j2} install 2>/dev/null

@@ -16,6 +16,7 @@ LazyData: true
 StagedInstall: no
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+SystemRequirements: igraph (optional), autoconf (build), automake (build)
 Depends:
     R (>= 3.4.0)
 LinkingTo:
