@@ -28,7 +28,8 @@ test_that("get_shortest_paths works", {
   expect_equal(get_shortest_paths(g, 1L, to), list(1, c(1, 2), c(1, 3)))
   expect_error(
     get_shortest_paths(g, c(1L, 2L), to),
-    "Expecting a single value"
+    "Expecting a single value",
+    class = "Rcpp::not_compatible"
   )
   expect_warning(
     get_shortest_paths(g, 1L, mode = 2L),
@@ -48,7 +49,8 @@ test_that("get_all_shortest_paths works", {
   expect_equal(get_all_shortest_paths(g, 1L, to), list(1, c(1, 2), c(1, 3)))
   expect_error(
     get_all_shortest_paths(g, c(1L, 2L), to),
-    "Expecting a single value"
+    "Expecting a single value",
+    class = "Rcpp::not_compatible"
   )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
   expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
