@@ -1,5 +1,3 @@
-context("test-attributes")
-
 test_that("attribute getters/setters work", {
   g = graph_tree(7L)
   expect_length({vertex_attr(g, "name") = g$V}, g$vcount)

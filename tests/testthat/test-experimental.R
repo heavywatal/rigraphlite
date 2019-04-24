@@ -1,5 +1,3 @@
-context("test-experimental")
-
 test_that("upstream_vertices works", {
   g = graph_tree(7L)
   g = graph_tree(15L)

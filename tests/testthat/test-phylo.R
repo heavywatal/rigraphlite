@@ -1,5 +1,3 @@
-context("test-phylo")
-
 test_that("phylo conversion works", {
   g = graph_tree(7L)
   expect_s3_class(as_phylo(g), "phylo")

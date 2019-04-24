@@ -1,5 +1,3 @@
-context("test-layout")
-
 test_that("layout functions return x-y columns", {
   g = graph_tree(7L)
   expect_named(layout_nicely(g), c("x", "y"))

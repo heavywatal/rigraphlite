@@ -1,5 +1,3 @@
-context("test-method")
-
 test_that("S3/S4 methods work", {
   g = graph_tree(7L)
   expect_output(show(g))

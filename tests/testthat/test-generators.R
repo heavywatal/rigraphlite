@@ -1,5 +1,3 @@
-context("test-generators")
-
 test_that("generator functions work", {
   n = 8L
   edges = seq_len(n)

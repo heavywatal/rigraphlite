@@ -1,5 +1,3 @@
-context("test-structural")
-
 test_that("are_connected works", {
   g = graph_tree(7L)
   expect_true(are_connected(g, 1L, 2L))

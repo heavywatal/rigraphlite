@@ -1,5 +1,3 @@
-context("test-basic")
-
 test_that("basic queries work", {
   g = graph_tree(7L)
   expect_equal(vcount(g), 7L)
