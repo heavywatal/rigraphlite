@@ -15,6 +15,6 @@ igraphlite is an Rcpp-powered R package interface to [igraph](https://igraph.org
 ## Installation
 
 ```r
-# install.packages("remotes")
-remotes::install_github("heavywatal/rigraphlite")
+# install.packages("devtools")
+devtools::install_github("heavywatal/rigraphlite")
 ```
