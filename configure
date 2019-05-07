@@ -1,5 +1,4 @@
 #!/bin/sh
-echo "CXX: ${CXX:=$(${R_HOME}/bin/R CMD config CXX)}"
 echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
 echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX:=${R_PACKAGE_DIR}}"
 
