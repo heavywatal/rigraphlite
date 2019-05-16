@@ -20,4 +20,4 @@ split_at = function(x, pos) {
   unname(split(x, findInterval(seq_along(x), pos + 1L)))
 }
 
-"%||%" = function(a, b) if (is.null(a)) b else a
+"%||%" = function(a, b) if (length(a)) a else b
