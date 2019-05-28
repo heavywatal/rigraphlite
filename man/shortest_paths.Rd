@@ -9,7 +9,7 @@
 \alias{path_length_hist}
 \title{Shortest Path Related Functions}
 \source{
-\url{https://igraph.org/c/doc/igraph-Structural.html#idm470927281168}
+\url{https://igraph.org/c/doc/igraph-Structural.html}
 }
 \usage{
 shortest_paths(graph, from = numeric(0L), to = from,

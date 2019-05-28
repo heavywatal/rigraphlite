@@ -6,7 +6,7 @@
 \alias{induced_subgraph}
 \title{Graph Components}
 \source{
-\url{https://igraph.org/c/doc/igraph-Structural.html#idm470926080896}
+\url{https://igraph.org/c/doc/igraph-Structural.html}
 }
 \usage{
 subcomponent(graph, vid, mode = 1L)

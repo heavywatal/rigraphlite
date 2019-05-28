@@ -1,6 +1,6 @@
 #' Basic Properties
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470927297936>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html>
 #' @inheritParams common_params
 #' @rdname connected
 #' @export
@@ -11,7 +11,7 @@ are_connected = function(graph, from, to) {
 
 #' Shortest Path Related Functions
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470927281168>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html>
 #' @param algorithm character
 #' @inheritParams common_params
 #' @rdname shortest_paths
@@ -76,7 +76,7 @@ path_length_hist = function(graph, directed = FALSE) {
 
 #' Neighborhood of vertices
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470926156912>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html>
 #' @param order integer
 #' @param mindist The minimum distance to include a vertex in the counting.
 #' @inheritParams common_params
@@ -95,7 +95,7 @@ neighborhood = function(graph, vids = numeric(0), order = 1L, mode = 1L, mindist
 
 #' Graph Components
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html#idm470926080896>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html>
 #' @inheritParams common_params
 #' @rdname component
 #' @export

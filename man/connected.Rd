@@ -4,7 +4,7 @@
 \alias{are_connected}
 \title{Basic Properties}
 \source{
-\url{https://igraph.org/c/doc/igraph-Structural.html#idm470927297936}
+\url{https://igraph.org/c/doc/igraph-Structural.html}
 }
 \usage{
 are_connected(graph, from, to)
