@@ -53,7 +53,8 @@ segment_df = function(from, to, x, y) {
     x = x[to],
     y = y[to],
     xend = x[from],
-    yend = y[from]
+    yend = y[from],
+    stringsAsFactors = FALSE
   )
   class(df) = c("tbl_df", "tbl", "data.frame")
   df
