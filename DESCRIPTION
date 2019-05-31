@@ -20,6 +20,7 @@ SystemRequirements:
     C++14,
     autoconf (build),
     automake (build),
+    libtool (build),
     igraph (optional)
 Depends:
     R (>= 3.5.0)
