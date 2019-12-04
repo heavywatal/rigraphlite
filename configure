@@ -1,26 +1,12 @@
 #!/bin/sh
+echo "PWD: $PWD"
 echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
 echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX:=${R_PACKAGE_DIR}}"
-
-if [ -e "${IGRAPH_INSTALL_PREFIX}/include/igraph/igraph.h" ]; then
-  echo "Using preinstalled igraph: ${IGRAPH_INSTALL_PREFIX}"
+IGRAPH_VERSION_H="${IGRAPH_INSTALL_PREFIX}/include/igraph/igraph_version.h"
+if [ -e "$IGRAPH_VERSION_H" ]; then
+  echo "Using preinstalled C igraph in $IGRAPH_INSTALL_PREFIX"
+  grep "IGRAPH_VERSION " $IGRAPH_VERSION_H
 else
-  if [ -e ".git" ]; then
-    # source repo
-    IGRAPH_SOURCE="src/igraph"
-  else
-    # bundled package
-    BUILD_DIR="${R_SESSION_TMPDIR}/../igraphlite"
-    IGRAPH_SOURCE="${BUILD_DIR}/igraph"
-  fi
-  echo "IGRAPH_SOURCE: ${IGRAPH_SOURCE}"
-  if [ -e "$IGRAPH_SOURCE" ]; then
-    git -C $IGRAPH_SOURCE pull --ff-only
-  else
-    IGRAPH_REMOTE="https://github.com/heavywatal/igraph.git"
-    git clone --depth=1 --single-branch $IGRAPH_REMOTE $IGRAPH_SOURCE
-  fi
-  cd $IGRAPH_SOURCE
   autoconf --version || brew install autoconf
   automake --version || brew install automake
   libtoolize  --version || glibtoolize  --version || brew install libtool
@@ -34,8 +20,17 @@ else
     echo '  https://www.gnu.org/software/libtool/'
     exit 1
   fi
+  echo "IGRAPH_SOURCE: ${IGRAPH_SOURCE:=${R_SESSION_TMPDIR}/../${R_PACKAGE_NAME}/igraph}"
+  if [ -e "$IGRAPH_SOURCE" ]; then
+    git -C $IGRAPH_SOURCE pull --ff-only
+  else
+    IGRAPH_REMOTE="https://github.com/heavywatal/igraph.git"
+    git clone --depth=1 --single-branch $IGRAPH_REMOTE $IGRAPH_SOURCE
+  fi
+  cd $IGRAPH_SOURCE
   ./bootstrap.sh
-  ./configure --prefix=$IGRAPH_INSTALL_PREFIX --disable-static --with-external-blas --with-external-lapack >/dev/null
+  CONFIG_OPTIONS="--disable-static --with-external-blas --with-external-lapack"
+  ./configure --prefix=$IGRAPH_INSTALL_PREFIX $CONFIG_OPTIONS >/dev/null
   make ${MAKEFLAGS:=-j2} install 2>/dev/null
   cd $OLDPWD
 fi
