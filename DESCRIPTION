@@ -27,9 +27,9 @@ Depends:
 LinkingTo:
     Rcpp
 Imports:
-    generics,
+    generics (>= 0.0.2),
     methods,
-    Rcpp (>= 1.0.1)
+    Rcpp (>= 1.0.3)
 Suggests:
     ape,
     covr,
