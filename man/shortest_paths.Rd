@@ -37,7 +37,7 @@ get_all_shortest_paths(
   mode = 3L
 )
 
-get_all_simple_paths(graph, from, to = numeric(0L), mode = 3L)
+get_all_simple_paths(graph, from, to = numeric(0L), cutoff = -1L, mode = 3L)
 
 average_path_length(graph, directed = FALSE)
 
@@ -55,6 +55,8 @@ path_length_hist(graph, directed = FALSE)
 \item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
 
 \item{algorithm}{character}
+
+\item{cutoff}{integer}
 
 \item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
 }

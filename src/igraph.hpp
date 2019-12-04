@@ -57,7 +57,7 @@ class IGraph {
       int from, const Rcpp::NumericVector& to,
       const Rcpp::NumericVector& weights, int mode) const;
     Rcpp::IntegerVector get_all_simple_paths(
-      int from, const Rcpp::NumericVector& to, int mode) const;
+      int from, const Rcpp::NumericVector& to, int cutoff, int mode) const;
     double average_path_length(bool directed) const;
     Rcpp::NumericVector path_length_hist(bool directed) const;
     Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;

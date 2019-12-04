@@ -53,10 +53,11 @@ get_all_shortest_paths = function(graph, from, to = numeric(0L), weights = numer
   graph$get_all_shortest_paths(from, to, weights, mode)
 }
 
+#' @param cutoff integer
 #' @rdname shortest_paths
 #' @export
-get_all_simple_paths = function(graph, from, to = numeric(0L), mode = 3L) {
-  res = graph$get_all_simple_paths(from, to, mode)
+get_all_simple_paths = function(graph, from, to = numeric(0L), cutoff = -1L, mode = 3L) {
+  res = graph$get_all_simple_paths(from, to, cutoff, mode)
   pos = which(res %in% 0L)
   split_at(res[-pos], pos - seq_along(pos))
 }

@@ -145,13 +145,14 @@ IGraph::get_all_shortest_paths(
 
 Rcpp::IntegerVector
 IGraph::get_all_simple_paths(
-  int from, const Rcpp::NumericVector& to, int mode) const {
+  int from, const Rcpp::NumericVector& to, int cutoff, int mode) const {
 
   const long to_size = to.size();
   IVector<AsIndicesInPlace, InitSizeInt> res(to_size > 0 ? to_size : vcount());
   igraph_get_all_simple_paths(
     data_.get(), res.data(), --from,
     to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    cutoff,
     static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
