@@ -7,8 +7,7 @@
 \usage{
 \method{augment}{Rcpp_IGraph}(x, layout = NULL, ...)
 
-\method{plot}{Rcpp_IGraph}(x, ..., lwd = 0.5, cex = 5,
-  col = "#cccccc", pch = 16)
+\method{plot}{Rcpp_IGraph}(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16)
 }
 \arguments{
 \item{x}{Rcpp_Igraph object.}

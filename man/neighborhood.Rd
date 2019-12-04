@@ -8,11 +8,15 @@
 \url{https://igraph.org/c/doc/igraph-Structural.html}
 }
 \usage{
-neighborhood_size(graph, vids = numeric(0), order = 1L, mode = 1L,
-  mindist = 0L)
+neighborhood_size(
+  graph,
+  vids = numeric(0),
+  order = 1L,
+  mode = 1L,
+  mindist = 0L
+)
 
-neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L,
-  mindist = 0L)
+neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L, mindist = 0L)
 }
 \arguments{
 \item{graph}{IGraph object.}

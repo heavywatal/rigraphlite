@@ -21,7 +21,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Watal M. Iwasaki \email{heavy.watal@gmail.com} (0000-0002-4718-7605)
+\strong{Maintainer}: Watal M. Iwasaki \email{heavy.watal@gmail.com} (\href{https://orcid.org/0000-0002-4718-7605}{ORCID})
 
 }
 \keyword{internal}

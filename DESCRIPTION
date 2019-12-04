@@ -15,7 +15,7 @@ Encoding: UTF-8
 LazyData: true
 StagedInstall: no
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1
 SystemRequirements:
     C++14,
     autoconf (build),

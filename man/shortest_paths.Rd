@@ -12,15 +12,30 @@
 \url{https://igraph.org/c/doc/igraph-Structural.html}
 }
 \usage{
-shortest_paths(graph, from = numeric(0L), to = from,
-  weights = numeric(0L), mode = 3L, algorithm = c("auto",
-  "unweighted", "dijkstra", "bellman-ford", "johnson"))
+shortest_paths(
+  graph,
+  from = numeric(0L),
+  to = from,
+  weights = numeric(0L),
+  mode = 3L,
+  algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")
+)
 
-get_shortest_paths(graph, from, to = numeric(0L),
-  weights = numeric(0L), mode = 3L)
+get_shortest_paths(
+  graph,
+  from,
+  to = numeric(0L),
+  weights = numeric(0L),
+  mode = 3L
+)
 
-get_all_shortest_paths(graph, from, to = numeric(0L),
-  weights = numeric(0L), mode = 3L)
+get_all_shortest_paths(
+  graph,
+  from,
+  to = numeric(0L),
+  weights = numeric(0L),
+  mode = 3L
+)
 
 get_all_simple_paths(graph, from, to = numeric(0L), mode = 3L)
 
