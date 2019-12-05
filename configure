@@ -40,7 +40,12 @@ LIBDIR="${IGRAPH_INSTALL_PREFIX}/lib"
 LDFLAGS="-L${LIBDIR} -Wl,-rpath,${LIBDIR}"
 LDLIBS="-ligraph"
 
-cat src/Makevars.in | \
-  sed 's|@CPPFLAGS@|'"${CPPFLAGS}"'|' | \
-  sed 's|@LDFLAGS@|'"${LDFLAGS}"'|' | \
-  sed 's|@LDLIBS@|'"${LDLIBS}"'|' > src/Makevars
+sed "
+s|@CPPFLAGS@|$CPPFLAGS|
+s|@LDFLAGS@|$LDFLAGS|
+s|@LDLIBS@|$LDLIBS|
+" src/Makevars.in > ${R_SESSION_TMPDIR}/Makevars
+
+cmp ${R_SESSION_TMPDIR}/Makevars src/Makevars 2>/dev/null ||\
+ mv ${R_SESSION_TMPDIR}/Makevars src/Makevars
+cat src/Makevars
