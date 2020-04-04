@@ -4,7 +4,9 @@
 \name{IGraph}
 \alias{IGraph}
 \title{IGraph class: thin wrapper of \code{igraph_t}.}
-\format{Reference Class (RC) exposed by Rcpp Modules.}
+\format{
+Reference Class (RC) exposed by Rcpp Modules.
+}
 \source{
 \url{https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h}
 }
