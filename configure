@@ -7,28 +7,18 @@ if [ -e "$IGRAPH_VERSION_H" ]; then
   echo "Using preinstalled C igraph in $IGRAPH_INSTALL_PREFIX"
   grep "IGRAPH_VERSION " $IGRAPH_VERSION_H
 else
-  autoconf --version || brew install autoconf
-  automake --version || brew install automake
-  libtoolize  --version || glibtoolize  --version || brew install libtool
-  if ! autoconf --version >/dev/null || ! automake --version >/dev/null; then
-    echo 'Please install "autoconf", "automake", and "libtool" to build this package.'
-    echo 'The easiest way is to use Homebrew (https://brew.sh/):'
-    echo '  brew install autoconf automake libtool'
-    echo 'Otherwise, follow the official instruction:'
-    echo '  https://www.gnu.org/software/autoconf/'
-    echo '  https://www.gnu.org/software/automake/'
-    echo '  https://www.gnu.org/software/libtool/'
-    exit 1
-  fi
-  echo "IGRAPH_SOURCE: ${IGRAPH_SOURCE:=${R_SESSION_TMPDIR}/../${R_PACKAGE_NAME}/igraph}"
-  if [ -e "$IGRAPH_SOURCE" ]; then
-    git -C $IGRAPH_SOURCE pull --ff-only
+  if [ -n "$IGRAPH_SOURCE" ]; then
+    echo "Using C igraph source in $IGRAPH_SOURCE"
   else
-    IGRAPH_REMOTE="https://github.com/heavywatal/igraph.git"
-    git clone --depth=1 --single-branch $IGRAPH_REMOTE $IGRAPH_SOURCE
+    WORKDIR="${R_SESSION_TMPDIR}/../${R_PACKAGE_NAME}"
+    IGRAPH_VERSION="0.8.1"
+    IGRAPH_SOURCE="${WORKDIR}/igraph-${IGRAPH_VERSION}"
+    URL= "https://github.com/igraph/igraph/releases/download/${IGRAPH_VERSION}/igraph-${IGRAPH_VERSION}.tar.gz"
+    [ -e "${IGRAPH_SOURCE}.tar.gz" ] || curl -L --create-dirs -o ${IGRAPH_SOURCE}.tar.gz $URL
+    tar xzf ${IGRAPH_SOURCE}.tar.gz -C $WORKDIR
   fi
-  cd $IGRAPH_SOURCE
-  ./bootstrap.sh
+  cd $IGRAPH_SOURCE || exit 1
+  [ -e configure ] || ./bootstrap.sh
   CONFIG_OPTIONS="--disable-static --with-external-blas --with-external-lapack"
   ./configure --prefix=$IGRAPH_INSTALL_PREFIX $CONFIG_OPTIONS >/dev/null
   make ${MAKEFLAGS:=-j2} install 2>/dev/null

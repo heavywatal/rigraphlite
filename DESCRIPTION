@@ -17,10 +17,7 @@ StagedInstall: no
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 SystemRequirements:
-    C++14,
-    autoconf (build),
-    automake (build),
-    libtool (build)
+    C++14
 Depends:
     R (>= 3.5.0)
 LinkingTo:

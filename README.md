@@ -11,11 +11,12 @@ igraphlite is an Rcpp-powered R package interface to [igraph](https://igraph.org
 
 - Unix-like environment (macOS, Linux, WSL, MinGW on MSYS2, etc.)
 - C++14 compiler (clang++ >= Apple LLVM 8.1, g++ >= 5.3)
-- The following tools are required to build C igraph library:
+- Optionally the following tools are required when you build C igraph from [the latest source on GitHub](https://github.com/igraph/igraph):
 
     - [autoconf](https://www.gnu.org/software/autoconf/)
     - [automake](https://www.gnu.org/software/automake/)
     - [libtool](https://www.gnu.org/software/libtool/)
+    - bison, byacc, flex
 
   The easiest way is to use [Homebrew](https://brew.sh/):
   `brew install autoconf automake libtool`
