@@ -11,17 +11,20 @@ else
     echo "Using C igraph source in $IGRAPH_SOURCE"
   else
     WORKDIR="${R_SESSION_TMPDIR}/../${R_PACKAGE_NAME}"
+    REPO="https://github.com/igraph/igraph"
     IGRAPH_VERSION="0.8.1"
+    URL="${REPO}/releases/download/${IGRAPH_VERSION}/igraph-${IGRAPH_VERSION}.tar.gz"
     IGRAPH_SOURCE="${WORKDIR}/igraph-${IGRAPH_VERSION}"
-    URL= "https://github.com/igraph/igraph/releases/download/${IGRAPH_VERSION}/igraph-${IGRAPH_VERSION}.tar.gz"
-    [ -e "${IGRAPH_SOURCE}.tar.gz" ] || curl -L --create-dirs -o ${IGRAPH_SOURCE}.tar.gz $URL
-    tar xzf ${IGRAPH_SOURCE}.tar.gz -C $WORKDIR
+    IGRAPH_TAR="${IGRAPH_SOURCE}.tar.gz"
+    mkdir -p WORKDIR
+    [ -e "$IGRAPH_TAR" ] || Rscript --vanilla -e "download.file('${URL}', '${IGRAPH_TAR}')"
+    tar xzf $IGRAPH_TAR -C $WORKDIR
   fi
   cd $IGRAPH_SOURCE || exit 1
   [ -e configure ] || ./bootstrap.sh
   CONFIG_OPTIONS="--disable-static --with-external-blas --with-external-lapack"
-  ./configure --prefix=$IGRAPH_INSTALL_PREFIX $CONFIG_OPTIONS >/dev/null
-  make ${MAKEFLAGS:=-j2} install 2>/dev/null
+  ./configure --prefix=$IGRAPH_INSTALL_PREFIX $CONFIG_OPTIONS >/dev/null || exit 1
+  make ${MAKEFLAGS:=-j2} install 2>/dev/null || exit 1
   cd $OLDPWD
 fi
 
