@@ -14,7 +14,7 @@ else
     URL="${REPO}/releases/download/${IGRAPH_VERSION}/igraph-${IGRAPH_VERSION}.tar.gz"
     IGRAPH_SOURCE="${WORKDIR}/igraph-${IGRAPH_VERSION}"
     IGRAPH_TAR="${IGRAPH_SOURCE}.tar.gz"
-    mkdir -p WORKDIR
+    mkdir -p $WORKDIR
     [ -e "$IGRAPH_TAR" ] || Rscript --vanilla -e "download.file('${URL}', '${IGRAPH_TAR}')"
     tar xzf $IGRAPH_TAR -C $WORKDIR
   fi
