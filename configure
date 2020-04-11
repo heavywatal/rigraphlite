@@ -7,9 +7,7 @@ if [ -e "$IGRAPH_VERSION_H" ]; then
   echo "Using preinstalled C igraph in $IGRAPH_INSTALL_PREFIX"
   grep "IGRAPH_VERSION " $IGRAPH_VERSION_H
 else
-  if [ -n "$IGRAPH_SOURCE" ]; then
-    echo "Using C igraph source in $IGRAPH_SOURCE"
-  else
+  if [ -z "$IGRAPH_SOURCE" ]; then
     WORKDIR="${R_SESSION_TMPDIR}/../${R_PACKAGE_NAME}"
     REPO="https://github.com/igraph/igraph"
     IGRAPH_VERSION="0.8.1"
@@ -20,6 +18,7 @@ else
     [ -e "$IGRAPH_TAR" ] || Rscript --vanilla -e "download.file('${URL}', '${IGRAPH_TAR}')"
     tar xzf $IGRAPH_TAR -C $WORKDIR
   fi
+  echo "Building from C igraph source in $IGRAPH_SOURCE"
   cd $IGRAPH_SOURCE || exit 1
   [ -e configure ] || ./bootstrap.sh
   CONFIG_OPTIONS="--disable-static --with-external-blas --with-external-lapack"
