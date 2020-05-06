@@ -14,8 +14,12 @@ test_that("visualization methods work", {
   expect_error(augment(g, layout = data.frame(a = 0, b = 0)), "hasName")
   expect_error(augment(g, layout = data.frame(x = 0, y = 0)), "nrow")
   expect_error(augment(g, layout = "layout_reingold_tilford"), c("Invalid type"))
-  expect_silent({p = plot(g)})
+  expect_silent({
+    p = plot(g)
+  })
   expect_s3_class(p, c("gg", "ggplot"))
-  expect_silent({p = plot(g, layout = layout_reingold_tilford)})
+  expect_silent({
+    p = plot(g, layout = layout_reingold_tilford)
+  })
   expect_s3_class(p, c("gg", "ggplot"))
 })

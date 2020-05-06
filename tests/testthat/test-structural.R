@@ -111,7 +111,9 @@ test_that("induced_subgraph works", {
   g = graph_from_symbolic_edgelist(el)
   g$Eattr$name = as.character(g$E)
   vids = seq_len(4L)
-  expect_warning({subg = induced_subgraph(g, vids)})
+  expect_warning({
+    subg = induced_subgraph(g, vids)
+  })
   expect_s4_class(subg, "Rcpp_IGraph")
   expect_length(subg$V, length(vids))
   expect_equal(nrow(subg$Vattr), subg$vcount)
