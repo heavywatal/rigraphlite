@@ -1,23 +1,11 @@
 language: R
 cache: packages
 warnings_are_errors: false
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-8
 env:
   global:
-  - CXX=g++-8
   - _R_CHECK_FORCE_SUGGESTS_=FALSE
   - _R_CHECK_SYSTEM_CLOCK_=FALSE
   - MAKEFLAGS="-j 2"
-before_script:
-- mkdir -p ~/.R
-- echo "CXX = $CXX" > ~/.R/Makevars
-- echo "CXX14 = $CXX" >> ~/.R/Makevars
-- echo "CXX14FLAGS = $(R CMD config CXXFLAGS) -fPIC" >> ~/.R/Makevars
 matrix:
   include:
   - r: devel
