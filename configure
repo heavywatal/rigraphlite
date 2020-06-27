@@ -10,7 +10,7 @@ else
   if [ -z "$IGRAPH_SOURCE" ]; then
     WORKDIR="${R_SESSION_TMPDIR}/../${R_PACKAGE_NAME}"
     REPO="https://github.com/igraph/igraph"
-    IGRAPH_VERSION="0.8.1"
+    IGRAPH_VERSION="0.8.2"
     URL="${REPO}/releases/download/${IGRAPH_VERSION}/igraph-${IGRAPH_VERSION}.tar.gz"
     IGRAPH_SOURCE="${WORKDIR}/igraph-${IGRAPH_VERSION}"
     IGRAPH_TAR="${IGRAPH_SOURCE}.tar.gz"
