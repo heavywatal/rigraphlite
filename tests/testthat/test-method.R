@@ -7,7 +7,7 @@ test_that("S3/S4 methods work", {
 
 test_that("visualization methods work", {
   g = graph_tree(7L)
-  .colnames = c("from", "to", "x", "y", "xend", "yend", "label")
+  .colnames = c("from", "to", "x", "y", "xend", "yend")
   expect_named(augment(g), .colnames)
   expect_named(augment(g, layout = layout_reingold_tilford), .colnames)
   expect_named(augment(g, layout = layout_reingold_tilford(g)), .colnames)
