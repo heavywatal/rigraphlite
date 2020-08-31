@@ -1,4 +1,4 @@
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include <igraph/igraph_error.h>
 #include <igraph/igraph_interrupt.h>
@@ -10,27 +10,27 @@
 //' @source <https://igraph.org/c/doc/igraph-Nongraph.html>
 //' @rdname version
 //' @export
-// [[Rcpp::export]]
-Rcpp::StringVector igraph_version() {
+[[cpp11::register]]
+cpp11::r_string igraph_version() {
   const char* version_string;
   int major, minor, patch;
   igraph_version(&version_string, &major, &minor, &patch);
   if (major < 0 || minor < 8 || patch < 0) {
-    Rcpp::warning("too old igraph %s", version_string);
+    cpp11::warning("too old igraph %s", version_string);
   }
-  return version_string;
+  return cpp11::r_string(version_string);
 }
 
 void error_handler(const char* reason, const char* file, int line, igraph_error_t igraph_errno) {
-  Rcpp::stop("%s:%d: %s: %s", file, line, reason, igraph_strerror(igraph_errno));
+  cpp11::stop("%s:%d: %s: %s", file, line, reason, igraph_strerror(igraph_errno));
 }
 
 void warning_handler(const char* reason, const char* file, int line) {
-  Rcpp::warning("%s:%d: %s", file, line, reason);
+  cpp11::warning("%s:%d: %s", file, line, reason);
 }
 
 igraph_error_t interruption_handler(void* data) {
-  Rcpp::checkUserInterrupt();
+  // Rcpp::checkUserInterrupt();
   return IGRAPH_SUCCESS;
 }
 
@@ -48,7 +48,7 @@ void igraphlite_init(DllInfo *dll) {
 //' @param seed An integer.
 //' @rdname random
 //' @export
-// [[Rcpp::export]]
+[[cpp11::register]]
 void rng_seed(long seed) {
   igraph_rng_seed(igraph_rng_default(), static_cast<unsigned long>(seed));
 }

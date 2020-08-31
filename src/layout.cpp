@@ -5,22 +5,33 @@
 
 #include <igraph/igraph_layout.h>
 
-inline Rcpp::DataFrame as_named_data_frame(const Rcpp::NumericMatrix& mat) {
-  auto df = Rcpp::DataFrame::create(
-    Rcpp::_["x"] = Rcpp::NumericVector(mat.column(0)),
-    Rcpp::_["y"] = Rcpp::NumericVector(mat.column(1))
-  );
+inline cpp11::doubles col(const cpp11::doubles_matrix<>& mat, const int i) {
+  auto slice = mat[i];
+  cpp11::writable::doubles res;
+  res.reserve(slice.size());
+  for (auto d: slice) {
+    res.push_back(d);
+  }
+  return res;
+}
+
+inline cpp11::data_frame as_named_data_frame(const cpp11::doubles_matrix<>& mat) {
+  using namespace cpp11::literals;
+  cpp11::writable::data_frame df({
+    cpp11::named_arg("x") = col(mat, 0),
+    cpp11::named_arg("y") = col(mat, 1)
+  });
   df.attr("class") = impl::tibble_class();
   return df;
 }
 
-Rcpp::DataFrame IGraph::layout_random() const {
+cpp11::data_frame IGraph::layout_random() const {
   IMatrix res(vcount(), 2);
   igraph_layout_random(data_.get(), res.data());
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_drl() const {
+cpp11::data_frame IGraph::layout_drl() const {
   igraph_layout_drl_options_t options;
   igraph_layout_drl_options_init(&options, IGRAPH_LAYOUT_DRL_DEFAULT);
   IMatrix res(vcount(), 2);
@@ -32,7 +43,7 @@ Rcpp::DataFrame IGraph::layout_drl() const {
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_fruchterman_reingold(int grid) const {
+cpp11::data_frame IGraph::layout_fruchterman_reingold(int grid) const {
   IMatrix res(vcount(), 2);
   igraph_layout_fruchterman_reingold(
     data_.get(), res.data(),
@@ -49,16 +60,16 @@ Rcpp::DataFrame IGraph::layout_fruchterman_reingold(int grid) const {
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_mds() const {
-  Rcpp::NumericVector null(0);
-  Rcpp::IntegerVector nulli(0);
+cpp11::data_frame IGraph::layout_mds() const {
+  cpp11::doubles null(0);
+  cpp11::integers nulli(0);
   IMatrix dist(distances(nulli, nulli, null, 3, "unweighted"));
   IMatrix res(vcount(), 2);
   igraph_layout_mds(data_.get(), res.data(), dist.data(), 2);
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode, const Rcpp::IntegerVector& roots) const {
+cpp11::data_frame IGraph::layout_reingold_tilford(int mode, const cpp11::integers& roots) const {
   IMatrix res(vcount(), 2);
   igraph_layout_reingold_tilford(
     data_.get(), res.data(),
@@ -67,7 +78,7 @@ Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode, const Rcpp::IntegerVec
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_reingold_tilford_circular(int mode, const Rcpp::IntegerVector& roots) const {
+cpp11::data_frame IGraph::layout_reingold_tilford_circular(int mode, const cpp11::integers& roots) const {
   IMatrix res(vcount(), 2);
   igraph_layout_reingold_tilford_circular(
     data_.get(), res.data(),

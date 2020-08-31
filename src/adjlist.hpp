@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_ADJLIST_HPP_
 #define IGRAPHLITE_ADJLIST_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include <igraph/igraph_adjlist.h>
 
@@ -22,17 +22,18 @@ class IAdjList {
     ~IAdjList() noexcept {
       if (data_) igraph_adjlist_destroy(data_.get());
     }
-    Rcpp::IntegerVector at(int pos) {
+    cpp11::integers at(int pos) {
       return WrapPolicy::wrap(&data_->adjs[pos]);
     }
     int size() const {
       return data_->length;
     }
-    Rcpp::List wrap() {
+    cpp11::list wrap() {
       const int len = size();
-      Rcpp::List output(len);
+      cpp11::writable::list output;
+      output.reserve(len);
       for (int i = 0; i < len; ++i) {
-        output[i] = at(i);
+        output.push_back(at(i));
       }
       return output;
     }
@@ -55,17 +56,18 @@ class IIncList {
     ~IIncList() noexcept {
       if (data_) igraph_inclist_destroy(data_.get());
     }
-    Rcpp::IntegerVector at(int pos) {
+    cpp11::integers at(int pos) {
       return WrapPolicy::wrap(&data_->incs[pos]);
     }
     int size() const {
       return data_->length;
     }
-    Rcpp::List wrap() {
+    cpp11::list wrap() {
       const int len = size();
-      Rcpp::List output(len);
+      cpp11::writable::list output;
+      output.reserve(len);
       for (int i = 0; i < len; ++i) {
-        output[i] = at(i);
+        output.push_back(at(i));
       }
       return output;
     }

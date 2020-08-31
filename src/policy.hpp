@@ -2,7 +2,8 @@
 #ifndef IGRAPHLITE_POLICY_HPP_
 #define IGRAPHLITE_POLICY_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
+#include <Rinternals.h>
 
 #include <igraph/igraph_vector.h>
 
@@ -54,9 +55,9 @@ struct InitValue {
 
 struct InitView {
   using data_type = igraph_vector_t;
-  using value_type = Rcpp::NumericVector;
+  using value_type = cpp11::doubles;
   static void init(data_type* data, const value_type& x) {
-    igraph_vector_view(data, &(x[0]), x.size());
+    igraph_vector_view(data, REAL(x.data()), x.size());
   }
   static void destroy(data_type*) {}
   static auto get(data_type* data, const int pos) {
@@ -66,10 +67,10 @@ struct InitView {
 
 struct InitIndices {
   using data_type = igraph_vector_int_t;
-  using value_type = Rcpp::IntegerVector;
+  using value_type = cpp11::integers;
   static void init(data_type* data, const value_type& x) {
-    igraph_vector_int_init_array(data, &(x[0]), x.size());
-    igraph_vector_int_add_constant(data, -1);
+    igraph_vector_int_init_array(data, INTEGER(x.data()), x.size());
+    igraph_vector_int_add_constant(data, -1.0);
   }
   static void destroy(data_type* data) {
     igraph_vector_int_destroy(data);
@@ -81,10 +82,10 @@ struct InitIndices {
 
 struct InitIndicesInPlace {
   using data_type = igraph_vector_int_t;
-  using value_type = Rcpp::IntegerVector;
+  using value_type = cpp11::integers;
   static void init(data_type* data, const value_type& x) {
     // x is const, but its data is modified
-    igraph_vector_int_view(data, &(x[0]), x.size());
+    igraph_vector_int_view(data, INTEGER(x.data()), x.size());
     igraph_vector_int_add_constant(data, -1);
   }
   static void destroy(data_type* data) {
@@ -99,24 +100,26 @@ struct InitIndicesInPlace {
 // WrapPolicy
 
 struct AsValues {
-  static Rcpp::NumericVector wrap(const igraph_vector_t* x) {
-    return Rcpp::NumericVector(x->stor_begin, x->end);
+  static cpp11::doubles wrap(const igraph_vector_t* x) {
+    return cpp11::writable::doubles(x->stor_begin, x->end);
   }
-  static Rcpp::IntegerVector wrap(const igraph_vector_int_t* x) {
-    return Rcpp::IntegerVector(x->stor_begin, x->end);
+  static cpp11::integers wrap(const igraph_vector_int_t* x) {
+    return cpp11::writable::integers(x->stor_begin, x->end);
   }
 };
 
 struct AsIndices {
-  static Rcpp::IntegerVector wrap(const igraph_vector_int_t* x) {
-    return Rcpp::IntegerVector(x->stor_begin, x->end) + 1;
+  static cpp11::integers wrap(const igraph_vector_int_t* x) {
+    cpp11::writable::integers v(x->stor_begin, x->end);
+    for (auto it = v.begin(); it != v.end(); ++it) *it += 1;
+    return v;
   }
 };
 
 struct AsIndicesInPlace {
-  static Rcpp::IntegerVector wrap(igraph_vector_int_t* x) {
+  static cpp11::integers wrap(igraph_vector_int_t* x) {
     igraph_vector_int_add_constant(x, 1);
-    return Rcpp::IntegerVector(x->stor_begin, x->end);
+    return cpp11::writable::integers(x->stor_begin, x->end);
   }
 };
 

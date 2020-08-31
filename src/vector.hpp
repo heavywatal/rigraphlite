@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_VECTOR_HPP_
 #define IGRAPHLITE_VECTOR_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include "policy.hpp"
 
@@ -62,17 +62,18 @@ class IVectorIntList {
         igraph_vector_int_list_set(data_.get(), i, elem);
       }
     }
-    Rcpp::IntegerVector at(int pos) {
+    cpp11::integers at(int pos) {
       return WrapPolicy::wrap(igraph_vector_int_list_get_ptr(data_.get(), pos));
     }
     int size() const {
       return igraph_vector_int_list_size(data_.get());
     }
-    Rcpp::List wrap() {
+    cpp11::list wrap() {
       const int len = size();
-      Rcpp::List output(len);
+      cpp11::writable::list output;
+      output.reserve(len);
       for (int i = 0; i < len; ++i) {
-        output[i] = at(i);
+        output.push_back(at(i));
       }
       return output;
     }

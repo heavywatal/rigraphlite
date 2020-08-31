@@ -2,8 +2,8 @@
 #ifndef IGRAPHLITE_TYPES_H_
 #define IGRAPHLITE_TYPES_H_
 
-#include <RcppCommon.h>
-RCPP_EXPOSED_CLASS(IGraph);
+#include "cpp11.hpp"
+// RCPP_EXPOSED_CLASS(IGraph);
 
 #include "igraph.hpp"
 

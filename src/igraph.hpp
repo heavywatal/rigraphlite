@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_IGRAPH_HPP_
 #define IGRAPHLITE_IGRAPH_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include <memory>
 
@@ -18,14 +18,14 @@ class IGraph {
     IGraph(IGraph&& other);
 
     IGraph(int n, bool directed); // empty
-    IGraph(const Rcpp::IntegerVector& edges, int n, bool directed); // create
+    IGraph(const cpp11::integers& edges, int n, bool directed); // create
     IGraph(int n, int mode, double center); // star
-    IGraph(const Rcpp::IntegerVector& dim, int nei, bool directed, bool mutual, bool circular); // lattice
+    IGraph(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular); // lattice
     IGraph(int n, bool directed, bool mutual, bool circular); // ring
     IGraph(int n, int children, int mode); // tree
     IGraph(int n, bool directed, bool loops); // full
     IGraph(const char* name); // famous
-    IGraph(const IGraph& other, const Rcpp::IntegerVector& vids, int impl); // induced_subgraph
+    IGraph(const IGraph& other, const cpp11::integers& vids, int impl); // induced_subgraph
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Basic interface
@@ -33,73 +33,73 @@ class IGraph {
     int vcount() const;
     int ecount() const;
     bool is_directed() const;
-    Rcpp::IntegerVector edge(int eid) const;
-    Rcpp::IntegerVector neighbors(int node, int mode) const;
-    Rcpp::IntegerVector incident(int node, int mode) const;
-    Rcpp::IntegerVector degree(const Rcpp::IntegerVector& vids, int mode, bool loops) const;
+    cpp11::integers edge(int eid) const;
+    cpp11::integers neighbors(int node, int mode) const;
+    cpp11::integers incident(int node, int mode) const;
+    cpp11::integers degree(const cpp11::integers& vids, int mode, bool loops) const;
 
-    void add_edges(const Rcpp::IntegerVector& edges);
+    void add_edges(const cpp11::integers& edges);
     void add_vertices(int n);
-    void delete_edges(const Rcpp::IntegerVector& eids);
-    void delete_vertices(const Rcpp::IntegerVector& vids);
+    void delete_edges(const cpp11::integers& eids);
+    void delete_vertices(const cpp11::integers& vids);
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Structural properties
 
-    Rcpp::LogicalVector are_adjacent(int v1, int v2) const;
-    Rcpp::NumericMatrix distances(
-      const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
-      const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
-    Rcpp::List get_shortest_paths(
-      int from, const Rcpp::IntegerVector& to,
-      const Rcpp::NumericVector& weights, int mode) const;
-    Rcpp::List get_all_shortest_paths(
-      int from, const Rcpp::IntegerVector& to,
-      const Rcpp::NumericVector& weights, int mode) const;
-    Rcpp::IntegerVector get_all_simple_paths(
-      int from, const Rcpp::IntegerVector& to, int cutoff, int mode) const;
+    cpp11::logicals are_adjacent(int v1, int v2) const;
+    cpp11::doubles_matrix<> distances(
+      const cpp11::integers& from, const cpp11::integers& to,
+      const cpp11::doubles& weights, int mode, const std::string& algorithm) const;
+    cpp11::list get_shortest_paths(
+      int from, const cpp11::integers& to,
+      const cpp11::doubles& weights, int mode) const;
+    cpp11::list get_all_shortest_paths(
+      int from, const cpp11::integers& to,
+      const cpp11::doubles& weights, int mode) const;
+    cpp11::integers get_all_simple_paths(
+      int from, const cpp11::integers& to, int cutoff, int mode) const;
     double average_path_length(bool directed) const;
-    Rcpp::NumericVector path_length_hist(bool directed) const;
-    Rcpp::IntegerVector neighborhood_size(const Rcpp::IntegerVector& vids, int order, int mode, int mindist) const;
-    Rcpp::List neighborhood(const Rcpp::IntegerVector& vids, int order, int mode, int mindist) const;
-    Rcpp::IntegerVector subcomponent(int v, int mode) const;
-    Rcpp::List subcomponents(const Rcpp::IntegerVector& vids, int mode) const;
+    cpp11::doubles path_length_hist(bool directed) const;
+    cpp11::integers neighborhood_size(const cpp11::integers& vids, int order, int mode, int mindist) const;
+    cpp11::list neighborhood(const cpp11::integers& vids, int order, int mode, int mindist) const;
+    cpp11::integers subcomponent(int v, int mode) const;
+    cpp11::list subcomponents(const cpp11::integers& vids, int mode) const;
 
-    Rcpp::NumericVector mean_distances(
-      const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
-      const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
+    cpp11::doubles mean_distances(
+      const cpp11::integers& from, const cpp11::integers& to,
+      const cpp11::doubles& weights, int mode, const std::string& algorithm) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Layout
 
-    Rcpp::DataFrame layout_random() const;
-    Rcpp::DataFrame layout_drl() const;
-    Rcpp::DataFrame layout_fruchterman_reingold(int grid) const;
-    Rcpp::DataFrame layout_mds() const;
-    Rcpp::DataFrame layout_reingold_tilford(int mode, const Rcpp::IntegerVector& roots) const;
-    Rcpp::DataFrame layout_reingold_tilford_circular(int mode, const Rcpp::IntegerVector& roots) const;
+    cpp11::data_frame layout_random() const;
+    cpp11::data_frame layout_drl() const;
+    cpp11::data_frame layout_fruchterman_reingold(int grid) const;
+    cpp11::data_frame layout_mds() const;
+    cpp11::data_frame layout_reingold_tilford(int mode, const cpp11::integers& roots) const;
+    cpp11::data_frame layout_reingold_tilford_circular(int mode, const cpp11::integers& roots) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Original methods
 
-    Rcpp::List as_adjlist(int mode, int loops, int multiple) const;
-    Rcpp::List as_inclist(int mode, int loops) const;
-    Rcpp::IntegerMatrix as_edgelist() const;
+    cpp11::list as_adjlist(int mode, int loops, int multiple) const;
+    cpp11::list as_inclist(int mode, int loops) const;
+    cpp11::integers_matrix<> as_edgelist() const;
 
     // igraph_t getter
-    Rcpp::IntegerVector from() const;
-    Rcpp::IntegerVector to() const;
-    Rcpp::IntegerVector oi() const;
-    Rcpp::IntegerVector ii() const;
-    Rcpp::IntegerVector os() const;
-    Rcpp::IntegerVector is() const;
+    cpp11::integers from() const;
+    cpp11::integers to() const;
+    cpp11::integers oi() const;
+    cpp11::integers ii() const;
+    cpp11::integers os() const;
+    cpp11::integers is() const;
 
-    void mutate_Vattr(const char* name, const Rcpp::RObject& value);
-    void mutate_Eattr(const char* name, const Rcpp::RObject& value);
-    void setVattr(Rcpp::DataFrame other) {Vattr_ = other;}
-    void setEattr(Rcpp::DataFrame other) {Eattr_ = other;}
-    Rcpp::DataFrame getVattr() const {return Vattr_;}
-    Rcpp::DataFrame getEattr() const {return Eattr_;}
+    void mutate_Vattr(const char* name, const cpp11::sexp& value);
+    void mutate_Eattr(const char* name, const cpp11::sexp& value);
+    void setVattr(cpp11::writable::data_frame other) {Vattr_ = other;}
+    void setEattr(cpp11::writable::data_frame other) {Eattr_ = other;}
+    cpp11::data_frame getVattr() const {return Vattr_;}
+    cpp11::data_frame getEattr() const {return Eattr_;}
 
     igraph_t* data() {return data_.get();}
     const igraph_t* data() const {return data_.get();}
@@ -109,8 +109,8 @@ class IGraph {
     void init_attr();
 
     std::unique_ptr<igraph_t> data_;
-    Rcpp::DataFrame Vattr_;
-    Rcpp::DataFrame Eattr_;
+    cpp11::writable::data_frame Vattr_;
+    cpp11::writable::data_frame Eattr_;
 };
 
 #endif // IGRAPHLITE_IGRAPH_HPP_

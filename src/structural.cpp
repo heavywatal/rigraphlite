@@ -8,11 +8,21 @@
 #include <igraph/igraph_paths.h>
 #include <igraph/igraph_neighborhood.h>
 
-Rcpp::LogicalVector
+#include <map>
+
+cpp11::logicals
 IGraph::are_adjacent(int v1, int v2) const {
   igraph_bool_t res;
   igraph_are_adjacent(data_.get(), --v1, --v2, &res);
-  return static_cast<bool>(res);
+  return cpp11::logicals({cpp11::r_bool(res)});
+}
+
+namespace sugar {
+  inline cpp11::integers seq_len(const int n) {
+    static auto seq_len = cpp11::package("base")["seq_len"];
+    cpp11::sexp range = seq_len(cpp11::as_sexp(n));
+    return cpp11::as_integers(range);
+  }
 }
 
 namespace impl {
@@ -58,10 +68,10 @@ namespace impl {
   }
 }
 
-Rcpp::NumericMatrix
+cpp11::doubles_matrix<>
 IGraph::distances(
-  const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
-  const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
+  const cpp11::integers& from, const cpp11::integers& to,
+  const cpp11::doubles& weights, int mode, const std::string& algorithm) const {
 
   const int from_size = from.size();
   const int to_size = to.size();
@@ -74,19 +84,19 @@ IGraph::distances(
                   weights.size() ? IVectorView(weights).data() : nullptr,
                   static_cast<igraph_neimode_t>(mode), algorithm);
   if (from_size > 0) {
-    res.rownames(Rcpp::StringVector(from));
+    res.rownames(cpp11::strings(from));
   }
   if (to_size > 0) {
-    res.colnames(Rcpp::StringVector(to));
+    res.colnames(cpp11::strings(to));
   }
   return res.wrap();
 }
 
 // experimental
-Rcpp::NumericVector
+cpp11::doubles
 IGraph::mean_distances(
-  const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
-  const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
+  const cpp11::integers& from, const cpp11::integers& to,
+  const cpp11::doubles& weights, int mode, const std::string& algorithm) const {
 
   const int to_size = to.size();
   const ISelector to_selector(to);
@@ -95,7 +105,7 @@ IGraph::mean_distances(
   IMatrix res(1, to_size > 0 ? to_size : vcount());
   double total = 0.0;
   int num_paths = 0;
-  for (const int from_i: from.size() > 0 ? from : Rcpp::seq_len(vcount())) {
+  for (const int from_i: from.size() > 0 ? from : sugar::seq_len(vcount())) {
     impl::distances(data_.get(), res.data(),
                     igraph_vss_1(from_i - 1), to_vss, cweights,
                     static_cast<igraph_neimode_t>(mode), algorithm);
@@ -107,13 +117,13 @@ IGraph::mean_distances(
       }
     }
   }
-  return Rcpp::NumericVector(1, total / num_paths);
+  return cpp11::doubles({total / num_paths});
 }
 
-Rcpp::List
+cpp11::list
 IGraph::get_shortest_paths(
-  int from, const Rcpp::IntegerVector& to,
-  const Rcpp::NumericVector& weights, int mode) const {
+  int from, const cpp11::integers& to,
+  const cpp11::doubles& weights, int mode) const {
 
   const int to_size = to.size();
   IVectorIntList<AsIndicesInPlace> res(to_size > 0 ? to_size : vcount());
@@ -126,10 +136,10 @@ IGraph::get_shortest_paths(
   return res.wrap();
 }
 
-Rcpp::List
+cpp11::list
 IGraph::get_all_shortest_paths(
-  int from, const Rcpp::IntegerVector& to,
-  const Rcpp::NumericVector& weights, int mode) const {
+  int from, const cpp11::integers& to,
+  const cpp11::doubles& weights, int mode) const {
 
   const int to_size = to.size();
   IVectorIntList<AsIndicesInPlace> res(to_size > 0 ? to_size : vcount());
@@ -142,9 +152,9 @@ IGraph::get_all_shortest_paths(
   return res.wrap();
 }
 
-Rcpp::IntegerVector
+cpp11::integers
 IGraph::get_all_simple_paths(
-  int from, const Rcpp::IntegerVector& to, int cutoff, int mode) const {
+  int from, const cpp11::integers& to, int cutoff, int mode) const {
 
   const int to_size = to.size();
   IVector<AsIndicesInPlace, InitSizeInt> res(to_size > 0 ? to_size : vcount());
@@ -163,17 +173,18 @@ IGraph::average_path_length(bool directed) const {
   return res;
 }
 
-Rcpp::NumericVector
+cpp11::doubles
 IGraph::path_length_hist(bool directed) const {
-  IVector<AsValues, InitView> res(vcount()); // rough estimate; resized as needed
+  cpp11::writable::doubles values(vcount());
+  IVector<AsValues, InitView> res(values); // rough estimate; resized as needed
   double unconnected;
   igraph_path_length_hist(data_.get(), res.data(), &unconnected, directed);
   return res.wrap();
 }
 
-// [[Rcpp::export]]
-Rcpp::IntegerVector
-path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, bool directed) {
+// [[cpp11::register]]
+cpp11::integers
+path_length_count_within(const IGraph& graph, const cpp11::integers& vids, bool directed) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
   for (const int i: vids) {
@@ -185,16 +196,16 @@ path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, b
     }
   }
   const int max_len = counter.rbegin()->first;
-  Rcpp::IntegerVector output(max_len);
+  cpp11::writable::integers output(max_len);
   for (const auto& p: counter) {
     output[p.first - 1] = p.second;
   }
   return output;
 }
 
-// [[Rcpp::export]]
-Rcpp::IntegerVector
-path_length_count_between(const IGraph& graph, const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to, bool directed) {
+// [[cpp11::register]]
+cpp11::integers
+path_length_count_between(const IGraph& graph, const cpp11::integers& from, const cpp11::integers& to, bool directed) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
   for (const int i: from) {
@@ -205,15 +216,15 @@ path_length_count_between(const IGraph& graph, const Rcpp::IntegerVector& from, 
     }
   }
   const int max_len = counter.rbegin()->first;
-  Rcpp::IntegerVector output(max_len);
+  cpp11::writable::integers output(max_len);
   for (const auto& p: counter) {
     output[p.first - 1] = p.second;
   }
   return output;
 }
 
-Rcpp::IntegerVector
-IGraph::neighborhood_size(const Rcpp::IntegerVector& vids, const int order, const int mode, const int mindist) const {
+cpp11::integers
+IGraph::neighborhood_size(const cpp11::integers& vids, const int order, const int mode, const int mindist) const {
   const int n = vids.size();
   IVector<AsValues> res(n);
   igraph_neighborhood_size(
@@ -222,8 +233,8 @@ IGraph::neighborhood_size(const Rcpp::IntegerVector& vids, const int order, cons
   return res.wrap();
 }
 
-Rcpp::List
-IGraph::neighborhood(const Rcpp::IntegerVector& vids, const int order, const int mode, const int mindist) const {
+cpp11::list
+IGraph::neighborhood(const cpp11::integers& vids, const int order, const int mode, const int mindist) const {
   const int n = vids.size();
   IVectorIntList<AsIndicesInPlace> res(n);
   igraph_neighborhood(
@@ -232,7 +243,7 @@ IGraph::neighborhood(const Rcpp::IntegerVector& vids, const int order, const int
   return res.wrap();
 }
 
-Rcpp::IntegerVector
+cpp11::integers
 IGraph::subcomponent(const int v, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_subcomponent(data_.get(), res.data(), v - 1, static_cast<igraph_neimode_t>(mode));
@@ -240,11 +251,11 @@ IGraph::subcomponent(const int v, const int mode) const {
 }
 
 // experimental
-Rcpp::List
-IGraph::subcomponents(const Rcpp::IntegerVector& vids, const int mode) const {
+cpp11::list
+IGraph::subcomponents(const cpp11::integers& vids, const int mode) const {
   const ISelector cvids(vids);
   const int n = vids.size();
-  Rcpp::List output(n);
+  cpp11::writable::list output(n);
   IVector<AsIndicesInPlace> res(1);
   for (int i = 0; i < n; ++i) {
     igraph_subcomponent(data_.get(), res.data(), cvids.at(i), static_cast<igraph_neimode_t>(mode));
@@ -253,7 +264,7 @@ IGraph::subcomponents(const Rcpp::IntegerVector& vids, const int mode) const {
   return output;
 }
 
-IGraph::IGraph(const IGraph& other, const Rcpp::IntegerVector& vids, int impl): IGraph::IGraph() {
+IGraph::IGraph(const IGraph& other, const cpp11::integers& vids, int impl): IGraph::IGraph() {
   igraph_induced_subgraph(
     other.data_.get(), data_.get(), ISelectorInPlace(vids).vss(),
     static_cast<igraph_subgraph_implementation_t>(impl));
