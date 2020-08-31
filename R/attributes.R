@@ -8,9 +8,9 @@
 #' @export
 Vattr = function(graph, name) {
   if (missing(name)) {
-    getVattr_(graph)
+    .Call(`_igraphlite_getVattr_`, graph)
   } else {
-    getVattr_(graph)[[name]]
+    .Call(`_igraphlite_getVattr_`, graph)[[name]]
   }
 }
 
@@ -20,7 +20,7 @@ Vattr = function(graph, name) {
   if (missing(name)) {
     setVattr_(graph, value)
   } else {
-    x = getVattr_(graph)
+    x = .Call(`_igraphlite_getVattr_`, graph)
     x[[name]] = value
     setVattr_(graph, x)
   }
@@ -31,9 +31,9 @@ Vattr = function(graph, name) {
 #' @export
 Eattr = function(graph, name) {
   if (missing(name)) {
-    getEattr_(graph)
+    .Call(`_igraphlite_getEattr_`, graph)
   } else {
-    getEattr_(graph)[[name]]
+    .Call(`_igraphlite_getEattr_`, graph)[[name]]
   }
 }
 
@@ -43,7 +43,7 @@ Eattr = function(graph, name) {
   if (missing(name)) {
     setEattr_(graph, value)
   } else {
-    x = getEattr_(graph)
+    x = .Call(`_igraphlite_getEattr_`, graph)
     x[[name]] = value
     setEattr_(graph, x)
   }
@@ -53,13 +53,13 @@ Eattr = function(graph, name) {
 #' @rdname attributes
 #' @export
 V = function(graph) {
-  seq_len(vcount(graph))
+  .Call(`_igraphlite_V_`, graph)
 }
 
 #' @rdname attributes
 #' @export
 E = function(graph) {
-  seq_len(ecount(graph))
+  .Call(`_igraphlite_E_`, graph)
 }
 
 #' Conversion between vertex IDs and names
@@ -69,7 +69,7 @@ E = function(graph) {
 #' @rdname vnames
 #' @export
 Vnames = function(graph) {
-  Vattr(graph, "name") %||% V(graph)
+  .Call(`_igraphlite_Vnames_`, graph)
 }
 
 #' @rdname vnames

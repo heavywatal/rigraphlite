@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_VECTOR_HPP_
 #define IGRAPHLITE_VECTOR_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include "policy.hpp"
 
@@ -30,7 +30,7 @@ class IVector {
     int size() const {
       return igraph_vector_size(data_.get());
     }
-    auto wrap() {// non-const for AsIndicesInPlace
+    auto wrap() const {
       return WrapPolicy::wrap(data_.get());
     }
     data_type* data() {return data_.get();}
@@ -54,25 +54,21 @@ class IVectorIntList {
     ~IVectorIntList() noexcept {
       igraph_vector_int_list_destroy(data_.get());
     }
-    void init_elements(int n = 1) {
-      const int len = size();
-      for (int i = 0; i < len; ++i) {
-        igraph_vector_int_t* elem = new igraph_vector_int_t;
-        igraph_vector_int_init(elem, n);
-        igraph_vector_int_list_set(data_.get(), i, elem);
-      }
+    void reserve(int n) {
+      igraph_vector_int_list_reserve(data_.get(), n);
     }
-    Rcpp::IntegerVector at(int pos) {
+    cpp11::writable::integers at(int pos) const {
       return WrapPolicy::wrap(igraph_vector_int_list_get_ptr(data_.get(), pos));
     }
     int size() const {
       return igraph_vector_int_list_size(data_.get());
     }
-    Rcpp::List wrap() {
+    cpp11::writable::list wrap() const {
       const int len = size();
-      Rcpp::List output(len);
+      cpp11::writable::list output;
+      output.reserve(len);
       for (int i = 0; i < len; ++i) {
-        output[i] = at(i);
+        output.push_back(at(i));
       }
       return output;
     }

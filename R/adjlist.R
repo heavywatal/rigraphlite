@@ -8,8 +8,8 @@
 #' @inheritParams common_params
 #' @rdname adjlist
 #' @export
-as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = TRUE) {
-  as_adjlist_(graph, mode, loops, multiple)
+as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = 1L) {
+  .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
 }
 
 #' @details
@@ -17,5 +17,5 @@ as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = TRUE) {
 #' @rdname adjlist
 #' @export
 as_inclist = function(graph, mode = 3L, loops = 1L) {
-  as_inclist_(graph, mode, loops)
+  .Call(`_igraphlite_as_inclist_`, graph, mode, loops)
 }

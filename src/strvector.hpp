@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_STRVECTOR_HPP_
 #define IGRAPHLITE_STRVECTOR_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include <igraph/igraph_strvector.h>
 
@@ -11,11 +11,11 @@ class IStrVector {
     IStrVector(int n = 0) {
       igraph_strvector_init(data_.get(), n);
     }
-    IStrVector(const Rcpp::StringVector& x) {
+    IStrVector(const cpp11::strings& x) {
       int n = x.size();
       igraph_strvector_init(data_.get(), n);
       for (int i = 0; i < n; ++i) {
-        igraph_strvector_set(data_.get(), i, x[i]);
+        igraph_strvector_set(data_.get(), i, std::string(x[i]).c_str());
       }
     }
     IStrVector(const IStrVector& other) noexcept {
@@ -31,9 +31,9 @@ class IStrVector {
     int size() const {
       return igraph_strvector_size(data_.get());
     }
-    Rcpp::StringVector wrap() const {
+    cpp11::strings wrap() const {
       const int n = size();
-      Rcpp::StringVector output(n);
+      cpp11::writable::strings output(n);
       for (int i = 0; i < n; ++i) {
         output[i] = at(i);
       }

@@ -2,21 +2,55 @@
 #ifndef IGRAPHLITE_DATAFRAME_HPP_
 #define IGRAPHLITE_DATAFRAME_HPP_
 
+#include <unordered_set>
+#include <numeric>
+
 namespace impl {
-
-  inline Rcpp::CharacterVector tibble_class() {
-    return Rcpp::CharacterVector::create("tbl_df", "tbl", "data.frame");
+  template <class T, class Fn>
+  inline decltype(auto) transform(const cpp11::r_vector<T>& v, Fn&& fn) {
+    cpp11::writable::r_vector<decltype(fn(v[0]))> res(v.size());
+    std::transform(v.begin(), v.end(), res.begin(), fn);
+    return res;
   }
 
-  inline void set_rownames(Rcpp::DataFrame& df, int n) {
-    df.attr("row.names") = Rcpp::IntegerVector{Rcpp::IntegerVector::get_na(), -n};
+  template <class T, class Fn>
+  inline decltype(auto) transform(const cpp11::r_vector<T>& x, const cpp11::r_vector<T>& y, Fn&& fn) {
+    cpp11::writable::r_vector<decltype(fn(x[0], y[0]))> res(x.size());
+    std::transform(x.begin(), x.end(), y.begin(), res.begin(), fn);
+    return res;
   }
 
-  inline void mutate(Rcpp::DataFrame& df, const char* name, const Rcpp::RObject& value) {
-    Rcpp::List attr_holder;
-    Rf_copyMostAttrib(df, attr_holder);
-    df[name] = value;
-    Rf_copyMostAttrib(attr_holder, df);
+  inline cpp11::logicals Rcpp_in(const cpp11::integers& x, const cpp11::integers& table) {
+    std::unordered_set<int> set(table.begin(), table.end());
+    return transform(x, [&set](int i) {return cpp11::r_bool(set.find(i) != set.end());});
+  }
+
+  inline cpp11::logicals Rcpp_or(const cpp11::logicals& x, const cpp11::logicals& y) {
+    return transform(x, y, [](cpp11::r_bool l, cpp11::r_bool r) {return cpp11::r_bool(l || r);});
+  }
+
+  inline int Rcpp_sum(const cpp11::logicals& v) {
+    return std::accumulate(v.begin(), v.end(), 0, [](int s, cpp11::r_bool b) {
+      return s + int(b);
+    });
+  }
+
+  inline void set_colnames(cpp11::writable::data_frame* df) {
+    df->attr(R_NamesSymbol) = cpp11::writable::strings{};
+  }
+
+  inline void set_rownames(cpp11::writable::data_frame* df, int n) {
+    df->attr(R_RowNamesSymbol) = cpp11::writable::integers{NA_INTEGER, -n};
+  }
+
+  inline void set_tbl_class(cpp11::writable::data_frame* df) {
+    df->attr(R_ClassSymbol) = {"tbl_df", "tbl", "data.frame"};
+  }
+
+  inline void set_data_frame_attributes(cpp11::writable::data_frame* df, const int n) {
+    set_colnames(df);
+    set_rownames(df, n);
+    set_tbl_class(df);
   }
 
   template <class T> inline
@@ -28,10 +62,10 @@ namespace impl {
   template <> inline
   SEXP na<SEXP>() {return R_NaString;}
 
-  template <int RTYPE, class T> inline
-  Rcpp::Vector<RTYPE> elongate(const Rcpp::Vector<RTYPE>& x, int n) {
+  template <class RTYPE, class T> inline
+  cpp11::r_vector<RTYPE> elongate(const cpp11::r_vector<RTYPE>& x, int n) {
     int len = x.size();
-    Rcpp::Vector<RTYPE> res(len + n);
+    cpp11::writable::r_vector<RTYPE> res(len + n);
     for (int i = 0; i < len; ++i) {
       res[i] = x[i];
     }
@@ -41,42 +75,73 @@ namespace impl {
     return res;
   }
 
-  inline Rcpp::LogicalVector negate(const Rcpp::IntegerVector& idx, int n) {
-    return !Rcpp::in(Rcpp::Range(0, n - 1), idx);
+  inline cpp11::r_bool negate(const cpp11::r_bool x) {
+    return x == TRUE ? FALSE : TRUE;
   }
 
-  template <int RTYPE, class T> inline
-  Rcpp::Vector<RTYPE> subset(const Rcpp::Vector<RTYPE>& x, const T& idx) {
-    return x[idx];
+  inline cpp11::logicals negate(const cpp11::logicals& x) {
+    return transform(x, [](cpp11::r_bool b) {return negate(b);});
   }
 
-  inline void append_na_rows(Rcpp::DataFrame& df, int n) {
-    Rcpp::List attr_holder;
-    const Rcpp::StringVector names = df.attr("names");
-    for (const char* name: names) {
-      switch (TYPEOF(df[name])) {
-        case INTSXP:  mutate(df, name, elongate<INTSXP, int>(df[name], n)); break;
-        case REALSXP: mutate(df, name, elongate<REALSXP, double>(df[name], n)); break;
-        case STRSXP:  mutate(df, name, elongate<STRSXP, SEXP>(df[name], n)); break;
-        default: Rcpp::stop("Invalid type for attributes: %d", TYPEOF(df[name]));
+  inline cpp11::logicals negate(const cpp11::integers& idx, int n) {
+    std::unordered_set<int> set(idx.begin(), idx.end());
+    cpp11::writable::logicals res;
+    res.reserve(n);
+    for (int i=0; i<n; ++i) {
+      res.push_back(static_cast<Rboolean>(set.find(i) == set.end()));
+    }
+    return res;
+  }
+
+  template <class T> inline
+  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::logicals& idx) {
+    cpp11::writable::r_vector<T> res;
+    for (int i = 0; i < idx.size(); ++i) {
+      if (idx[i]) res.push_back(x[i]);
+    }
+    return res;
+  }
+
+  template <class T> inline
+  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::integers& idx) {
+    cpp11::writable::r_vector<T> res;
+    res.reserve(idx.size());
+    for (int i: idx) {
+      res.push_back(x[--i]);
+    }
+    return res;
+  }
+
+  inline void append_na_rows(cpp11::writable::data_frame& df, int n) {
+    cpp11::writable::list newcols;
+    newcols.reserve(df.size());
+    for (const auto col: df) {
+      switch (TYPEOF(col)) {
+        case INTSXP:  newcols.push_back(elongate<int, int>(col, n)); break;
+        case REALSXP: newcols.push_back(elongate<double, double>(col, n)); break;
+        case STRSXP:  newcols.push_back(elongate<cpp11::r_string, SEXP>(col, n)); break;
+        default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(col));
       }
     }
-    impl::set_rownames(df, df.nrow() + n);
+    const cpp11::strings names(df.names());
+    df = cpp11::writable::data_frame(std::move(newcols));
+    df.names() = names;
   }
 
-  template <class T>
-  inline void filter(Rcpp::DataFrame& df, const T& idx) {
-    Rcpp::List attr_holder;
-    const Rcpp::StringVector names = df.attr("names");
-    for (const char* name: names) {
-      switch (TYPEOF(df[name])) {
-        case INTSXP:  mutate(df, name, subset<INTSXP>(df[name], idx)); break;
-        case REALSXP: mutate(df, name, subset<REALSXP>(df[name], idx)); break;
-        case STRSXP:  mutate(df, name, subset<STRSXP>(df[name], idx)); break;
-        default: Rcpp::stop("Invalid type for attributes: %d", TYPEOF(df[name]));
+  inline void filter(cpp11::writable::data_frame& df, const cpp11::logicals& idx) {
+    cpp11::writable::list newcols;
+    newcols.reserve(df.size());
+    for (const auto col: df) {
+      switch (TYPEOF(col)) {
+        case INTSXP:  newcols.push_back(subset<int>(col, idx)); break;
+        case REALSXP: newcols.push_back(subset<double>(col, idx)); break;
+        case STRSXP:  newcols.push_back(subset<cpp11::r_string>(col, idx)); break;
+        default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(col));
       }
     }
-    impl::set_rownames(df, Rcpp::sum(idx));
+    const cpp11::strings names(df.names());
+    df = cpp11::writable::data_frame(std::move(newcols));
+    df.names() = names;
   }
 }
 

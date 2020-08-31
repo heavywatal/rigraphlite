@@ -38,8 +38,7 @@ test_that("get_shortest_paths works", {
     expect_identical(list(1L, c(1L, 2L), c(1L, 3L)))
   expect_error(
     get_shortest_paths(g, c(1L, 2L), to),
-    "Expecting a single value",
-    class = "Rcpp::not_compatible"
+    "Expected single integer value"
   )
   expect_warning(
     get_shortest_paths(g, 1L, mode = 2L),
@@ -61,8 +60,7 @@ test_that("get_all_shortest_paths works", {
     expect_identical(list(1L, c(1L, 2L), c(1L, 3L)))
   expect_error(
     get_all_shortest_paths(g, c(1L, 2L), to),
-    "Expecting a single value",
-    class = "Rcpp::not_compatible"
+    "Expected single integer value"
   )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
   expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
@@ -126,7 +124,7 @@ test_that("induced_subgraph works", {
   expect_silent({
     subg = induced_subgraph(g, vids)
   })
-  expect_s4_class(subg, "Rcpp_IGraph")
+  expect_s3_class(subg, "Rcpp_IGraph")
   expect_length(V(subg), length(vids))
   expect_identical(nrow(Vattr(subg)), vcount(subg))
   expect_identical(nrow(Eattr(subg)), ecount(subg))

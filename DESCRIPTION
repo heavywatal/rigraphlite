@@ -19,11 +19,9 @@ SystemRequirements:
 Depends:
     R (>= 4.2.0)
 LinkingTo:
-    Rcpp
+    cpp11
 Imports:
     generics (>= 0.1.3),
-    methods,
-    Rcpp (>= 1.0.12),
     rlang (>= 1.1.3)
 Suggests:
     ape,

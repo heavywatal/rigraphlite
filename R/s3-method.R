@@ -1,13 +1,21 @@
 #' @export
 as.data.frame.Rcpp_IGraph = function(x, ...) {
-  df = as_data_frame_(x)
+  df = .Call(`_igraphlite_as_data_frame_`, x)
   class(df) = c("tbl_df", "tbl", "data.frame")
   df
 }
 
 #' @export
 as.matrix.Rcpp_IGraph = function(x, ...) {
-  as_edgelist_(x)
+  .Call(`_igraphlite_as_edgelist_`, x)
+}
+
+#' @export
+print.Rcpp_IGraph = function(x, ...) {
+  cat("$V  ")
+  utils::str(Vattr(x))
+  print(as.data.frame(x))
+  invisible(x)
 }
 
 #' @importFrom generics augment

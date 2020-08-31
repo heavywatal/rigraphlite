@@ -9,7 +9,7 @@
 #' @rdname basic
 #' @export
 vcount = function(graph) {
-  vcount_(graph)
+  .Call(`_igraphlite_vcount_`, graph)
 }
 
 #' @details
@@ -17,19 +17,19 @@ vcount = function(graph) {
 #' @rdname basic
 #' @export
 ecount = function(graph) {
-  ecount_(graph)
+  .Call(`_igraphlite_ecount_`, graph)
 }
 
 #' @rdname basic
 #' @export
 igraph_from = function(graph) {
-  from_(graph)
+  .Call(`_igraphlite_from_`, graph)
 }
 
 #' @rdname basic
 #' @export
 igraph_to = function(graph) {
-  to_(graph)
+  .Call(`_igraphlite_to_`, graph)
 }
 
 #' @details
@@ -37,7 +37,7 @@ igraph_to = function(graph) {
 #' @rdname basic
 #' @export
 edge = function(graph, eid) {
-  edge_(graph, eid)
+  .Call(`_igraphlite_edge_`, graph, eid)
 }
 
 #' @details
@@ -45,7 +45,7 @@ edge = function(graph, eid) {
 #' @rdname basic
 #' @export
 neighbors = function(graph, vid, mode = 3L) {
-  neighbors_(graph, vid, mode)
+  .Call(`_igraphlite_neighbors_`, graph, vid, mode)
 }
 
 #' @details
@@ -53,7 +53,7 @@ neighbors = function(graph, vid, mode = 3L) {
 #' @rdname basic
 #' @export
 incident = function(graph, vid, mode = 3L) {
-  incident_(graph, vid, mode)
+  .Call(`_igraphlite_incident_`, graph, vid, mode)
 }
 
 #' @details
@@ -61,7 +61,7 @@ incident = function(graph, vid, mode = 3L) {
 #' @rdname basic
 #' @export
 is_directed = function(graph) {
-  is_directed_(graph)
+  .Call(`_igraphlite_is_directed_`, graph)
 }
 
 #' @details
@@ -70,30 +70,30 @@ is_directed = function(graph) {
 #' @rdname basic
 #' @export
 degree = function(graph, vids = integer(0), mode = 3L, loops = TRUE) {
-  degree_(graph, vids, mode, loops)
+  .Call(`_igraphlite_degree_`, graph, vids, mode, loops)
 }
 
 #' @param n number of vertices to add.
 #' @rdname basic
 #' @export
 add_vertices = function(graph, n) {
-  add_vertices_(graph, n)
+  .Call(`_igraphlite_add_vertices_`, graph, n)
 }
 
 #' @rdname basic
 #' @export
 add_edges = function(graph, eids) {
-  add_edges_(graph, eids)
+  .Call(`_igraphlite_add_edges_`, graph, eids)
 }
 
 #' @rdname basic
 #' @export
 delete_vertices = function(graph, vids) {
-  delete_vertices_(graph, vids)
+  .Call(`_igraphlite_delete_vertices_`, graph, vids)
 }
 
 #' @rdname basic
 #' @export
 delete_edges = function(graph, eids) {
-  delete_edges_(graph, eids)
+  .Call(`_igraphlite_delete_edges_`, graph, eids)
 }

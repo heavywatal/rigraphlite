@@ -1,4 +1,4 @@
-test_that("S3/S4 methods work", {
+test_that("S3 methods work", {
   g = graph_tree(7L)
   expect_output(show(g))
   expect_s3_class(as.data.frame(g), c("tbl_df", "tbl", "data.frame"))

@@ -62,7 +62,7 @@ test_that("add_edges/add_vertices work", {
   expect_identical(nrow(Vattr(g)), 9L)
   Vattr(g, "invalid") = as.list(V(g))
   Eattr(g, "weight") = as.list(E(g))
-  expect_error(add_edges(g, c(10, 11)), "Invalid type")
+  expect_error(add_edges(g, c(10, 11)), "Invalid input type")
 })
 
 test_that("delete_edges/delete_vertices work", {
@@ -84,5 +84,5 @@ test_that("delete_edges/delete_vertices work", {
   expect_identical(nrow(Eattr(g)), ecount(g))
   Vattr(g, "invalid") = as.list(V(g))
   Eattr(g, "weight") = as.list(E(g))
-  expect_error(delete_edges(g, c(2, 5)), "Invalid type")
+  expect_error(delete_edges(g, c(2, 5)), "Invalid input type")
 })

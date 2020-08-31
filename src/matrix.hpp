@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_MATRIX_HPP_
 #define IGRAPHLITE_MATRIX_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include <igraph/igraph_matrix.h>
 
@@ -11,25 +11,23 @@
 class IMatrix {
   public:
     IMatrix(int nrow, int ncol): robj_(nrow, ncol) {
-      igraph_vector_view(&data_->data, &(robj_[0]), nrow * ncol);
+      igraph_vector_view(&data_->data, REAL(robj_.data()), nrow * ncol);
       data_->nrow = nrow;
       data_->ncol = ncol;
     }
-    IMatrix(Rcpp::NumericMatrix&& obj): robj_(std::move(obj)) {
-      igraph_vector_view(&data_->data, &(robj_[0]), robj_.nrow() * robj_.ncol());
+    IMatrix(cpp11::doubles_matrix<>&& obj): robj_(std::move(obj)) {
+      igraph_vector_view(&data_->data, REAL(robj_.data()), robj_.nrow() * robj_.ncol());
       data_->nrow = robj_.nrow();
       data_->ncol = robj_.ncol();
     }
     IMatrix(const IMatrix& other) noexcept = delete;
     IMatrix(IMatrix&& other) noexcept = delete;
     ~IMatrix() noexcept = default;
-    void rownames(const Rcpp::StringVector& x) {Rcpp::rownames(robj_) = x;}
-    void colnames(const Rcpp::StringVector& x) {Rcpp::colnames(robj_) = x;}
     double at(int i, int j) const {return MATRIX(*data_, i, j);}
-    Rcpp::NumericMatrix wrap() const {return robj_;}
+    cpp11::doubles_matrix<> wrap() const {return robj_;}
     igraph_matrix_t* data() {return data_.get();}
   private:
-    Rcpp::NumericMatrix robj_;
+    cpp11::writable::doubles_matrix<> robj_;
     std::unique_ptr<igraph_matrix_t> data_ = std::make_unique<igraph_matrix_t>();
 };
 

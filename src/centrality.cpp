@@ -4,22 +4,26 @@
 
 #include <igraph/igraph_centrality.h>
 
-// [[Rcpp::export]]
-Rcpp::NumericVector edge_betweenness_(const IGraph& graph, const bool directed, const Rcpp::NumericVector& weights) {
-  IVector<AsValues, InitSize> res(graph.ecount());
-  igraph_edge_betweenness(graph.data(), res.data(), directed, weights.size() ? IVectorView(weights).data() : nullptr);
+[[cpp11::register]]
+cpp11::doubles
+edge_betweenness_(const cpp11::external_pointer<IGraph> graph,
+  const bool directed, const cpp11::doubles& weights) {
+  IVector<AsValues, InitSize> res(graph->ecount());
+  igraph_edge_betweenness(graph->data(), res.data(), directed, weights.size() ? IVectorView(weights).data() : nullptr);
   return res.wrap();
 }
 
-// [[Rcpp::export]]
-Rcpp::NumericVector edge_betweenness_subset_(const IGraph& graph, const bool directed,
-    const Rcpp::IntegerVector& eids,
-    const Rcpp::NumericVector& weights,
-    const Rcpp::IntegerVector& sources,
-    const Rcpp::IntegerVector& targets) {
-  IVector<AsValues, InitSize> res(graph.ecount());
+[[cpp11::register]]
+cpp11::doubles
+edge_betweenness_subset_(const cpp11::external_pointer<IGraph> graph,
+    const bool directed,
+    const cpp11::integers& eids,
+    const cpp11::doubles& weights,
+    const cpp11::integers& sources,
+    const cpp11::integers& targets) {
+  IVector<AsValues, InitSize> res(graph->ecount());
   igraph_edge_betweenness_subset(
-    graph.data(), res.data(),
+    graph->data(), res.data(),
     eids.size() ? ISelector(eids).ess() : igraph_ess_all(igraph_edgeorder_type_t::IGRAPH_EDGEORDER_ID),
     directed,
     sources.size() > 0 ? ISelector(sources).vss() : igraph_vss_all(),

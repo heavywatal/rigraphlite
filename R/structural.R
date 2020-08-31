@@ -5,7 +5,7 @@
 #' @rdname connected
 #' @export
 are_adjacent = function(graph, from, to) {
-  are_adjacent_(graph, from, to)
+  .Call(`_igraphlite_are_adjacent_`, graph, from, to)
 }
 
 #' Shortest Path Related Functions
@@ -29,7 +29,7 @@ distances = function(graph, from = integer(0L), to = from, weights = numeric(0L)
       algorithm = "unweighted"
     }
   }
-  distances_(graph, from, to, weights, mode, algorithm)
+  .Call(`_igraphlite_distances_`, graph, from, to, as.numeric(weights), mode, algorithm)
 }
 
 #' @rdname shortest_paths
@@ -39,7 +39,7 @@ get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0
     stopifnot(utils::hasName(Eattr(graph), "weight"))
     weights = Eattr(graph, "weight")
   }
-  get_shortest_paths_(graph, from, to, weights, mode)
+  .Call(`_igraphlite_get_shortest_paths_`, graph, from, to, as.numeric(weights), mode)
 }
 
 #' @rdname shortest_paths
@@ -49,14 +49,14 @@ get_all_shortest_paths = function(graph, from, to = integer(0L), weights = numer
     stopifnot(utils::hasName(Eattr(graph), "weight"))
     weights = Eattr(graph, "weight")
   }
-  get_all_shortest_paths_(graph, from, to, weights, mode)
+  .Call(`_igraphlite_get_all_shortest_paths_`, graph, from, to, as.numeric(weights), mode)
 }
 
 #' @param cutoff integer
 #' @rdname shortest_paths
 #' @export
 get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mode = 3L) {
-  res = get_all_simple_paths_(graph, from, to, cutoff, mode)
+  res = .Call(`_igraphlite_get_all_simple_paths_`, graph, from, to, cutoff, mode)
   pos = which(res == 0L)
   split_at(res[-pos], pos - seq_along(pos))
 }
@@ -64,13 +64,13 @@ get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mod
 #' @rdname shortest_paths
 #' @export
 average_path_length = function(graph, directed = FALSE) {
-  average_path_length_(graph, directed)
+  .Call(`_igraphlite_average_path_length_`, graph, directed)
 }
 
 #' @rdname shortest_paths
 #' @export
 path_length_hist = function(graph, directed = FALSE) {
-  path_length_hist_(graph, directed)
+  .Call(`_igraphlite_path_length_hist_`, graph, directed)
 }
 
 
@@ -83,13 +83,13 @@ path_length_hist = function(graph, directed = FALSE) {
 #' @rdname neighborhood
 #' @export
 neighborhood_size = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L) {
-  neighborhood_size_(graph, vids, order, mode, mindist)
+  .Call(`_igraphlite_neighborhood_size_`, graph, vids, order, mode, mindist)
 }
 
 #' @rdname neighborhood
 #' @export
 neighborhood = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L) {
-  neighborhood_(graph, vids, order, mode, mindist)
+  .Call(`_igraphlite_neighborhood_`, graph, vids, order, mode, mindist)
 }
 
 
@@ -100,13 +100,13 @@ neighborhood = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist
 #' @rdname component
 #' @export
 subcomponent = function(graph, vid, mode = 1L) {
-  subcomponent_(graph, vid, mode)
+  .Call(`_igraphlite_subcomponent_`, graph, vid, mode)
 }
 
 #' @rdname component
 #' @export
 subcomponents = function(graph, vids, mode = 1L) {
-  subcomponents_(graph, vids, mode)
+  .Call(`_igraphlite_subcomponents_`, graph, vids, mode)
 }
 
 #' @param impl how to construct a new graph:
@@ -115,7 +115,7 @@ subcomponents = function(graph, vids, mode = 1L) {
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {
   vids = sort(vids)
-  subg = induced_subgraph_(graph, vids, impl)
-  Vattr(subg) = Vattr(graph)[vids, ]
-  subg
+  subg = .Call(`_igraphlite_induced_subgraph_`, graph, vids, impl)
+  Vattr(subg) = Vattr(graph)[vids, , drop = FALSE]
+  as_Rcpp_IGraph(subg)
 }
