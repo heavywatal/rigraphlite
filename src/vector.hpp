@@ -2,7 +2,7 @@
 #ifndef IGRAPHLITE_VECTOR_HPP_
 #define IGRAPHLITE_VECTOR_HPP_
 
-#include <Rcpp.h>
+#include "cpp11.hpp"
 
 #include <igraph/igraph_vector.h>
 #include <igraph/igraph_vector_ptr.h>
@@ -64,16 +64,16 @@ class IVectorPtr {
         igraph_vector_ptr_set(data_.get(), i, elem);
       }
     }
-    Rcpp::NumericVector at(long pos) {
+    cpp11::doubles at(long pos) {
       void* elem = igraph_vector_ptr_e(data_.get(), pos);
       return WrapPolicy::wrap(reinterpret_cast<igraph_vector_t*>(elem));
     }
     long size() const {
       return igraph_vector_ptr_size(data_.get());
     }
-    Rcpp::List wrap() {
+    cpp11::list wrap() {
       const long len = size();
-      Rcpp::List output(len);
+      cpp11::writable::list output(len);
       for (long i = 0; i < len; ++i) {
         output[i] = at(i);
       }
