@@ -1,6 +1,6 @@
 Package: igraphlite
 Title: Lightweight R Interface to Igraph Network Analysis Library
-Version: 0.0.0.9000
+Version: 0.8.3
 Authors@R:
     person(given = "Watal M.", family = "Iwasaki", role = c("aut", "cre"), email = "heavy.watal@gmail.com", comment = c(ORCID="0000-0002-4718-7605"))
 Description:
@@ -15,17 +15,17 @@ Encoding: UTF-8
 LazyData: true
 StagedInstall: no
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 SystemRequirements:
     C++14
 Depends:
-    R (>= 3.5.0)
+    R (>= 3.6.0)
 LinkingTo:
     Rcpp
 Imports:
-    generics (>= 0.0.2),
+    generics (>= 0.1.0),
     methods,
-    Rcpp (>= 1.0.3)
+    Rcpp (>= 1.0.5)
 Suggests:
     ape,
     covr,
