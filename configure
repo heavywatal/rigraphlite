@@ -20,7 +20,7 @@ else
   fi
   echo "Building from C igraph source in $IGRAPH_SOURCE"
   cd $IGRAPH_SOURCE || exit 1
-  ./bootstrap.sh
+  [ -e ./bootstrap.sh ] && ./bootstrap.sh
   CONFIG_OPTIONS="--disable-static"
   ./configure --prefix=$IGRAPH_INSTALL_PREFIX $CONFIG_OPTIONS >/dev/null || exit 1
   make ${MAKEFLAGS:=-j2} install 2>/dev/null || exit 1
