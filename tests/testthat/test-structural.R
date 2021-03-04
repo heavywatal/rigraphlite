@@ -66,9 +66,11 @@ test_that("get_all_simple_paths works", {
 test_that("path_length_hist and average_path_length works", {
   mean_hist = function(x) sum(x * seq_along(x)) / sum(x)
   g = graph_tree(7L)
+  # undirected
   h = path_length_hist(g, FALSE)
   expect_length(h, 4L)
   expect_equal(mean_hist(h), average_path_length(g, FALSE))
+  # directed
   h = path_length_hist(g, TRUE)
   expect_length(h, 2L)
   expect_equal(mean_hist(h), average_path_length(g, TRUE))

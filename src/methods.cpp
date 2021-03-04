@@ -2,12 +2,12 @@
 #include "adjlist.hpp"
 #include "dataframe.hpp"
 
-Rcpp::List IGraph::as_adjlist(const int mode) const {
-  return IAdjList<AsIndicesInPlace>(data_.get(), mode).wrap();
+Rcpp::List IGraph::as_adjlist(const int mode, const int loops, const int multiple) const {
+  return IAdjList<AsIndicesInPlace>(data_.get(), mode, loops, multiple).wrap();
 }
 
-Rcpp::List IGraph::as_inclist(const int mode) const {
-  return IIncList<AsIndicesInPlace>(data_.get(), mode).wrap();
+Rcpp::List IGraph::as_inclist(const int mode, const int loops) const {
+  return IIncList<AsIndicesInPlace>(data_.get(), mode, loops).wrap();
 }
 
 Rcpp::NumericMatrix IGraph::as_edgelist() const {

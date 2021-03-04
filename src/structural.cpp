@@ -4,6 +4,7 @@
 #include "matrix.hpp"
 
 #include <igraph/igraph_structural.h>
+#include <igraph/igraph_operators.h>
 #include <igraph/igraph_paths.h>
 #include <igraph/igraph_neighborhood.h>
 
@@ -160,7 +161,7 @@ IGraph::get_all_simple_paths(
 double
 IGraph::average_path_length(bool directed) const {
   double res;
-  igraph_average_path_length(data_.get(), &res, directed, true);
+  igraph_average_path_length(data_.get(), &res, nullptr, directed, true);
   return res;
 }
 

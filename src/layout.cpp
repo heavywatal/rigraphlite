@@ -54,7 +54,7 @@ Rcpp::DataFrame IGraph::layout_mds() const {
   Rcpp::NumericVector null(0);
   IMatrix dist(shortest_paths(null, null, null, 3, "unweighted"));
   IMatrix res(vcount(), 2);
-  igraph_layout_mds(data_.get(), res.data(), dist.data(), 2, nullptr);
+  igraph_layout_mds(data_.get(), res.data(), dist.data(), 2);
   return as_named_data_frame(res.wrap());
 }
 
