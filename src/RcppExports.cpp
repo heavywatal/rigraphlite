@@ -6,6 +6,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // graph_from_data_frame
 IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed);
 RcppExport SEXP _igraphlite_graph_from_data_frame(SEXP dfSEXP, SEXP directedSEXP) {
