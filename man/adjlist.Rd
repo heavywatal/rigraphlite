@@ -8,14 +8,18 @@
 \url{https://igraph.org/c/doc/ch07.html#igraph-Adjlists}
 }
 \usage{
-as_adjlist(graph, mode = 3L)
+as_adjlist(graph, mode = 3L, loops = 1L, multiple = TRUE)
 
-as_inclist(graph, mode = 3L)
+as_inclist(graph, mode = 3L, loops = 1L)
 }
 \arguments{
 \item{graph}{IGraph object.}
 
 \item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+
+\item{loops}{How to treat loop edges; {0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE}}
+
+\item{multiple}{Boolean, whether to keep multiple (parallel) edges.}
 }
 \description{
 These functions are all-vertices version of \code{neighbors()} and \code{incident()}.

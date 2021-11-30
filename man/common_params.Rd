@@ -26,6 +26,10 @@ common_params(graph, vids, v, from, to, mode, weights, directed)
 \item{eids}{Edges of interest.}
 
 \item{eid}{Edges of interest.}
+
+\item{loops}{How to treat loop edges; {0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE}}
+
+\item{multiple}{Boolean, whether to keep multiple (parallel) edges.}
 }
 \description{
 This function does nothing. It is designed to be used with @inheritParams.

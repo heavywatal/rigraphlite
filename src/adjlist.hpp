@@ -11,8 +11,10 @@
 template <class WrapPolicy>
 class IAdjList {
   public:
-    IAdjList(const igraph_t* graph, int mode) {
-      igraph_adjlist_init(graph, data_.get(), static_cast<igraph_neimode_t>(mode));
+    IAdjList(const igraph_t* graph, int mode, int loops, int multiple) {
+      igraph_adjlist_init(graph, data_.get(), static_cast<igraph_neimode_t>(mode),
+                          static_cast<igraph_loops_t>(loops),
+                          static_cast<igraph_multiple_t>(multiple));
     }
     IAdjList() = delete;
     IAdjList(const IAdjList&) = delete;
@@ -42,8 +44,10 @@ class IAdjList {
 template <class WrapPolicy>
 class IIncList {
   public:
-    IIncList(const igraph_t* graph, int mode) {
-      igraph_inclist_init(graph, data_.get(), static_cast<igraph_neimode_t>(mode));
+    IIncList(const igraph_t* graph, int mode, int loops) {
+      igraph_inclist_init(graph, data_.get(),
+                          static_cast<igraph_neimode_t>(mode),
+                          static_cast<igraph_loops_t>(loops));
     }
     IIncList() = delete;
     IIncList(const IIncList&) = delete;

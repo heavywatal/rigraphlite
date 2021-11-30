@@ -11,6 +11,8 @@
 #' @param mode Edge type to count; {1: OUT, 2: IN, 3: ALL}.
 #' @param weights Numeric edge weights; `TRUE` to use `graph$Eattr$weight`.
 #' @param directed Boolean, whether to consider directed paths. Ignored for undirected graphs.
+#' @param loops How to treat loop edges; {0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE}
+#' @param multiple Boolean, whether to keep multiple (parallel) edges.
 #' @keywords internal
 common_params = function(graph, vids, v, from, to, mode, weights, directed) {
   invisible(NULL)

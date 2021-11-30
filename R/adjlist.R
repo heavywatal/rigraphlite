@@ -8,14 +8,14 @@
 #' @inheritParams common_params
 #' @rdname adjlist
 #' @export
-as_adjlist = function(graph, mode = 3L) {
-  graph$as_adjlist(mode)
+as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = TRUE) {
+  graph$as_adjlist(mode, loops, multiple)
 }
 
 #' @details
 #' `as_inclist()`: Convert a graph to a list of incident edges.
 #' @rdname adjlist
 #' @export
-as_inclist = function(graph, mode = 3L) {
-  graph$as_inclist(mode)
+as_inclist = function(graph, mode = 3L, loops = 1L) {
+  graph$as_inclist(mode, loops)
 }
