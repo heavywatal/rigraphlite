@@ -37,6 +37,7 @@ else()
   set(CMAKE_BUILD_TYPE Release)
   set(BUILD_EXECUTABLE OFF CACHE BOOL "")
   set(BUILD_TESTING OFF CACHE BOOL "")
+  set(BUILD_SHARED_LIBS ON)
   add_subdirectory(${subdir} ${subdir}/build)
 endif()
 
