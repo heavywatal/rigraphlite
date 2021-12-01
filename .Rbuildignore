@@ -5,3 +5,4 @@
 ^\.travis\.yml$
 ^\.vscode$
 ^\.github$
+^LICENSE\.md$
