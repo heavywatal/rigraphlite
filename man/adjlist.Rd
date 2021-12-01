@@ -5,7 +5,7 @@
 \alias{as_inclist}
 \title{Adjacency lists}
 \source{
-\url{https://igraph.org/c/doc/ch07.html#igraph-Adjlists}
+\url{https://igraph.org/c/doc/igraph-Data-structures.html#igraph-Adjlists}
 }
 \usage{
 as_adjlist(graph, mode = 3L, loops = 1L, multiple = TRUE)
