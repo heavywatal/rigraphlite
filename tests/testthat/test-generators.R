@@ -5,7 +5,7 @@ test_that("generator functions work", {
   symeli = matrix(edges, ncol = 2L)
   symelc = matrix(as.character(edges), ncol = 2L)
   dfi = as.data.frame(symeli)
-  dfc = as.data.frame(symelc, stringsAsFactors = FALSE)
+  dfc = as.data.frame(symelc)
   expect_s4_class(graph_tree(n), "Rcpp_IGraph")
   expect_s4_class(graph_create(edges), "Rcpp_IGraph")
   expect_s4_class(graph_from_edgelist(el), "Rcpp_IGraph")

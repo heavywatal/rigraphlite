@@ -3,8 +3,7 @@ as.data.frame.Rcpp_IGraph = function(x, ...) {
   df = data.frame(
     from = as_vnames(x, x$from),
     to = as_vnames(x, x$to),
-    x$Eattr,
-    stringsAsFactors = FALSE
+    x$Eattr
   )
   class(df) = c("tbl_df", "tbl", "data.frame")
   df
@@ -52,8 +51,7 @@ segment_df = function(from, to, x, y, vnames = NULL) {
     x = x[to],
     y = y[to],
     xend = x[from],
-    yend = y[from],
-    stringsAsFactors = FALSE
+    yend = y[from]
   )
   if (!is.null(vnames)) {
     df$from = vnames[from]
