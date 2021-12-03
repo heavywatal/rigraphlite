@@ -14,20 +14,6 @@ Rcpp::NumericMatrix IGraph::as_edgelist() const {
   return Rcpp::cbind(from(), to());
 }
 
-Rcpp::DataFrame IGraph::as_data_frame() const {
-  auto df = Rcpp::DataFrame::create(
-    Rcpp::_["from"] = from(),
-    Rcpp::_["to"] = to()
-  );
-  const long n = Eattr_.ncol();
-  const Rcpp::StringVector names = Eattr_.attr("names");
-  for (long i = 0; i < n; ++i) {
-    impl::mutate(df, names[i], Eattr_[i]);
-  }
-  df.attr("class") = impl::tibble_class();
-  return df;
-}
-
 Rcpp::LogicalVector IGraph::is_sink() const {
   return degree(Rcpp::NumericVector(0L), 1L, true) == 0;
 }

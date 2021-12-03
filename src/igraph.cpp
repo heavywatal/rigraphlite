@@ -44,7 +44,6 @@ RCPP_MODULE(igraph) {
     .const_method("as_adjlist", &IGraph::as_adjlist)
     .const_method("as_inclist", &IGraph::as_inclist)
     .const_method("as_edgelist", &IGraph::as_edgelist)
-    .const_method("as_data_frame", &IGraph::as_data_frame)
 
     .property("is_sink", &IGraph::is_sink)
     .property("is_source", &IGraph::is_source)

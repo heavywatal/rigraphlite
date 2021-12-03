@@ -85,7 +85,6 @@ class IGraph {
     Rcpp::List as_adjlist(int mode, int loops, int multiple) const;
     Rcpp::List as_inclist(int mode, int loops) const;
     Rcpp::NumericMatrix as_edgelist() const;
-    Rcpp::DataFrame as_data_frame() const;
 
     Rcpp::LogicalVector is_sink() const;
     Rcpp::LogicalVector is_source() const;
