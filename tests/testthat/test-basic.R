@@ -47,8 +47,10 @@ test_that("add_edges/add_vertices work", {
   g = graph_tree(7L)
   g$Vattr$id = g$V
   g$Vattr$name = LETTERS[g$V]
+  g$Vattr$weight = as.double(g$V)
   g$Eattr$id = g$E
   g$Eattr$name = LETTERS[g$E]
+  g$Eattr$weight = as.double(g$E)
   g$add_edges(c(6, 7, 8, 9))
   expect_length(g$E, 8L)
   expect_length(g$Eattr[[1L]], 8L)
@@ -56,14 +58,19 @@ test_that("add_edges/add_vertices work", {
   expect_length(g$V, 9L)
   expect_length(g$Vattr[[1L]], 9L)
   expect_equal(nrow(g$Vattr), 9L)
+  g$Vattr$invalid = as.list(g$V)
+  g$Eattr$weight = as.list(g$E)
+  expect_error(g$add_edges(c(10, 11)), "Invalid type")
 })
 
 test_that("delete_edges/delete_vertices work", {
   g = graph_tree(7L)
   g$Vattr$id = g$V
   g$Vattr$name = LETTERS[g$V]
+  g$Vattr$weight = as.double(g$V)
   g$Eattr$id = g$E
   g$Eattr$name = LETTERS[g$E]
+  g$Eattr$weight = as.double(g$E)
   g$delete_edges(c(2, 4))
   expect_length(g$E, 4L)
   expect_length(g$Eattr[[1L]], 4L)
@@ -73,4 +80,7 @@ test_that("delete_edges/delete_vertices work", {
   expect_length(g$Vattr[[1L]], 5L)
   expect_equal(nrow(g$Vattr), 5L)
   expect_equal(nrow(g$Eattr), g$ecount)
+  g$Vattr$invalid = as.list(g$V)
+  g$Eattr$weight = as.list(g$E)
+  expect_error(g$delete_edges(c(2, 5)), "Invalid type")
 })
