@@ -74,24 +74,14 @@
 <h2 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
 </h2>
 <ul>
-<li><p>Unix-like environment (macOS, Linux, WSL, MinGW on MSYS2, etc.)</p></li>
-<li><p>C++14 compiler (clang++ &gt;= Apple LLVM 8.1, g++ &gt;= 5.3)</p></li>
-<li><p><a href="https://cmake.org/" class="external-link">CMake</a> (&gt;= 3.8.0)</p></li>
+<li>Unix-like environment (macOS, Linux, WSL, MinGW on MSYS2, etc.)</li>
+<li>C++14 compiler (clang++ &gt;= Apple LLVM 8.1, g++ &gt;= 5.3)</li>
 <li>
-<p>Optionally the following tools are required when you build C igraph from <a href="https://github.com/igraph/igraph" class="external-link">the latest source on GitHub</a>:</p>
-<ul>
-<li><a href="https://www.gnu.org/software/autoconf/" class="external-link">autoconf</a></li>
-<li><a href="https://www.gnu.org/software/automake/" class="external-link">automake</a></li>
-<li><a href="https://www.gnu.org/software/libtool/" class="external-link">libtool</a></li>
-<li>bison, byacc, flex</li>
-</ul>
-<p>The easiest way is to use <a href="https://brew.sh/" class="external-link">Homebrew</a>: <code>brew install autoconf automake libtool</code></p>
-</li>
-<li>
-<p>NOT required:</p>
+<a href="https://cmake.org/" class="external-link">CMake</a> (&gt;= 3.16.0)</li>
+<li>NOT required:
 <ul>
 <li>R igraph package</li>
-<li>C igraph library</li>
+<li>C igraph library: igraphlite first tries to <code>find_package()</code> in <code>${IGRAPH_INSTALL_PREFIX}</code> and <code>${CMAKE_PREFIX_PATH}</code>; if not found, it builds and installs an appropriate version automatically.</li>
 </ul>
 </li>
 </ul>
