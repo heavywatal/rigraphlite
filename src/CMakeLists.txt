@@ -17,28 +17,21 @@ if(igraph_FOUND)
   message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
   install(CODE "message(STATUS ${igraph_DIR})") # to make target 'install'
 else()
-  set(package igraph)
-  set(repo igraph/${package})
-  if(${PROJECT_VERSION} VERSION_LESS 0.1.0)
-    set(version HEAD)
-    set(branch master)
-  else()
-    set(version ${PROJECT_VERSION})
-    set(branch ${version})
-  endif()
-  set(subdir ${PROJECT_BINARY_DIR}/${package}-${version})
-  if(NOT EXISTS ${subdir})
-    find_package(Git)
-    execute_process(COMMAND
-      ${GIT_EXECUTABLE} clone --recursive --depth=1 --branch=${branch} https://github.com/${repo}.git ${subdir}
-    )
-  endif()
-  message(STATUS "add_subdirectory(${subdir})")
   set(CMAKE_BUILD_TYPE Release)
   set(CMAKE_RULE_MESSAGES OFF CACHE BOOL "")
   set(BUILD_TESTING OFF CACHE BOOL "")
   set(BUILD_SHARED_LIBS ON)
-  add_subdirectory(${subdir} ${subdir}/build)
+  include(FetchContent)
+  set(FETCHCONTENT_QUIET OFF)
+  message(STATUS "FETCHCONTENT_SOURCE_DIR_IGRAPH: ${FETCHCONTENT_SOURCE_DIR_IGRAPH}")
+  FetchContent_Declare(
+    igraph
+    GIT_REPOSITORY https://github.com/igraph/igraph.git
+    GIT_TAG ${PROJECT_VERSION}
+    GIT_SHALLOW ON
+  )
+  FetchContent_MakeAvailable(igraph)
+  message(STATUS "igraph_SOURCE_DIR: ${igraph_SOURCE_DIR}")
 endif()
 
 if(${CMAKE_INSTALL_PREFIX} MATCHES linuxbrew)
