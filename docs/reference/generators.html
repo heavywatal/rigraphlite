@@ -10,14 +10,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">igraphlite</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
@@ -48,25 +48,25 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">graph_create</span><span class="op">(</span><span class="va">edges</span>, n <span class="op">=</span> <span class="fl">0L</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">graph_star</span><span class="op">(</span><span class="va">n</span>, mode <span class="op">=</span> <span class="fl">0L</span>, center <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span>
-
-<span class="fu">graph_lattice</span><span class="op">(</span>
-  <span class="va">dim</span>,
-  nei <span class="op">=</span> <span class="fl">1L</span>,
-  directed <span class="op">=</span> <span class="cn">FALSE</span>,
-  mutual <span class="op">=</span> <span class="cn">FALSE</span>,
-  circular <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span>
-
-<span class="fu">graph_ring</span><span class="op">(</span><span class="va">n</span>, directed <span class="op">=</span> <span class="cn">FALSE</span>, mutual <span class="op">=</span> <span class="cn">FALSE</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">graph_tree</span><span class="op">(</span><span class="va">n</span>, children <span class="op">=</span> <span class="fl">2L</span>, mode <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span>
-
-<span class="fu">graph_full</span><span class="op">(</span><span class="va">n</span>, directed <span class="op">=</span> <span class="cn">FALSE</span>, mutual <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="fu">graph_famous</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">graph_create</span><span class="op">(</span><span class="va">edges</span>, n <span class="op">=</span> <span class="fl">0L</span>, directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_star</span><span class="op">(</span><span class="va">n</span>, mode <span class="op">=</span> <span class="fl">0L</span>, center <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_lattice</span><span class="op">(</span></span>
+<span>  <span class="va">dim</span>,</span>
+<span>  nei <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  directed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  mutual <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  circular <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_ring</span><span class="op">(</span><span class="va">n</span>, directed <span class="op">=</span> <span class="cn">FALSE</span>, mutual <span class="op">=</span> <span class="cn">FALSE</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_tree</span><span class="op">(</span><span class="va">n</span>, children <span class="op">=</span> <span class="fl">2L</span>, mode <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_full</span><span class="op">(</span><span class="va">n</span>, directed <span class="op">=</span> <span class="cn">FALSE</span>, mutual <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">graph_famous</span><span class="op">(</span><span class="va">name</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,26 +77,46 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>edges</dt>
 <dd><p>The edges to add, the first two elements are the first edge, etc.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>Integer, the number of vertices in the graph.</p></dd>
+
+
 <dt>directed</dt>
 <dd><p>Boolean</p></dd>
+
+
 <dt>mode</dt>
 <dd><p>Integer;</p><ul><li><p><code>igraph_star_mode_t</code> \0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\</p></li>
 <li><p><code>igraph_tree_mode_t</code> \0: OUT, 1: IN, 2: UNDIRECTED\</p></li>
 </ul></dd>
+
+
 <dt>center</dt>
 <dd><p>Id of the vertex which will be the center of the graph.</p></dd>
+
+
 <dt>dim</dt>
 <dd><p>Vector giving the sizes of the lattice in each of its dimensions.</p></dd>
+
+
 <dt>nei</dt>
 <dd><p>Integer distance within which two vertices will be connected.</p></dd>
+
+
 <dt>mutual</dt>
 <dd><p>Boolean</p></dd>
+
+
 <dt>circular</dt>
 <dd><p>Boolean</p></dd>
+
+
 <dt>children</dt>
 <dd><p>Integer, the number of children of a vertex in the tree.</p></dd>
+
+
 <dt>name</dt>
 <dd><p>\Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
 Dodecahedron, Folkman, Franklin, Frucht, Grotzsch, Heawood, Herschel, House,
@@ -104,6 +124,7 @@ HouseX, Icosahedral, Icosahedron, Krackhardt_Kite, Levi, McGee, Meredith,
 Noperfectmatching, Nonline, Octahedral, Octahedron, Petersen, Robertson,
 Smallestcyclicgroup, Tetrahedral, Tetrahedron, Thomassen, Tutte,
 Uniquely3colorable, Walther, Zachary\</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -119,7 +140,7 @@ Uniquely3colorable, Walther, Zachary\</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

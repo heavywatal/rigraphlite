@@ -10,14 +10,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">igraphlite</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.9</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
@@ -48,9 +48,9 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">as_adjlist</span><span class="op">(</span><span class="va">graph</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu">as_inclist</span><span class="op">(</span><span class="va">graph</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">as_adjlist</span><span class="op">(</span><span class="va">graph</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">as_inclist</span><span class="op">(</span><span class="va">graph</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -61,12 +61,19 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>graph</dt>
 <dd><p>IGraph object.</p></dd>
+
+
 <dt>mode</dt>
 <dd><p>Edge type to count; 1: OUT, 2: IN, 3: ALL.</p></dd>
+
+
 <dt>loops</dt>
 <dd><p>How to treat loop edges; 0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE</p></dd>
+
+
 <dt>multiple</dt>
 <dd><p>Boolean, whether to keep multiple (parallel) edges.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -87,7 +94,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
