@@ -15,7 +15,7 @@ as_igraph.default = function(x) {
 #' @rdname as_igraph
 #' @export
 as_igraph.matrix = function(x) {
-  if (is.double(x)) {
+  if (is.numeric(x)) {
     graph_from_edgelist(x)
   } else {
     graph_from_symbolic_edgelist(x)

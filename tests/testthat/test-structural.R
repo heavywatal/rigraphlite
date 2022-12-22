@@ -6,26 +6,36 @@ test_that("are_connected works", {
 })
 
 test_that("distances works", {
-  g = graph_tree(7L)
+  n = 7L
+  g = graph_tree(n)
+  d = distances(g) |>
+    expect_type("double") |>
+    expect_length(n**2L)
+  expect_true(is.matrix(d))
+  expect_identical(dim(d), c(g$vcount, g$vcount))
   from = seq_len(3L)
   to = seq_len(3L) + 4L
-  expect_is(distances(g), "matrix")
-  expect_identical(dim(distances(g)), c(g$vcount, g$vcount))
   expect_identical(dim(distances(g, from)), c(length(from), length(from)))
   expect_identical(dim(distances(g, from, to)), c(length(from), length(to)))
-  expect_is(distances(g, weights = g$E), "matrix")
+  dw = distances(g, weights = g$E) |>
+    expect_type("double") |>
+    expect_length(n**2L)
+  expect_true(is.matrix(dw))
+  expect_identical(dim(dw), c(g$vcount, g$vcount))
   expect_error(distances(g, weights = TRUE), "hasName")
   g$Eattr["weight"] = g$E
-  expect_is(distances(g, weights = TRUE), "matrix")
+  expect_identical(distances(g, weights = TRUE), dw)
 })
 
 test_that("get_shortest_paths works", {
   g = graph_tree(7L)
   to = seq_len(3L)
-  expect_is(get_shortest_paths(g, 1L), "list")
-  expect_length(get_shortest_paths(g, 1L), g$vcount)
-  expect_length(get_shortest_paths(g, 1L, to), length(to))
-  expect_identical(get_shortest_paths(g, 1L, to), list(1L, c(1L, 2L), c(1L, 3L)))
+  get_shortest_paths(g, 1L) |>
+    expect_type("list") |>
+    expect_length(g$vcount)
+  get_shortest_paths(g, 1L, to) |>
+    expect_length(length(to)) |>
+    expect_identical(list(1L, c(1L, 2L), c(1L, 3L)))
   expect_error(
     get_shortest_paths(g, c(1L, 2L), to),
     "Expecting a single value",
@@ -37,16 +47,18 @@ test_that("get_shortest_paths works", {
   )
   expect_error(get_shortest_paths(g, 1L, weights = TRUE), "hasName")
   g$Eattr["weight"] = g$E
-  expect_is(get_shortest_paths(g, 1L, weights = TRUE), "list")
+  expect_type(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
 test_that("get_all_shortest_paths works", {
   g = graph_tree(7L)
   to = seq_len(3L)
-  expect_is(get_all_shortest_paths(g, 1L), "list")
-  expect_length(get_all_shortest_paths(g, 1L), g$vcount)
-  expect_length(get_all_shortest_paths(g, 1L, to), length(to))
-  expect_identical(get_all_shortest_paths(g, 1L, to), list(1L, c(1L, 2L), c(1L, 3L)))
+  get_all_shortest_paths(g, 1L) |>
+    expect_type("list") |>
+    expect_length(g$vcount)
+  get_all_shortest_paths(g, 1L, to) |>
+    expect_length(length(to)) |>
+    expect_identical(list(1L, c(1L, 2L), c(1L, 3L)))
   expect_error(
     get_all_shortest_paths(g, c(1L, 2L), to),
     "Expecting a single value",
@@ -55,7 +67,7 @@ test_that("get_all_shortest_paths works", {
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
   expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
   g$Eattr["weight"] = g$E
-  expect_is(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
+  expect_type(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
 test_that("get_all_simple_paths works", {
