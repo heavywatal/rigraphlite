@@ -15,7 +15,7 @@ Encoding: UTF-8
 LazyData: true
 StagedInstall: no
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 SystemRequirements:
     C++14,
     CMake (>= 3.16.0)
@@ -26,7 +26,8 @@ LinkingTo:
 Imports:
     generics (>= 0.1.3),
     methods,
-    Rcpp (>= 1.0.8)
+    Rcpp (>= 1.0.9),
+    rlang (>= 1.0.6)
 Suggests:
     ape,
     covr,

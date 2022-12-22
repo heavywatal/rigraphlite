@@ -67,8 +67,9 @@ segment_df = function(from, to, x, y, vnames = NULL) {
 #' @export
 plot.Rcpp_IGraph = function(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16) {
   data = augment(x, ...)
-  ggplot2::ggplot(data, ggplot2::aes_(~x, ~y)) +
-    ggplot2::geom_segment(ggplot2::aes_(xend = ~xend, yend = ~yend), size = lwd) +
+  ggplot2::ggplot(data) +
+    ggplot2::aes(.data[["x"]], .data[["y"]]) +
+    ggplot2::geom_segment(ggplot2::aes(xend = .data[["xend"]], yend = .data[["yend"]]), linewidth = lwd) +
     ggplot2::geom_point(shape = pch, size = cex, colour = col) +
-    ggplot2::geom_text(ggplot2::aes_(label = ~to), size = cex * 0.6)
+    ggplot2::geom_text(ggplot2::aes(label = .data[["to"]]), size = cex * 0.6)
 }
