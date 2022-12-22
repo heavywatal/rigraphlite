@@ -8,13 +8,13 @@
 
 class IStrVector {
   public:
-    IStrVector(long n = 0) {
+    IStrVector(int n = 0) {
       igraph_strvector_init(data_.get(), n);
     }
     IStrVector(const Rcpp::StringVector& x) {
-      long n = x.size();
+      int n = x.size();
       igraph_strvector_init(data_.get(), n);
-      for (long i = 0; i < n; ++i) {
+      for (int i = 0; i < n; ++i) {
         igraph_strvector_set(data_.get(), i, x[i]);
       }
     }
@@ -25,16 +25,16 @@ class IStrVector {
     ~IStrVector() noexcept {
       if (data_) igraph_strvector_destroy(data_.get());
     }
-    const char* at(long pos) const {
-      return data_->data[pos];
+    const char* at(int pos) const {
+      return igraph_strvector_get(data_.get(), pos);
     }
-    long size() const {
+    int size() const {
       return igraph_strvector_size(data_.get());
     }
     Rcpp::StringVector wrap() const {
-      const long n = size();
+      const int n = size();
       Rcpp::StringVector output(n);
-      for (long i = 0; i < n; ++i) {
+      for (int i = 0; i < n; ++i) {
         output[i] = at(i);
       }
       return output;

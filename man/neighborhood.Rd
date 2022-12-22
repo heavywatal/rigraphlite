@@ -10,13 +10,13 @@
 \usage{
 neighborhood_size(
   graph,
-  vids = numeric(0),
+  vids = integer(0),
   order = 1L,
   mode = 1L,
   mindist = 0L
 )
 
-neighborhood(graph, vids = numeric(0), order = 1L, mode = 1L, mindist = 0L)
+neighborhood(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L)
 }
 \arguments{
 \item{graph}{IGraph object.}

@@ -11,6 +11,6 @@ test_that("tbl_tree conversion works", {
   expect_s3_class(tree, "tbl_tree")
   g2 = as_igraph(tree)
   expect_s4_class(g2, "Rcpp_IGraph")
-  expect_equal(row.names(as_tbl_tree(g2)), row.names(tree))
-  expect_equal(as_tbl_tree(g2), tree)
+  expect_identical(row.names(as_tbl_tree(g2)), row.names(tree))
+  expect_identical(as_tbl_tree(g2), tree)
 })

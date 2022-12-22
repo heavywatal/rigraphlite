@@ -23,9 +23,9 @@ layout_fruchterman_reingold(graph, grid = 2L)
 
 layout_mds(graph)
 
-layout_reingold_tilford(graph, mode = 1L, roots = numeric(0))
+layout_reingold_tilford(graph, mode = 1L, roots = integer(0))
 
-layout_reingold_tilford_circular(graph, mode = 1L, roots = numeric(0))
+layout_reingold_tilford_circular(graph, mode = 1L, roots = integer(0))
 }
 \arguments{
 \item{graph}{IGraph object.}

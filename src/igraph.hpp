@@ -18,55 +18,55 @@ class IGraph {
     IGraph(IGraph&& other);
 
     IGraph(int n, bool directed); // empty
-    IGraph(const Rcpp::NumericVector& edges, int n, bool directed); // create
+    IGraph(const Rcpp::IntegerVector& edges, int n, bool directed); // create
     IGraph(int n, int mode, double center); // star
-    IGraph(const Rcpp::NumericVector& dim, int nei, bool directed, bool mutual, bool circular); // lattice
+    IGraph(const Rcpp::IntegerVector& dim, int nei, bool directed, bool mutual, bool circular); // lattice
     IGraph(int n, bool directed, bool mutual, bool circular); // ring
     IGraph(int n, int children, int mode); // tree
     IGraph(int n, bool directed, bool loops); // full
     IGraph(const char* name); // famous
-    IGraph(const IGraph& other, const Rcpp::NumericVector& vids, int impl); // induced_subgraph
+    IGraph(const IGraph& other, const Rcpp::IntegerVector& vids, int impl); // induced_subgraph
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Basic interface
 
-    long vcount() const;
-    long ecount() const;
+    int vcount() const;
+    int ecount() const;
     bool is_directed() const;
     Rcpp::IntegerVector edge(int eid) const;
-    Rcpp::NumericVector neighbors(int node, int mode) const;
-    Rcpp::NumericVector incident(int node, int mode) const;
-    Rcpp::NumericVector degree(const Rcpp::NumericVector& vids, int mode, bool loops) const;
+    Rcpp::IntegerVector neighbors(int node, int mode) const;
+    Rcpp::IntegerVector incident(int node, int mode) const;
+    Rcpp::IntegerVector degree(const Rcpp::IntegerVector& vids, int mode, bool loops) const;
 
-    void add_edges(const Rcpp::NumericVector& edges);
+    void add_edges(const Rcpp::IntegerVector& edges);
     void add_vertices(int n);
-    void delete_edges(const Rcpp::NumericVector& eids);
-    void delete_vertices(const Rcpp::NumericVector& vids);
+    void delete_edges(const Rcpp::IntegerVector& eids);
+    void delete_vertices(const Rcpp::IntegerVector& vids);
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Structural properties
 
     Rcpp::LogicalVector are_connected(int v1, int v2) const;
-    Rcpp::NumericMatrix shortest_paths(
-      const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
+    Rcpp::NumericMatrix distances(
+      const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
       const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
     Rcpp::List get_shortest_paths(
-      int from, const Rcpp::NumericVector& to,
+      int from, const Rcpp::IntegerVector& to,
       const Rcpp::NumericVector& weights, int mode) const;
     Rcpp::List get_all_shortest_paths(
-      int from, const Rcpp::NumericVector& to,
+      int from, const Rcpp::IntegerVector& to,
       const Rcpp::NumericVector& weights, int mode) const;
     Rcpp::IntegerVector get_all_simple_paths(
-      int from, const Rcpp::NumericVector& to, int cutoff, int mode) const;
+      int from, const Rcpp::IntegerVector& to, int cutoff, int mode) const;
     double average_path_length(bool directed) const;
     Rcpp::NumericVector path_length_hist(bool directed) const;
-    Rcpp::NumericVector neighborhood_size(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
-    Rcpp::List neighborhood(const Rcpp::NumericVector& vids, int order, int mode, int mindist) const;
-    Rcpp::NumericVector subcomponent(double v, int mode) const;
-    Rcpp::List subcomponents(const Rcpp::NumericVector& vids, int mode) const;
+    Rcpp::IntegerVector neighborhood_size(const Rcpp::IntegerVector& vids, int order, int mode, int mindist) const;
+    Rcpp::List neighborhood(const Rcpp::IntegerVector& vids, int order, int mode, int mindist) const;
+    Rcpp::IntegerVector subcomponent(double v, int mode) const;
+    Rcpp::List subcomponents(const Rcpp::IntegerVector& vids, int mode) const;
 
     Rcpp::NumericVector mean_distances(
-      const Rcpp::NumericVector& from, const Rcpp::NumericVector& to,
+      const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
       const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
@@ -76,15 +76,15 @@ class IGraph {
     Rcpp::DataFrame layout_drl() const;
     Rcpp::DataFrame layout_fruchterman_reingold(int grid) const;
     Rcpp::DataFrame layout_mds() const;
-    Rcpp::DataFrame layout_reingold_tilford(int mode, const Rcpp::NumericVector& roots) const;
-    Rcpp::DataFrame layout_reingold_tilford_circular(int mode, const Rcpp::NumericVector& roots) const;
+    Rcpp::DataFrame layout_reingold_tilford(int mode, const Rcpp::IntegerVector& roots) const;
+    Rcpp::DataFrame layout_reingold_tilford_circular(int mode, const Rcpp::IntegerVector& roots) const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Original methods
 
     Rcpp::List as_adjlist(int mode, int loops, int multiple) const;
     Rcpp::List as_inclist(int mode, int loops) const;
-    Rcpp::NumericMatrix as_edgelist() const;
+    Rcpp::IntegerMatrix as_edgelist() const;
 
     Rcpp::LogicalVector is_sink() const;
     Rcpp::LogicalVector is_source() const;
@@ -95,12 +95,12 @@ class IGraph {
     Rcpp::sugar::SeqLen E() const {return Rcpp::seq_len(ecount());}
 
     // igraph_t getter
-    Rcpp::NumericVector from() const;
-    Rcpp::NumericVector to() const;
-    Rcpp::NumericVector oi() const;
-    Rcpp::NumericVector ii() const;
-    Rcpp::NumericVector os() const;
-    Rcpp::NumericVector is() const;
+    Rcpp::IntegerVector from() const;
+    Rcpp::IntegerVector to() const;
+    Rcpp::IntegerVector oi() const;
+    Rcpp::IntegerVector ii() const;
+    Rcpp::IntegerVector os() const;
+    Rcpp::IntegerVector is() const;
 
     void mutate_Vattr(const char* name, const Rcpp::RObject& value);
     void mutate_Eattr(const char* name, const Rcpp::RObject& value);

@@ -16,9 +16,9 @@ IGraph class: thin wrapper of \code{igraph_t}.
 \section{Fields}{
 
 \describe{
-\item{\code{V}}{Vertex IDs in a numeric vector}
+\item{\code{V}}{Vertex IDs in a integer vector}
 
-\item{\code{E}}{Edge IDs in a numeric vector}
+\item{\code{E}}{Edge IDs in a integer vector}
 
 \item{\code{Vattr}}{Vertex attributes in a data.frame}
 

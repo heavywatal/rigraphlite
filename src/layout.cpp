@@ -27,8 +27,7 @@ Rcpp::DataFrame IGraph::layout_drl() const {
   igraph_layout_drl(data_.get(), res.data(),
     false,    // use_seed
     &options,
-    nullptr,  // weights
-    nullptr   // fixed
+    nullptr  // weights
   );
   return as_named_data_frame(res.wrap());
 }
@@ -52,13 +51,14 @@ Rcpp::DataFrame IGraph::layout_fruchterman_reingold(int grid) const {
 
 Rcpp::DataFrame IGraph::layout_mds() const {
   Rcpp::NumericVector null(0);
-  IMatrix dist(shortest_paths(null, null, null, 3, "unweighted"));
+  Rcpp::IntegerVector nulli(0);
+  IMatrix dist(distances(nulli, nulli, null, 3, "unweighted"));
   IMatrix res(vcount(), 2);
   igraph_layout_mds(data_.get(), res.data(), dist.data(), 2);
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode, const Rcpp::NumericVector& roots) const {
+Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode, const Rcpp::IntegerVector& roots) const {
   IMatrix res(vcount(), 2);
   igraph_layout_reingold_tilford(
     data_.get(), res.data(),
@@ -67,7 +67,7 @@ Rcpp::DataFrame IGraph::layout_reingold_tilford(int mode, const Rcpp::NumericVec
   return as_named_data_frame(res.wrap());
 }
 
-Rcpp::DataFrame IGraph::layout_reingold_tilford_circular(int mode, const Rcpp::NumericVector& roots) const {
+Rcpp::DataFrame IGraph::layout_reingold_tilford_circular(int mode, const Rcpp::IntegerVector& roots) const {
   IMatrix res(vcount(), 2);
   igraph_layout_reingold_tilford_circular(
     data_.get(), res.data(),

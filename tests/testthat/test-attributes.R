@@ -6,7 +6,7 @@ test_that("attribute getters/setters work", {
     },
     g$vcount
   )
-  expect_equal(vertex_attr(g, "name"), g$V)
+  expect_identical(vertex_attr(g, "name"), g$V)
   expect_s3_class(
     {
       vattr = vertex_attr(g)
@@ -25,7 +25,7 @@ test_that("attribute getters/setters work", {
     },
     g$ecount
   )
-  expect_equal(edge_attr(g, "name"), g$E)
+  expect_identical(edge_attr(g, "name"), g$E)
   expect_s3_class(
     {
       eattr = edge_attr(g)
@@ -45,7 +45,7 @@ test_that("name-id conversion works", {
   el = matrix(edges, ncol = 2L)
   vnames = as.vector(t(el))
   g = graph_from_symbolic_edgelist(el)
-  expect_equal(Vnames(g), vnames)
-  expect_equal(as_vnames(g, g$V), vnames)
-  expect_equal(as_vids(g, vnames), g$V)
+  expect_identical(Vnames(g), vnames)
+  expect_identical(as_vnames(g, g$V), vnames)
+  expect_identical(as_vids(g, vnames), g$V)
 })

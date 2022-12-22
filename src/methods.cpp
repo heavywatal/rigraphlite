@@ -10,16 +10,16 @@ Rcpp::List IGraph::as_inclist(const int mode, const int loops) const {
   return IIncList<AsIndicesInPlace>(data_.get(), mode, loops).wrap();
 }
 
-Rcpp::NumericMatrix IGraph::as_edgelist() const {
+Rcpp::IntegerMatrix IGraph::as_edgelist() const {
   return Rcpp::cbind(from(), to());
 }
 
 Rcpp::LogicalVector IGraph::is_sink() const {
-  return degree(Rcpp::NumericVector(0L), 1L, true) == 0;
+  return degree(Rcpp::IntegerVector(0L), 1L, true) == 0;
 }
 
 Rcpp::LogicalVector IGraph::is_source() const {
-  return degree(Rcpp::NumericVector(0L), 2L, true) == 0;
+  return degree(Rcpp::IntegerVector(0L), 2L, true) == 0;
 }
 
 Rcpp::IntegerVector IGraph::sink() const {
@@ -30,12 +30,12 @@ Rcpp::IntegerVector IGraph::source() const {
   return Rcpp::IntegerVector(V())[is_source()];
 }
 
-Rcpp::NumericVector IGraph::from() const {return AsIndices::wrap(&data_->from);}
-Rcpp::NumericVector IGraph::to() const {return AsIndices::wrap(&data_->to);}
-Rcpp::NumericVector IGraph::oi() const {return AsIndices::wrap(&data_->oi);}
-Rcpp::NumericVector IGraph::ii() const {return AsIndices::wrap(&data_->ii);}
-Rcpp::NumericVector IGraph::os() const {return AsIndices::wrap(&data_->os);}
-Rcpp::NumericVector IGraph::is() const {return AsIndices::wrap(&data_->is);}
+Rcpp::IntegerVector IGraph::from() const {return AsIndices::wrap(&data_->from);}
+Rcpp::IntegerVector IGraph::to() const {return AsIndices::wrap(&data_->to);}
+Rcpp::IntegerVector IGraph::oi() const {return AsIndices::wrap(&data_->oi);}
+Rcpp::IntegerVector IGraph::ii() const {return AsIndices::wrap(&data_->ii);}
+Rcpp::IntegerVector IGraph::os() const {return AsIndices::wrap(&data_->os);}
+Rcpp::IntegerVector IGraph::is() const {return AsIndices::wrap(&data_->is);}
 
 void IGraph::mutate_Vattr(const char* name, const Rcpp::RObject& value) {
   impl::mutate(Vattr_, name, value);

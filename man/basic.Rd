@@ -25,7 +25,7 @@ incident(graph, vid, mode = 3L)
 
 is_directed(graph)
 
-degree(graph, vids = numeric(0), mode = 3L, loops = TRUE)
+degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 }
 \arguments{
 \item{graph}{IGraph object.}

@@ -23,7 +23,7 @@ upstream_vertices = function(graph, vids, to_mrca = TRUE) {
 
 # nocov start
 
-mean_distances = function(graph, from = numeric(0L), to = from) {
+mean_distances = function(graph, from = integer(0L), to = from) {
   if (length(from) == 0L && length(to) == 0L) {
     mean_distances_avg(graph, from, to)
   } else if (setequal(graph$V, from) && setequal(graph$V, to)) {
@@ -35,9 +35,9 @@ mean_distances = function(graph, from = numeric(0L), to = from) {
   }
 }
 
-mean_distances_mat = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
+mean_distances_mat = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
                               algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
-  m = shortest_paths(graph, from = from, to = to, weights = weights, mode = mode, algorithm = algorithm)
+  m = distances(graph, from = from, to = to, weights = weights, mode = mode, algorithm = algorithm)
   if (length(from)) {
     nzero = sum(from %in% to)
   } else {
@@ -46,7 +46,7 @@ mean_distances_mat = function(graph, from = numeric(0L), to = from, weights = nu
   sum(m) / (nrow(m) * ncol(m) - nzero)
 }
 
-mean_distances_vec = function(graph, from = numeric(0L), to = from, weights = numeric(0L), mode = 3L,
+mean_distances_vec = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
                               algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {

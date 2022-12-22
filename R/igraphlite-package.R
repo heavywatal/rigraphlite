@@ -12,8 +12,8 @@ Rcpp::loadModule("igraph", TRUE)
 
 #' IGraph class: thin wrapper of `igraph_t`.
 #'
-#' @field V Vertex IDs in a numeric vector
-#' @field E Edge IDs in a numeric vector
+#' @field V Vertex IDs in a integer vector
+#' @field E Edge IDs in a integer vector
 #' @field Vattr Vertex attributes in a data.frame
 #' @field Eattr Edge attributes in a data.frame
 #'

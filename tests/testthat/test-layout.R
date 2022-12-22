@@ -4,7 +4,7 @@ test_that("layout functions return x-y columns", {
   l1 = layout_random(g)
   expect_silent(rng_seed(19937L))
   l2 = layout_random(g)
-  expect_equal(l1, l2)
+  expect_identical(l1, l2)
   expect_named(l1, c("x", "y"))
   expect_named(layout_nicely(g), c("x", "y"))
   expect_named(layout_drl(g), c("x", "y"))

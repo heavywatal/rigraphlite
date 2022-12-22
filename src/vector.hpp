@@ -4,13 +4,13 @@
 
 #include <Rcpp.h>
 
-#include <igraph/igraph_vector.h>
-#include <igraph/igraph_vector_ptr.h>
-#include <igraph/igraph_iterators.h>
-
 #include "policy.hpp"
 
-template <class WrapPolicy, class StoragePolicy = InitSize>
+#include <igraph/igraph_vector.h>
+#include <igraph/igraph_vector_list.h>
+#include <igraph/igraph_iterators.h>
+
+template <class WrapPolicy, class StoragePolicy = InitSizeInt>
 class IVector {
     using data_type = typename StoragePolicy::data_type;
   public:
@@ -24,10 +24,10 @@ class IVector {
     }
     igraph_es_t ess() const {return igraph_ess_vector(data_.get());}
     igraph_vs_t vss() const {return igraph_vss_vector(data_.get());}
-    double at(long pos) const {
-      return igraph_vector_e(data_.get(), pos);
+    auto at(const int pos) const {
+      return StoragePolicy::get(data_.get(), pos);
     }
-    long size() const {
+    int size() const {
       return igraph_vector_size(data_.get());
     }
     auto wrap() {// non-const for AsIndicesInPlace
@@ -44,44 +44,41 @@ using ISelectorInPlace = IVector<AsIndices, InitIndicesInPlace>;
 
 
 template <class WrapPolicy>
-class IVectorPtr {
+class IVectorIntList {
   public:
-    IVectorPtr(long n = 0) {
-      igraph_vector_ptr_init(data_.get(), n);
-      igraph_vector_ptr_set_item_destructor(data_.get(),
-        reinterpret_cast<igraph_finally_func_t*>(igraph_vector_destroy));
+    IVectorIntList(int n = 0) {
+      igraph_vector_int_list_init(data_.get(), n);
     }
-    IVectorPtr(const IVectorPtr&) = delete;
-    IVectorPtr(IVectorPtr&&) = delete;
-    ~IVectorPtr() noexcept {
-      igraph_vector_ptr_destroy_all(data_.get());
+    IVectorIntList(const IVectorIntList&) = delete;
+    IVectorIntList(IVectorIntList&&) = delete;
+    ~IVectorIntList() noexcept {
+      igraph_vector_int_list_destroy(data_.get());
     }
-    void init_elements(long n = 1) {
-      const long len = size();
-      for (long i = 0; i < len; ++i) {
-        igraph_vector_t* elem = new igraph_vector_t;
-        igraph_vector_init(elem, n);
-        igraph_vector_ptr_set(data_.get(), i, elem);
+    void init_elements(int n = 1) {
+      const int len = size();
+      for (int i = 0; i < len; ++i) {
+        igraph_vector_int_t* elem = new igraph_vector_int_t;
+        igraph_vector_int_init(elem, n);
+        igraph_vector_int_list_set(data_.get(), i, elem);
       }
     }
-    Rcpp::NumericVector at(long pos) {
-      void* elem = igraph_vector_ptr_e(data_.get(), pos);
-      return WrapPolicy::wrap(reinterpret_cast<igraph_vector_t*>(elem));
+    Rcpp::IntegerVector at(int pos) {
+      return WrapPolicy::wrap(igraph_vector_int_list_get_ptr(data_.get(), pos));
     }
-    long size() const {
-      return igraph_vector_ptr_size(data_.get());
+    int size() const {
+      return igraph_vector_int_list_size(data_.get());
     }
     Rcpp::List wrap() {
-      const long len = size();
+      const int len = size();
       Rcpp::List output(len);
-      for (long i = 0; i < len; ++i) {
+      for (int i = 0; i < len; ++i) {
         output[i] = at(i);
       }
       return output;
     }
-    igraph_vector_ptr_t* data() {return data_.get();}
+    igraph_vector_int_list_t* data() {return data_.get();}
   private:
-    std::unique_ptr<igraph_vector_ptr_t> data_ = std::make_unique<igraph_vector_ptr_t>();
+    std::unique_ptr<igraph_vector_int_list_t> data_ = std::make_unique<igraph_vector_int_list_t>();
 };
 
 #endif // IGRAPHLITE_VECTOR_HPP_

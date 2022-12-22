@@ -57,6 +57,6 @@ is_directed = function(graph) {
 #' @param loops whether self-loop should be counted.
 #' @rdname basic
 #' @export
-degree = function(graph, vids = numeric(0), mode = 3L, loops = TRUE) {
+degree = function(graph, vids = integer(0), mode = 3L, loops = TRUE) {
   graph$degree(vids, mode, loops)
 }

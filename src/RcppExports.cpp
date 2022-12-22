@@ -36,24 +36,24 @@ BEGIN_RCPP
 END_RCPP
 }
 // graph_from_edgelist
-IGraph graph_from_edgelist(const Rcpp::NumericMatrix& edgelist, bool directed);
+IGraph graph_from_edgelist(const Rcpp::IntegerMatrix& edgelist, bool directed);
 RcppExport SEXP _igraphlite_graph_from_edgelist(SEXP edgelistSEXP, SEXP directedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type edgelist(edgelistSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type edgelist(edgelistSEXP);
     Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
     rcpp_result_gen = Rcpp::wrap(graph_from_edgelist(edgelist, directed));
     return rcpp_result_gen;
 END_RCPP
 }
 // graph_create
-IGraph graph_create(const Rcpp::NumericVector& edges, int n, bool directed);
+IGraph graph_create(const Rcpp::IntegerVector& edges, int n, bool directed);
 RcppExport SEXP _igraphlite_graph_create(SEXP edgesSEXP, SEXP nSEXP, SEXP directedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type edges(edgesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type edges(edgesSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
     Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
     rcpp_result_gen = Rcpp::wrap(graph_create(edges, n, directed));
@@ -74,12 +74,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // graph_lattice
-IGraph graph_lattice(const Rcpp::NumericVector& dim, int nei, bool directed, bool mutual, bool circular);
+IGraph graph_lattice(const Rcpp::IntegerVector& dim, int nei, bool directed, bool mutual, bool circular);
 RcppExport SEXP _igraphlite_graph_lattice(SEXP dimSEXP, SEXP neiSEXP, SEXP directedSEXP, SEXP mutualSEXP, SEXP circularSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type dim(dimSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type dim(dimSEXP);
     Rcpp::traits::input_parameter< int >::type nei(neiSEXP);
     Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
     Rcpp::traits::input_parameter< bool >::type mutual(mutualSEXP);
@@ -160,27 +160,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // path_length_count_within
-Rcpp::IntegerVector path_length_count_within(const IGraph& graph, const Rcpp::NumericVector& vids, bool directed);
+Rcpp::IntegerVector path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, bool directed);
 RcppExport SEXP _igraphlite_path_length_count_within(SEXP graphSEXP, SEXP vidsSEXP, SEXP directedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type vids(vidsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type vids(vidsSEXP);
     Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
     rcpp_result_gen = Rcpp::wrap(path_length_count_within(graph, vids, directed));
     return rcpp_result_gen;
 END_RCPP
 }
 // path_length_count_between
-Rcpp::IntegerVector path_length_count_between(const IGraph& graph, const Rcpp::NumericVector& from, const Rcpp::NumericVector& to, bool directed);
+Rcpp::IntegerVector path_length_count_between(const IGraph& graph, const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to, bool directed);
 RcppExport SEXP _igraphlite_path_length_count_between(SEXP graphSEXP, SEXP fromSEXP, SEXP toSEXP, SEXP directedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type from(fromSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type to(toSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type from(fromSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type to(toSEXP);
     Rcpp::traits::input_parameter< bool >::type directed(directedSEXP);
     rcpp_result_gen = Rcpp::wrap(path_length_count_between(graph, from, to, directed));
     return rcpp_result_gen;

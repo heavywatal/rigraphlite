@@ -29,19 +29,19 @@ namespace impl {
   SEXP na<SEXP>() {return R_NaString;}
 
   template <int RTYPE, class T> inline
-  Rcpp::Vector<RTYPE> elongate(const Rcpp::Vector<RTYPE>& x, long n) {
-    long len = x.size();
+  Rcpp::Vector<RTYPE> elongate(const Rcpp::Vector<RTYPE>& x, int n) {
+    int len = x.size();
     Rcpp::Vector<RTYPE> res(len + n);
-    for (long i = 0; i < len; ++i) {
+    for (int i = 0; i < len; ++i) {
       res[i] = x[i];
     }
-    for (long i = len; i < res.size(); ++i) {
+    for (int i = len; i < res.size(); ++i) {
       res[i] = na<T>();
     }
     return res;
   }
 
-  inline Rcpp::LogicalVector negate(const Rcpp::IntegerVector& idx, long n) {
+  inline Rcpp::LogicalVector negate(const Rcpp::IntegerVector& idx, int n) {
     return !Rcpp::in(Rcpp::Range(0, n - 1), idx);
   }
 
@@ -50,7 +50,7 @@ namespace impl {
     return x[idx];
   }
 
-  inline void append_na_rows(Rcpp::DataFrame& df, long n) {
+  inline void append_na_rows(Rcpp::DataFrame& df, int n) {
     Rcpp::List attr_holder;
     const Rcpp::StringVector names = df.attr("names");
     for (const char* name: names) {

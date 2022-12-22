@@ -4,11 +4,11 @@
 
 #include <igraph/igraph_interface.h>
 
-long IGraph::vcount() const {
+int IGraph::vcount() const {
   return igraph_vcount(data_.get());
 }
 
-long IGraph::ecount() const {
+int IGraph::ecount() const {
   return igraph_ecount(data_.get());
 }
 
@@ -23,22 +23,22 @@ IGraph::edge(int eid) const {
   return res + 1;
 }
 
-Rcpp::NumericVector
+Rcpp::IntegerVector
 IGraph::neighbors(int node, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_neighbors(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
-Rcpp::NumericVector
+Rcpp::IntegerVector
 IGraph::incident(int node, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
   igraph_incident(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
-Rcpp::NumericVector
-IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops) const {
+Rcpp::IntegerVector
+IGraph::degree(const Rcpp::IntegerVector& vids, const int mode, const bool loops) const {
   const R_xlen_t n = vids.size();
   IVector<AsValues> res(n > 0 ? n : vcount());
   igraph_degree(
@@ -48,8 +48,8 @@ IGraph::degree(const Rcpp::NumericVector& vids, const int mode, const bool loops
   return res.wrap();
 }
 
-void IGraph::add_edges(const Rcpp::NumericVector& edges) {
-  const long new_vs = static_cast<long>(Rcpp::max(edges)) - vcount();
+void IGraph::add_edges(const Rcpp::IntegerVector& edges) {
+  const int new_vs = Rcpp::max(edges) - vcount();
   if (new_vs) add_vertices(new_vs);
   igraph_add_edges(data_.get(), ISelectorInPlace(edges).data(), nullptr);
   impl::append_na_rows(Eattr_, edges.size() / 2);
@@ -60,14 +60,14 @@ void IGraph::add_vertices(int n) {
   impl::append_na_rows(Vattr_, n);
 }
 
-void IGraph::delete_edges(const Rcpp::NumericVector& eids) {
+void IGraph::delete_edges(const Rcpp::IntegerVector& eids) {
   ISelectorInPlace ceids(eids);
   auto idx = Rcpp::as<Rcpp::IntegerVector>(ceids.wrap());
   impl::filter(Eattr_, impl::negate(idx, ecount()));
   igraph_delete_edges(data_.get(), ceids.ess());
 }
 
-void IGraph::delete_vertices(const Rcpp::NumericVector& vids) {
+void IGraph::delete_vertices(const Rcpp::IntegerVector& vids) {
   Rcpp::LogicalVector eidx = Rcpp::in(from(), vids) | Rcpp::in(to(), vids);
   impl::filter(Eattr_, !eidx);
   ISelectorInPlace cvids(vids);

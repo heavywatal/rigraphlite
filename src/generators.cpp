@@ -22,10 +22,10 @@ namespace impl {
 
   template <int RTYPE> inline
   Rcpp::Vector<RTYPE> flatten_edgelist(const Rcpp::Matrix<RTYPE>& edgelist) {
-    const long nrow = edgelist.nrow();
+    const int nrow = edgelist.nrow();
     Rcpp::Vector<RTYPE> edges(2 * nrow);
-    long i = -1;
-    for (long r = 0; r < nrow; ++r) {
+    int i = -1;
+    for (int r = 0; r < nrow; ++r) {
       edges[++i] = edgelist[r];
       edges[++i] = edgelist[r + nrow];
     }
@@ -34,10 +34,10 @@ namespace impl {
 
   template <int RTYPE> inline
   Rcpp::Vector<RTYPE> flatten_edgelist(const Rcpp::Vector<RTYPE>& from, const Rcpp::Vector<RTYPE>& to) {
-    const long nrow = from.length();
+    const int nrow = from.length();
     Rcpp::Vector<RTYPE> edges(2 * nrow);
-    long i = -1;
-    for (long r = 0; r < nrow; ++r) {
+    int i = -1;
+    for (int r = 0; r < nrow; ++r) {
       edges[++i] = from[r];
       edges[++i] = to[r];
     }
@@ -63,7 +63,7 @@ namespace impl {
   IGraph graph_from_symbolic_edges(const Rcpp::Vector<RTYPE>& sym_edges, bool directed) {
     auto symbols = unique_stable(sym_edges);
     auto edges = Rcpp::match(sym_edges, symbols);
-    IGraph g(Rcpp::as<Rcpp::NumericVector>(edges), 0, directed);
+    IGraph g(Rcpp::as<Rcpp::IntegerVector>(edges), 0, directed);
     g.mutate_Vattr("name", symbols);
     return g;
   }
@@ -77,10 +77,10 @@ namespace impl {
   IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed = true) {
     const auto edges = flatten_edgelist<RTYPE>(df.at(0), df.at(1));
     auto g = graph_from_symbolic_edges(edges, directed);
-    const long n = df.ncol();
+    const int n = df.ncol();
     if (n > 2) {
       const Rcpp::StringVector names = df.attr("names");
-      for (long i = 2; i < n; ++i) {
+      for (int i = 2; i < n; ++i) {
         g.mutate_Eattr(names[i], df[i]);
       }
     }
@@ -108,7 +108,7 @@ IGraph::IGraph(int n, bool directed): IGraph::IGraph() {
   init_attr();
 }
 
-IGraph::IGraph(const Rcpp::NumericVector& edges, int n, bool directed): IGraph::IGraph() {
+IGraph::IGraph(const Rcpp::IntegerVector& edges, int n, bool directed): IGraph::IGraph() {
   igraph_create(data_.get(), ISelectorInPlace(edges).data(), n, directed);
   init_attr();
 }
@@ -119,8 +119,11 @@ IGraph::IGraph(int n, int mode, double center): IGraph::IGraph() {
   init_attr();
 }
 
-IGraph::IGraph(const Rcpp::NumericVector& dim, int nei, bool directed, bool mutual, bool circular): IGraph::IGraph() {
-  igraph_lattice(data_.get(), ISelectorInPlace(dim).data(), nei, directed, mutual, circular);
+IGraph::IGraph(const Rcpp::IntegerVector& dim, int nei, bool directed, bool mutual, bool circular): IGraph::IGraph() {
+  igraph_vector_bool_t periodic;
+  igraph_vector_bool_fill(&periodic, circular);
+  igraph_square_lattice(data_.get(), ISelectorInPlace(dim).data(), nei, directed, mutual, &periodic);
+  igraph_vector_bool_destroy(&periodic);
   init_attr();
 }
 
@@ -130,7 +133,7 @@ IGraph::IGraph(int n, bool directed, bool mutual, bool circular): IGraph::IGraph
 }
 
 IGraph::IGraph(int n, int children, int mode): IGraph::IGraph() {
-  igraph_tree(data_.get(), n, children, static_cast<igraph_tree_mode_t>(mode));
+  igraph_kary_tree(data_.get(), n, children, static_cast<igraph_tree_mode_t>(mode));
   init_attr();
 }
 
@@ -176,7 +179,7 @@ IGraph graph_from_symbolic_edgelist(const Rcpp::RObject& edgelist, bool directed
 //' @rdname as_igraph
 //' @export
 // [[Rcpp::export]]
-IGraph graph_from_edgelist(const Rcpp::NumericMatrix& edgelist, bool directed = true) {
+IGraph graph_from_edgelist(const Rcpp::IntegerMatrix& edgelist, bool directed = true) {
   return IGraph(impl::flatten_edgelist(edgelist), 0, directed);
 }
 
@@ -195,7 +198,7 @@ IGraph graph_from_edgelist(const Rcpp::NumericMatrix& edgelist, bool directed = 
 //' @rdname generators
 //' @export
 // [[Rcpp::export]]
-IGraph graph_create(const Rcpp::NumericVector& edges, int n = 0, bool directed = true) {
+IGraph graph_create(const Rcpp::IntegerVector& edges, int n = 0, bool directed = true) {
   return IGraph(edges, n, directed);
 }
 
@@ -212,7 +215,7 @@ IGraph graph_star(int n, int mode = 0, int center = 1) {
 //' @rdname generators
 //' @export
 // [[Rcpp::export]]
-IGraph graph_lattice(const Rcpp::NumericVector& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
+IGraph graph_lattice(const Rcpp::IntegerVector& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
   return IGraph(dim, nei, directed, mutual, circular);
 }
 

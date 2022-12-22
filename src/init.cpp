@@ -21,15 +21,15 @@ Rcpp::StringVector igraph_version() {
   return version_string;
 }
 
-void error_handler(const char* reason, const char* file, int line, int igraph_errno) {
+void error_handler(const char* reason, const char* file, int line, igraph_error_t igraph_errno) {
   Rcpp::stop("%s:%d: %s: %s", file, line, reason, igraph_strerror(igraph_errno));
 }
 
-void warning_handler(const char* reason, const char* file, int line, int) {
+void warning_handler(const char* reason, const char* file, int line) {
   Rcpp::warning("%s:%d: %s", file, line, reason);
 }
 
-int interruption_handler(void*) {
+bool interruption_handler() {
   Rcpp::checkUserInterrupt();
   return IGRAPH_SUCCESS;
 }

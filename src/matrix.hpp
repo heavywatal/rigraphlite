@@ -10,7 +10,7 @@
 
 class IMatrix {
   public:
-    IMatrix(long nrow, long ncol): robj_(nrow, ncol) {
+    IMatrix(int nrow, int ncol): robj_(nrow, ncol) {
       igraph_vector_view(&data_->data, &(robj_[0]), nrow * ncol);
       data_->nrow = nrow;
       data_->ncol = ncol;
@@ -25,7 +25,7 @@ class IMatrix {
     ~IMatrix() noexcept = default;
     void rownames(const Rcpp::StringVector& x) {Rcpp::rownames(robj_) = x;}
     void colnames(const Rcpp::StringVector& x) {Rcpp::colnames(robj_) = x;}
-    double at(long i, long j) const {return MATRIX(*data_, i, j);}
+    double at(int i, int j) const {return MATRIX(*data_, i, j);}
     Rcpp::NumericMatrix wrap() const {return robj_;}
     igraph_matrix_t* data() {return data_.get();}
   private:
