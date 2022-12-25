@@ -33,6 +33,14 @@ distances = function(graph, from = integer(0L), to = from, weights = numeric(0L)
   graph$distances(from, to, weights, mode, algorithm)
 }
 
+#' @param ... passed to [distances]
+#' @rdname shortest_paths
+#' @export
+shortest_paths = function(graph, ...) {
+  warning("shortest_paths() is deprecated. Use distances()")
+  distances(graph, ...)
+}
+
 #' @rdname shortest_paths
 #' @export
 get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {

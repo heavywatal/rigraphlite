@@ -2,6 +2,7 @@
 % Please edit documentation in R/structural.R
 \name{distances}
 \alias{distances}
+\alias{shortest_paths}
 \alias{get_shortest_paths}
 \alias{get_all_shortest_paths}
 \alias{get_all_simple_paths}
@@ -20,6 +21,8 @@ distances(
   mode = 3L,
   algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")
 )
+
+shortest_paths(graph, ...)
 
 get_shortest_paths(
   graph,
@@ -55,6 +58,8 @@ path_length_hist(graph, directed = FALSE)
 \item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
 
 \item{algorithm}{character}
+
+\item{...}{passed to \link{distances}}
 
 \item{cutoff}{integer}
 
