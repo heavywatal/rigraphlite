@@ -29,7 +29,7 @@ void warning_handler(const char* reason, const char* file, int line) {
   Rcpp::warning("%s:%d: %s", file, line, reason);
 }
 
-bool interruption_handler() {
+igraph_error_t interruption_handler(void* data) {
   Rcpp::checkUserInterrupt();
   return IGRAPH_SUCCESS;
 }

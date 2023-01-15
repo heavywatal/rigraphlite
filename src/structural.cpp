@@ -29,7 +29,7 @@ namespace impl {
     } else if (algorithm == "bellman-ford") {
       igraph_distances_bellman_ford(graph, res, from, to, weights, mode);
     } else if (algorithm == "johnson") {
-      igraph_distances_johnson(graph, res, from, to, weights, mode);
+      igraph_distances_johnson(graph, res, from, to, weights);
     }
   }
 
