@@ -11,7 +11,7 @@ igraphlite is an Rcpp-powered R package interface to [igraph](https://igraph.org
 
 - Unix-like environment (macOS, Linux, WSL, MinGW on MSYS2, etc.)
 - C++14 compiler (clang++ >= Apple LLVM 8.1, g++ >= 5.3)
-- [CMake](https://cmake.org/) (>= 3.16.0)
+- [CMake](https://cmake.org/) (>= 3.18.0)
 - NOT required:
     - R igraph package
     - C igraph library:
