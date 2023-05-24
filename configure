@@ -7,9 +7,9 @@ if [ -e "$IGRAPH_INSTALL_PREFIX" ]; then
   CMAKE_PREFIX_PATH="${IGRAPH_INSTALL_PREFIX};${CMAKE_PREFIX_PATH}"
 fi
 if [ -z "$CXX" ]; then
-  CXX=$(${R_HOME}/bin/R CMD config CXX14)
-  CXX=${CXX% *}
+  CXX=$(${R_HOME}/bin/R CMD config CXX)
 fi
+CXX=${CXX%% *}
 echo "CXX: $CXX"
 cmake --version || brew install cmake
 if ! cmake --version >/dev/null; then
