@@ -1,6 +1,6 @@
 Package: igraphlite
 Title: Lightweight R Interface to Igraph Network Analysis Library
-Version: 0.10.4
+Version: 0.10.7
 Authors@R:
     person(given = "Watal M.", family = "Iwasaki", role = c("aut", "cre"), email = "heavywatal@gmail.com", comment = c(ORCID="0000-0002-4718-7605"))
 Description:
@@ -12,8 +12,6 @@ License: MIT + file LICENSE
 URL: https://heavywatal.github.io/rigraphlite/, https://github.com/heavywatal/rigraphlite
 BugReports: https://github.com/heavywatal/rigraphlite/issues
 Encoding: UTF-8
-LazyData: true
-StagedInstall: no
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 SystemRequirements:
@@ -25,11 +23,10 @@ LinkingTo:
 Imports:
     generics (>= 0.1.3),
     methods,
-    Rcpp (>= 1.0.10),
+    Rcpp (>= 1.0.11),
     rlang (>= 1.1.1)
 Suggests:
     ape,
-    covr,
     ggplot2,
     testthat (>= 3.1.0)
 Config/testthat/edition: 3
