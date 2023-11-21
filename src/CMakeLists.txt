@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(rigraphlite
-  VERSION 0.10.7
+  VERSION 0.10.8
   LANGUAGES CXX)
 
 message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")

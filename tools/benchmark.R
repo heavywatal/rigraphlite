@@ -36,7 +36,6 @@ bench::mark(
 bench::mark(
   igraph::degree(rigraph),
   igraphlite::degree(ligraph),
-  degree(ligraph),
   ligraph$degree(numeric(0), mode = 3L, loop = TRUE)
 )
 
@@ -47,14 +46,15 @@ ligraph = igraphlite::graph_tree(n)
 plot(ligraph)
 bench::mark(
   igraph::distances(rigraph),
-  igraphlite::shortest_paths(ligraph)
+  igraphlite::distances(ligraph)
 )
 
-from = ligraph$sink %>% head(length(.) / 2L)
-to = ligraph$sink %>% tail(length(.) / 2L)
+n_half = length(ligraph$sink) / 2L
+from = ligraph$sink |> head(n_half)
+to = ligraph$sink |> tail(n_half)
 bench::mark(
   igraph::distances(rigraph, from, to),
-  igraphlite::shortest_paths(ligraph, from, to),
+  igraphlite::distances(ligraph, from, to),
   check = FALSE
 )
 
@@ -68,14 +68,14 @@ bench::mark(
 )
 
 result = tekkamaki::tekka("--seed 42 --sa 1,1 --sj 1,1")
-sample_family = result$sample_family[[1]] %>% dplyr::arrange(id)
-sample_family %>% dplyr::arrange(id)
+sample_family = result$sample_family[[1]] |> dplyr::arrange(id)
+sample_family |> dplyr::arrange(id)
 tekkamaki::find_kinship(sample_family)
-graph = sample_family %>% tekkamaki::as_igraph()
+graph = sample_family |> tekkamaki::as_igraph()
 plot(graph)
 as_vids(graph, c("3", "6", "8"))
 ca = common_ancestors(graph, c(156, 262))
-induced_subgraph(graph, do.call(intersect, ca)) %>% as_vnames(., .$sink)
+induced_subgraph(graph, do.call(intersect, ca)) |> as_vnames(., .$sink)
 ca = common_ancestors(graph, c(262, 310))
 
 # install.packages(c("devtools", "bench", "tidyverse"))
