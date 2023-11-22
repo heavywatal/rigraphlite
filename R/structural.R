@@ -17,7 +17,7 @@ are_connected = function(graph, from, to) {
 #' @rdname shortest_paths
 #' @export
 distances = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                          algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
+                     algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
     stopifnot(utils::hasName(graph$Eattr, "weight"))
@@ -66,7 +66,7 @@ get_all_shortest_paths = function(graph, from, to = integer(0L), weights = numer
 #' @export
 get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mode = 3L) {
   res = graph$get_all_simple_paths(from, to, cutoff, mode)
-  pos = which(res %in% 0L)
+  pos = which(res == 0L)
   split_at(res[-pos], pos - seq_along(pos))
 }
 
