@@ -4,12 +4,6 @@
 #' @keywords internal
 "_PACKAGE"
 
-.onUnload = function(libpath) {
-  library.dynam.unload("igraphlite", libpath)
-}
-
-Rcpp::loadModule("igraph", TRUE)
-
 #' IGraph class: thin wrapper of `igraph_t`.
 #'
 #' @field V Vertex IDs in a integer vector
