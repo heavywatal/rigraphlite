@@ -39,6 +39,6 @@ IGraph class: thin wrapper of \code{igraph_t}.
 
 \seealso{
 \code{\link[=graph_from_edgelist]{graph_from_edgelist()}}, \link{graph_from_data_frame}, \code{\link[=graph_tree]{graph_tree()}}
-for object instanciation.
+for object instantiation.
 }
 \keyword{data}

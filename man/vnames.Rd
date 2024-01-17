@@ -4,7 +4,7 @@
 \alias{Vnames}
 \alias{as_vids}
 \alias{as_vnames}
-\title{Convesion between vertex IDs and names}
+\title{Conversion between vertex IDs and names}
 \usage{
 Vnames(graph)
 
@@ -20,5 +20,5 @@ as_vnames(graph, vids = graph$V)
 \item{vids}{Vertices of interest.}
 }
 \description{
-Convesion between vertex IDs and names
+Conversion between vertex IDs and names
 }

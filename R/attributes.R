@@ -46,7 +46,7 @@ edge_attr = function(graph, name) {
   graph
 }
 
-#' Convesion between vertex IDs and names
+#' Conversion between vertex IDs and names
 #'
 #' @inheritParams common_params
 #' @param vnames Vertex names stored in `Vattr[["name"]]`.

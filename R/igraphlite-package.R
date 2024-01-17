@@ -19,7 +19,7 @@
 #' @field is The pointers to the incoming edges.
 #'
 #' @seealso [graph_from_edgelist()], [graph_from_data_frame], [graph_tree()]
-#'   for object instanciation.
+#'   for object instantiation.
 #' @source <https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h>
 #' @docType class
 #' @keywords data
