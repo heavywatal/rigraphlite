@@ -85,10 +85,10 @@ struct InitIndicesInPlace {
   static void init(data_type* data, const value_type& x) {
     // x is const, but its data is modified
     igraph_vector_int_view(data, &(x[0]), x.size());
-    igraph_vector_int_add_constant(data, -1.0);
+    igraph_vector_int_add_constant(data, -1);
   }
   static void destroy(data_type* data) {
-    igraph_vector_int_add_constant(data, 1.0);
+    igraph_vector_int_add_constant(data, 1);
   }
   static auto get(data_type* data, const int pos) {
     return igraph_vector_int_get(data, pos);

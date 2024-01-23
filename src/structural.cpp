@@ -241,9 +241,9 @@ IGraph::neighborhood(const Rcpp::IntegerVector& vids, const int order, const int
 }
 
 Rcpp::IntegerVector
-IGraph::subcomponent(const double v, const int mode) const {
+IGraph::subcomponent(const int v, const int mode) const {
   IVector<AsIndicesInPlace> res(1);
-  igraph_subcomponent(data_.get(), res.data(), v - 1.0, static_cast<igraph_neimode_t>(mode));
+  igraph_subcomponent(data_.get(), res.data(), v - 1, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 

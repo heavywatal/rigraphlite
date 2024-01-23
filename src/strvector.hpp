@@ -19,7 +19,7 @@ class IStrVector {
       }
     }
     IStrVector(const IStrVector& other) noexcept {
-      igraph_strvector_copy(data_.get(), other.data_.get());
+      igraph_strvector_init_copy(data_.get(), other.data_.get());
     }
     IStrVector(IStrVector&& other) noexcept = default;
     ~IStrVector() noexcept {
