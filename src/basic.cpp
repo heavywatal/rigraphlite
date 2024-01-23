@@ -18,9 +18,10 @@ bool IGraph::is_directed() const {
 
 Rcpp::IntegerVector
 IGraph::edge(int eid) const {
-  Rcpp::IntegerVector res(2);
-  igraph_edge(data_.get(), --eid, &res[0], &res[1]);
-  return res + 1;
+  IVector<AsIndicesInPlace> res(2);
+  auto begin = res.data()->stor_begin;
+  igraph_edge(data_.get(), --eid, begin, begin + 1);
+  return res.wrap();
 }
 
 Rcpp::IntegerVector

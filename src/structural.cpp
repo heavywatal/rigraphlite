@@ -69,10 +69,10 @@ IGraph::distances(
   const int ncol = to_size > 0 ? to_size : vcount();
   IMatrix res(nrow, ncol);
   impl::distances(data_.get(), res.data(),
-                       from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
-                       to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
-                       weights.size() ? IVectorView(weights).data() : nullptr,
-                       static_cast<igraph_neimode_t>(mode), algorithm);
+                  from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
+                  to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+                  weights.size() ? IVectorView(weights).data() : nullptr,
+                  static_cast<igraph_neimode_t>(mode), algorithm);
   if (from_size > 0) {
     res.rownames(Rcpp::StringVector(from));
   }
@@ -88,19 +88,17 @@ IGraph::mean_distances(
   const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
   const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const {
 
-  const int from_size = from.size();
   const int to_size = to.size();
-  const Rcpp::IntegerVector cfrom = (from_size > 0 ? from : V()) - 1;
   const ISelector to_selector(to);
   const igraph_vs_t to_vss(to_size > 0 ? to_selector.vss() : igraph_vss_all());
   const igraph_vector_t* cweights = weights.size() ? IVectorView(weights).data() : nullptr;
   IMatrix res(1, to_size > 0 ? to_size : vcount());
   double total = 0.0;
   int num_paths = 0;
-  for (const int from_i: cfrom) {
+  for (const int from_i: from.size() > 0 ? from : V()) {
     impl::distances(data_.get(), res.data(),
-                         igraph_vss_1(from_i), to_vss, cweights,
-                         static_cast<igraph_neimode_t>(mode), algorithm);
+                    igraph_vss_1(from_i - 1), to_vss, cweights,
+                    static_cast<igraph_neimode_t>(mode), algorithm);
     const auto& v = res.data()->data;
     for (auto p = v.stor_begin; p < v.end; ++p) {
       if ((*p != 0) && (*p != IGRAPH_INFINITY)) {
@@ -178,12 +176,11 @@ Rcpp::IntegerVector
 path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, bool directed) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
-  const auto cvids = vids - 1;
-  for (const int i: cvids) {
-    auto vs_i = igraph_vss_1(i);
-    for (const int j: cvids) {
+  for (const int i: vids) {
+    auto vs_i = igraph_vss_1(i - 1);
+    for (const int j: vids) {
       if (i <= j) continue;
-      igraph_distances(graph.data(), res.data(), vs_i, igraph_vss_1(j), IGRAPH_ALL);
+      igraph_distances(graph.data(), res.data(), vs_i, igraph_vss_1(j - 1), IGRAPH_ALL);
       ++counter[static_cast<int>(res.at(0, 0))];
     }
   }
@@ -198,24 +195,19 @@ path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, b
 // [[Rcpp::export]]
 Rcpp::IntegerVector
 path_length_count_between(const IGraph& graph, const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to, bool directed) {
-  std::map<double, int> counter;
+  std::map<int, int> counter;
   IMatrix res(1, 1);
-  const int nrow = from.size();
-  const int ncol = to.size();
-  const auto cfrom = from - 1;
-  const auto cto = to - 1;
-  for (int i = 0; i < nrow; ++i) {
-    auto vs_i = igraph_vss_1(cfrom[i]);
-    for (int j = 0; j < ncol; ++j) {
-      if (i <= j) continue;
-      igraph_distances(graph.data(), res.data(), vs_i, igraph_vss_1(cto[j]), IGRAPH_ALL);
-      ++counter[res.at(0, 0)];
+  for (const int i: from) {
+    auto vs_i = igraph_vss_1(i - 1);
+    for (const int j: to) {
+      igraph_distances(graph.data(), res.data(), vs_i, igraph_vss_1(j - 1), IGRAPH_ALL);
+      ++counter[static_cast<int>(res.at(0, 0))];
     }
   }
-  const int max_len = static_cast<int>(counter.rbegin()->first);
+  const int max_len = counter.rbegin()->first;
   Rcpp::IntegerVector output(max_len);
   for (const auto& p: counter) {
-    output[static_cast<int>(p.first) - 1] = p.second;
+    output[p.first - 1] = p.second;
   }
   return output;
 }
