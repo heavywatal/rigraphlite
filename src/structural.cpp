@@ -90,7 +90,7 @@ IGraph::mean_distances(
 
   const int from_size = from.size();
   const int to_size = to.size();
-  const Rcpp::IntegerVector cfrom = (from_size > 0 ? Rcpp::as<Rcpp::IntegerVector>(from) : V()) - 1;
+  const Rcpp::IntegerVector cfrom = (from_size > 0 ? from : V()) - 1;
   const ISelector to_selector(to);
   const igraph_vs_t to_vss(to_size > 0 ? to_selector.vss() : igraph_vss_all());
   const igraph_vector_t* cweights = weights.size() ? IVectorView(weights).data() : nullptr;
@@ -178,7 +178,7 @@ Rcpp::IntegerVector
 path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, bool directed) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
-  const auto cvids = Rcpp::as<Rcpp::IntegerVector>(vids) - 1;
+  const auto cvids = vids - 1;
   for (const int i: cvids) {
     auto vs_i = igraph_vss_1(i);
     for (const int j: cvids) {
@@ -202,8 +202,8 @@ path_length_count_between(const IGraph& graph, const Rcpp::IntegerVector& from, 
   IMatrix res(1, 1);
   const int nrow = from.size();
   const int ncol = to.size();
-  const auto cfrom = Rcpp::as<Rcpp::IntegerVector>(from) - 1;
-  const auto cto = Rcpp::as<Rcpp::IntegerVector>(to) - 1;
+  const auto cfrom = from - 1;
+  const auto cto = to - 1;
   for (int i = 0; i < nrow; ++i) {
     auto vs_i = igraph_vss_1(cfrom[i]);
     for (int j = 0; j < ncol; ++j) {

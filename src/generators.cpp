@@ -63,7 +63,7 @@ namespace impl {
   IGraph graph_from_symbolic_edges(const Rcpp::Vector<RTYPE>& sym_edges, bool directed) {
     auto symbols = unique_stable(sym_edges);
     auto edges = Rcpp::match(sym_edges, symbols);
-    IGraph g(Rcpp::as<Rcpp::IntegerVector>(edges), 0, directed);
+    IGraph g(edges, 0, directed);
     g.mutate_Vattr("name", symbols);
     return g;
   }

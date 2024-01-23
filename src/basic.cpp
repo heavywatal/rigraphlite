@@ -62,8 +62,7 @@ void IGraph::add_vertices(int n) {
 
 void IGraph::delete_edges(const Rcpp::IntegerVector& eids) {
   ISelectorInPlace ceids(eids);
-  auto idx = Rcpp::as<Rcpp::IntegerVector>(ceids.wrap());
-  impl::filter(Eattr_, impl::negate(idx, ecount()));
+  impl::filter(Eattr_, impl::negate(eids, ecount()));
   igraph_delete_edges(data_.get(), ceids.ess());
 }
 
@@ -71,7 +70,6 @@ void IGraph::delete_vertices(const Rcpp::IntegerVector& vids) {
   Rcpp::LogicalVector eidx = Rcpp::in(from(), vids) | Rcpp::in(to(), vids);
   impl::filter(Eattr_, !eidx);
   ISelectorInPlace cvids(vids);
-  auto idx = Rcpp::as<Rcpp::IntegerVector>(cvids.wrap());
-  impl::filter(Vattr_, impl::negate(idx, vcount()));
+  impl::filter(Vattr_, impl::negate(vids, vcount()));
   igraph_delete_vertices(data_.get(), cvids.vss());
 }
