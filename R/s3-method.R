@@ -38,7 +38,7 @@ augment.Rcpp_IGraph = function(x, layout = NULL, ...) {
   } else {
     stop("Invalid type '", typeof(layout), "' for argument 'layout'")
   }
-  root = x$source
+  root = Vsource(x)
   from = c(root, x$from)
   to = c(root, x$to)
   df = segment_df(from, to, layout[["x"]], layout[["y"]], Vnames(x))

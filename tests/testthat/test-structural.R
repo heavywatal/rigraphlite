@@ -17,13 +17,13 @@ test_that("distances works", {
   to = seq_len(3L) + 4L
   expect_identical(dim(distances(g, from)), c(length(from), length(from)))
   expect_identical(dim(distances(g, from, to)), c(length(from), length(to)))
-  dw = distances(g, weights = g$E) |>
+  dw = distances(g, weights = E(g)) |>
     expect_type("double") |>
     expect_length(n**2L)
   expect_true(is.matrix(dw))
   expect_identical(dim(dw), c(g$vcount, g$vcount))
   expect_error(distances(g, weights = TRUE), "hasName")
-  g$Eattr["weight"] = g$E
+  g$Eattr["weight"] = E(g)
   expect_identical(distances(g, weights = TRUE), dw)
 })
 
@@ -46,7 +46,7 @@ test_that("get_shortest_paths works", {
     "Couldn't reach some vertices"
   )
   expect_error(get_shortest_paths(g, 1L, weights = TRUE), "hasName")
-  g$Eattr["weight"] = g$E
+  g$Eattr["weight"] = E(g)
   expect_type(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
@@ -66,7 +66,7 @@ test_that("get_all_shortest_paths works", {
   )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
   expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
-  g$Eattr["weight"] = g$E
+  g$Eattr["weight"] = E(g)
   expect_type(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
@@ -110,24 +110,24 @@ test_that("neighborhood works", {
 
 test_that("subcomponent works", {
   g = graph_tree(7L)
-  expect_identical(subcomponent(g, 1, mode = 1L), g$V)
+  expect_identical(subcomponent(g, 1, mode = 1L), V(g))
   expect_identical(subcomponent(g, 2, mode = 1L), c(2L, 4L, 5L))
   expect_identical(subcomponent(g, 4, mode = 2L), c(4L, 2L, 1L))
-  expect_setequal(subcomponent(g, 2, mode = 3L), g$V)
-  expect_length(subcomponents(g, g$V), g$vcount)
+  expect_setequal(subcomponent(g, 2, mode = 3L), V(g))
+  expect_length(subcomponents(g, V(g)), g$vcount)
   expect_identical(subcomponents(g, c(2, 3), mode = 1L), list(c(2L, 4L, 5L), c(3L, 6L, 7L)))
 })
 
 test_that("induced_subgraph works", {
   el = matrix(seq_len(8L), ncol = 2L)
   g = graph_from_symbolic_edgelist(el)
-  g$Eattr$name = as.character(g$E)
+  g$Eattr$name = as.character(E(g))
   vids = seq_len(4L)
   expect_warning({
     subg = induced_subgraph(g, vids)
   })
   expect_s4_class(subg, "Rcpp_IGraph")
-  expect_length(subg$V, length(vids))
+  expect_length(V(subg), length(vids))
   expect_identical(nrow(subg$Vattr), subg$vcount)
   expect_identical(nrow(subg$Eattr), subg$ecount)
   expect_identical(ncol(subg$Vattr), ncol(g$Vattr))

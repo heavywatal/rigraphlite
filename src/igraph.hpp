@@ -86,14 +86,6 @@ class IGraph {
     Rcpp::List as_inclist(int mode, int loops) const;
     Rcpp::IntegerMatrix as_edgelist() const;
 
-    Rcpp::LogicalVector is_sink() const;
-    Rcpp::LogicalVector is_source() const;
-    Rcpp::IntegerVector sink() const;
-    Rcpp::IntegerVector source() const;
-
-    Rcpp::sugar::SeqLen V() const {return Rcpp::seq_len(vcount());}
-    Rcpp::sugar::SeqLen E() const {return Rcpp::seq_len(ecount());}
-
     // igraph_t getter
     Rcpp::IntegerVector from() const;
     Rcpp::IntegerVector to() const;

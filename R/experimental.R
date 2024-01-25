@@ -26,7 +26,7 @@ upstream_vertices = function(graph, vids, to_mrca = TRUE) {
 mean_distances = function(graph, from = integer(0L), to = from) {
   if (length(from) == 0L && length(to) == 0L) {
     mean_distances_avg(graph, from, to)
-  } else if (setequal(graph$V, from) && setequal(graph$V, to)) {
+  } else if (setequal(V(graph), from) && setequal(V(graph), to)) {
     mean_distances_avg(graph, from, to)
   } else if (length(from) * length(to) > 1e9) {
     mean_distances_vec(graph, from, to)

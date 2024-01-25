@@ -17,20 +17,20 @@ as_igraph.phylo = function(x) {
 #' @export
 as_phylo = function(x) {
   labels = Vnames(x)
-  is_sink = x$is_sink
+  idx_sink = is_sink(x)
   structure(list(
     edge = phylo_edge(x),
-    tip.label = labels[is_sink],
-    node.label = labels[!is_sink],
+    tip.label = labels[idx_sink],
+    node.label = labels[!idx_sink],
     edge.length = phylo_edge_length(x),
-    Nnode = sum(!is_sink)
+    Nnode = sum(!idx_sink)
   ), class = "phylo", order = "cladewise")
 }
 
 # Tips must have younger IDs
 phylo_edge = function(graph) {
   edgelist = graph$as_edgelist()
-  old_ids = c(graph$sink, setdiff(graph$V, graph$sink))
+  old_ids = c(Vsink(graph), setdiff(V(graph), Vsink(graph)))
   edge = match(edgelist, old_ids)
   class(edge) = "integer"
   dim(edge) = dim(edgelist)

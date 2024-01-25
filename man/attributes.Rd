@@ -5,6 +5,8 @@
 \alias{vertex_attr<-}
 \alias{edge_attr}
 \alias{edge_attr<-}
+\alias{V}
+\alias{E}
 \title{Get and set vertex and edge attributes}
 \usage{
 vertex_attr(graph, name)
@@ -14,6 +16,10 @@ vertex_attr(graph, name) <- value
 edge_attr(graph, name)
 
 edge_attr(graph, name) <- value
+
+V(graph)
+
+E(graph)
 }
 \arguments{
 \item{graph}{IGraph object.}

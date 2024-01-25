@@ -10,7 +10,7 @@ Vnames(graph)
 
 as_vids(graph, vnames)
 
-as_vnames(graph, vids = graph$V)
+as_vnames(graph, vids = V(graph))
 }
 \arguments{
 \item{graph}{IGraph object.}

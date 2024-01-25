@@ -95,7 +95,7 @@ IGraph::mean_distances(
   IMatrix res(1, to_size > 0 ? to_size : vcount());
   double total = 0.0;
   int num_paths = 0;
-  for (const int from_i: from.size() > 0 ? from : V()) {
+  for (const int from_i: from.size() > 0 ? from : Rcpp::seq_len(vcount())) {
     impl::distances(data_.get(), res.data(),
                     igraph_vss_1(from_i - 1), to_vss, cweights,
                     static_cast<igraph_neimode_t>(mode), algorithm);

@@ -14,22 +14,6 @@ Rcpp::IntegerMatrix IGraph::as_edgelist() const {
   return Rcpp::cbind(from(), to());
 }
 
-Rcpp::LogicalVector IGraph::is_sink() const {
-  return degree(Rcpp::IntegerVector(0L), 1L, true) == 0;
-}
-
-Rcpp::LogicalVector IGraph::is_source() const {
-  return degree(Rcpp::IntegerVector(0L), 2L, true) == 0;
-}
-
-Rcpp::IntegerVector IGraph::sink() const {
-  return Rcpp::IntegerVector(V())[is_sink()];
-}
-
-Rcpp::IntegerVector IGraph::source() const {
-  return Rcpp::IntegerVector(V())[is_source()];
-}
-
 Rcpp::IntegerVector IGraph::from() const {return AsIndices::wrap(&data_->from);}
 Rcpp::IntegerVector IGraph::to() const {return AsIndices::wrap(&data_->to);}
 Rcpp::IntegerVector IGraph::oi() const {return AsIndices::wrap(&data_->oi);}

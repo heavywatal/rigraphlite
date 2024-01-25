@@ -46,6 +46,18 @@ edge_attr = function(graph, name) {
   graph
 }
 
+#' @rdname attributes
+#' @export
+V = function(graph) {
+  seq_len(graph$vcount)
+}
+
+#' @rdname attributes
+#' @export
+E = function(graph) {
+  seq_len(graph$ecount)
+}
+
 #' Conversion between vertex IDs and names
 #'
 #' @inheritParams common_params
@@ -53,7 +65,7 @@ edge_attr = function(graph, name) {
 #' @rdname vnames
 #' @export
 Vnames = function(graph) {
-  graph$Vattr[["name"]] %||% graph$V
+  graph$Vattr[["name"]] %||% V(graph)
 }
 
 #' @rdname vnames
@@ -64,6 +76,6 @@ as_vids = function(graph, vnames) {
 
 #' @rdname vnames
 #' @export
-as_vnames = function(graph, vids = graph$V) {
+as_vnames = function(graph, vids = V(graph)) {
   Vnames(graph)[vids]
 }

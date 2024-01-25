@@ -23,13 +23,13 @@ bench::mark(
 
 bench::mark(
   igraph::V(rigraph),
-  ligraph$V,
+  igraphlite::V(ligraph),
   check = FALSE
 )
 
 bench::mark(
   igraph::V(rigraph)[igraph::degree(rigraph, mode = "out") == 0L],
-  ligraph$sink,
+  Vsink(ligraph),
   check = FALSE
 )
 
@@ -49,9 +49,9 @@ bench::mark(
   igraphlite::distances(ligraph)
 )
 
-n_half = length(ligraph$sink) / 2L
-from = ligraph$sink |> head(n_half)
-to = ligraph$sink |> tail(n_half)
+n_half = length(Vsink(ligraph)) / 2L
+from = Vsink(ligraph) |> head(n_half)
+to = Vsink(ligraph) |> tail(n_half)
 bench::mark(
   igraph::distances(rigraph, from, to),
   igraphlite::distances(ligraph, from, to),
@@ -75,7 +75,8 @@ graph = sample_family |> tekkamaki::as_igraph()
 plot(graph)
 as_vids(graph, c("3", "6", "8"))
 ca = common_ancestors(graph, c(156, 262))
-induced_subgraph(graph, do.call(intersect, ca)) |> as_vnames(., .$sink)
+subg = induced_subgraph(graph, do.call(intersect, ca))
+as_vnames(subg, Vsink(subg))
 ca = common_ancestors(graph, c(262, 310))
 
 # install.packages(c("devtools", "bench", "tidyverse"))
@@ -84,8 +85,8 @@ library(tidyverse)
 library(igraphlite)
 n = 1023L
 g = igraphlite::graph_tree(n, mode = 2L)
-from = g$sink
-to = g$sink
+from = Vsink(g)
+to = Vsink(g)
 bench::mark(
   mean_distances_mat(g, from, to, mode = 1L),
   mean_distances_mat(g, from, to, mode = 2L),
@@ -130,11 +131,11 @@ bench::mark(
 )
 
 bench::mark(
-  mean_distances(ligraph, ligraph$sink),
-  mean_distances_mat(ligraph, ligraph$sink),
-  mean_distances_vec(ligraph, ligraph$sink),
-  mean_distances_hist(ligraph, ligraph$sink),
-  mean_distances_avg(ligraph, ligraph$sink),
+  mean_distances(ligraph, Vsink(ligraph)),
+  mean_distances_mat(ligraph, Vsink(ligraph)),
+  mean_distances_vec(ligraph, Vsink(ligraph)),
+  mean_distances_hist(ligraph, Vsink(ligraph)),
+  mean_distances_avg(ligraph, Vsink(ligraph)),
   check = FALSE
 )
 
@@ -170,9 +171,9 @@ bench::mark(
 # all paths between root and tips
 g = graph_tree(511L)
 bench::mark(
-  get_shortest_paths(g, 1L, g$sink, mode = 1L),
-  neighborhood(g, g$sink, order = 65535L, mode = 2L),
-  g$subcomponents(g$sink, mode = 2L),
-  lapply(g$sink, subcomponent, graph = g, mode = 2L),
+  get_shortest_paths(g, 1L, Vsink(g), mode = 1L),
+  neighborhood(g, Vsink(g), order = 65535L, mode = 2L),
+  g$subcomponents(Vsink(g), mode = 2L),
+  lapply(Vsink(g), subcomponent, graph = g, mode = 2L),
   check = FALSE
 )

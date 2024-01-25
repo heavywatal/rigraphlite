@@ -45,15 +45,8 @@ RCPP_MODULE(igraph) {
     .const_method("as_inclist", &IGraph::as_inclist)
     .const_method("as_edgelist", &IGraph::as_edgelist)
 
-    .property("is_sink", &IGraph::is_sink)
-    .property("is_source", &IGraph::is_source)
-    .property("sink", &IGraph::sink)
-    .property("source", &IGraph::source)
-
     .property("Vattr", &IGraph::getVattr, &IGraph::setVattr)
     .property("Eattr", &IGraph::getEattr, &IGraph::setEattr)
-    .property("V", &IGraph::V)
-    .property("E", &IGraph::E)
 
     // igraph_t
     .property("from", &IGraph::from)
