@@ -3,18 +3,26 @@ project(rigraphlite
   VERSION 0.10.8
   LANGUAGES CXX)
 
-message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+include(CMakePrintHelpers)
+include(FetchContent)
 include(GNUInstallDirs)
 set(CMAKE_VERBOSE_MAKEFILE ON)
+cmake_print_variables(CMAKE_CURRENT_SOURCE_DIR)
 
-message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+function(import_env variable)
+  if(DEFINED ENV{${variable}})
+    set(${variable} $ENV{${variable}} PARENT_SCOPE)
+  endif()
+endfunction()
+
+cmake_print_variables(CMAKE_PREFIX_PATH)
 find_package(igraph ${PROJECT_VERSION} QUIET)
-message(STATUS "igraph_FOUND: ${igraph_FOUND}")
+cmake_print_variables(igraph_FOUND igraph_DIR)
 if(igraph_FOUND)
   get_target_property(INCLUDEDIR igraph::igraph INTERFACE_INCLUDE_DIRECTORIES)
   list(GET INCLUDEDIR 1 INCLUDEDIR)
   get_filename_component(CMAKE_INSTALL_PREFIX "${INCLUDEDIR}" DIRECTORY)
-  message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+  cmake_print_variables(CMAKE_INSTALL_PREFIX)
   install(CODE "message(STATUS ${igraph_DIR})") # to make target 'install'
 else()
   set(CMAKE_BUILD_TYPE Release)
@@ -22,17 +30,18 @@ else()
   set(BUILD_TESTING OFF CACHE BOOL "")
   set(BUILD_SHARED_LIBS ON)
   set(IGRAPH_INTEGER_SIZE 32)
-  include(FetchContent)
   set(FETCHCONTENT_QUIET OFF)
-  message(STATUS "FETCHCONTENT_SOURCE_DIR_IGRAPH: ${FETCHCONTENT_SOURCE_DIR_IGRAPH}")
+  import_env("FETCHCONTENT_SOURCE_DIR_IGRAPH")
+  cmake_print_variables(FETCHCONTENT_SOURCE_DIR_IGRAPH)
   FetchContent_Declare(
     igraph
     GIT_REPOSITORY https://github.com/igraph/igraph.git
     GIT_TAG ${PROJECT_VERSION}
     GIT_SHALLOW ON
+    # FIND_PACKAGE_ARGS  # 3.24
   )
   FetchContent_MakeAvailable(igraph)
-  message(STATUS "igraph_SOURCE_DIR: ${igraph_SOURCE_DIR}")
+  cmake_print_variables(igraph_SOURCE_DIR igraph_BINARY_DIR)
 endif()
 
 if(${CMAKE_INSTALL_PREFIX} MATCHES linuxbrew)
@@ -42,8 +51,8 @@ set(LIBDIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 set(CPPFLAGS "-I${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR}")
 set(LDFLAGS "-L${LIBDIR} -Wl,-rpath,${LIBDIR}")
 set(LDLIBS "-ligraph")
-message(STATUS "CPPFLAGS: ${CPPFLAGS}")
-message(STATUS "LDFLAGS: ${LDFLAGS}")
+cmake_print_variables(CPPFLAGS)
+cmake_print_variables(LDFLAGS)
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/Makevars.in
   ${CMAKE_CURRENT_SOURCE_DIR}/Makevars @ONLY
