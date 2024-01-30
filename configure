@@ -19,6 +19,10 @@ if ! cmake --version >/dev/null; then
   echo 'Otherwise, use an installer available at https://cmake.org/download/'
   exit 1
 fi
+# R CMD check tries to use libraries before installation.
+export FINAL_INSTDIR="${R_LIBRARY_DIR}/${R_PACKAGE_NAME}"
+mkdir -p "$FINAL_INSTDIR"
+ln -s "$R_PACKAGE_DIR/lib" "$FINAL_INSTDIR/lib"
 BUILD_DIR="${R_SESSION_TMPDIR}/${R_PACKAGE_NAME}-build"
 echo "BUILD_DIR: $BUILD_DIR"
 rm -r "${BUILD_DIR}/CMake*"
