@@ -26,7 +26,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -51,6 +51,12 @@ jobs:
           error-on: '"error"'
 
       - name: Test coverage
-        if: matrix.config.os == 'macOS-latest' && matrix.config.r == 'release'
-        run: covr::codecov(type = "all", quiet = FALSE)
+        if: matrix.config.os == 'ubuntu-latest'
+        run: |
+          covr::codecov(
+            type = "all",
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
+          )
         shell: Rscript {0}
