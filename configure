@@ -1,16 +1,4 @@
 #!/bin/sh
-echo "PWD: $PWD"
-echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
-CMAKE_PREFIX_PATH=${R_PACKAGE_DIR}
-echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX}"
-if [ -e "$IGRAPH_INSTALL_PREFIX" ]; then
-  CMAKE_PREFIX_PATH="${IGRAPH_INSTALL_PREFIX};${CMAKE_PREFIX_PATH}"
-fi
-if [ -z "$CXX" ]; then
-  CXX=$(${R_HOME}/bin/R CMD config CXX)
-fi
-CXX=${CXX%% *}
-echo "CXX: $CXX"
 cmake --version || brew install cmake
 if ! cmake --version >/dev/null; then
   echo 'Please install CMake to build this package.'
@@ -19,13 +7,25 @@ if ! cmake --version >/dev/null; then
   echo 'Otherwise, use an installer available at https://cmake.org/download/'
   exit 1
 fi
+if [ -z "$CXX" ]; then
+  CXX=$(${R_HOME}/bin/R CMD config CXX)
+fi
+CXX=${CXX%% *}
+echo "CXX: $CXX"
+echo "PWD: $PWD"
+echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
+CMAKE_PREFIX_PATH="$R_PACKAGE_DIR"
+echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX}"
+if [ -e "$IGRAPH_INSTALL_PREFIX" ]; then
+  CMAKE_PREFIX_PATH="${IGRAPH_INSTALL_PREFIX};${CMAKE_PREFIX_PATH}"
+fi
 # R CMD check tries to use libraries before installation.
-export FINAL_INSTDIR="${R_LIBRARY_DIR}/${R_PACKAGE_NAME}"
+FINAL_INSTDIR="${R_LIBRARY_DIR}/${R_PACKAGE_NAME}"
 mkdir -p "$FINAL_INSTDIR"
-ln -s "$R_PACKAGE_DIR/lib" "$FINAL_INSTDIR/lib"
+ln -s "$R_PACKAGE_DIR/libs" "$FINAL_INSTDIR/libs"
 BUILD_DIR="${R_SESSION_TMPDIR}/${R_PACKAGE_NAME}-build"
 echo "BUILD_DIR: $BUILD_DIR"
 rm -r "${BUILD_DIR}/CMake*"
-cmake -Hsrc -B "$BUILD_DIR" -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_INSTALL_PREFIX="$R_PACKAGE_DIR" -DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH"
+cmake -Hsrc -B "$BUILD_DIR" -DCMAKE_CXX_COMPILER="$CXX" -DCMAKE_INSTALL_PREFIX="$FINAL_INSTDIR" -DCMAKE_PREFIX_PATH="$CMAKE_PREFIX_PATH"
 cmake --build "$BUILD_DIR" -j3
-cmake --install "$BUILD_DIR"
+cmake --install "$BUILD_DIR" --prefix "$R_PACKAGE_DIR"
