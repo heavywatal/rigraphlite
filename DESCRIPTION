@@ -15,7 +15,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.0
 SystemRequirements:
-    CMake (>= 3.18.0)
+    CMake (>= 3.18.0), glpk, gmp, libxml2
 Depends:
     R (>= 4.2.0)
 LinkingTo:
