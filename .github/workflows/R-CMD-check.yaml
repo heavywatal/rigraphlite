@@ -30,6 +30,12 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
+      - name: Install system requirements on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install glpk
+        shell: bash
+
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
