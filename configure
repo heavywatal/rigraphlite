@@ -19,11 +19,13 @@ echo "IGRAPH_INSTALL_PREFIX: ${IGRAPH_INSTALL_PREFIX}"
 if [ -e "$IGRAPH_INSTALL_PREFIX" ]; then
   CMAKE_PREFIX_PATH="${IGRAPH_INSTALL_PREFIX};${CMAKE_PREFIX_PATH}"
 fi
-# R CMD check tries to use libraries before installation.
 FINAL_INSTDIR="${R_LIBRARY_DIR}/${R_PACKAGE_NAME}"
 echo "FINAL_INSTDIR: $FINAL_INSTDIR"
-if [ "$FINAL_INSTDIR" != "$R_PACKAGE_DIR" ]; then  # covr ignores staged installation
+if [ "$FINAL_INSTDIR" != "$R_PACKAGE_DIR" ]; then
+  # R CMD check tries to use libraries before installation.
+  # covr ignores staged installation
   mkdir -p "$FINAL_INSTDIR"
+  ln -s "$R_PACKAGE_DIR/include" "$FINAL_INSTDIR/include"
   ln -s "$R_PACKAGE_DIR/libs" "$FINAL_INSTDIR/libs"
 fi
 BUILD_DIR="${R_SESSION_TMPDIR}/${R_PACKAGE_NAME}-build"
