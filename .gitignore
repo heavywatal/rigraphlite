@@ -1,5 +1,2 @@
 /docs/**/font.css
 /docs/**/fonts/
-/src/*.gcda
-/src/*.gcno
-/src/*.gcov
