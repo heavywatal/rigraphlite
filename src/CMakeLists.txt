@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 project(rigraphlite
-  VERSION 0.10.8
+  VERSION 0.10.9
   LANGUAGES C CXX)
 
 include(CMakePrintHelpers)
