@@ -46,7 +46,7 @@ class IGraph {
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Structural properties
 
-    Rcpp::LogicalVector are_connected(int v1, int v2) const;
+    Rcpp::LogicalVector are_adjacent(int v1, int v2) const;
     Rcpp::NumericMatrix distances(
       const Rcpp::IntegerVector& from, const Rcpp::IntegerVector& to,
       const Rcpp::NumericVector& weights, int mode, const std::string& algorithm) const;

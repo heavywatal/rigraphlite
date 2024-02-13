@@ -18,7 +18,7 @@ RCPP_MODULE(igraph) {
     .method("delete_vertices", &IGraph::delete_vertices)
 
     // Structural properties
-    .const_method("are_connected", &IGraph::are_connected)
+    .const_method("are_adjacent", &IGraph::are_adjacent)
     .const_method("distances", &IGraph::distances)
     .const_method("get_shortest_paths", &IGraph::get_shortest_paths)
     .const_method("get_all_shortest_paths", &IGraph::get_all_shortest_paths)

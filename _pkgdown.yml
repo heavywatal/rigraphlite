@@ -8,10 +8,7 @@ reference:
   - IGraph
   - is_igraph
   - vcount
-  - edge
-  - neighbors
-  - incident
-  - degree
+  - is_sink
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
   contents:
@@ -24,11 +21,10 @@ reference:
 - title: Structural Properties
   desc: https://igraph.org/c/doc/igraph-Structural.html
   contents:
-  - are_connected
+  - are_adjacent
   - shortest_paths
   - neighborhood
   - subcomponent
-  - induced_subgraph
 - title: Attributes of Graph, Vertices, and Edges
   contents:
   - vertex_attr

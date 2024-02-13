@@ -4,10 +4,14 @@
 #' @inheritParams common_params
 #' @rdname connected
 #' @export
-are_connected = function(graph, from, to) {
-  graph$are_connected(from, to)
+are_adjacent = function(graph, from, to) {
+  graph$are_adjacent(from, to)
 }
 
+are_connected = function(graph, from, to) {
+  warning("are_connected() is deprecated. Use are_adjacent()")
+  are_adjacent(graph, from, to)
+}
 
 #' Shortest Path Related Functions
 #'

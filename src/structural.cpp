@@ -9,9 +9,9 @@
 #include <igraph/igraph_neighborhood.h>
 
 Rcpp::LogicalVector
-IGraph::are_connected(int v1, int v2) const {
+IGraph::are_adjacent(int v1, int v2) const {
   igraph_bool_t res;
-  igraph_are_connected(data_.get(), --v1, --v2, &res);
+  igraph_are_adjacent(data_.get(), --v1, --v2, &res);
   return static_cast<bool>(res);
 }
 

@@ -1,8 +1,8 @@
-test_that("are_connected works", {
+test_that("are_adjacent works", {
   g = graph_tree(7L)
-  expect_true(are_connected(g, 1L, 2L))
-  expect_true(are_connected(g, 1L, 3L))
-  expect_false(are_connected(g, 2L, 3L))
+  expect_true(are_adjacent(g, 1L, 2L))
+  expect_true(are_adjacent(g, 1L, 3L))
+  expect_false(are_adjacent(g, 2L, 3L))
 })
 
 test_that("distances works", {
