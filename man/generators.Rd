@@ -42,8 +42,8 @@ graph_famous(name)
 
 \item{mode}{Integer;
 \itemize{
-\item \code{igraph_star_mode_t} \\{0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\\}
-\item \code{igraph_tree_mode_t} \\{0: OUT, 1: IN, 2: UNDIRECTED\\}
+\item \code{igraph_star_mode_t} \{0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\}
+\item \code{igraph_tree_mode_t} \{0: OUT, 1: IN, 2: UNDIRECTED\}
 }}
 
 \item{center}{Id of the vertex which will be the center of the graph.}
@@ -58,12 +58,12 @@ graph_famous(name)
 
 \item{children}{Integer, the number of children of a vertex in the tree.}
 
-\item{name}{\\{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
+\item{name}{\{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
 Dodecahedron, Folkman, Franklin, Frucht, Grotzsch, Heawood, Herschel, House,
 HouseX, Icosahedral, Icosahedron, Krackhardt_Kite, Levi, McGee, Meredith,
 Noperfectmatching, Nonline, Octahedral, Octahedron, Petersen, Robertson,
 Smallestcyclicgroup, Tetrahedral, Tetrahedron, Thomassen, Tutte,
-Uniquely3colorable, Walther, Zachary\\}}
+Uniquely3colorable, Walther, Zachary\}}
 }
 \description{
 Deterministic Graph Generators

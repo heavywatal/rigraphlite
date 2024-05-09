@@ -25,7 +25,7 @@ neighborhood(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L)
 
 \item{order}{integer}
 
-\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{mindist}{The minimum distance to include a vertex in the counting.}
 }

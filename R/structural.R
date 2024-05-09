@@ -123,7 +123,7 @@ subcomponents = function(graph, vids, mode = 1L) {
 }
 
 #' @param impl how to construct a new graph:
-#'             {0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}
+#'             \{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH\}
 #' @rdname component
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {

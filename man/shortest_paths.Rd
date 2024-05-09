@@ -55,7 +55,7 @@ path_length_hist(graph, directed = FALSE)
 
 \item{weights}{Numeric edge weights; \code{TRUE} to use \code{graph$Eattr$weight}.}
 
-\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{algorithm}{character}
 

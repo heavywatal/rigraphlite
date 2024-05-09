@@ -34,7 +34,7 @@ degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 
 \item{vid}{Vertices of interest.}
 
-\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{vids}{Vertices of interest.}
 

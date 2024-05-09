@@ -22,7 +22,7 @@ layout_drl = function(graph) {
 }
 
 #' @param grid Whether to use the (fast but less accurate) grid based version;
-#'   {0: GRID, 1: NOGRID, 2: AUTOGRID}.
+#'  \{0: GRID, 1: NOGRID, 2: AUTOGRID\}.
 #' @rdname layout
 #' @export
 layout_fruchterman_reingold = function(graph, grid = 2L) {

@@ -15,9 +15,9 @@ as_inclist(graph, mode = 3L, loops = 1L)
 \arguments{
 \item{graph}{IGraph object.}
 
-\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{loops}{How to treat loop edges; {0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE}}
+\item{loops}{How to treat loop edges; \{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}}
 
 \item{multiple}{Boolean, whether to keep multiple (parallel) edges.}
 }

@@ -20,12 +20,12 @@ induced_subgraph(graph, vids, impl = 0L)
 
 \item{vid}{Vertices of interest.}
 
-\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{vids}{Vertices of interest.}
 
 \item{impl}{how to construct a new graph:
-{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH}}
+\{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH\}}
 }
 \description{
 Graph Components

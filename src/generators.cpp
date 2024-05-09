@@ -191,8 +191,8 @@ IGraph graph_from_edgelist(const Rcpp::IntegerMatrix& edgelist, bool directed = 
 //' @param mutual Boolean
 //' @param circular Boolean
 //' @param mode Integer;
-//'   - `igraph_star_mode_t` \\{0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\\}
-//'   - `igraph_tree_mode_t` \\{0: OUT, 1: IN, 2: UNDIRECTED\\}
+//'   - `igraph_star_mode_t` \{0: OUT, 1: IN, 2: MUTUAL, 3: UNDIRECTED\}
+//'   - `igraph_tree_mode_t` \{0: OUT, 1: IN, 2: UNDIRECTED\}
 //' @seealso [as_igraph()], [graph_from_data_frame()]
 //' @source <https://igraph.org/c/doc/igraph-Generators.html>
 //' @rdname generators
@@ -241,12 +241,12 @@ IGraph graph_full(int n, bool directed = false, bool mutual = false) {
   return IGraph(n, directed, mutual);
 }
 
-//' @param name \\{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
+//' @param name \{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
 //'   Dodecahedron, Folkman, Franklin, Frucht, Grotzsch, Heawood, Herschel, House,
 //'   HouseX, Icosahedral, Icosahedron, Krackhardt_Kite, Levi, McGee, Meredith,
 //'   Noperfectmatching, Nonline, Octahedral, Octahedron, Petersen, Robertson,
 //'   Smallestcyclicgroup, Tetrahedral, Tetrahedron, Thomassen, Tutte,
-//'   Uniquely3colorable, Walther, Zachary\\}
+//'   Uniquely3colorable, Walther, Zachary\}
 //' @rdname generators
 //' @export
 // [[Rcpp::export]]

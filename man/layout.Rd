@@ -33,9 +33,9 @@ layout_reingold_tilford_circular(graph, mode = 1L, roots = integer(0))
 \item{...}{Passed to an internal layout function.}
 
 \item{grid}{Whether to use the (fast but less accurate) grid based version;
-{0: GRID, 1: NOGRID, 2: AUTOGRID}.}
+\{0: GRID, 1: NOGRID, 2: AUTOGRID\}.}
 
-\item{mode}{Edge type to count; {1: OUT, 2: IN, 3: ALL}.}
+\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{roots}{Root vertices.}
 }
