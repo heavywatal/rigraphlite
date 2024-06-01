@@ -15,7 +15,7 @@ igraphlite is an Rcpp-powered R package interface to [igraph](https://igraph.org
 - NOT required:
     - R igraph package
     - C igraph library:
-      igraphlite first tries to `find_package()` in `${IGRAPH_INSTALL_PREFIX}` and `${CMAKE_PREFIX_PATH}`; if not found, it builds and installs an appropriate version automatically.
+      igraphlite first tries to `find_package()` in `${igraph_ROOT}` and `${CMAKE_PREFIX_PATH}`; if not found, it builds and installs an appropriate version automatically.
 
 ## Installation
 
