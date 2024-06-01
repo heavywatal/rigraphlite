@@ -34,12 +34,16 @@ igraph_error_t interruption_handler(void* data) {
   return IGRAPH_SUCCESS;
 }
 
+igraph_rng_t igraph_rng_R_instance;
+
 // [[Rcpp::init]]
 void igraphlite_init(DllInfo *dll) {
   igraph_version();
   igraph_set_error_handler(&error_handler);
   igraph_set_warning_handler(&warning_handler);
   igraph_set_interruption_handler(&interruption_handler);
+  igraph_rng_init(&igraph_rng_R_instance, &igraph_rngtype_pcg32);
+  igraph_rng_set_default(&igraph_rng_R_instance);
 }
 
 //' Random numbers
