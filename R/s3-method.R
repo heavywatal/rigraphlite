@@ -1,8 +1,9 @@
 #' @export
 as.data.frame.Rcpp_IGraph = function(x, ...) {
+  vnames = Vnames(x)
   df = data.frame(
-    from = as_vnames(x, x$from),
-    to = as_vnames(x, x$to),
+    from = vnames[x$from],
+    to = vnames[x$to],
     x$Eattr
   )
   class(df) = c("tbl_df", "tbl", "data.frame")
