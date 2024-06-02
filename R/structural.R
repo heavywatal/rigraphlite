@@ -130,10 +130,5 @@ induced_subgraph = function(graph, vids, impl = 0L) {
   vids = sort(vids)
   subg = IGraph$new(graph, vids, impl)
   subg$Vattr = graph$Vattr[vids, ]
-  if (ncol(graph$Eattr) > 0L) {
-    warning("The order of the edge attributes may not be correct.")
-    eids = (graph$from %in% vids) & (graph$to %in% vids)
-    subg$Eattr = graph$Eattr[eids, ]
-  }
   subg
 }
