@@ -2,8 +2,8 @@
 as.data.frame.Rcpp_IGraph = function(x, ...) {
   vnames = Vnames(x)
   df = data.frame(
-    from = vnames[x$from],
-    to = vnames[x$to],
+    from = vnames[igraph_from(x)],
+    to = vnames[igraph_to(x)],
     x$Eattr
   )
   class(df) = c("tbl_df", "tbl", "data.frame")
@@ -35,13 +35,13 @@ augment.Rcpp_IGraph = function(x, layout = NULL, ...) {
   }
   if (is.data.frame(layout)) {
     stopifnot(all(utils::hasName(layout, c("x", "y"))))
-    stopifnot(nrow(layout) == x$vcount)
+    stopifnot(nrow(layout) == vcount(x))
   } else {
     stop("Invalid type '", typeof(layout), "' for argument 'layout'")
   }
   root = Vsource(x)
-  from = c(root, x$from)
-  to = c(root, x$to)
+  from = c(root, igraph_from(x))
+  to = c(root, igraph_to(x))
   df = segment_df(from, to, layout[["x"]], layout[["y"]], Vnames(x))
   df
 }

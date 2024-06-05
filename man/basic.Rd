@@ -3,6 +3,8 @@
 \name{vcount}
 \alias{vcount}
 \alias{ecount}
+\alias{igraph_from}
+\alias{igraph_to}
 \alias{edge}
 \alias{neighbors}
 \alias{incident}
@@ -16,6 +18,10 @@
 vcount(graph)
 
 ecount(graph)
+
+igraph_from(graph)
+
+igraph_to(graph)
 
 edge(graph, eid)
 

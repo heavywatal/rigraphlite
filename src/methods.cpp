@@ -21,6 +21,12 @@ Rcpp::IntegerVector IGraph::ii() const {return AsIndices::wrap(&data_->ii);}
 Rcpp::IntegerVector IGraph::os() const {return AsIndices::wrap(&data_->os);}
 Rcpp::IntegerVector IGraph::is() const {return AsIndices::wrap(&data_->is);}
 
+// [[Rcpp::export]]
+Rcpp::IntegerVector from_(const IGraph& graph) {return graph.from();}
+
+// [[Rcpp::export]]
+Rcpp::IntegerVector to_(const IGraph& graph) {return graph.to();}
+
 void IGraph::mutate_Vattr(const char* name, const Rcpp::RObject& value) {
   impl::mutate(Vattr_, name, value);
 }

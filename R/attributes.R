@@ -49,13 +49,13 @@ edge_attr = function(graph, name) {
 #' @rdname attributes
 #' @export
 V = function(graph) {
-  seq_len(graph$vcount)
+  seq_len(vcount(graph))
 }
 
 #' @rdname attributes
 #' @export
 E = function(graph) {
-  seq_len(graph$ecount)
+  seq_len(ecount(graph))
 }
 
 #' Conversion between vertex IDs and names

@@ -25,7 +25,7 @@ test_that("incident works", {
 test_that("degree works", {
   g = graph_tree(7L)
   vids = seq_len(3L)
-  expect_length(degree(g), g$vcount)
+  expect_length(degree(g), vcount(g))
   expect_length(degree(g, vids), length(vids))
   expect_identical(degree(g, mode = 1L), c(2L, 2L, 2L, 0L, 0L, 0L, 0L))
   expect_identical(degree(g, mode = 2L), c(0L, 1L, 1L, 1L, 1L, 1L, 1L))
@@ -81,7 +81,7 @@ test_that("delete_edges/delete_vertices work", {
   expect_length(V(g), 5L)
   expect_length(g$Vattr[[1L]], 5L)
   expect_identical(nrow(g$Vattr), 5L)
-  expect_identical(nrow(g$Eattr), g$ecount)
+  expect_identical(nrow(g$Eattr), ecount(g))
   g$Vattr$invalid = as.list(V(g))
   g$Eattr$weight = as.list(E(g))
   expect_error(g$delete_edges(c(2, 5)), "Invalid type")

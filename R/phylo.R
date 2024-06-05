@@ -38,5 +38,5 @@ phylo_edge = function(graph) {
 }
 
 phylo_edge_length = function(graph) {
-  graph$Eattr[["edge.length"]] %||% rep(1, graph$ecount)
+  graph$Eattr[["edge.length"]] %||% rep(1, ecount(graph))
 }

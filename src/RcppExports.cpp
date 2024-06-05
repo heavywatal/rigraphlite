@@ -11,6 +11,28 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// vcount_
+int vcount_(const IGraph& graph);
+RcppExport SEXP _igraphlite_vcount_(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(vcount_(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ecount_
+int ecount_(const IGraph& graph);
+RcppExport SEXP _igraphlite_ecount_(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(ecount_(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
 // graph_from_data_frame
 IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed);
 RcppExport SEXP _igraphlite_graph_from_data_frame(SEXP dfSEXP, SEXP directedSEXP) {
@@ -159,6 +181,28 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// from_
+Rcpp::IntegerVector from_(const IGraph& graph);
+RcppExport SEXP _igraphlite_from_(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(from_(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
+// to_
+Rcpp::IntegerVector to_(const IGraph& graph);
+RcppExport SEXP _igraphlite_to_(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(to_(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
 // path_length_count_within
 Rcpp::IntegerVector path_length_count_within(const IGraph& graph, const Rcpp::IntegerVector& vids, bool directed);
 RcppExport SEXP _igraphlite_path_length_count_within(SEXP graphSEXP, SEXP vidsSEXP, SEXP directedSEXP) {
@@ -190,6 +234,8 @@ END_RCPP
 RcppExport SEXP _rcpp_module_boot_igraph();
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_igraphlite_vcount_", (DL_FUNC) &_igraphlite_vcount_, 1},
+    {"_igraphlite_ecount_", (DL_FUNC) &_igraphlite_ecount_, 1},
     {"_igraphlite_graph_from_data_frame", (DL_FUNC) &_igraphlite_graph_from_data_frame, 2},
     {"_igraphlite_graph_from_symbolic_edgelist", (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist, 2},
     {"_igraphlite_graph_from_edgelist", (DL_FUNC) &_igraphlite_graph_from_edgelist, 2},
@@ -202,6 +248,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_famous", (DL_FUNC) &_igraphlite_graph_famous, 1},
     {"_igraphlite_igraph_version", (DL_FUNC) &_igraphlite_igraph_version, 0},
     {"_igraphlite_rng_seed", (DL_FUNC) &_igraphlite_rng_seed, 1},
+    {"_igraphlite_from_", (DL_FUNC) &_igraphlite_from_, 1},
+    {"_igraphlite_to_", (DL_FUNC) &_igraphlite_to_, 1},
     {"_igraphlite_path_length_count_within", (DL_FUNC) &_igraphlite_path_length_count_within, 3},
     {"_igraphlite_path_length_count_between", (DL_FUNC) &_igraphlite_path_length_count_between, 4},
     {"_rcpp_module_boot_igraph", (DL_FUNC) &_rcpp_module_boot_igraph, 0},

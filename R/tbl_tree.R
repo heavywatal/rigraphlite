@@ -31,5 +31,5 @@ as_tbl_tree = function(x) {
 }
 
 branch_length = function(graph) {
-  graph$Eattr[["branch.length"]] %||% rep(1L, graph$ecount)
+  graph$Eattr[["branch.length"]] %||% rep(1L, ecount(graph))
 }

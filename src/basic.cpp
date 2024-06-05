@@ -4,6 +4,16 @@
 
 #include <igraph/igraph_interface.h>
 
+// [[Rcpp::export]]
+int vcount_(const IGraph& graph) {
+  return graph.vcount();
+}
+
+// [[Rcpp::export]]
+int ecount_(const IGraph& graph) {
+  return graph.ecount();
+}
+
 int IGraph::vcount() const {
   return igraph_vcount(data_.get());
 }

@@ -9,7 +9,7 @@
 #' @rdname basic
 #' @export
 vcount = function(graph) {
-  graph$vcount
+  vcount_(graph)
 }
 
 #' @details
@@ -17,7 +17,19 @@ vcount = function(graph) {
 #' @rdname basic
 #' @export
 ecount = function(graph) {
-  graph$ecount
+  ecount_(graph)
+}
+
+#' @rdname basic
+#' @export
+igraph_from = function(graph) {
+  from_(graph)
+}
+
+#' @rdname basic
+#' @export
+igraph_to = function(graph) {
+  to_(graph)
 }
 
 #' @details
