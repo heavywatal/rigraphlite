@@ -6,70 +6,46 @@
 #' @param value A vector or data.frame.
 #' @rdname attributes
 #' @export
-vertex_attr = function(graph, name) {
-  .Deprecated("Vattr")
-  Vattr(graph, name)
-}
-
-#' @rdname attributes
-#' @export
 Vattr = function(graph, name) {
   if (missing(name)) {
-    graph$Vattr
+    getVattr_(graph)
   } else {
-    graph$Vattr[[name]]
+    getVattr_(graph)[[name]]
   }
-}
-
-#' @rdname attributes
-#' @export
-`vertex_attr<-` = function(graph, name, value) {
-  .Deprecated("Vattr<-")
-  Vattr(graph, name) = value
 }
 
 #' @rdname attributes
 #' @export
 `Vattr<-` = function(graph, name, value) {
   if (missing(name)) {
-    graph$Vattr = value
+    setVattr_(graph, value)
   } else {
-    graph$Vattr[[name]] = value
+    x = getVattr_(graph)
+    x[[name]] = value
+    setVattr_(graph, x)
   }
   graph
 }
 
 #' @rdname attributes
 #' @export
-edge_attr = function(graph, name) {
-  .Deprecated("Eattr")
-  Eattr(graph, name)
-}
-
-#' @rdname attributes
-#' @export
 Eattr = function(graph, name) {
   if (missing(name)) {
-    graph$Eattr
+    getEattr_(graph)
   } else {
-    graph$Eattr[[name]]
+    getEattr_(graph)[[name]]
   }
-}
-
-#' @rdname attributes
-#' @export
-`edge_attr<-` = function(graph, name, value) {
-  .Deprecated("Eattr<-")
-  Eattr(graph, name) = value
 }
 
 #' @rdname attributes
 #' @export
 `Eattr<-` = function(graph, name, value) {
   if (missing(name)) {
-    graph$Eattr = value
+    setEattr_(graph, value)
   } else {
-    graph$Eattr[[name]] = value
+    x = getEattr_(graph)
+    x[[name]] = value
+    setEattr_(graph, x)
   }
   graph
 }

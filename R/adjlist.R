@@ -9,7 +9,7 @@
 #' @rdname adjlist
 #' @export
 as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = TRUE) {
-  graph$as_adjlist(mode, loops, multiple)
+  as_adjlist_(graph, mode, loops, multiple)
 }
 
 #' @details
@@ -17,5 +17,5 @@ as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = TRUE) {
 #' @rdname adjlist
 #' @export
 as_inclist = function(graph, mode = 3L, loops = 1L) {
-  graph$as_inclist(mode, loops)
+  as_inclist_(graph, mode, loops)
 }

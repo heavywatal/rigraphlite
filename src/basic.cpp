@@ -5,6 +5,11 @@
 #include <igraph/igraph_interface.h>
 
 // [[Rcpp::export]]
+bool is_directed_(const IGraph& graph) {
+  return igraph_is_directed(graph.data());
+}
+
+// [[Rcpp::export]]
 int vcount_(const IGraph& graph) {
   return graph.vcount();
 }
@@ -22,65 +27,69 @@ int IGraph::ecount() const {
   return igraph_ecount(data_.get());
 }
 
-bool IGraph::is_directed() const {
-  return igraph_is_directed(data_.get());
-}
-
+// [[Rcpp::export]]
 Rcpp::IntegerVector
-IGraph::edge(int eid) const {
+edge_(const IGraph& graph, int eid) {
   IVector<AsIndicesInPlace> res(2);
   auto begin = res.data()->stor_begin;
-  igraph_edge(data_.get(), --eid, begin, begin + 1);
+  igraph_edge(graph.data(), --eid, begin, begin + 1);
   return res.wrap();
 }
 
+// [[Rcpp::export]]
 Rcpp::IntegerVector
-IGraph::neighbors(int node, const int mode) const {
+neighbors_(const IGraph& graph, int node, const int mode) {
   IVector<AsIndicesInPlace> res(1);
-  igraph_neighbors(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
+  igraph_neighbors(graph.data(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
+// [[Rcpp::export]]
 Rcpp::IntegerVector
-IGraph::incident(int node, const int mode) const {
+incident_(const IGraph& graph, int node, const int mode) {
   IVector<AsIndicesInPlace> res(1);
-  igraph_incident(data_.get(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
+  igraph_incident(graph.data(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
+// [[Rcpp::export]]
 Rcpp::IntegerVector
-IGraph::degree(const Rcpp::IntegerVector& vids, const int mode, const bool loops) const {
+degree_(const IGraph& graph, const Rcpp::IntegerVector& vids, const int mode, const bool loops) {
   const R_xlen_t n = vids.size();
-  IVector<AsValues> res(n > 0 ? n : vcount());
+  IVector<AsValues> res(n > 0 ? n : graph.vcount());
   igraph_degree(
-    data_.get(), res.data(),
+    graph.data(), res.data(),
     (n > 0) ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
     static_cast<igraph_neimode_t>(mode), loops);
   return res.wrap();
 }
 
-void IGraph::add_edges(const Rcpp::IntegerVector& edges) {
-  const int new_vs = Rcpp::max(edges) - vcount();
-  if (new_vs) add_vertices(new_vs);
-  igraph_add_edges(data_.get(), ISelectorInPlace(edges).data(), nullptr);
-  impl::append_na_rows(Eattr_, edges.size() / 2);
+// [[Rcpp::export]]
+void add_vertices_(IGraph* graph, int n) {
+  igraph_add_vertices(graph->data(), n, nullptr);
+  impl::append_na_rows(graph->Vattr_, n);
 }
 
-void IGraph::add_vertices(int n) {
-  igraph_add_vertices(data_.get(), n, nullptr);
-  impl::append_na_rows(Vattr_, n);
+// [[Rcpp::export]]
+void add_edges_(IGraph* graph, const Rcpp::IntegerVector& eids) {
+  const int new_vs = Rcpp::max(eids) - graph->vcount();
+  if (new_vs) add_vertices_(graph, new_vs);
+  igraph_add_edges(graph->data(), ISelectorInPlace(eids).data(), nullptr);
+  impl::append_na_rows(graph->Eattr_, eids.size() / 2);
 }
 
-void IGraph::delete_edges(const Rcpp::IntegerVector& eids) {
+// [[Rcpp::export]]
+void delete_edges_(IGraph* graph, const Rcpp::IntegerVector& eids) {
   ISelectorInPlace ceids(eids);
-  impl::filter(Eattr_, impl::negate(eids, ecount()));
-  igraph_delete_edges(data_.get(), ceids.ess());
+  impl::filter(graph->Eattr_, impl::negate(eids, graph->ecount()));
+  igraph_delete_edges(graph->data(), ceids.ess());
 }
 
-void IGraph::delete_vertices(const Rcpp::IntegerVector& vids) {
-  Rcpp::LogicalVector eidx = Rcpp::in(from(), vids) | Rcpp::in(to(), vids);
-  impl::filter(Eattr_, !eidx);
+// [[Rcpp::export]]
+void delete_vertices_(IGraph* graph, const Rcpp::IntegerVector& vids) {
+  Rcpp::LogicalVector eidx = Rcpp::in(graph->from(), vids) | Rcpp::in(graph->to(), vids);
+  impl::filter(graph->Eattr_, !eidx);
   ISelectorInPlace cvids(vids);
-  impl::filter(Vattr_, impl::negate(vids, vcount()));
-  igraph_delete_vertices(data_.get(), cvids.vss());
+  impl::filter(graph->Vattr_, impl::negate(vids, graph->vcount()));
+  igraph_delete_vertices(graph->data(), cvids.vss());
 }

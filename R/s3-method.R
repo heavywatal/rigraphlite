@@ -12,7 +12,7 @@ as.data.frame.Rcpp_IGraph = function(x, ...) {
 
 #' @export
 as.matrix.Rcpp_IGraph = function(x, ...) {
-  x$as_edgelist()
+  as_edgelist_(x)
 }
 
 #' @importFrom generics augment

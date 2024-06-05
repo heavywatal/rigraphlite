@@ -12,13 +12,13 @@ layout_nicely = function(graph, ...) {
 #' @rdname layout
 #' @export
 layout_random = function(graph) {
-  graph$layout_random()
+  layout_random_(graph)
 }
 
 #' @rdname layout
 #' @export
 layout_drl = function(graph) {
-  graph$layout_drl()
+  layout_drl_(graph)
 }
 
 #' @param grid Whether to use the (fast but less accurate) grid based version;
@@ -26,24 +26,24 @@ layout_drl = function(graph) {
 #' @rdname layout
 #' @export
 layout_fruchterman_reingold = function(graph, grid = 2L) {
-  graph$layout_fruchterman_reingold(grid = grid)
+  layout_fruchterman_reingold_(graph, grid = grid)
 }
 
 #' @rdname layout
 #' @export
 layout_mds = function(graph) {
-  graph$layout_mds()
+  layout_mds_(graph)
 }
 
 #' @param roots Root vertices.
 #' @rdname layout
 #' @export
 layout_reingold_tilford = function(graph, mode = 1L, roots = integer(0)) {
-  graph$layout_reingold_tilford(mode, roots)
+  layout_reingold_tilford_(graph, mode, roots)
 }
 
 #' @rdname layout
 #' @export
 layout_reingold_tilford_circular = function(graph, mode = 1L, roots = integer(0)) {
-  graph$layout_reingold_tilford_circular(mode, roots)
+  layout_reingold_tilford_circular_(graph, mode, roots)
 }

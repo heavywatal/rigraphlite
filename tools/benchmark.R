@@ -36,7 +36,7 @@ bench::mark(
 bench::mark(
   igraph::degree(rigraph),
   igraphlite::degree(ligraph),
-  ligraph$degree(numeric(0), mode = 3L, loop = TRUE)
+  degree(ligraph, numeric(0), mode = 3L, loop = TRUE)
 )
 
 load_all()
@@ -110,10 +110,10 @@ bench::mark(
 # 8                      mean_distances_avg(g)      18.17ms      18.57ms      18.44ms      19.23ms 53.8513661          264B     0    27     501.38ms
 
 bench::mark(
-  OUT___1col = g$shortest_paths(from, to[1], numeric(0), 1L, ""),
-   IN___1col = g$shortest_paths(from, to[1], numeric(0), 2L, ""),
-  ALL___1col = g$shortest_paths(from, to[1], numeric(0), 3L, ""),
-  ALL_512col = g$shortest_paths(from, to, numeric(0), 3L, ""),
+  OUT___1col = shortest_paths(g, from, to[1], numeric(0), 1L, ""),
+   IN___1col = shortest_paths(g, from, to[1], numeric(0), 2L, ""),
+  ALL___1col = shortest_paths(g, from, to[1], numeric(0), 3L, ""),
+  ALL_512col = shortest_paths(g, from, to, numeric(0), 3L, ""),
   check = FALSE
 )[,1:10]
 #   expression          min         mean       median          max    itr/sec     mem_alloc  n_gc n_itr   total_time
@@ -124,9 +124,9 @@ bench::mark(
 # 4 ALL_512col       12.7ms      13.22ms      13.17ms      14.03ms   75.64487        2.01MB     2    36        476ms
 
 bench::mark(
-  g$as_adjlist(1L),
-  g$as_adjlist(2L),
-  g$as_adjlist(3L),
+  as_adjlist(g, 1L),
+  as_adjlist(g, 2L),
+  as_adjlist(g, 3L),
   check = FALSE
 )
 
@@ -164,7 +164,7 @@ bench::mark(
 load_all()
 g = graph_tree(10L)
 bench::mark(
-  g$average_path_length(FALSE),
+  average_path_length(g, FALSE),
   average_path_length(g)
 )
 
@@ -173,7 +173,7 @@ g = graph_tree(511L)
 bench::mark(
   get_shortest_paths(g, 1L, Vsink(g), mode = 1L),
   neighborhood(g, Vsink(g), order = 65535L, mode = 2L),
-  g$subcomponents(Vsink(g), mode = 2L),
+  subcomponents(g, Vsink(g), mode = 2L),
   lapply(Vsink(g), subcomponent, graph = g, mode = 2L),
   check = FALSE
 )

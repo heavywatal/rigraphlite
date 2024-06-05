@@ -29,7 +29,7 @@ as_phylo = function(x) {
 
 # Tips must have younger IDs
 phylo_edge = function(graph) {
-  edgelist = graph$as_edgelist()
+  edgelist = as.matrix(graph)
   old_ids = c(Vsink(graph), setdiff(V(graph), Vsink(graph)))
   edge = match(edgelist, old_ids)
   class(edge) = "integer"

@@ -37,7 +37,7 @@ igraph_to = function(graph) {
 #' @rdname basic
 #' @export
 edge = function(graph, eid) {
-  graph$edge(eid)
+  edge_(graph, eid)
 }
 
 #' @details
@@ -45,7 +45,7 @@ edge = function(graph, eid) {
 #' @rdname basic
 #' @export
 neighbors = function(graph, vid, mode = 3L) {
-  graph$neighbors(vid, mode)
+  neighbors_(graph, vid, mode)
 }
 
 #' @details
@@ -53,7 +53,7 @@ neighbors = function(graph, vid, mode = 3L) {
 #' @rdname basic
 #' @export
 incident = function(graph, vid, mode = 3L) {
-  graph$incident(vid, mode)
+  incident_(graph, vid, mode)
 }
 
 #' @details
@@ -61,7 +61,7 @@ incident = function(graph, vid, mode = 3L) {
 #' @rdname basic
 #' @export
 is_directed = function(graph) {
-  graph$is_directed
+  is_directed_(graph)
 }
 
 #' @details
@@ -70,5 +70,30 @@ is_directed = function(graph) {
 #' @rdname basic
 #' @export
 degree = function(graph, vids = integer(0), mode = 3L, loops = TRUE) {
-  graph$degree(vids, mode, loops)
+  degree_(graph, vids, mode, loops)
+}
+
+#' @param n number of vertices to add.
+#' @rdname basic
+#' @export
+add_vertices = function(graph, n) {
+  add_vertices_(graph, n)
+}
+
+#' @rdname basic
+#' @export
+add_edges = function(graph, eids) {
+  add_edges_(graph, eids)
+}
+
+#' @rdname basic
+#' @export
+delete_vertices = function(graph, vids) {
+  delete_vertices_(graph, vids)
+}
+
+#' @rdname basic
+#' @export
+delete_edges = function(graph, eids) {
+  delete_edges_(graph, eids)
 }

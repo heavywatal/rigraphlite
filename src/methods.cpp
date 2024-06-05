@@ -2,16 +2,20 @@
 #include "adjlist.hpp"
 #include "dataframe.hpp"
 
-Rcpp::List IGraph::as_adjlist(const int mode, const int loops, const int multiple) const {
-  return IAdjList<AsIndicesInPlace>(data_.get(), mode, loops, multiple).wrap();
+// [[Rcpp::export]]
+Rcpp::List
+as_adjlist_(const IGraph& graph, const int mode, const int loops, const int multiple) {
+  return IAdjList<AsIndicesInPlace>(graph.data(), mode, loops, multiple).wrap();
 }
 
-Rcpp::List IGraph::as_inclist(const int mode, const int loops) const {
-  return IIncList<AsIndicesInPlace>(data_.get(), mode, loops).wrap();
+// [[Rcpp::export]]
+Rcpp::List as_inclist_(const IGraph& graph, const int mode, const int loops) {
+  return IIncList<AsIndicesInPlace>(graph.data(), mode, loops).wrap();
 }
 
-Rcpp::IntegerMatrix IGraph::as_edgelist() const {
-  return Rcpp::cbind(from(), to());
+// [[Rcpp::export]]
+Rcpp::IntegerMatrix as_edgelist_(const IGraph& graph) {
+  return Rcpp::cbind(graph.from(), graph.to());
 }
 
 Rcpp::IntegerVector IGraph::from() const {return AsIndices::wrap(&data_->from);}
@@ -26,6 +30,15 @@ Rcpp::IntegerVector from_(const IGraph& graph) {return graph.from();}
 
 // [[Rcpp::export]]
 Rcpp::IntegerVector to_(const IGraph& graph) {return graph.to();}
+
+// [[Rcpp::export]]
+void setVattr_(IGraph* graph, Rcpp::DataFrame other) {graph->Vattr_ = other;}
+// [[Rcpp::export]]
+void setEattr_(IGraph* graph, Rcpp::DataFrame other) {graph->Eattr_ = other;}
+// [[Rcpp::export]]
+Rcpp::DataFrame getVattr_(const IGraph& graph) {return graph.Vattr_;}
+// [[Rcpp::export]]
+Rcpp::DataFrame getEattr_(const IGraph& graph) {return graph.Eattr_;}
 
 void IGraph::mutate_Vattr(const char* name, const Rcpp::RObject& value) {
   impl::mutate(Vattr_, name, value);

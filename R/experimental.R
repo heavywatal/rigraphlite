@@ -60,7 +60,7 @@ mean_distances_vec = function(graph, from = integer(0L), to = from, weights = nu
       algorithm = "unweighted"
     }
   }
-  graph$mean_distances(from, to, weights, mode, algorithm)
+  mean_distances_cpp_(graph, from, to, weights, mode, algorithm)
 }
 
 mean_distances_hist = function(graph, from = NULL, to = from) {
@@ -69,7 +69,7 @@ mean_distances_hist = function(graph, from = NULL, to = from) {
     graph = induced_subgraph(graph, vids)
   }
   # TODO: Exclude internal nodes
-  h = graph$path_length_hist(FALSE)
+  h = path_length_hist(graph, FALSE)
   sum(h * seq_along(h)) / sum(h)
 }
 
@@ -79,7 +79,7 @@ mean_distances_avg = function(graph, from = NULL, to = from) {
     graph = induced_subgraph(graph, vids)
   }
   # TODO: Exclude internal nodes
-  graph$average_path_length(FALSE)
+  average_path_length(graph, FALSE)
 }
 
 # nocov end

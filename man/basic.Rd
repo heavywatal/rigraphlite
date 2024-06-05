@@ -10,6 +10,10 @@
 \alias{incident}
 \alias{is_directed}
 \alias{degree}
+\alias{add_vertices}
+\alias{add_edges}
+\alias{delete_vertices}
+\alias{delete_edges}
 \title{Basic Query Operations}
 \source{
 \url{https://igraph.org/c/doc/igraph-Basic.html}
@@ -32,6 +36,14 @@ incident(graph, vid, mode = 3L)
 is_directed(graph)
 
 degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
+
+add_vertices(graph, n)
+
+add_edges(graph, eids)
+
+delete_vertices(graph, vids)
+
+delete_edges(graph, eids)
 }
 \arguments{
 \item{graph}{IGraph object.}
@@ -45,6 +57,10 @@ degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 \item{vids}{Vertices of interest.}
 
 \item{loops}{whether self-loop should be counted.}
+
+\item{n}{number of vertices to add.}
+
+\item{eids}{Edges of interest.}
 }
 \description{
 Basic Query Operations

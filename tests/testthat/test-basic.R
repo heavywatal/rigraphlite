@@ -53,7 +53,7 @@ test_that("add_edges/add_vertices work", {
   Eattr(g, "id") = E(g)
   Eattr(g, "name") = LETTERS[E(g)]
   Eattr(g, "weight") = as.double(E(g))
-  g$add_edges(c(6, 7, 8, 9))
+  add_edges(g, c(6, 7, 8, 9))
   expect_length(E(g), 8L)
   expect_length(Eattr(g)[[1L]], 8L)
   expect_identical(nrow(Eattr(g)), 8L)
@@ -62,7 +62,7 @@ test_that("add_edges/add_vertices work", {
   expect_identical(nrow(Vattr(g)), 9L)
   Vattr(g, "invalid") = as.list(V(g))
   Eattr(g, "weight") = as.list(E(g))
-  expect_error(g$add_edges(c(10, 11)), "Invalid type")
+  expect_error(add_edges(g, c(10, 11)), "Invalid type")
 })
 
 test_that("delete_edges/delete_vertices work", {
@@ -73,16 +73,16 @@ test_that("delete_edges/delete_vertices work", {
   Eattr(g, "id") = E(g)
   Eattr(g, "name") = LETTERS[E(g)]
   Eattr(g, "weight") = as.double(E(g))
-  g$delete_edges(c(2, 4))
+  delete_edges(g, c(2, 4))
   expect_length(E(g), 4L)
   expect_length(Eattr(g)[[1L]], 4L)
   expect_identical(nrow(Eattr(g)), 4L)
-  g$delete_vertices(c(2, 4))
+  delete_vertices(g, c(2, 4))
   expect_length(V(g), 5L)
   expect_length(Vattr(g)[[1L]], 5L)
   expect_identical(nrow(Vattr(g)), 5L)
   expect_identical(nrow(Eattr(g)), ecount(g))
   Vattr(g, "invalid") = as.list(V(g))
   Eattr(g, "weight") = as.list(E(g))
-  expect_error(g$delete_edges(c(2, 5)), "Invalid type")
+  expect_error(delete_edges(g, c(2, 5)), "Invalid type")
 })

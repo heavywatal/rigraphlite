@@ -13,30 +13,6 @@ Reference Class (RC) exposed by Rcpp Modules.
 \description{
 IGraph class: thin wrapper of \code{igraph_t}.
 }
-\section{Fields}{
-
-\describe{
-\item{\code{V}}{Vertex IDs in a integer vector}
-
-\item{\code{E}}{Edge IDs in a integer vector}
-
-\item{\code{Vattr}}{Vertex attributes in a data.frame}
-
-\item{\code{Eattr}}{Edge attributes in a data.frame}
-
-\item{\code{from}}{The first column of the edge list.}
-
-\item{\code{to}}{The second column of the edge list.}
-
-\item{\code{oi}}{The index of the edge list by the first column.}
-
-\item{\code{ii}}{The index of the edge list by the second column.}
-
-\item{\code{os}}{The pointers to the outgoing edges.}
-
-\item{\code{is}}{The pointers to the incoming edges.}
-}}
-
 \seealso{
 \code{\link[=graph_from_edgelist]{graph_from_edgelist()}}, \link{graph_from_data_frame}, \code{\link[=graph_tree]{graph_tree()}}
 for object instantiation.

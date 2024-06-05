@@ -5,12 +5,7 @@
 #' @rdname connected
 #' @export
 are_adjacent = function(graph, from, to) {
-  graph$are_adjacent(from, to)
-}
-
-are_connected = function(graph, from, to) {
-  warning("are_connected() is deprecated. Use are_adjacent()")
-  are_adjacent(graph, from, to)
+  are_adjacent_(graph, from, to)
 }
 
 #' Shortest Path Related Functions
@@ -34,15 +29,7 @@ distances = function(graph, from = integer(0L), to = from, weights = numeric(0L)
       algorithm = "unweighted"
     }
   }
-  graph$distances(from, to, weights, mode, algorithm)
-}
-
-#' @param ... passed to [distances]
-#' @rdname shortest_paths
-#' @export
-shortest_paths = function(graph, ...) {
-  warning("shortest_paths() is deprecated. Use distances()")
-  distances(graph, ...)
+  distances_(graph, from, to, weights, mode, algorithm)
 }
 
 #' @rdname shortest_paths
@@ -52,7 +39,7 @@ get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0
     stopifnot(utils::hasName(Eattr(graph), "weight"))
     weights = Eattr(graph, "weight")
   }
-  graph$get_shortest_paths(from, to, weights, mode)
+  get_shortest_paths_(graph, from, to, weights, mode)
 }
 
 #' @rdname shortest_paths
@@ -62,14 +49,14 @@ get_all_shortest_paths = function(graph, from, to = integer(0L), weights = numer
     stopifnot(utils::hasName(Eattr(graph), "weight"))
     weights = Eattr(graph, "weight")
   }
-  graph$get_all_shortest_paths(from, to, weights, mode)
+  get_all_shortest_paths_(graph, from, to, weights, mode)
 }
 
 #' @param cutoff integer
 #' @rdname shortest_paths
 #' @export
 get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mode = 3L) {
-  res = graph$get_all_simple_paths(from, to, cutoff, mode)
+  res = get_all_simple_paths_(graph, from, to, cutoff, mode)
   pos = which(res == 0L)
   split_at(res[-pos], pos - seq_along(pos))
 }
@@ -77,13 +64,13 @@ get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mod
 #' @rdname shortest_paths
 #' @export
 average_path_length = function(graph, directed = FALSE) {
-  graph$average_path_length(directed)
+  average_path_length_(graph, directed)
 }
 
 #' @rdname shortest_paths
 #' @export
 path_length_hist = function(graph, directed = FALSE) {
-  graph$path_length_hist(directed)
+  path_length_hist_(graph, directed)
 }
 
 
@@ -96,13 +83,13 @@ path_length_hist = function(graph, directed = FALSE) {
 #' @rdname neighborhood
 #' @export
 neighborhood_size = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L) {
-  graph$neighborhood_size(vids, order, mode, mindist)
+  neighborhood_size_(graph, vids, order, mode, mindist)
 }
 
 #' @rdname neighborhood
 #' @export
 neighborhood = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L) {
-  graph$neighborhood(vids, order, mode, mindist)
+  neighborhood_(graph, vids, order, mode, mindist)
 }
 
 
@@ -113,13 +100,13 @@ neighborhood = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist
 #' @rdname component
 #' @export
 subcomponent = function(graph, vid, mode = 1L) {
-  graph$subcomponent(vid, mode)
+  subcomponent_(graph, vid, mode)
 }
 
 #' @rdname component
 #' @export
 subcomponents = function(graph, vids, mode = 1L) {
-  graph$subcomponents(vids, mode)
+  subcomponents_(graph, vids, mode)
 }
 
 #' @param impl how to construct a new graph:
@@ -128,7 +115,7 @@ subcomponents = function(graph, vids, mode = 1L) {
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {
   vids = sort(vids)
-  subg = IGraph$new(graph, vids, impl)
+  subg = induced_subgraph_(graph, vids, impl)
   Vattr(subg) = Vattr(graph)[vids, ]
   subg
 }
