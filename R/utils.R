@@ -9,7 +9,7 @@
 #' @param eids Edges of interest.
 #' @param eid  Edges of interest.
 #' @param mode Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.
-#' @param weights Numeric edge weights; `TRUE` to use `graph$Eattr$weight`.
+#' @param weights Numeric edge weights; `TRUE` to use `Eattr(graph, "weight")`.
 #' @param directed Boolean, whether to consider directed paths. Ignored for undirected graphs.
 #' @param loops How to treat loop edges; \{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}
 #' @param multiple Boolean, whether to keep multiple (parallel) edges.

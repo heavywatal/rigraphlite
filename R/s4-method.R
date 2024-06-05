@@ -3,7 +3,7 @@ setClass("Rcpp_IGraph")
 setMethod("show", "Rcpp_IGraph", function(object) {
   methods::callNextMethod(object)
   cat("$V  ")
-  utils::str(object$Vattr)
+  utils::str(Vattr(object))
   print(as.data.frame(object))
   invisible(object)
 })

@@ -8,8 +8,8 @@
 as_igraph.phylo = function(x) {
   g = graph_from_edgelist(x[["edge"]])
   node.label = x[["node.label"]] %||% rep(NA, x[["Nnode"]])
-  g$Vattr[["name"]] = c(x[["tip.label"]], node.label)
-  g$Eattr[["edge.length"]] = x[["edge.length"]]
+  Vattr(g, "name") = c(x[["tip.label"]], node.label)
+  Eattr(g, "edge.length") = x[["edge.length"]]
   g
 }
 
@@ -38,5 +38,5 @@ phylo_edge = function(graph) {
 }
 
 phylo_edge_length = function(graph) {
-  graph$Eattr[["edge.length"]] %||% rep(1, ecount(graph))
+  Eattr(graph, "edge.length") %||% rep(1, ecount(graph))
 }

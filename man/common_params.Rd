@@ -36,7 +36,7 @@ common_params(
 
 \item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{weights}{Numeric edge weights; \code{TRUE} to use \code{graph$Eattr$weight}.}
+\item{weights}{Numeric edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
 
 \item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
 

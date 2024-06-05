@@ -24,8 +24,8 @@ distances = function(graph, from = integer(0L), to = from, weights = numeric(0L)
                      algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(graph$Eattr, "weight"))
-    weights = graph$Eattr$weight
+    stopifnot(utils::hasName(Eattr(graph), "weight"))
+    weights = Eattr(graph, "weight")
   }
   if (algorithm == "auto") {
     if (length(weights)) {
@@ -49,8 +49,8 @@ shortest_paths = function(graph, ...) {
 #' @export
 get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(graph$Eattr, "weight"))
-    weights = graph$Eattr$weight
+    stopifnot(utils::hasName(Eattr(graph), "weight"))
+    weights = Eattr(graph, "weight")
   }
   graph$get_shortest_paths(from, to, weights, mode)
 }
@@ -59,8 +59,8 @@ get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0
 #' @export
 get_all_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(graph$Eattr, "weight"))
-    weights = graph$Eattr$weight
+    stopifnot(utils::hasName(Eattr(graph), "weight"))
+    weights = Eattr(graph, "weight")
   }
   graph$get_all_shortest_paths(from, to, weights, mode)
 }
@@ -129,6 +129,6 @@ subcomponents = function(graph, vids, mode = 1L) {
 induced_subgraph = function(graph, vids, impl = 0L) {
   vids = sort(vids)
   subg = IGraph$new(graph, vids, impl)
-  subg$Vattr = graph$Vattr[vids, ]
+  Vattr(subg) = Vattr(graph)[vids, ]
   subg
 }

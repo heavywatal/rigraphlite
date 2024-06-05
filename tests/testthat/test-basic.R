@@ -47,42 +47,42 @@ test_that("as_adjlist and as_inclist work", {
 
 test_that("add_edges/add_vertices work", {
   g = graph_tree(7L)
-  g$Vattr$id = V(g)
-  g$Vattr$name = LETTERS[V(g)]
-  g$Vattr$weight = as.double(V(g))
-  g$Eattr$id = E(g)
-  g$Eattr$name = LETTERS[E(g)]
-  g$Eattr$weight = as.double(E(g))
+  Vattr(g, "id") = V(g)
+  Vattr(g, "name") = LETTERS[V(g)]
+  Vattr(g, "weight") = as.double(V(g))
+  Eattr(g, "id") = E(g)
+  Eattr(g, "name") = LETTERS[E(g)]
+  Eattr(g, "weight") = as.double(E(g))
   g$add_edges(c(6, 7, 8, 9))
   expect_length(E(g), 8L)
-  expect_length(g$Eattr[[1L]], 8L)
-  expect_identical(nrow(g$Eattr), 8L)
+  expect_length(Eattr(g)[[1L]], 8L)
+  expect_identical(nrow(Eattr(g)), 8L)
   expect_length(V(g), 9L)
-  expect_length(g$Vattr[[1L]], 9L)
-  expect_identical(nrow(g$Vattr), 9L)
-  g$Vattr$invalid = as.list(V(g))
-  g$Eattr$weight = as.list(E(g))
+  expect_length(Vattr(g)[[1L]], 9L)
+  expect_identical(nrow(Vattr(g)), 9L)
+  Vattr(g, "invalid") = as.list(V(g))
+  Eattr(g, "weight") = as.list(E(g))
   expect_error(g$add_edges(c(10, 11)), "Invalid type")
 })
 
 test_that("delete_edges/delete_vertices work", {
   g = graph_tree(7L)
-  g$Vattr$id = V(g)
-  g$Vattr$name = LETTERS[V(g)]
-  g$Vattr$weight = as.double(V(g))
-  g$Eattr$id = E(g)
-  g$Eattr$name = LETTERS[E(g)]
-  g$Eattr$weight = as.double(E(g))
+  Vattr(g, "id") = V(g)
+  Vattr(g, "name") = LETTERS[V(g)]
+  Vattr(g, "weight") = as.double(V(g))
+  Eattr(g, "id") = E(g)
+  Eattr(g, "name") = LETTERS[E(g)]
+  Eattr(g, "weight") = as.double(E(g))
   g$delete_edges(c(2, 4))
   expect_length(E(g), 4L)
-  expect_length(g$Eattr[[1L]], 4L)
-  expect_identical(nrow(g$Eattr), 4L)
+  expect_length(Eattr(g)[[1L]], 4L)
+  expect_identical(nrow(Eattr(g)), 4L)
   g$delete_vertices(c(2, 4))
   expect_length(V(g), 5L)
-  expect_length(g$Vattr[[1L]], 5L)
-  expect_identical(nrow(g$Vattr), 5L)
-  expect_identical(nrow(g$Eattr), ecount(g))
-  g$Vattr$invalid = as.list(V(g))
-  g$Eattr$weight = as.list(E(g))
+  expect_length(Vattr(g)[[1L]], 5L)
+  expect_identical(nrow(Vattr(g)), 5L)
+  expect_identical(nrow(Eattr(g)), ecount(g))
+  Vattr(g, "invalid") = as.list(V(g))
+  Eattr(g, "weight") = as.list(E(g))
   expect_error(g$delete_edges(c(2, 5)), "Invalid type")
 })

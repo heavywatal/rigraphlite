@@ -23,7 +23,7 @@ test_that("distances works", {
   expect_true(is.matrix(dw))
   expect_identical(dim(dw), c(vcount(g), vcount(g)))
   expect_error(distances(g, weights = TRUE), "hasName")
-  g$Eattr["weight"] = E(g)
+  Eattr(g, "weight") = E(g)
   expect_identical(distances(g, weights = TRUE), dw)
 })
 
@@ -46,7 +46,7 @@ test_that("get_shortest_paths works", {
     "Couldn't reach some vertices"
   )
   expect_error(get_shortest_paths(g, 1L, weights = TRUE), "hasName")
-  g$Eattr["weight"] = E(g)
+  Eattr(g, "weight") = E(g)
   expect_type(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
@@ -66,7 +66,7 @@ test_that("get_all_shortest_paths works", {
   )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
   expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
-  g$Eattr["weight"] = E(g)
+  Eattr(g, "weight") = E(g)
   expect_type(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
@@ -121,15 +121,15 @@ test_that("subcomponent works", {
 test_that("induced_subgraph works", {
   el = matrix(seq_len(8L), ncol = 2L)
   g = graph_from_symbolic_edgelist(el)
-  g$Eattr$name = as.character(E(g))
+  Eattr(g, "name") = as.character(E(g))
   vids = seq_len(4L)
   expect_silent({
     subg = induced_subgraph(g, vids)
   })
   expect_s4_class(subg, "Rcpp_IGraph")
   expect_length(V(subg), length(vids))
-  expect_identical(nrow(subg$Vattr), vcount(subg))
-  expect_identical(nrow(subg$Eattr), ecount(subg))
-  expect_identical(ncol(subg$Vattr), ncol(g$Vattr))
-  expect_identical(ncol(subg$Eattr), 0L) # discarded
+  expect_identical(nrow(Vattr(subg)), vcount(subg))
+  expect_identical(nrow(Eattr(subg)), ecount(subg))
+  expect_identical(ncol(Vattr(subg)), ncol(Vattr(g)))
+  expect_identical(ncol(Eattr(subg)), 0L) # discarded
 })

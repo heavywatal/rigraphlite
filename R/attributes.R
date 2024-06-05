@@ -93,7 +93,7 @@ E = function(graph) {
 #' @rdname vnames
 #' @export
 Vnames = function(graph) {
-  graph$Vattr[["name"]] %||% V(graph)
+  Vattr(graph, "name") %||% V(graph)
 }
 
 #' @rdname vnames

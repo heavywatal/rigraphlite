@@ -9,8 +9,8 @@ as_igraph.tbl_tree = function(x) {
   el = cbind(x[["parent"]], x[["node"]])
   idx = (el[, 1L] != el[, 2L])
   g = graph_from_edgelist(el[idx, ])
-  g$Vattr[["name"]] = x[["label"]]
-  g$Eattr[["branch.length"]] = x[["branch.length"]][idx]
+  Vattr(g, "name") = x[["label"]]
+  Eattr(g, "branch.length") = x[["branch.length"]][idx]
   g
 }
 
@@ -31,5 +31,5 @@ as_tbl_tree = function(x) {
 }
 
 branch_length = function(graph) {
-  graph$Eattr[["branch.length"]] %||% rep(1L, ecount(graph))
+  Eattr(graph, "branch.length") %||% rep(1L, ecount(graph))
 }
