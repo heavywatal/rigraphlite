@@ -7,6 +7,13 @@
 #' @rdname attributes
 #' @export
 vertex_attr = function(graph, name) {
+  .Deprecated("Vattr")
+  Vattr(graph, name)
+}
+
+#' @rdname attributes
+#' @export
+Vattr = function(graph, name) {
   if (missing(name)) {
     graph$Vattr
   } else {
@@ -17,6 +24,13 @@ vertex_attr = function(graph, name) {
 #' @rdname attributes
 #' @export
 `vertex_attr<-` = function(graph, name, value) {
+  .Deprecated("Vattr<-")
+  Vattr(graph, name) = value
+}
+
+#' @rdname attributes
+#' @export
+`Vattr<-` = function(graph, name, value) {
   if (missing(name)) {
     graph$Vattr = value
   } else {
@@ -28,6 +42,13 @@ vertex_attr = function(graph, name) {
 #' @rdname attributes
 #' @export
 edge_attr = function(graph, name) {
+  .Deprecated("Eattr")
+  Eattr(graph, name)
+}
+
+#' @rdname attributes
+#' @export
+Eattr = function(graph, name) {
   if (missing(name)) {
     graph$Eattr
   } else {
@@ -38,6 +59,13 @@ edge_attr = function(graph, name) {
 #' @rdname attributes
 #' @export
 `edge_attr<-` = function(graph, name, value) {
+  .Deprecated("Eattr<-")
+  Eattr(graph, name) = value
+}
+
+#' @rdname attributes
+#' @export
+`Eattr<-` = function(graph, name, value) {
   if (missing(name)) {
     graph$Eattr = value
   } else {

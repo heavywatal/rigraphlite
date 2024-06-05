@@ -1,19 +1,19 @@
 test_that("attribute getters/setters work", {
   g = graph_tree(7L)
-  vertex_attr(g, "name") = V(g) |>
+  Vattr(g, "name") = V(g) |>
     expect_length(vcount(g))
-  expect_identical(vertex_attr(g, "name"), V(g))
-  vattr = vertex_attr(g) |>
+  expect_identical(Vattr(g, "name"), V(g))
+  vattr = Vattr(g) |>
     expect_s3_class("data.frame")
-  vertex_attr(g) = vattr
-  expect_identical(vertex_attr(g), vattr)
-  edge_attr(g, "name") = E(g) |>
+  Vattr(g) = vattr
+  expect_identical(Vattr(g), vattr)
+  Eattr(g, "name") = E(g) |>
     expect_length(ecount(g))
-  expect_identical(edge_attr(g, "name"), E(g))
-  eattr = edge_attr(g) |>
+  expect_identical(Eattr(g, "name"), E(g))
+  eattr = Eattr(g) |>
     expect_s3_class("data.frame")
-  edge_attr(g) = eattr
-  expect_identical(edge_attr(g), eattr)
+  Eattr(g) = eattr
+  expect_identical(Eattr(g), eattr)
 })
 
 test_that("name-id conversion works", {

@@ -2,20 +2,32 @@
 % Please edit documentation in R/attributes.R
 \name{vertex_attr}
 \alias{vertex_attr}
+\alias{Vattr}
 \alias{vertex_attr<-}
+\alias{Vattr<-}
 \alias{edge_attr}
+\alias{Eattr}
 \alias{edge_attr<-}
+\alias{Eattr<-}
 \alias{V}
 \alias{E}
 \title{Get and set vertex and edge attributes}
 \usage{
 vertex_attr(graph, name)
 
+Vattr(graph, name)
+
 vertex_attr(graph, name) <- value
+
+Vattr(graph, name) <- value
 
 edge_attr(graph, name)
 
+Eattr(graph, name)
+
 edge_attr(graph, name) <- value
+
+Eattr(graph, name) <- value
 
 V(graph)
 
