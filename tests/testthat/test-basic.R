@@ -8,7 +8,7 @@ test_that("basic queries work", {
 
 test_that("neighbors works", {
   g = graph_tree(7L)
-  expect_error(neighbors(g, 0L))
+  expect_error(neighbors(g, 0L), "not in the graph")
   expect_identical(neighbors(g, 1L, mode = 1L), c(2L, 3L))
   expect_identical(neighbors(g, 1L, mode = 2L), integer(0L))
   expect_identical(neighbors(g, 1L, mode = 3L), c(2L, 3L))
@@ -16,7 +16,7 @@ test_that("neighbors works", {
 
 test_that("incident works", {
   g = graph_tree(7L)
-  expect_error(incident(g, 0L))
+  expect_error(incident(g, 0L), "not in the graph")
   expect_identical(incident(g, 1L, mode = 1L), c(1L, 2L))
   expect_identical(incident(g, 1L, mode = 2L), integer(0L))
   expect_identical(incident(g, 1L, mode = 3L), c(1L, 2L))
@@ -53,7 +53,7 @@ test_that("add_edges/add_vertices work", {
   Eattr(g, "id") = E(g)
   Eattr(g, "name") = LETTERS[E(g)]
   Eattr(g, "weight") = as.double(E(g))
-  add_edges(g, c(6, 7, 8, 9))
+  add_edges(g, c(6L, 7L, 8L, 9L))
   expect_length(E(g), 8L)
   expect_length(Eattr(g)[[1L]], 8L)
   expect_identical(nrow(Eattr(g)), 8L)
@@ -73,11 +73,11 @@ test_that("delete_edges/delete_vertices work", {
   Eattr(g, "id") = E(g)
   Eattr(g, "name") = LETTERS[E(g)]
   Eattr(g, "weight") = as.double(E(g))
-  delete_edges(g, c(2, 4))
+  delete_edges(g, c(2L, 4L))
   expect_length(E(g), 4L)
   expect_length(Eattr(g)[[1L]], 4L)
   expect_identical(nrow(Eattr(g)), 4L)
-  delete_vertices(g, c(2, 4))
+  delete_vertices(g, c(2L, 4L))
   expect_length(V(g), 5L)
   expect_length(Vattr(g)[[1L]], 5L)
   expect_identical(nrow(Vattr(g)), 5L)

@@ -16,6 +16,16 @@ test_that("generator functions work", {
   expect_error(graph_create(seq_len(n - 1L)))
 })
 
+test_that("generator round-trip", {
+  tree = graph_tree(7L)
+  df = as.data.frame(tree)
+  el = as.matrix(df) + 10L
+  gdf = graph_from_data_frame(df)
+  expect_identical(as.data.frame(gdf), df)
+  gel = graph_from_symbolic_edgelist(el)
+  expect_identical(as.data.frame(gel) |> as.matrix(), el)
+})
+
 test_that("as_/is_ functions work", {
   n = 8L
   edges = seq_len(n)

@@ -115,7 +115,7 @@ test_that("subcomponent works", {
   expect_identical(subcomponent(g, 4, mode = 2L), c(4L, 2L, 1L))
   expect_setequal(subcomponent(g, 2, mode = 3L), V(g))
   expect_length(subcomponents(g, V(g)), vcount(g))
-  expect_identical(subcomponents(g, c(2, 3), mode = 1L), list(c(2L, 4L, 5L), c(3L, 6L, 7L)))
+  expect_identical(subcomponents(g, c(2L, 3L), mode = 1L), list(c(2L, 4L, 5L), c(3L, 6L, 7L)))
 })
 
 test_that("induced_subgraph works", {
