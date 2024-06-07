@@ -45,6 +45,14 @@ delete_vertices_ <- function(graph, vids) {
     invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
+edge_betweenness_ <- function(graph, directed, weights) {
+    .Call(`_igraphlite_edge_betweenness_`, graph, directed, weights)
+}
+
+edge_betweenness_subset_ <- function(graph, directed, eids, weights, sources, targets) {
+    .Call(`_igraphlite_edge_betweenness_subset_`, graph, directed, eids, weights, sources, targets)
+}
+
 #' @param df data.frame that includes an edgelist and edge attributes.
 #' @param edgelist Two-column matrix.
 #' @param directed Boolean

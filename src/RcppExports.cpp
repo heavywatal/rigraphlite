@@ -140,6 +140,35 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// edge_betweenness_
+Rcpp::NumericVector edge_betweenness_(const IGraph& graph, const bool directed, const Rcpp::NumericVector& weights);
+RcppExport SEXP _igraphlite_edge_betweenness_(SEXP graphSEXP, SEXP directedSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const bool >::type directed(directedSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(edge_betweenness_(graph, directed, weights));
+    return rcpp_result_gen;
+END_RCPP
+}
+// edge_betweenness_subset_
+Rcpp::NumericVector edge_betweenness_subset_(const IGraph& graph, const bool directed, const Rcpp::IntegerVector& eids, const Rcpp::NumericVector& weights, const Rcpp::IntegerVector& sources, const Rcpp::IntegerVector& targets);
+RcppExport SEXP _igraphlite_edge_betweenness_subset_(SEXP graphSEXP, SEXP directedSEXP, SEXP eidsSEXP, SEXP weightsSEXP, SEXP sourcesSEXP, SEXP targetsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< const bool >::type directed(directedSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type eids(eidsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type sources(sourcesSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type targets(targetsSEXP);
+    rcpp_result_gen = Rcpp::wrap(edge_betweenness_subset_(graph, directed, eids, weights, sources, targets));
+    return rcpp_result_gen;
+END_RCPP
+}
 // graph_from_data_frame
 IGraph graph_from_data_frame(const Rcpp::DataFrame& df, bool directed);
 RcppExport SEXP _igraphlite_graph_from_data_frame(SEXP dfSEXP, SEXP directedSEXP) {
@@ -688,6 +717,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_add_edges_", (DL_FUNC) &_igraphlite_add_edges_, 2},
     {"_igraphlite_delete_edges_", (DL_FUNC) &_igraphlite_delete_edges_, 2},
     {"_igraphlite_delete_vertices_", (DL_FUNC) &_igraphlite_delete_vertices_, 2},
+    {"_igraphlite_edge_betweenness_", (DL_FUNC) &_igraphlite_edge_betweenness_, 3},
+    {"_igraphlite_edge_betweenness_subset_", (DL_FUNC) &_igraphlite_edge_betweenness_subset_, 6},
     {"_igraphlite_graph_from_data_frame", (DL_FUNC) &_igraphlite_graph_from_data_frame, 2},
     {"_igraphlite_graph_from_symbolic_edgelist", (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist, 2},
     {"_igraphlite_graph_from_edgelist", (DL_FUNC) &_igraphlite_graph_from_edgelist, 2},
