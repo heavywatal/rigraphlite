@@ -21,7 +21,10 @@ find_package(igraph ${PROJECT_VERSION} QUIET)
 cmake_print_variables(igraph_FOUND IGRAPH_INTEGER_SIZE igraph_DIR)
 if(igraph_FOUND AND (IGRAPH_INTEGER_SIZE STREQUAL "32"))
   set(CMAKE_INSTALL_PREFIX "${PACKAGE_PREFIX_DIR}")
-  set(BUILD_SHARED_LIBS OFF) # for conditinal LDFLAGS
+  get_target_property(LIB_TYPE igraph::igraph TYPE)
+  if(LIB_TYPE STREQUAL "SHARED_LIBRARY")
+    set(BUILD_SHARED_LIBS ON) # for conditinal LDFLAGS
+  endif()
   if(${CMAKE_INSTALL_PREFIX} MATCHES linuxbrew)
     set(CMAKE_INSTALL_LIBDIR "lib")
   endif()
