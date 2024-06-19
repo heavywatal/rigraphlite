@@ -1,0 +1,176 @@
+---
+title: "Benchmark igraphlite vs rigraph"
+format:
+  html:
+    minimal: true
+    embed-resources: true
+---
+
+
+```{r, setup}
+#| output: false
+loadNamespace("igraphlite")
+# loadNamespace("igraph")
+devtools::load_all()
+knitr::opts_chunk$set(message = NA)
+knitr::opts_chunk$set(warning = NA)
+knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(autodep = TRUE)
+```
+
+
+## Constructor
+
+```{r, constructor}
+n = 2047L
+lg = igraphlite::graph_tree(n)
+class(lg)
+df = as.data.frame(lg)
+
+bench::mark(
+  igraphlite::graph_tree(n),
+  igraph::make_tree(n),
+  check = FALSE
+)
+
+bench::mark(
+  igraphlite::graph_from_data_frame(df),
+  igraph::graph_from_data_frame(df),
+  check = FALSE
+)
+```
+
+
+## Basic
+
+```{r, basic}
+lg = igraphlite::graph_tree(n)
+lgn = igraphlite::graph_from_data_frame(df)
+rg = igraph::make_tree(n)
+rgn = igraph::graph_from_data_frame(df)
+
+bench::mark(
+  as.data.frame(lg),
+  as.data.frame(lgn),
+  igraph::as_data_frame(rg),
+  igraph::as_data_frame(rgn),
+  check = FALSE
+)
+
+stopifnot(igraphlite::V(lg) == igraph::V(rg) |> as.vector())
+stopifnot(igraphlite::V(lgn) == igraph::V(rgn) |> as.vector())
+bench::mark(
+  igraphlite::V(lg),
+  igraphlite::V(lgn),
+  igraph::V(rg),
+  igraph::V(rgn),
+  check = FALSE
+)
+
+stopifnot(igraphlite::Vnames(lgn) == as.integer(names(igraph::V(rgn))))
+bench::mark(
+  igraphlite::Vnames(lgn),
+  names(igraph::V(rgn)),
+  check = FALSE
+)
+
+stopifnot(igraphlite::Vsink(lg) == igraph::V(rg)[igraph::degree(rg, mode = "out") == 0L] |> as.vector())
+stopifnot(igraphlite::Vsink(lgn) == igraph::V(rgn)[igraph::degree(rgn, mode = "out") == 0L] |> as.vector())
+bench::mark(
+  igraphlite::Vsink(lg),
+  igraphlite::Vsink(lgn),
+  igraph::V(rg)[igraph::degree(rg, mode = "out") == 0L],
+  igraph::V(rgn)[igraph::degree(rgn, mode = "out") == 0L],
+  check = FALSE
+)
+
+bench::mark(
+  igraphlite::vcount(lg),
+  igraph::vcount(rg),
+  check = TRUE
+)
+
+bench::mark(
+  igraphlite::degree(lg) |> unname(),
+  igraphlite::degree(lgn) |> unname(),
+  igraph::degree(rg) |> unname(),
+  igraph::degree(rgn) |> unname(),
+  check = TRUE
+)
+```
+
+
+## Structural
+
+```{r, structural}
+lg = igraphlite::graph_tree(n)
+lgn = igraphlite::graph_from_data_frame(df)
+rg = igraph::make_tree(n)
+rgn = igraph::graph_from_data_frame(df)
+
+bench::mark(
+  igraphlite::distances(lg) |> unname(),
+  igraphlite::distances(lgn) |> unname(),
+  igraph::distances(rg) |> unname(),
+  igraph::distances(rgn) |> unname(),
+  check = TRUE
+)
+
+vsource = igraphlite::Vsource(lg)
+vsink = igraphlite::Vsink(lg)
+n_half = length(vsink) / 2L
+from = vsink |> head(n_half)
+to = vsink |> tail(n_half)
+bench::mark(
+  igraphlite::distances(lg, from, to) |> unname(),
+  igraphlite::distances(lgn, from, to) |> unname(),
+  igraph::distances(rg, from, to) |> unname(),
+  igraph::distances(rgn, from, to) |> unname(),
+  check = TRUE
+)
+
+bench::mark(
+  igraphlite::neighborhood_size(lg, mode = 3L),
+  igraphlite::neighborhood_size(lgn, mode = 3L),
+  igraph::ego_size(rg),
+  igraph::ego_size(rgn),
+  check = TRUE
+)
+
+.order = 1073741824L
+stopifnot(all.equal(
+  igraphlite::neighborhood(lg, vsource, order = .order, mode = 1L),
+  igraph::ego(rg, nodes = vsource, order = .order, mode = "out") |> lapply(as.vector)
+))
+bench::mark(
+  igraphlite::neighborhood(lg, vsource, order = .order, mode = 1L),
+  igraphlite::neighborhood(lgn, vsource, order = .order, mode = 1L),
+  igraph::ego(rg, nodes = vsource, order = .order, mode = "out"),
+  igraph::ego(rgn, nodes = vsource, order = .order, mode = "out"),
+  check = FALSE
+)
+
+stopifnot(all.equal(
+  igraphlite::neighborhood(lg, vsink, order = .order, mode = 2L),
+  igraph::ego(rg, nodes = vsink, order = .order, mode = "in") |> lapply(as.vector)
+))
+bench::mark(
+  igraphlite::neighborhood(lg, vsink, order = .order, mode = 2L),
+  igraphlite::neighborhood(lgn, vsink, order = .order, mode = 2L),
+  igraph::ego(rg, nodes = vsink, order = .order, mode = "in"),
+  igraph::ego(rgn, nodes = vsink, order = .order, mode = "in"),
+  check = FALSE
+)
+
+stopifnot(all.equal(
+  igraphlite::neighborhood(lg, order = .order, mode = 3L),
+  igraph::ego(rg, order = .order, mode = "all") |> lapply(as.vector)
+))
+bench::mark(
+  igraphlite::neighborhood(lg, order = .order, mode = 3L),
+  igraphlite::neighborhood(lgn, order = .order, mode = 3L),
+  igraph::ego(rg, order = .order, mode = "all"),
+  igraph::ego(rgn, order = .order, mode = "all"),
+  check = FALSE
+)
+```
