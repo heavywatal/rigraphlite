@@ -18,6 +18,35 @@ Rcpp::IntegerMatrix as_edgelist_(const IGraph& graph) {
   return Rcpp::cbind(graph.from(), graph.to());
 }
 
+// [[Rcpp::export]]
+Rcpp::DataFrame as_data_frame_(const IGraph& graph) {
+  auto res = Rcpp::DataFrame::create();
+  try {
+    auto vnames = graph.Vattr_["name"];
+    switch (TYPEOF(vnames)) {
+      case INTSXP:
+        res.push_back(Rcpp::IntegerVector(vnames)[graph.from() - 1], "from");
+        res.push_back(Rcpp::IntegerVector(vnames)[graph.to() - 1], "to");
+        break;
+      case REALSXP:
+        res.push_back(Rcpp::NumericVector(vnames)[graph.from() - 1], "from");
+        res.push_back(Rcpp::NumericVector(vnames)[graph.to() - 1], "to");
+        break;
+      case STRSXP:
+        res.push_back(Rcpp::CharacterVector(vnames)[graph.from() - 1], "from");
+        res.push_back(Rcpp::CharacterVector(vnames)[graph.to() - 1], "to");
+        break;
+    }
+  } catch (std::exception& e) {
+    res.push_back(graph.from(), "from");
+    res.push_back(graph.to(), "to");
+  }
+  if (graph.Eattr_.size() > 0) {
+    res.push_back(graph.Eattr_);
+  }
+  return res;
+}
+
 Rcpp::IntegerVector IGraph::from() const {return AsIndices::wrap(&data_->from);}
 Rcpp::IntegerVector IGraph::to() const {return AsIndices::wrap(&data_->to);}
 Rcpp::IntegerVector IGraph::oi() const {return AsIndices::wrap(&data_->oi);}

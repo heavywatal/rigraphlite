@@ -1,11 +1,6 @@
 #' @export
 as.data.frame.Rcpp_IGraph = function(x, ...) {
-  vnames = Vnames(x)
-  df = data.frame(
-    from = vnames[igraph_from(x)],
-    to = vnames[igraph_to(x)],
-    Eattr(x)
-  )
+  df = as_data_frame_(x)
   class(df) = c("tbl_df", "tbl", "data.frame")
   df
 }

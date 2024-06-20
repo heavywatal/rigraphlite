@@ -193,6 +193,10 @@ as_edgelist_ <- function(graph) {
     .Call(`_igraphlite_as_edgelist_`, graph)
 }
 
+as_data_frame_ <- function(graph) {
+    .Call(`_igraphlite_as_data_frame_`, graph)
+}
+
 from_ <- function(graph) {
     .Call(`_igraphlite_from_`, graph)
 }

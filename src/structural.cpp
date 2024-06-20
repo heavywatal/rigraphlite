@@ -224,10 +224,11 @@ path_length_count_between(const IGraph& graph, const Rcpp::IntegerVector& from, 
 Rcpp::IntegerVector
 neighborhood_size_(const IGraph& graph, const Rcpp::IntegerVector& vids, const int order, const int mode, const int mindist) {
   const int n = vids.size();
-  IVector<AsValues> res(n);
+  IVector<AsValues> res(n > 0 ? n : graph.vcount());
   igraph_neighborhood_size(
-    graph.data(), res.data(), n ? ISelectorInPlace(vids).vss() : igraph_vss_all(), order,
-    static_cast<igraph_neimode_t>(mode), mindist);
+    graph.data(), res.data(),
+    n > 0 ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
+    order, static_cast<igraph_neimode_t>(mode), mindist);
   return res.wrap();
 }
 
@@ -235,10 +236,11 @@ neighborhood_size_(const IGraph& graph, const Rcpp::IntegerVector& vids, const i
 Rcpp::List
 neighborhood_(const IGraph& graph, const Rcpp::IntegerVector& vids, const int order, const int mode, const int mindist) {
   const int n = vids.size();
-  IVectorIntList<AsIndicesInPlace> res(n);
+  IVectorIntList<AsIndicesInPlace> res(n > 0 ? n : graph.vcount());
   igraph_neighborhood(
-    graph.data(), res.data(), n ? ISelectorInPlace(vids).vss() : igraph_vss_all(), order,
-    static_cast<igraph_neimode_t>(mode), mindist);
+    graph.data(), res.data(),
+    n > 0 ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
+    order, static_cast<igraph_neimode_t>(mode), mindist);
   return res.wrap();
 }
 

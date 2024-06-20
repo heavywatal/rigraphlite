@@ -426,6 +426,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// as_data_frame_
+Rcpp::DataFrame as_data_frame_(const IGraph& graph);
+RcppExport SEXP _igraphlite_as_data_frame_(SEXP graphSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IGraph& >::type graph(graphSEXP);
+    rcpp_result_gen = Rcpp::wrap(as_data_frame_(graph));
+    return rcpp_result_gen;
+END_RCPP
+}
 // from_
 Rcpp::IntegerVector from_(const IGraph& graph);
 RcppExport SEXP _igraphlite_from_(SEXP graphSEXP) {
@@ -740,6 +751,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_as_adjlist_", (DL_FUNC) &_igraphlite_as_adjlist_, 4},
     {"_igraphlite_as_inclist_", (DL_FUNC) &_igraphlite_as_inclist_, 3},
     {"_igraphlite_as_edgelist_", (DL_FUNC) &_igraphlite_as_edgelist_, 1},
+    {"_igraphlite_as_data_frame_", (DL_FUNC) &_igraphlite_as_data_frame_, 1},
     {"_igraphlite_from_", (DL_FUNC) &_igraphlite_from_, 1},
     {"_igraphlite_to_", (DL_FUNC) &_igraphlite_to_, 1},
     {"_igraphlite_setVattr_", (DL_FUNC) &_igraphlite_setVattr_, 2},
