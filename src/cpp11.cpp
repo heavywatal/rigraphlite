@@ -5,18 +5,69 @@
 #include "cpp11/declarations.hpp"
 #include <R_ext/Visibility.h>
 
-// basic.cpp
+// attributes.cpp
 SEXP V_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_V_(SEXP graph) {
   BEGIN_CPP11
     return cpp11::as_sexp(V_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
   END_CPP11
 }
-// basic.cpp
+// attributes.cpp
 SEXP E_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_E_(SEXP graph) {
   BEGIN_CPP11
     return cpp11::as_sexp(E_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// attributes.cpp
+SEXP Vnames_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_Vnames_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(Vnames_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// attributes.cpp
+cpp11::integers from_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_from_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(from_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// attributes.cpp
+cpp11::integers to_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_to_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(to_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// attributes.cpp
+cpp11::data_frame getVattr_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_getVattr_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(getVattr_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// attributes.cpp
+cpp11::data_frame getEattr_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_getEattr_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(getEattr_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// attributes.cpp
+void setVattr_(cpp11::external_pointer<IGraph> graph, cpp11::data_frame other);
+extern "C" SEXP _igraphlite_setVattr_(SEXP graph, SEXP other) {
+  BEGIN_CPP11
+    setVattr_(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(other));
+    return R_NilValue;
+  END_CPP11
+}
+// attributes.cpp
+void setEattr_(cpp11::external_pointer<IGraph> graph, cpp11::data_frame other);
+extern "C" SEXP _igraphlite_setEattr_(SEXP graph, SEXP other) {
+  BEGIN_CPP11
+    setEattr_(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(other));
+    return R_NilValue;
   END_CPP11
 }
 // basic.cpp
@@ -114,6 +165,34 @@ extern "C" SEXP _igraphlite_edge_betweenness_subset_(SEXP graph, SEXP directed, 
     return cpp11::as_sexp(edge_betweenness_subset_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sources), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(targets)));
   END_CPP11
 }
+// data.cpp
+cpp11::list as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const int multiple);
+extern "C" SEXP _igraphlite_as_adjlist_(SEXP graph, SEXP mode, SEXP loops, SEXP multiple) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(as_adjlist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops), cpp11::as_cpp<cpp11::decay_t<const int>>(multiple)));
+  END_CPP11
+}
+// data.cpp
+cpp11::list as_inclist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops);
+extern "C" SEXP _igraphlite_as_inclist_(SEXP graph, SEXP mode, SEXP loops) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(as_inclist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops)));
+  END_CPP11
+}
+// data.cpp
+cpp11::integers_matrix<> as_edgelist_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_as_edgelist_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(as_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// data.cpp
+cpp11::data_frame as_data_frame_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_as_data_frame_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(as_data_frame_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
 // generators.cpp
 cpp11::external_pointer<IGraph> graph_from_data_frame_(const cpp11::data_frame& df, bool directed);
 extern "C" SEXP _igraphlite_graph_from_data_frame_(SEXP df, SEXP directed) {
@@ -184,6 +263,13 @@ extern "C" SEXP _igraphlite_graph_famous_(SEXP name) {
     return cpp11::as_sexp(graph_famous_(cpp11::as_cpp<cpp11::decay_t<const char*>>(name)));
   END_CPP11
 }
+// generators.cpp
+cpp11::external_pointer<IGraph> induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl);
+extern "C" SEXP _igraphlite_induced_subgraph_(SEXP other, SEXP vids, SEXP impl) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(induced_subgraph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(other), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<int>>(impl)));
+  END_CPP11
+}
 // init.cpp
 cpp11::r_string igraph_version_();
 extern "C" SEXP _igraphlite_igraph_version_() {
@@ -239,85 +325,6 @@ cpp11::data_frame layout_reingold_tilford_circular_(const cpp11::external_pointe
 extern "C" SEXP _igraphlite_layout_reingold_tilford_circular_(SEXP graph, SEXP mode, SEXP roots) {
   BEGIN_CPP11
     return cpp11::as_sexp(layout_reingold_tilford_circular_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::list as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const int multiple);
-extern "C" SEXP _igraphlite_as_adjlist_(SEXP graph, SEXP mode, SEXP loops, SEXP multiple) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(as_adjlist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops), cpp11::as_cpp<cpp11::decay_t<const int>>(multiple)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::list as_inclist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops);
-extern "C" SEXP _igraphlite_as_inclist_(SEXP graph, SEXP mode, SEXP loops) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(as_inclist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::integers_matrix<> as_edgelist_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_as_edgelist_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(as_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// methods.cpp
-SEXP Vnames_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_Vnames_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(Vnames_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::data_frame as_data_frame_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_as_data_frame_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(as_data_frame_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::integers from_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_from_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(from_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::integers to_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_to_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(to_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// methods.cpp
-void setVattr_(cpp11::external_pointer<IGraph> graph, cpp11::data_frame other);
-extern "C" SEXP _igraphlite_setVattr_(SEXP graph, SEXP other) {
-  BEGIN_CPP11
-    setVattr_(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(other));
-    return R_NilValue;
-  END_CPP11
-}
-// methods.cpp
-void setEattr_(cpp11::external_pointer<IGraph> graph, cpp11::data_frame other);
-extern "C" SEXP _igraphlite_setEattr_(SEXP graph, SEXP other) {
-  BEGIN_CPP11
-    setEattr_(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<cpp11::data_frame>>(other));
-    return R_NilValue;
-  END_CPP11
-}
-// methods.cpp
-cpp11::data_frame getVattr_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_getVattr_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(getVattr_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// methods.cpp
-cpp11::data_frame getEattr_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_getEattr_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(getEattr_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
   END_CPP11
 }
 // structural.cpp
@@ -416,13 +423,6 @@ cpp11::list subcomponents_(const cpp11::external_pointer<IGraph> graph, const cp
 extern "C" SEXP _igraphlite_subcomponents_(SEXP graph, SEXP vids, SEXP mode) {
   BEGIN_CPP11
     return cpp11::as_sexp(subcomponents_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
-  END_CPP11
-}
-// structural.cpp
-cpp11::external_pointer<IGraph> induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl);
-extern "C" SEXP _igraphlite_induced_subgraph_(SEXP other, SEXP vids, SEXP impl) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(induced_subgraph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(other), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<int>>(impl)));
   END_CPP11
 }
 

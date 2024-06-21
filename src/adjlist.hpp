@@ -1,3 +1,4 @@
+// <https://igraph.org/c/doc/igraph-Data-structures.html#igraph-Adjlists>
 #pragma once
 #ifndef IGRAPHLITE_ADJLIST_HPP_
 #define IGRAPHLITE_ADJLIST_HPP_

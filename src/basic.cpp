@@ -1,26 +1,9 @@
+// <https://igraph.org/c/doc/igraph-Basic.html#basic-query-operations>
 #include "igraph.hpp"
 #include "vector.hpp"
 #include "dataframe.hpp"
 
 #include <igraph/igraph_interface.h>
-
-SEXP IGraph::V() const {
-  return Vattr_.attr(R_RowNamesSymbol);
-}
-
-[[cpp11::register]]
-SEXP V_(const cpp11::external_pointer<IGraph> graph) {
-  return graph->V();
-}
-
-SEXP IGraph::E() const {
-  return Eattr_.attr(R_RowNamesSymbol);
-}
-
-[[cpp11::register]]
-SEXP E_(const cpp11::external_pointer<IGraph> graph) {
-  return graph->E();
-}
 
 [[cpp11::register]]
 int vcount_(const cpp11::external_pointer<IGraph> graph) {

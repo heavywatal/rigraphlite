@@ -4,7 +4,6 @@
 #include "matrix.hpp"
 
 #include <igraph/igraph_structural.h>
-#include <igraph/igraph_operators.h>
 #include <igraph/igraph_paths.h>
 #include <igraph/igraph_neighborhood.h>
 
@@ -271,17 +270,4 @@ subcomponents_(const cpp11::external_pointer<IGraph> graph, const cpp11::integer
     output[i] = res.wrap();
   }
   return output;
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl) {
-  return new IGraph(*other.get(), vids, impl);
-}
-
-IGraph::IGraph(const IGraph& other, const cpp11::integers& vids, int impl): IGraph::IGraph() {
-  igraph_induced_subgraph(
-    other.data(), data_.get(), ISelectorInPlace(vids).vss(),
-    static_cast<igraph_subgraph_implementation_t>(impl));
-  init_attr();
 }

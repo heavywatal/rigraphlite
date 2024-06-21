@@ -17,27 +17,44 @@ class IGraph {
     IGraph(const IGraph& other) noexcept;
     IGraph(IGraph&& other);
 
-    IGraph(int n, bool directed); // empty
-    IGraph(const cpp11::integers& edges, int n, bool directed); // create
-    IGraph(int n, int mode, double center); // star
-    IGraph(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular); // lattice
-    IGraph(int n, bool directed, bool mutual, bool circular); // ring
-    IGraph(int n, int children, int mode); // tree
-    IGraph(int n, bool directed, bool loops); // full
-    IGraph(const char* name); // famous
-    IGraph(const IGraph& other, const cpp11::integers& vids, int impl); // induced_subgraph
+    // empty
+    IGraph(int n, bool directed);
+
+    // create
+    IGraph(const cpp11::integers& edges, int n, bool directed);
+
+    // star
+    IGraph(int n, int mode, double center);
+
+    // lattice
+    IGraph(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular);
+
+    // ring
+    IGraph(int n, bool directed, bool mutual, bool circular);
+
+    // tree
+    IGraph(int n, int children, int mode);
+
+    // full
+    IGraph(int n, bool directed, bool loops);
+
+    // famous
+    IGraph(const char* name);
+
+    // induced_subgraph
+    IGraph(const IGraph& other, const cpp11::integers& vids, int impl);
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Basic interface
 
-    SEXP V() const;
-    SEXP E() const;
     int vcount() const;
     int ecount() const;
 
     /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
     // Original methods
 
+    SEXP V() const;
+    SEXP E() const;
     SEXP Vnames() const;
 
     // igraph_t getter

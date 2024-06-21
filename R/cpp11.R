@@ -8,6 +8,34 @@ E_ <- function(graph) {
   .Call(`_igraphlite_E_`, graph)
 }
 
+Vnames_ <- function(graph) {
+  .Call(`_igraphlite_Vnames_`, graph)
+}
+
+from_ <- function(graph) {
+  .Call(`_igraphlite_from_`, graph)
+}
+
+to_ <- function(graph) {
+  .Call(`_igraphlite_to_`, graph)
+}
+
+getVattr_ <- function(graph) {
+  .Call(`_igraphlite_getVattr_`, graph)
+}
+
+getEattr_ <- function(graph) {
+  .Call(`_igraphlite_getEattr_`, graph)
+}
+
+setVattr_ <- function(graph, other) {
+  invisible(.Call(`_igraphlite_setVattr_`, graph, other))
+}
+
+setEattr_ <- function(graph, other) {
+  invisible(.Call(`_igraphlite_setEattr_`, graph, other))
+}
+
 vcount_ <- function(graph) {
   .Call(`_igraphlite_vcount_`, graph)
 }
@@ -60,6 +88,22 @@ edge_betweenness_subset_ <- function(graph, directed, eids, weights, sources, ta
   .Call(`_igraphlite_edge_betweenness_subset_`, graph, directed, eids, weights, sources, targets)
 }
 
+as_adjlist_ <- function(graph, mode, loops, multiple) {
+  .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
+}
+
+as_inclist_ <- function(graph, mode, loops) {
+  .Call(`_igraphlite_as_inclist_`, graph, mode, loops)
+}
+
+as_edgelist_ <- function(graph) {
+  .Call(`_igraphlite_as_edgelist_`, graph)
+}
+
+as_data_frame_ <- function(graph) {
+  .Call(`_igraphlite_as_data_frame_`, graph)
+}
+
 graph_from_data_frame_ <- function(df, directed) {
   .Call(`_igraphlite_graph_from_data_frame_`, df, directed)
 }
@@ -100,6 +144,10 @@ graph_famous_ <- function(name) {
   .Call(`_igraphlite_graph_famous_`, name)
 }
 
+induced_subgraph_ <- function(other, vids, impl) {
+  .Call(`_igraphlite_induced_subgraph_`, other, vids, impl)
+}
+
 igraph_version_ <- function() {
   .Call(`_igraphlite_igraph_version_`)
 }
@@ -130,50 +178,6 @@ layout_reingold_tilford_ <- function(graph, mode, roots) {
 
 layout_reingold_tilford_circular_ <- function(graph, mode, roots) {
   .Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots)
-}
-
-as_adjlist_ <- function(graph, mode, loops, multiple) {
-  .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
-}
-
-as_inclist_ <- function(graph, mode, loops) {
-  .Call(`_igraphlite_as_inclist_`, graph, mode, loops)
-}
-
-as_edgelist_ <- function(graph) {
-  .Call(`_igraphlite_as_edgelist_`, graph)
-}
-
-Vnames_ <- function(graph) {
-  .Call(`_igraphlite_Vnames_`, graph)
-}
-
-as_data_frame_ <- function(graph) {
-  .Call(`_igraphlite_as_data_frame_`, graph)
-}
-
-from_ <- function(graph) {
-  .Call(`_igraphlite_from_`, graph)
-}
-
-to_ <- function(graph) {
-  .Call(`_igraphlite_to_`, graph)
-}
-
-setVattr_ <- function(graph, other) {
-  invisible(.Call(`_igraphlite_setVattr_`, graph, other))
-}
-
-setEattr_ <- function(graph, other) {
-  invisible(.Call(`_igraphlite_setEattr_`, graph, other))
-}
-
-getVattr_ <- function(graph) {
-  .Call(`_igraphlite_getVattr_`, graph)
-}
-
-getEattr_ <- function(graph) {
-  .Call(`_igraphlite_getEattr_`, graph)
 }
 
 are_adjacent_ <- function(graph, v1, v2) {
@@ -230,8 +234,4 @@ subcomponent_ <- function(graph, v, mode) {
 
 subcomponents_ <- function(graph, vids, mode) {
   .Call(`_igraphlite_subcomponents_`, graph, vids, mode)
-}
-
-induced_subgraph_ <- function(other, vids, impl) {
-  .Call(`_igraphlite_induced_subgraph_`, other, vids, impl)
 }
