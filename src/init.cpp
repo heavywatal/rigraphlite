@@ -10,7 +10,7 @@ cpp11::r_string igraph_version_() {
   const char* version_string;
   int major, minor, patch;
   igraph_version(&version_string, &major, &minor, &patch);
-  if (major < 0 || minor < 8 || patch < 0) {
+  if (major <= 0 && minor <= 10 && patch < 12) {
     cpp11::warning("too old igraph %s", version_string);
   }
   return cpp11::r_string(version_string);
