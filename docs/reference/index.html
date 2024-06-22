@@ -53,17 +53,17 @@
 
       <dl><dt>
           
-          <code><a href="igraph-class.html">IGraph</a></code> 
+          <code><a href="igraph-class.html">igraph_ptr</a></code> 
         </dt>
-        <dd>IGraph class: thin wrapper of <code>igraph_t</code>.</dd>
+        <dd>igraph_ptr class: thin wrapper of <code>igraph_t</code>.</dd>
       </dl><dl><dt>
           
           <code><a href="is_igraph.html">is_igraph()</a></code> 
         </dt>
-        <dd>Check if an object is IGraph class</dd>
+        <dd>Check if an object is igraph_ptr class</dd>
       </dl><dl><dt>
           
-          <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">edge()</a></code> <code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">is_directed()</a></code> <code><a href="basic.html">degree()</a></code> 
+          <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">igraph_from()</a></code> <code><a href="basic.html">igraph_to()</a></code> <code><a href="basic.html">edge()</a></code> <code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">is_directed()</a></code> <code><a href="basic.html">degree()</a></code> <code><a href="basic.html">add_vertices()</a></code> <code><a href="basic.html">add_edges()</a></code> <code><a href="basic.html">delete_vertices()</a></code> <code><a href="basic.html">delete_edges()</a></code> 
         </dt>
         <dd>Basic Query Operations</dd>
       </dl><dl><dt>
@@ -83,6 +83,11 @@
       
 
       <dl><dt>
+          
+          <code><a href="s3-method.html">as.data.frame(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="s3-method.html">as.matrix(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="s3-method.html">print(<i>&lt;igraph_ptr&gt;</i>)</a></code> 
+        </dt>
+        <dd>S3 methods to get and view internal data.</dd>
+      </dl><dl><dt>
           
           <code><a href="adjlist.html">as_adjlist()</a></code> <code><a href="adjlist.html">as_inclist()</a></code> 
         </dt>
@@ -105,7 +110,7 @@
         <dd>Deterministic Graph Generators</dd>
       </dl><dl><dt>
           
-          <code><a href="as_igraph.html">graph_from_data_frame()</a></code> <code><a href="as_igraph.html">graph_from_symbolic_edgelist()</a></code> <code><a href="as_igraph.html">graph_from_edgelist()</a></code> <code><a href="as_igraph.html">as_igraph()</a></code> 
+          <code><a href="as_igraph.html">as_igraph()</a></code> <code><a href="as_igraph.html">graph_from_data_frame()</a></code> <code><a href="as_igraph.html">graph_from_symbolic_edgelist()</a></code> <code><a href="as_igraph.html">graph_from_edgelist()</a></code> 
         </dt>
         <dd>Create graph from R objects</dd>
       </dl></div><div class="section level2">
@@ -126,7 +131,7 @@
         <dd>Basic Properties</dd>
       </dl><dl><dt>
           
-          <code><a href="shortest_paths.html">distances()</a></code> <code><a href="shortest_paths.html">shortest_paths()</a></code> <code><a href="shortest_paths.html">get_shortest_paths()</a></code> <code><a href="shortest_paths.html">get_all_shortest_paths()</a></code> <code><a href="shortest_paths.html">get_all_simple_paths()</a></code> <code><a href="shortest_paths.html">average_path_length()</a></code> <code><a href="shortest_paths.html">path_length_hist()</a></code> 
+          <code><a href="shortest_paths.html">distances()</a></code> <code><a href="shortest_paths.html">get_shortest_paths()</a></code> <code><a href="shortest_paths.html">get_all_shortest_paths()</a></code> <code><a href="shortest_paths.html">get_all_simple_paths()</a></code> <code><a href="shortest_paths.html">average_path_length()</a></code> <code><a href="shortest_paths.html">path_length_hist()</a></code> 
         </dt>
         <dd>Shortest Path Related Functions</dd>
       </dl><dl><dt>
@@ -139,6 +144,11 @@
           <code><a href="component.html">subcomponent()</a></code> <code><a href="component.html">subcomponents()</a></code> <code><a href="component.html">induced_subgraph()</a></code> 
         </dt>
         <dd>Graph Components</dd>
+      </dl><dl><dt>
+          
+          <code><a href="centrality.html">edge_betweenness()</a></code> <code><a href="centrality.html">edge_betweenness_subset()</a></code> 
+        </dt>
+        <dd>Centrality measures</dd>
       </dl></div><div class="section level2">
       <h2 id="attributes-of-graph-vertices-and-edges">Attributes of Graph, Vertices, and Edges<a class="anchor" aria-label="anchor" href="#attributes-of-graph-vertices-and-edges"></a></h2>
       
@@ -152,7 +162,7 @@
 
       <dl><dt>
           
-          <code><a href="attributes.html">vertex_attr()</a></code> <code><a href="attributes.html">`vertex_attr&lt;-`()</a></code> <code><a href="attributes.html">edge_attr()</a></code> <code><a href="attributes.html">`edge_attr&lt;-`()</a></code> <code><a href="attributes.html">V()</a></code> <code><a href="attributes.html">E()</a></code> 
+          <code><a href="attributes.html">Vattr()</a></code> <code><a href="attributes.html">`Vattr&lt;-`()</a></code> <code><a href="attributes.html">Eattr()</a></code> <code><a href="attributes.html">`Eattr&lt;-`()</a></code> <code><a href="attributes.html">V()</a></code> <code><a href="attributes.html">E()</a></code> 
         </dt>
         <dd>Get and set vertex and edge attributes</dd>
       </dl><dl><dt>
@@ -178,7 +188,7 @@
         <dd>Layouts for Graph Drawing</dd>
       </dl><dl><dt>
           
-          <code><a href="plot.html">augment(<i>&lt;Rcpp_IGraph&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;Rcpp_IGraph&gt;</i>)</a></code> 
+          <code><a href="plot.html">augment(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;igraph_ptr&gt;</i>)</a></code> 
         </dt>
         <dd>Methods for quick visualization</dd>
       </dl></div><div class="section level2">
@@ -194,7 +204,7 @@
 
       <dl><dt>
           
-          <code><a href="random.html">rng_seed()</a></code> 
+          <code><a href="random.html">igraph_rng_seed()</a></code> 
         </dt>
         <dd>Random numbers</dd>
       </dl></div><div class="section level2">

@@ -52,6 +52,10 @@
 <span></span>
 <span><span class="fu">ecount</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">igraph_from</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">igraph_to</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">edge</span><span class="op">(</span><span class="va">graph</span>, <span class="va">eid</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">neighbors</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vid</span>, mode <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span>
@@ -60,7 +64,15 @@
 <span></span>
 <span><span class="fu">is_directed</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">degree</span><span class="op">(</span><span class="va">graph</span>, vids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">degree</span><span class="op">(</span><span class="va">graph</span>, vids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_vertices</span><span class="op">(</span><span class="va">graph</span>, <span class="va">n</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">add_edges</span><span class="op">(</span><span class="va">graph</span>, <span class="va">eids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">delete_vertices</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">delete_edges</span><span class="op">(</span><span class="va">graph</span>, <span class="va">eids</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -70,7 +82,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>graph</dt>
-<dd><p>IGraph object.</p></dd>
+<dd><p>igraph_ptr object.</p></dd>
 
 
 <dt>eid</dt>
@@ -91,6 +103,14 @@
 
 <dt>loops</dt>
 <dd><p>whether self-loop should be counted.</p></dd>
+
+
+<dt>n</dt>
+<dd><p>number of vertices to add.</p></dd>
+
+
+<dt>eids</dt>
+<dd><p>Edges of interest.</p></dd>
 
 </dl></div>
     <div class="section level2">

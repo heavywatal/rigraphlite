@@ -28,6 +28,9 @@
     <loc>/reference/basic.html</loc>
   </url>
   <url>
+    <loc>/reference/centrality.html</loc>
+  </url>
+  <url>
     <loc>/reference/common_params.html</loc>
   </url>
   <url>
@@ -71,6 +74,9 @@
   </url>
   <url>
     <loc>/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>/reference/s3-method.html</loc>
   </url>
   <url>
     <loc>/reference/shortest_paths.html</loc>

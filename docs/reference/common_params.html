@@ -67,7 +67,7 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>graph</dt>
-<dd><p>IGraph object.</p></dd>
+<dd><p>igraph_ptr object.</p></dd>
 
 
 <dt>vids</dt>
@@ -99,7 +99,7 @@
 
 
 <dt>weights</dt>
-<dd><p>Numeric edge weights; <code>TRUE</code> to use <code>graph$Eattr$weight</code>.</p></dd>
+<dd><p>Numeric edge weights; <code>TRUE</code> to use <code>Eattr(graph, "weight")</code>.</p></dd>
 
 
 <dt>directed</dt>
