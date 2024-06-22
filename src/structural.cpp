@@ -17,14 +17,6 @@ are_adjacent_(const cpp11::external_pointer<IGraph> graph, int v1, int v2) {
   return cpp11::logicals({cpp11::r_bool(res)});
 }
 
-namespace sugar {
-  inline cpp11::integers seq_len(const int n) {
-    static auto seq_len = cpp11::package("base")["seq_len"];
-    cpp11::sexp range = seq_len(cpp11::as_sexp(n));
-    return cpp11::as_integers(range);
-  }
-}
-
 namespace impl {
   inline void distances(
     const igraph_t* graph, igraph_matrix_t* res,
@@ -101,7 +93,7 @@ mean_distances_cpp_(
   IMatrix res(1, to_size > 0 ? to_size : graph->vcount());
   double total = 0.0;
   int num_paths = 0;
-  for (const int from_i: from.size() > 0 ? from : sugar::seq_len(graph->vcount())) {
+  for (const int from_i: from.size() > 0 ? from : cpp11::integers(graph->V())) {
     impl::distances(graph->data(), res.data(),
                     igraph_vss_1(from_i - 1), to_vss, cweights,
                     static_cast<igraph_neimode_t>(mode), algorithm);

@@ -6,34 +6,6 @@
 #include <numeric>
 
 namespace impl {
-  template <class T, class Fn>
-  inline decltype(auto) transform(const cpp11::r_vector<T>& v, Fn&& fn) {
-    cpp11::writable::r_vector<decltype(fn(v[0]))> res(v.size());
-    std::transform(v.begin(), v.end(), res.begin(), fn);
-    return res;
-  }
-
-  template <class T, class Fn>
-  inline decltype(auto) transform(const cpp11::r_vector<T>& x, const cpp11::r_vector<T>& y, Fn&& fn) {
-    cpp11::writable::r_vector<decltype(fn(x[0], y[0]))> res(x.size());
-    std::transform(x.begin(), x.end(), y.begin(), res.begin(), fn);
-    return res;
-  }
-
-  inline cpp11::logicals Rcpp_in(const cpp11::integers& x, const cpp11::integers& table) {
-    std::unordered_set<int> set(table.begin(), table.end());
-    return transform(x, [&set](int i) {return cpp11::r_bool(set.find(i) != set.end());});
-  }
-
-  inline cpp11::logicals Rcpp_or(const cpp11::logicals& x, const cpp11::logicals& y) {
-    return transform(x, y, [](cpp11::r_bool l, cpp11::r_bool r) {return cpp11::r_bool(l || r);});
-  }
-
-  inline int Rcpp_sum(const cpp11::logicals& v) {
-    return std::accumulate(v.begin(), v.end(), 0, [](int s, cpp11::r_bool b) {
-      return s + int(b);
-    });
-  }
 
   inline void set_colnames(cpp11::writable::data_frame* df) {
     df->attr(R_NamesSymbol) = cpp11::writable::strings{};
@@ -71,24 +43,6 @@ namespace impl {
     }
     for (int i = len; i < res.size(); ++i) {
       res[i] = na<T>();
-    }
-    return res;
-  }
-
-  inline cpp11::r_bool negate(const cpp11::r_bool x) {
-    return x == TRUE ? FALSE : TRUE;
-  }
-
-  inline cpp11::logicals negate(const cpp11::logicals& x) {
-    return transform(x, [](cpp11::r_bool b) {return negate(b);});
-  }
-
-  inline cpp11::logicals negate(const cpp11::integers& idx, int n) {
-    std::unordered_set<int> set(idx.begin(), idx.end());
-    cpp11::writable::logicals res;
-    res.reserve(n);
-    for (int i=0; i<n; ++i) {
-      res.push_back(static_cast<Rboolean>(set.find(i) == set.end()));
     }
     return res;
   }
@@ -143,6 +97,44 @@ namespace impl {
     df = cpp11::writable::data_frame(std::move(newcols));
     df.names() = names;
   }
+
+  template <class T, class Fn>
+  inline decltype(auto) transform(const cpp11::r_vector<T>& v, Fn&& fn) {
+    cpp11::writable::r_vector<decltype(fn(v[0]))> res(v.size());
+    std::transform(v.begin(), v.end(), res.begin(), fn);
+    return res;
+  }
+
+  template <class T, class Fn>
+  inline decltype(auto) transform(const cpp11::r_vector<T>& x, const cpp11::r_vector<T>& y, Fn&& fn) {
+    cpp11::writable::r_vector<decltype(fn(x[0], y[0]))> res(x.size());
+    std::transform(x.begin(), x.end(), y.begin(), res.begin(), fn);
+    return res;
+  }
+
+  inline cpp11::logicals negate(const cpp11::logicals& x) {
+    return transform(x, [](cpp11::r_bool b) {return cpp11::r_bool(b ? FALSE : TRUE);});
+  }
+
+  inline cpp11::logicals negate(const cpp11::integers& idx, int n) {
+    std::unordered_set<int> set(idx.begin(), idx.end());
+    cpp11::writable::logicals res;
+    res.reserve(n);
+    for (int i=0; i<n; ++i) {
+      res.push_back(static_cast<Rboolean>(set.find(i) == set.end()));
+    }
+    return res;
+  }
+
+  inline cpp11::logicals R_in(const cpp11::integers& x, const cpp11::integers& table) {
+    std::unordered_set<int> set(table.begin(), table.end());
+    return transform(x, [&set](int i) {return cpp11::r_bool(set.find(i) != set.end());});
+  }
+
+}
+
+inline cpp11::logicals operator|(const cpp11::logicals& x, const cpp11::logicals& y) {
+  return impl::transform(x, y, [](cpp11::r_bool l, cpp11::r_bool r) {return cpp11::r_bool(l || r);});
 }
 
 #endif // IGRAPHLITE_DATAFRAME_HPP_

@@ -88,7 +88,7 @@ void delete_edges_(cpp11::external_pointer<IGraph> graph, const cpp11::integers&
 
 [[cpp11::register]]
 void delete_vertices_(cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids) {
-  impl::filter(graph->Eattr_, impl::Rcpp_or(impl::Rcpp_in(graph->from(), vids), impl::Rcpp_in(graph->to(), vids)));
+  impl::filter(graph->Eattr_, impl::R_in(graph->from(), vids) | impl::R_in(graph->to(), vids));
   ISelectorInPlace cvids(vids);
   impl::filter(graph->Vattr_, impl::negate(vids, graph->vcount()));
   igraph_delete_vertices(graph->data(), cvids.vss());
