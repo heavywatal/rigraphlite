@@ -1,6 +1,6 @@
 #' Create graph from R objects
 #'
-#' @seealso [graph_create()]
+#' @seealso [graph_create()], [as.data.frame.igraph_ptr()]
 #' @param x A vector, matrix, or data.frame.
 #' @rdname as_igraph
 #' @export
@@ -25,7 +25,7 @@ as_igraph.matrix = function(x) {
 #' @rdname as_igraph
 #' @export
 as_igraph.data.frame = function(x) {
-  graph_from_data_frame(x) |> as_Rcpp_IGraph()
+  graph_from_data_frame(x) |> set_ptr_class()
 }
 
 #' @param df data.frame that includes an edgelist and edge attributes.
@@ -34,19 +34,19 @@ as_igraph.data.frame = function(x) {
 #' @rdname as_igraph
 #' @export
 graph_from_data_frame = function(df, directed = TRUE) {
-  .Call(`_igraphlite_graph_from_data_frame_`, df, directed) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_from_data_frame_`, df, directed) |> set_ptr_class()
 }
 
 #' @rdname as_igraph
 #' @export
 graph_from_symbolic_edgelist = function(edgelist, directed = TRUE) {
-  .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed) |> set_ptr_class()
 }
 
 #' @rdname as_igraph
 #' @export
 graph_from_edgelist = function(edgelist, directed = TRUE) {
-  .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed) |> set_ptr_class()
 }
 
 #' Deterministic Graph Generators
@@ -64,14 +64,14 @@ graph_from_edgelist = function(edgelist, directed = TRUE) {
 #' @rdname generators
 #' @export
 graph_create = function(edges, n = 0L, directed = TRUE) {
-  .Call(`_igraphlite_graph_create_`, edges, n, directed) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_create_`, edges, n, directed) |> set_ptr_class()
 }
 
 #' @param center Id of the vertex which will be the center of the graph.
 #' @rdname generators
 #' @export
 graph_star = function(n, mode = 0L, center = 1L) {
-  .Call(`_igraphlite_graph_star_`, n, mode, center) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_star_`, n, mode, center) |> set_ptr_class()
 }
 
 #' @param dim Vector giving the sizes of the lattice in each of its dimensions.
@@ -79,26 +79,26 @@ graph_star = function(n, mode = 0L, center = 1L) {
 #' @rdname generators
 #' @export
 graph_lattice = function(dim, nei = 1L, directed = FALSE, mutual = FALSE, circular = FALSE) {
-  .Call(`_igraphlite_graph_lattice_`, dim, nei, directed, mutual, circular) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_lattice_`, dim, nei, directed, mutual, circular) |> set_ptr_class()
 }
 
 #' @rdname generators
 #' @export
 graph_ring = function(n, directed = FALSE, mutual = FALSE, circular = TRUE) {
-  .Call(`_igraphlite_graph_ring_`, n, directed, mutual, circular) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_ring_`, n, directed, mutual, circular) |> set_ptr_class()
 }
 
 #' @param children Integer, the number of children of a vertex in the tree.
 #' @rdname generators
 #' @export
 graph_tree = function(n, children = 2L, mode = 0L) {
-  .Call(`_igraphlite_graph_tree_`, n, children, mode) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_tree_`, n, children, mode) |> set_ptr_class()
 }
 
 #' @rdname generators
 #' @export
 graph_full = function(n, directed = FALSE, mutual = FALSE) {
-  .Call(`_igraphlite_graph_full_`, n, directed, mutual) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_full_`, n, directed, mutual) |> set_ptr_class()
 }
 
 #' @param name \{Bull, Chvatal, Coxeter, Cubical, Diamond, Dodecahedral,
@@ -110,10 +110,10 @@ graph_full = function(n, directed = FALSE, mutual = FALSE) {
 #' @rdname generators
 #' @export
 graph_famous = function(name) {
-  .Call(`_igraphlite_graph_famous_`, name) |> as_Rcpp_IGraph()
+  .Call(`_igraphlite_graph_famous_`, name) |> set_ptr_class()
 }
 
-as_Rcpp_IGraph = function(g) {
-  class(g) = c("Rcpp_IGraph", "externalptr")
+set_ptr_class = function(g) {
+  class(g) = c("igraph_ptr", "externalptr")
   g
 }

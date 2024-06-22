@@ -13,7 +13,7 @@ as_vids(graph, vnames)
 as_vnames(graph, vids = V(graph))
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{vnames}{Vertex names stored in \code{Vattr[["name"]]}.}
 

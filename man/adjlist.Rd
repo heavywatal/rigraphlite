@@ -13,7 +13,7 @@ as_adjlist(graph, mode = 3L, loops = 1L, multiple = 1L)
 as_inclist(graph, mode = 3L, loops = 1L)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 

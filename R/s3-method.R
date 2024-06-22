@@ -1,20 +1,28 @@
+#' S3 methods to get and view internal data.
+#'
+#' @param x igraph_ptr object.
+#' @param ... passed to methods.
+#' @seealso [graph_from_data_frame()], [graph_from_symbolic_edgelist()]
+#' @rdname s3-method
 #' @export
-as.data.frame.Rcpp_IGraph = function(x, ...) {
+as.data.frame.igraph_ptr = function(x, ...) {
   df = .Call(`_igraphlite_as_data_frame_`, x)
   class(df) = c("tbl_df", "tbl", "data.frame")
   df
 }
 
+#' @rdname s3-method
 #' @export
-as.matrix.Rcpp_IGraph = function(x, ...) {
+as.matrix.igraph_ptr = function(x, ...) {
   .Call(`_igraphlite_as_edgelist_`, x)
 }
 
+#' @rdname s3-method
 #' @export
-print.Rcpp_IGraph = function(x, ...) {
+print.igraph_ptr = function(x, ...) {
   cat("$V  ")
   utils::str(Vattr(x))
-  print(as.data.frame(x))
+  print(as.data.frame(x), ...)
   invisible(x)
 }
 
@@ -24,13 +32,13 @@ generics::augment
 
 #' Methods for quick visualization
 #'
-#' @param x Rcpp_Igraph object.
+#' @param x igraph_ptr object.
 #' @param layout A function or resulting data.frame.
-#'   If not provided, [layout_nicely] is applied.
-#' @param ... passed to [augment] or layout function.
+#'   If not provided, [layout_nicely()] is applied.
+#' @param ... passed to [augment()] or layout function.
 #' @rdname plot
 #' @export
-augment.Rcpp_IGraph = function(x, layout = NULL, ...) {
+augment.igraph_ptr = function(x, layout = NULL, ...) {
   if (is.null(layout)) {
     layout = layout_nicely(x, ...)
   } else if (is.function(layout)) {
@@ -65,11 +73,11 @@ segment_df = function(from, to, x, y, vnames = NULL) {
   df
 }
 
-#' @param lwd passed to [ggplot2::geom_segment].
-#' @param cex,col,pch passed to [ggplot2::geom_point] and [ggplot2::geom_text].
+#' @param lwd passed to [ggplot2::geom_segment()].
+#' @param cex,col,pch passed to [ggplot2::geom_point()] and [ggplot2::geom_text()].
 #' @rdname plot
 #' @export
-plot.Rcpp_IGraph = function(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16) {
+plot.igraph_ptr = function(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16) {
   data = augment(x, ...)
   ggplot2::ggplot(data) +
     ggplot2::aes(.data[["x"]], .data[["y"]]) +

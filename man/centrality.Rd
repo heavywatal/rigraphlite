@@ -20,7 +20,7 @@ edge_betweenness_subset(
 )
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
 

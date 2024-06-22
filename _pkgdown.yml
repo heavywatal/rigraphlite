@@ -5,13 +5,14 @@ reference:
 - title: Basic Interface
   desc: https://igraph.org/c/doc/igraph-Basic.html
   contents:
-  - IGraph
+  - igraph_ptr
   - is_igraph
   - vcount
   - is_sink
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
   contents:
+  - as.data.frame.igraph_ptr
   - as_adjlist
 - title: Graph Generators
   desc: https://igraph.org/c/doc/igraph-Generators.html
@@ -22,12 +23,13 @@ reference:
   desc: https://igraph.org/c/doc/igraph-Structural.html
   contents:
   - are_adjacent
-  - shortest_paths
+  - distances
   - neighborhood
   - subcomponent
+  - edge_betweenness
 - title: Attributes of Graph, Vertices, and Edges
   contents:
-  - vertex_attr
+  - Vattr
   - Vnames
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
@@ -38,7 +40,7 @@ reference:
 - title: Random numbers
   desc: https://igraph.org/c/doc/igraph-Random.html
   contents:
-  - rng_seed
+  - igraph_rng_seed
 - title: Misc.
   desc: https://igraph.org/c/doc/igraph-Nongraph.html
   contents:

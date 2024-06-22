@@ -1,7 +1,7 @@
 #' Common parameters used throughout the package
 #'
 #' This function does nothing. It is designed to be used with @@inheritParams.
-#' @param graph IGraph object.
+#' @param graph igraph_ptr object.
 #' @param vids Vertices of interest.
 #' @param vid  Vertices of interest.
 #' @param from Vertices of interest.

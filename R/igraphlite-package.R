@@ -3,26 +3,26 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' IGraph class: thin wrapper of `igraph_t`.
+#' igraph_ptr class: thin wrapper of `igraph_t`.
 #'
-#' @seealso [graph_from_edgelist()], [graph_from_data_frame], [graph_tree()]
+#' @seealso [graph_from_edgelist()], [graph_from_data_frame()], [graph_tree()]
 #'   for object instantiation.
 #' @source <https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h>
 #' @docType class
 #' @keywords data
-#' @format Reference Class (RC) exposed by Rcpp Modules.
-#' @name IGraph
+#' @format external pointer to C++ IGraph class object.
+#' @name igraph_ptr
 #' @rdname igraph-class
 NULL
 
-#' Check if an object is IGraph class
+#' Check if an object is igraph_ptr class
 #'
 #' @param x object to be tested.
 #'
 #' @rdname is_igraph
 #' @export
 is_igraph = function(x) {
-  inherits(x, "Rcpp_IGraph")
+  inherits(x, "igraph_ptr")
 }
 
 #' Check and return igraph version.h

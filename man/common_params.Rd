@@ -20,7 +20,7 @@ common_params(
 )
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{vids}{Vertices of interest.}
 

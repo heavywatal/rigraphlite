@@ -46,7 +46,7 @@ delete_vertices(graph, vids)
 delete_edges(graph, eids)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{eid}{Edges of interest.}
 

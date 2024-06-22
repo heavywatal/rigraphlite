@@ -4,7 +4,7 @@
 [![R Build status](https://github.com/heavywatal/rigraphlite/workflows/R-CMD-check/badge.svg)](https://github.com/heavywatal/rigraphlite/actions)
 [![Codecov test coverage](https://codecov.io/gh/heavywatal/rigraphlite/branch/master/graph/badge.svg)](https://app.codecov.io/gh/heavywatal/rigraphlite?branch=master)
 
-igraphlite is an Rcpp-powered R package interface to [igraph](https://igraph.org/) network analysis library. It is not a fork of the existing [R igraph package](https://igraph.org/r/), but a reboot from scratch striving for good performance, simple codebase, and the consistency with the [C implementation](https://igraph.org/c/doc/).
+igraphlite is a cpp11-powered R package interface to [igraph](https://igraph.org/) network analysis library. It is not a fork of the existing [R igraph package](https://igraph.org/r/), but a reboot from scratch striving for good performance, simple codebase, and the consistency with the [C implementation](https://igraph.org/c/doc/).
 
 
 ## Requirements

@@ -117,5 +117,5 @@ induced_subgraph = function(graph, vids, impl = 0L) {
   vids = sort(vids)
   subg = .Call(`_igraphlite_induced_subgraph_`, graph, vids, impl)
   Vattr(subg) = Vattr(graph)[vids, , drop = FALSE]
-  as_Rcpp_IGraph(subg)
+  set_ptr_class(subg)
 }

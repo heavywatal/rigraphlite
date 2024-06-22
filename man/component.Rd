@@ -16,7 +16,7 @@ subcomponents(graph, vids, mode = 1L)
 induced_subgraph(graph, vids, impl = 0L)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{vid}{Vertices of interest.}
 

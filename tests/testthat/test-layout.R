@@ -12,9 +12,9 @@ test_that("layout functions return x-y columns", {
 test_that("layout_random() generates consistent numbers", {
   skip("cannot be seeded if igraph is built as a static library")
   g = graph_tree(7L)
-  expect_silent(rng_seed(19937L))
+  expect_silent(igraph_rng_seed(19937L))
   l1 = layout_random(g)
-  expect_silent(rng_seed(19937L))
+  expect_silent(igraph_rng_seed(19937L))
   l2 = layout_random(g)
   expect_identical(l1, l2)
 })

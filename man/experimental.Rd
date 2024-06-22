@@ -10,7 +10,7 @@ find_common_ancestors(graph, vids)
 upstream_vertices(graph, vids, to_mrca = TRUE)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{vids}{Vertices of interest.}
 

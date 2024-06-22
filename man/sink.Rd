@@ -16,7 +16,7 @@ Vsink(graph)
 Vsource(graph)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 }
 \description{
 Shortcuts to get sink/source vertices.

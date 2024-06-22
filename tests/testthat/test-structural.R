@@ -124,7 +124,7 @@ test_that("induced_subgraph works", {
   expect_silent({
     subg = induced_subgraph(g, vids)
   })
-  expect_s3_class(subg, "Rcpp_IGraph")
+  expect_s3_class(subg, "igraph_ptr")
   expect_length(V(subg), length(vids))
   expect_identical(nrow(Vattr(subg)), vcount(subg))
   expect_identical(nrow(Eattr(subg)), ecount(subg))

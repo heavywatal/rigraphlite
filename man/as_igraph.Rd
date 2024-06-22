@@ -37,5 +37,5 @@ graph_from_edgelist(edgelist, directed = TRUE)
 Create graph from R objects
 }
 \seealso{
-\code{\link[=graph_create]{graph_create()}}
+\code{\link[=graph_create]{graph_create()}}, \code{\link[=as.data.frame.igraph_ptr]{as.data.frame.igraph_ptr()}}
 }

@@ -19,7 +19,7 @@ neighborhood_size(
 neighborhood(graph, vids = integer(0), order = 1L, mode = 1L, mindist = 0L)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{vids}{Vertices of interest.}
 

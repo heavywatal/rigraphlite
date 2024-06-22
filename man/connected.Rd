@@ -10,7 +10,7 @@
 are_adjacent(graph, from, to)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{from}{Vertices of interest.}
 

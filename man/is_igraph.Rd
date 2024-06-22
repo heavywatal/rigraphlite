@@ -2,7 +2,7 @@
 % Please edit documentation in R/igraphlite-package.R
 \name{is_igraph}
 \alias{is_igraph}
-\title{Check if an object is IGraph class}
+\title{Check if an object is igraph_ptr class}
 \usage{
 is_igraph(x)
 }
@@ -10,5 +10,5 @@ is_igraph(x)
 \item{x}{object to be tested.}
 }
 \description{
-Check if an object is IGraph class
+Check if an object is igraph_ptr class
 }

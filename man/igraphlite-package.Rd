@@ -6,7 +6,7 @@
 \alias{igraphlite-package}
 \title{igraphlite: Lightweight R Interface to Igraph Network Analysis Library}
 \description{
-This is an Rcpp-powered R package interface to igraph network analysis library. It is not a fork of the existing R igraph package, but a reboot from scratch striving for good performance, simple codebase, and the consistency with the C implementation.
+This is a cpp11-powered R package interface to igraph network analysis library. It is not a fork of the existing R igraph package, but a reboot from scratch striving for good performance, simple codebase, and the consistency with the C implementation.
 }
 \seealso{
 Useful links:

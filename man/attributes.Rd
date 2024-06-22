@@ -22,7 +22,7 @@ V(graph)
 E(graph)
 }
 \arguments{
-\item{graph}{IGraph object.}
+\item{graph}{igraph_ptr object.}
 
 \item{name}{Name of the attribute to query or set.
 If missing, all the attributes are returned or replaced.}
