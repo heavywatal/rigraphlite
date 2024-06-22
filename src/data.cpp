@@ -19,9 +19,11 @@ cpp11::integers_matrix<> as_edgelist_(const cpp11::external_pointer<IGraph> grap
   const int nrow = graph->ecount();
   cpp11::writable::integers el(2 * nrow);
   el.attr(R_DimSymbol) = {nrow, 2};
+  const auto from = graph->from();
+  const auto to = graph->to();
   for (int i=0; i<nrow; ++i) {
-    el[i] = graph->from()[i];
-    el[i + nrow] = graph->to()[i];
+    el[i] = from[i];
+    el[i + nrow] = to[i];
   }
   return {el};
 }
@@ -41,6 +43,10 @@ cpp11::data_frame as_data_frame_(const cpp11::external_pointer<IGraph> graph) {
     case INTSXP:
       ls.push_back("from"_nm = impl::subset<int>(vnames, graph->from()));
       ls.push_back("to"_nm = impl::subset<int>(vnames, graph->to()));
+      break;
+    case REALSXP:
+      ls.push_back("from"_nm = impl::subset<double>(vnames, graph->from()));
+      ls.push_back("to"_nm = impl::subset<double>(vnames, graph->to()));
       break;
     case STRSXP:
       ls.push_back("from"_nm = impl::subset<cpp11::r_string>(vnames, graph->from()));

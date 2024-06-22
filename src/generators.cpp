@@ -123,8 +123,9 @@ IGraph::IGraph(int n, int mode, double center): IGraph::IGraph() {
 
 IGraph::IGraph(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular): IGraph::IGraph() {
   igraph_vector_bool_t periodic;
+  igraph_vector_bool_init(&periodic, dim.size());
   igraph_vector_bool_fill(&periodic, circular);
-  igraph_square_lattice(data_.get(), ISelectorInPlace(dim).data(), nei, directed, mutual, &periodic);
+  igraph_square_lattice(data_.get(), IVector<AsValues, InitViewInt>(dim).data(), nei, directed, mutual, &periodic);
   igraph_vector_bool_destroy(&periodic);
   init_attr();
 }

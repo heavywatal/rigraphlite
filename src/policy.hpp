@@ -64,6 +64,18 @@ struct InitView {
   }
 };
 
+struct InitViewInt {
+  using data_type = igraph_vector_int_t;
+  using value_type = cpp11::integers;
+  static void init(data_type* data, const value_type& x) {
+    igraph_vector_int_view(data, INTEGER(x.data()), x.size());
+  }
+  static void destroy(data_type*) {}
+  static auto get(data_type* data, const int pos) {
+    return igraph_vector_int_get(data, pos);
+  }
+};
+
 struct InitIndices {
   using data_type = igraph_vector_int_t;
   using value_type = cpp11::integers;
