@@ -23,10 +23,10 @@ edge_betweenness_subset_(const cpp11::external_pointer<IGraph> graph,
   IVector<AsValues, InitSize> res(graph->ecount());
   igraph_edge_betweenness_subset(
     graph->data(), res.data(),
-    eids.size() ? ISelector(eids).ess() : igraph_ess_all(igraph_edgeorder_type_t::IGRAPH_EDGEORDER_ID),
+    eids.size() ? ISelectorInPlace(eids).ess() : igraph_ess_all(igraph_edgeorder_type_t::IGRAPH_EDGEORDER_ID),
     directed,
     sources.size() > 0 ? ISelector(sources).vss() : igraph_vss_all(),
-    targets.size() > 0 ? ISelector(targets).vss() : igraph_vss_all(),
+    targets.size() > 0 ? ISelectorInPlace(targets).vss() : igraph_vss_all(),
     weights.size() ? IVectorView(weights).data() : nullptr
   );
   return res.wrap();

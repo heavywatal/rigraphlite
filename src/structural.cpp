@@ -46,7 +46,7 @@ distances_(
   IMatrix res(nrow, ncol);
   impl::distances(graph->data(), res.data(),
                   from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
-                  to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+                  to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
                   weights.size() ? IVectorView(weights).data() : nullptr,
                   static_cast<igraph_neimode_t>(mode), algorithm);
   return res.wrap();
@@ -94,7 +94,7 @@ get_shortest_paths_(
   res.reserve(to_size > 0 ? to_size : graph->vcount());
   igraph_get_shortest_paths_dijkstra(
     graph->data(), res.data(), nullptr, --from,
-    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
     weights.size() ? IVectorView(weights).data() : nullptr,
     static_cast<igraph_neimode_t>(mode),
     nullptr, nullptr);
@@ -111,7 +111,7 @@ get_all_shortest_paths_(
   res.reserve(to_size > 0 ? to_size : graph->vcount());
   igraph_get_all_shortest_paths_dijkstra(
     graph->data(), res.data(), nullptr, nullptr, --from,
-    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
     weights.size() ? IVectorView(weights).data() : nullptr,
     static_cast<igraph_neimode_t>(mode));
   return res.wrap();
@@ -125,7 +125,7 @@ get_all_simple_paths_(
   IVector<AsIndices> res(to_size > 0 ? to_size : graph->vcount());
   igraph_get_all_simple_paths(
     graph->data(), res.data(), --from,
-    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
     cutoff,
     static_cast<igraph_neimode_t>(mode));
   return res.wrap();
@@ -224,7 +224,7 @@ subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const in
 // experimental
 [[cpp11::register]] SEXP
 subcomponents_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode) {
-  const ISelector cvids(vids);
+  const ISelectorInPlace cvids(vids);
   const int n = vids.size();
   cpp11::writable::list output(n);
   IVector<AsIndices> res(1);
