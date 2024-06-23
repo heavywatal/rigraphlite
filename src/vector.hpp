@@ -57,13 +57,13 @@ class IVectorIntList {
     void reserve(int n) {
       igraph_vector_int_list_reserve(data_.get(), n);
     }
-    cpp11::writable::integers at(int pos) const {
+    auto at(int pos) const {
       return WrapPolicy::wrap(igraph_vector_int_list_get_ptr(data_.get(), pos));
     }
     int size() const {
       return igraph_vector_int_list_size(data_.get());
     }
-    cpp11::writable::list wrap() const {
+    SEXP wrap() const {
       const int len = size();
       cpp11::writable::list output;
       output.reserve(len);

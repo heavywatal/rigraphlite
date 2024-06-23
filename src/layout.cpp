@@ -5,7 +5,7 @@
 
 #include <igraph/igraph_layout.h>
 
-inline cpp11::doubles col(const cpp11::doubles_matrix<>& mat, const int i) {
+inline SEXP col(const cpp11::doubles_matrix<>& mat, const int i) {
   auto slice = mat[i];
   cpp11::writable::doubles res;
   res.reserve(slice.size());
@@ -15,7 +15,7 @@ inline cpp11::doubles col(const cpp11::doubles_matrix<>& mat, const int i) {
   return res;
 }
 
-inline cpp11::data_frame as_named_data_frame(const cpp11::doubles_matrix<>& mat) {
+inline SEXP as_named_data_frame(const cpp11::doubles_matrix<>& mat) {
   using namespace cpp11::literals;
   cpp11::writable::data_frame df({
     "x"_nm = col(mat, 0),
@@ -25,15 +25,15 @@ inline cpp11::data_frame as_named_data_frame(const cpp11::doubles_matrix<>& mat)
   return df;
 }
 
-[[cpp11::register]]
-cpp11::data_frame layout_random_(const cpp11::external_pointer<IGraph> graph) {
+[[cpp11::register]] SEXP
+layout_random_(const cpp11::external_pointer<IGraph> graph) {
   IMatrix res(graph->vcount(), 2);
   igraph_layout_random(graph->data(), res.data());
   return as_named_data_frame(res.wrap());
 }
 
-[[cpp11::register]]
-cpp11::data_frame layout_drl_(const cpp11::external_pointer<IGraph> graph) {
+[[cpp11::register]] SEXP
+layout_drl_(const cpp11::external_pointer<IGraph> graph) {
   igraph_layout_drl_options_t options;
   igraph_layout_drl_options_init(&options, IGRAPH_LAYOUT_DRL_DEFAULT);
   IMatrix res(graph->vcount(), 2);
@@ -45,8 +45,8 @@ cpp11::data_frame layout_drl_(const cpp11::external_pointer<IGraph> graph) {
   return as_named_data_frame(res.wrap());
 }
 
-[[cpp11::register]]
-cpp11::data_frame layout_fruchterman_reingold_(const cpp11::external_pointer<IGraph> graph, int grid) {
+[[cpp11::register]] SEXP
+layout_fruchterman_reingold_(const cpp11::external_pointer<IGraph> graph, int grid) {
   IMatrix res(graph->vcount(), 2);
   igraph_layout_fruchterman_reingold(
     graph->data(), res.data(),
@@ -63,8 +63,8 @@ cpp11::data_frame layout_fruchterman_reingold_(const cpp11::external_pointer<IGr
   return as_named_data_frame(res.wrap());
 }
 
-[[cpp11::register]]
-cpp11::data_frame layout_mds_(const cpp11::external_pointer<IGraph> graph) {
+[[cpp11::register]] SEXP
+layout_mds_(const cpp11::external_pointer<IGraph> graph) {
   cpp11::writable::doubles null{};
   cpp11::writable::integers nulli{};
   IMatrix dist(distances_(graph, nulli, nulli, null, 3, "unweighted"));
@@ -73,8 +73,8 @@ cpp11::data_frame layout_mds_(const cpp11::external_pointer<IGraph> graph) {
   return as_named_data_frame(res.wrap());
 }
 
-[[cpp11::register]]
-cpp11::data_frame layout_reingold_tilford_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots) {
+[[cpp11::register]] SEXP
+layout_reingold_tilford_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots) {
   IMatrix res(graph->vcount(), 2);
   igraph_layout_reingold_tilford(
     graph->data(), res.data(),
@@ -83,8 +83,8 @@ cpp11::data_frame layout_reingold_tilford_(const cpp11::external_pointer<IGraph>
   return as_named_data_frame(res.wrap());
 }
 
-[[cpp11::register]]
-cpp11::data_frame layout_reingold_tilford_circular_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots) {
+[[cpp11::register]] SEXP
+layout_reingold_tilford_circular_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots) {
   IMatrix res(graph->vcount(), 2);
   igraph_layout_reingold_tilford_circular(
     graph->data(), res.data(),

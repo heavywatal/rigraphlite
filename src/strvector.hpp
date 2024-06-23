@@ -31,7 +31,7 @@ class IStrVector {
     int size() const {
       return igraph_strvector_size(data_.get());
     }
-    cpp11::strings wrap() const {
+    SEXP wrap() const {
       const int n = size();
       cpp11::writable::strings output(n);
       for (int i = 0; i < n; ++i) {

@@ -28,8 +28,7 @@ bool is_directed_(const cpp11::external_pointer<IGraph> graph) {
   return igraph_is_directed(graph->data());
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 edge_(const cpp11::external_pointer<IGraph> graph, int eid) {
   IVector<AsIndices> res(2);
   auto begin = res.data()->stor_begin;
@@ -37,24 +36,21 @@ edge_(const cpp11::external_pointer<IGraph> graph, int eid) {
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode) {
   IVector<AsIndices> res(1);
   igraph_neighbors(graph->data(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 incident_(const cpp11::external_pointer<IGraph> graph, int node, const int mode) {
   IVector<AsIndices> res(1);
   igraph_incident(graph->data(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const bool loops) {
   const R_xlen_t n = vids.size();
   IVector<AsValues> res(n > 0 ? n : graph->vcount());

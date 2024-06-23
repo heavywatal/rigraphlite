@@ -111,16 +111,16 @@ struct InitIndicesInPlace {
 // WrapPolicy
 
 struct AsValues {
-  static cpp11::writable::doubles wrap(const igraph_vector_t* x) {
-    return {x->stor_begin, x->end};
+  static SEXP wrap(const igraph_vector_t* x) {
+    return cpp11::writable::doubles{x->stor_begin, x->end};
   }
-  static cpp11::writable::integers wrap(const igraph_vector_int_t* x) {
-    return {x->stor_begin, x->end};
+  static SEXP wrap(const igraph_vector_int_t* x) {
+    return cpp11::writable::integers{x->stor_begin, x->end};
   }
 };
 
 struct AsIndices {
-  static cpp11::writable::integers wrap(const igraph_vector_int_t* x) {
+  static SEXP wrap(const igraph_vector_int_t* x) {
     auto first = x->stor_begin;
     const auto last = x->end;
     cpp11::writable::integers v;

@@ -162,8 +162,7 @@ void IGraph::init_attr() {
   impl::set_data_frame_attributes(&Eattr_, ecount());
 }
 
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
+[[cpp11::register]] SEXP
 graph_from_data_frame_(const cpp11::data_frame& df, bool directed = true) {
   switch (TYPEOF(df.at(0))) {
     case INTSXP:  return impl::graph_from_data_frame<int>(df, directed);
@@ -174,8 +173,7 @@ graph_from_data_frame_(const cpp11::data_frame& df, bool directed = true) {
   }
 }
 
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
+[[cpp11::register]] SEXP
 graph_from_symbolic_edgelist_(const cpp11::sexp edgelist, bool directed) {
   switch (TYPEOF(edgelist)) {
     case INTSXP:  return impl::graph_from_symbolic_edges(impl::flatten_edgelist<int>(edgelist), directed);

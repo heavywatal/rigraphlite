@@ -5,8 +5,7 @@
 
 #include <igraph/igraph_centrality.h>
 
-[[cpp11::register]]
-cpp11::doubles
+[[cpp11::register]] SEXP
 edge_betweenness_(const cpp11::external_pointer<IGraph> graph,
   const bool directed, const cpp11::doubles& weights) {
   IVector<AsValues, InitSize> res(graph->ecount());
@@ -14,8 +13,7 @@ edge_betweenness_(const cpp11::external_pointer<IGraph> graph,
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::doubles
+[[cpp11::register]] SEXP
 edge_betweenness_subset_(const cpp11::external_pointer<IGraph> graph,
     const bool directed,
     const cpp11::integers& eids,

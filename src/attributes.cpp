@@ -1,26 +1,26 @@
 #include "igraph.hpp"
 #include "vector.hpp"
 
+[[cpp11::register]] SEXP
+V_(const cpp11::external_pointer<IGraph> graph) {return graph->V();}
+[[cpp11::register]] SEXP
+E_(const cpp11::external_pointer<IGraph> graph) {return graph->E();}
+[[cpp11::register]] SEXP
+Vnames_(const cpp11::external_pointer<IGraph> graph) {return graph->Vnames();}
+[[cpp11::register]] SEXP
+from_(const cpp11::external_pointer<IGraph> graph) {return graph->from();}
+[[cpp11::register]] SEXP
+to_(const cpp11::external_pointer<IGraph> graph) {return graph->to();}
+[[cpp11::register]] SEXP
+getVattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Vattr_;}
+[[cpp11::register]] SEXP
+getEattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Eattr_;}
 [[cpp11::register]]
-SEXP V_(const cpp11::external_pointer<IGraph> graph) {return graph->V();}
-[[cpp11::register]]
-SEXP E_(const cpp11::external_pointer<IGraph> graph) {return graph->E();}
-[[cpp11::register]]
-SEXP Vnames_(const cpp11::external_pointer<IGraph> graph) {return graph->Vnames();}
-[[cpp11::register]]
-cpp11::integers from_(const cpp11::external_pointer<IGraph> graph) {return graph->from();}
-[[cpp11::register]]
-cpp11::integers to_(const cpp11::external_pointer<IGraph> graph) {return graph->to();}
-[[cpp11::register]]
-cpp11::data_frame getVattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Vattr_;}
-[[cpp11::register]]
-cpp11::data_frame getEattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Eattr_;}
-[[cpp11::register]]
-void setVattr_(cpp11::external_pointer<IGraph> graph, cpp11::data_frame other) {
+void setVattr_(cpp11::external_pointer<IGraph> graph, SEXP other) {
   graph->Vattr_ = cpp11::writable::data_frame(other);
 }
 [[cpp11::register]]
-void setEattr_(cpp11::external_pointer<IGraph> graph, cpp11::data_frame other) {
+void setEattr_(cpp11::external_pointer<IGraph> graph, SEXP other) {
   graph->Eattr_ = cpp11::writable::data_frame(other);
 }
 

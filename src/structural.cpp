@@ -10,11 +10,11 @@
 #include <map>
 
 [[cpp11::register]]
-cpp11::logicals
+bool
 are_adjacent_(const cpp11::external_pointer<IGraph> graph, int v1, int v2) {
   igraph_bool_t res;
   igraph_are_adjacent(graph->data(), --v1, --v2, &res);
-  return cpp11::logicals({cpp11::r_bool(res)});
+  return res;
 }
 
 namespace impl {
@@ -34,8 +34,7 @@ namespace impl {
   }
 }
 
-[[cpp11::register]]
-cpp11::doubles_matrix<>
+[[cpp11::register]] SEXP
 distances_(
   const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to,
   const cpp11::doubles& weights, int mode, const std::string& algorithm) {
@@ -85,8 +84,7 @@ mean_distances_cpp_(
   return total / num_paths;
 }
 
-[[cpp11::register]]
-cpp11::list
+[[cpp11::register]] SEXP
 get_shortest_paths_(
   const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to,
   const cpp11::doubles& weights, int mode) {
@@ -103,8 +101,7 @@ get_shortest_paths_(
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::list
+[[cpp11::register]] SEXP
 get_all_shortest_paths_(
   const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to,
   const cpp11::doubles& weights, int mode) {
@@ -120,8 +117,7 @@ get_all_shortest_paths_(
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 get_all_simple_paths_(
   const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, int cutoff, int mode) {
 
@@ -148,8 +144,7 @@ average_path_length_(
   return res;
 }
 
-[[cpp11::register]]
-cpp11::doubles
+[[cpp11::register]] SEXP
 path_length_hist_(const cpp11::external_pointer<IGraph> graph, bool directed) {
   cpp11::writable::doubles values(std::log2(graph->vcount()) * 2);
   IVectorView res(values); // rough estimate; resized as needed
@@ -157,8 +152,7 @@ path_length_hist_(const cpp11::external_pointer<IGraph> graph, bool directed) {
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, bool directed) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
@@ -178,8 +172,7 @@ path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp1
   return output;
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, bool directed) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
@@ -198,8 +191,7 @@ path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp
   return output;
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 neighborhood_size_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist) {
   const int n = vids.size();
   IVector<AsValues> res(n > 0 ? n : graph->vcount());
@@ -210,8 +202,7 @@ neighborhood_size_(const cpp11::external_pointer<IGraph> graph, const cpp11::int
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::list
+[[cpp11::register]] SEXP
 neighborhood_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist) {
   const int n = vids.size();
   IVectorIntList<AsIndices> res;
@@ -223,8 +214,7 @@ neighborhood_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers
   return res.wrap();
 }
 
-[[cpp11::register]]
-cpp11::integers
+[[cpp11::register]] SEXP
 subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const int mode) {
   IVector<AsIndices> res(1);
   igraph_subcomponent(graph->data(), res.data(), v - 1, static_cast<igraph_neimode_t>(mode));
@@ -232,8 +222,7 @@ subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const in
 }
 
 // experimental
-[[cpp11::register]]
-cpp11::list
+[[cpp11::register]] SEXP
 subcomponents_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode) {
   const ISelector cvids(vids);
   const int n = vids.size();
