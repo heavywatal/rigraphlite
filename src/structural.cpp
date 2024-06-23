@@ -46,7 +46,7 @@ distances_(
   IMatrix res(nrow, ncol);
   impl::distances(graph->data(), res.data(),
                   from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
-                  to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
+                  to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
                   weights.size() ? IVectorView(weights).data() : nullptr,
                   static_cast<igraph_neimode_t>(mode), algorithm);
   return res.wrap();
