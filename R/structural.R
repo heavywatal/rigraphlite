@@ -16,18 +16,11 @@ are_adjacent = function(graph, from, to) {
 #' @rdname shortest_paths
 #' @export
 distances = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                     algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
+                     algorithm = c("dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
     stopifnot(utils::hasName(Eattr(graph), "weight"))
     weights = Eattr(graph, "weight")
-  }
-  if (algorithm == "auto") {
-    if (length(weights)) {
-      algorithm = "dijkstra"
-    } else {
-      algorithm = "unweighted"
-    }
   }
   .Call(`_igraphlite_distances_`, graph, from, to, as.numeric(weights), mode, algorithm)
 }
@@ -61,10 +54,11 @@ get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mod
   split_at(res[-pos], pos - seq_along(pos))
 }
 
+#' @param unconn logical
 #' @rdname shortest_paths
 #' @export
-average_path_length = function(graph, directed = FALSE) {
-  .Call(`_igraphlite_average_path_length_`, graph, directed)
+average_path_length = function(graph, weights = numeric(0L), directed = FALSE, unconn = TRUE) {
+  .Call(`_igraphlite_average_path_length_`, graph, weights, directed, unconn)
 }
 
 #' @rdname shortest_paths

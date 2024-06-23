@@ -204,8 +204,8 @@ get_all_simple_paths_ <- function(graph, from, to, cutoff, mode) {
   .Call(`_igraphlite_get_all_simple_paths_`, graph, from, to, cutoff, mode)
 }
 
-average_path_length_ <- function(graph, directed) {
-  .Call(`_igraphlite_average_path_length_`, graph, directed)
+average_path_length_ <- function(graph, weights, directed, unconn) {
+  .Call(`_igraphlite_average_path_length_`, graph, weights, directed, unconn)
 }
 
 path_length_hist_ <- function(graph, directed) {

@@ -24,38 +24,12 @@ namespace impl {
     const igraph_vector_t* weights, igraph_neimode_t mode,
     const std::string& algorithm) {
 
-    if (algorithm.empty() || algorithm == "unweighted") {
-      igraph_distances(graph, res, from, to, mode);
-    } else if (algorithm == "dijkstra") {
-      igraph_distances_dijkstra(graph, res, from, to, weights, mode);
-    } else if (algorithm == "bellman-ford") {
+    if (algorithm == "bellman-ford") {
       igraph_distances_bellman_ford(graph, res, from, to, weights, mode);
     } else if (algorithm == "johnson") {
       igraph_distances_johnson(graph, res, from, to, weights);
-    }
-  }
-
-  inline void get_shortest_paths(
-    const igraph_t* graph, igraph_vector_int_list_t* res,
-    igraph_integer_t from, igraph_vs_t&& to,
-    const igraph_vector_t* weights, igraph_neimode_t mode) {
-
-    if (weights) {
-      igraph_get_shortest_paths_dijkstra(graph, res, nullptr, from, std::move(to), weights, mode, nullptr, nullptr);
     } else {
-      igraph_get_shortest_paths(graph, res, nullptr, from, std::move(to), mode, nullptr, nullptr);
-    }
-  }
-
-  inline void get_all_shortest_paths(
-    const igraph_t* graph, igraph_vector_int_list_t* res,
-    igraph_integer_t from, igraph_vs_t&& to,
-    const igraph_vector_t* weights, igraph_neimode_t mode) {
-
-    if (weights) {
-      igraph_get_all_shortest_paths_dijkstra(graph, res, nullptr, nullptr, from, std::move(to), weights, mode);
-    } else {
-      igraph_get_all_shortest_paths(graph, res, nullptr, nullptr, from, std::move(to), mode);
+      igraph_distances_dijkstra(graph, res, from, to, weights, mode);
     }
   }
 }
@@ -81,21 +55,24 @@ distances_(
 
 // experimental
 [[cpp11::register]]
-cpp11::doubles
+double
 mean_distances_cpp_(
   const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to,
   const cpp11::doubles& weights, int mode, const std::string& algorithm) {
 
+  const int from_size = from.size();
+  const int true_from_size = from_size > 0 ? from_size : graph->vcount();
   const int to_size = to.size();
-  const ISelector to_selector(to);
-  const igraph_vs_t to_vss(to_size > 0 ? to_selector.vss() : igraph_vss_all());
-  const igraph_vector_t* cweights = weights.size() ? IVectorView(weights).data() : nullptr;
+  const auto to_selector = ISelector(to);
+  const auto to_vss = to_size > 0 ? to_selector.vss() : igraph_vss_all();
+  const auto weights_data = weights.size() ? IVectorView(weights).data() : nullptr;
   IMatrix res(1, to_size > 0 ? to_size : graph->vcount());
   double total = 0.0;
   int num_paths = 0;
-  for (const int from_i: from.size() > 0 ? from : cpp11::integers(graph->V())) {
+  for (int i = 0; i < true_from_size; ++i) {
     impl::distances(graph->data(), res.data(),
-                    igraph_vss_1(from_i - 1), to_vss, cweights,
+                    igraph_vss_1(from_size > 0 ? from.at(i) - 1 : i),
+                    to_vss, weights_data,
                     static_cast<igraph_neimode_t>(mode), algorithm);
     const auto& v = res.data()->data;
     for (auto p = v.stor_begin; p < v.end; ++p) {
@@ -105,7 +82,7 @@ mean_distances_cpp_(
       }
     }
   }
-  return cpp11::doubles({total / num_paths});
+  return total / num_paths;
 }
 
 [[cpp11::register]]
@@ -117,11 +94,12 @@ get_shortest_paths_(
   const int to_size = to.size();
   IVectorIntList<AsIndices> res;
   res.reserve(to_size > 0 ? to_size : graph->vcount());
-  impl::get_shortest_paths(
-    graph->data(), res.data(), --from,
+  igraph_get_shortest_paths_dijkstra(
+    graph->data(), res.data(), nullptr, --from,
     to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
     weights.size() ? IVectorView(weights).data() : nullptr,
-    static_cast<igraph_neimode_t>(mode));
+    static_cast<igraph_neimode_t>(mode),
+    nullptr, nullptr);
   return res.wrap();
 }
 
@@ -134,8 +112,8 @@ get_all_shortest_paths_(
   const int to_size = to.size();
   IVectorIntList<AsIndices> res;
   res.reserve(to_size > 0 ? to_size : graph->vcount());
-  impl::get_all_shortest_paths(
-    graph->data(), res.data(), --from,
+  igraph_get_all_shortest_paths_dijkstra(
+    graph->data(), res.data(), nullptr, nullptr, --from,
     to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
     weights.size() ? IVectorView(weights).data() : nullptr,
     static_cast<igraph_neimode_t>(mode));
@@ -159,19 +137,23 @@ get_all_simple_paths_(
 
 [[cpp11::register]]
 double
-average_path_length_(const cpp11::external_pointer<IGraph> graph, bool directed) {
+average_path_length_(
+  const cpp11::external_pointer<IGraph> graph,
+  const cpp11::doubles& weights, bool directed, bool unconn) {
   double res;
-  igraph_average_path_length(graph->data(), &res, nullptr, directed, true);
+  igraph_average_path_length_dijkstra(
+    graph->data(), &res, nullptr,
+    weights.size() ? IVectorView(weights).data() : nullptr,
+    directed, unconn);
   return res;
 }
 
 [[cpp11::register]]
 cpp11::doubles
 path_length_hist_(const cpp11::external_pointer<IGraph> graph, bool directed) {
-  cpp11::writable::doubles values(graph->vcount());
+  cpp11::writable::doubles values(std::log2(graph->vcount()) * 2);
   IVectorView res(values); // rough estimate; resized as needed
-  double unconnected;
-  igraph_path_length_hist(graph->data(), res.data(), &unconnected, directed);
+  igraph_path_length_hist(graph->data(), res.data(), nullptr, directed);
   return res.wrap();
 }
 

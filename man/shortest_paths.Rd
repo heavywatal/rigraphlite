@@ -18,7 +18,7 @@ distances(
   to = from,
   weights = numeric(0L),
   mode = 3L,
-  algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")
+  algorithm = c("dijkstra", "bellman-ford", "johnson")
 )
 
 get_shortest_paths(
@@ -39,7 +39,12 @@ get_all_shortest_paths(
 
 get_all_simple_paths(graph, from, to = integer(0L), cutoff = -1L, mode = 3L)
 
-average_path_length(graph, directed = FALSE)
+average_path_length(
+  graph,
+  weights = numeric(0L),
+  directed = FALSE,
+  unconn = TRUE
+)
 
 path_length_hist(graph, directed = FALSE)
 }
@@ -59,6 +64,8 @@ path_length_hist(graph, directed = FALSE)
 \item{cutoff}{integer}
 
 \item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
+
+\item{unconn}{logical}
 }
 \description{
 Shortest Path Related Functions

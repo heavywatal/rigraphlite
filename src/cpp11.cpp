@@ -342,7 +342,7 @@ extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP from, SEXP to, SEXP weig
   END_CPP11
 }
 // structural.cpp
-cpp11::doubles mean_distances_cpp_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, const cpp11::doubles& weights, int mode, const std::string& algorithm);
+double mean_distances_cpp_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, const cpp11::doubles& weights, int mode, const std::string& algorithm);
 extern "C" SEXP _igraphlite_mean_distances_cpp_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode, SEXP algorithm) {
   BEGIN_CPP11
     return cpp11::as_sexp(mean_distances_cpp_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(algorithm)));
@@ -370,10 +370,10 @@ extern "C" SEXP _igraphlite_get_all_simple_paths_(SEXP graph, SEXP from, SEXP to
   END_CPP11
 }
 // structural.cpp
-double average_path_length_(const cpp11::external_pointer<IGraph> graph, bool directed);
-extern "C" SEXP _igraphlite_average_path_length_(SEXP graph, SEXP directed) {
+double average_path_length_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, bool directed, bool unconn);
+extern "C" SEXP _igraphlite_average_path_length_(SEXP graph, SEXP weights, SEXP directed, SEXP unconn) {
   BEGIN_CPP11
-    return cpp11::as_sexp(average_path_length_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+    return cpp11::as_sexp(average_path_length_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(unconn)));
   END_CPP11
 }
 // structural.cpp
@@ -438,7 +438,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_as_data_frame_",                    (DL_FUNC) &_igraphlite_as_data_frame_,                    1},
     {"_igraphlite_as_edgelist_",                      (DL_FUNC) &_igraphlite_as_edgelist_,                      1},
     {"_igraphlite_as_inclist_",                       (DL_FUNC) &_igraphlite_as_inclist_,                       3},
-    {"_igraphlite_average_path_length_",              (DL_FUNC) &_igraphlite_average_path_length_,              2},
+    {"_igraphlite_average_path_length_",              (DL_FUNC) &_igraphlite_average_path_length_,              4},
     {"_igraphlite_degree_",                           (DL_FUNC) &_igraphlite_degree_,                           4},
     {"_igraphlite_delete_edges_",                     (DL_FUNC) &_igraphlite_delete_edges_,                     2},
     {"_igraphlite_delete_vertices_",                  (DL_FUNC) &_igraphlite_delete_vertices_,                  2},

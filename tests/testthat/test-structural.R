@@ -78,10 +78,10 @@ test_that("path_length_hist and average_path_length works", {
   g = graph_tree(7L)
   h = path_length_hist(g, FALSE)
   expect_length(h, 4L)
-  expect_identical(mean_hist(h), average_path_length(g, FALSE))
+  expect_identical(mean_hist(h), average_path_length(g, directed = FALSE))
   h = path_length_hist(g, TRUE)
   expect_length(h, 2L)
-  expect_identical(mean_hist(h), average_path_length(g, TRUE))
+  expect_identical(mean_hist(h), average_path_length(g, directed = TRUE))
 })
 
 test_that("neighborhood_size works", {

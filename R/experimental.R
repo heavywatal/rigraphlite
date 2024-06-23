@@ -24,9 +24,9 @@ upstream_vertices = function(graph, vids, to_mrca = TRUE) {
 # nocov start
 
 mean_distances = function(graph, from = integer(0L), to = from) {
-  if (length(from) == 0L && length(to) == 0L) {
-    mean_distances_avg(graph, from, to)
-  } else if (setequal(V(graph), from) && setequal(V(graph), to)) {
+  from_all = (length(from) == 0L) || setequal(V(graph), from)
+  to_all = (length(to) == 0L) || setequal(V(graph), to)
+  if (from_all && to_all) {
     mean_distances_avg(graph, from, to)
   } else if (length(from) * length(to) > 1e9) {
     mean_distances_vec(graph, from, to)
@@ -36,7 +36,7 @@ mean_distances = function(graph, from = integer(0L), to = from) {
 }
 
 mean_distances_mat = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                              algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
+                              algorithm = c("dijkstra", "bellman-ford", "johnson")) {
   m = distances(graph, from = from, to = to, weights = weights, mode = mode, algorithm = algorithm)
   if (length(from)) {
     nzero = sum(from %in% to)
@@ -47,18 +47,11 @@ mean_distances_mat = function(graph, from = integer(0L), to = from, weights = nu
 }
 
 mean_distances_vec = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                              algorithm = c("auto", "unweighted", "dijkstra", "bellman-ford", "johnson")) {
+                              algorithm = c("dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
     stopifnot(utils::hasName(Eattr(graph), "weight"))
     weights = Eattr(graph, "weight")
-  }
-  if (algorithm == "auto") {
-    if (length(weights)) {
-      algorithm = "dijkstra"
-    } else {
-      algorithm = "unweighted"
-    }
   }
   mean_distances_cpp_(graph, from, to, weights, mode, algorithm)
 }
@@ -73,13 +66,13 @@ mean_distances_hist = function(graph, from = NULL, to = from) {
   sum(h * seq_along(h)) / sum(h)
 }
 
-mean_distances_avg = function(graph, from = NULL, to = from) {
+mean_distances_avg = function(graph, from = NULL, to = from, weights = numeric(0L)) {
   if (length(from)) {
     vids = upstream_vertices(graph, unique(c(from, to)))
     graph = induced_subgraph(graph, vids)
   }
   # TODO: Exclude internal nodes
-  average_path_length(graph, FALSE)
+  average_path_length(graph, weights, FALSE)
 }
 
 # nocov end
