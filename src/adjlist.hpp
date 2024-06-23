@@ -23,13 +23,13 @@ class IAdjList {
     ~IAdjList() noexcept {
       if (data_) igraph_adjlist_destroy(data_.get());
     }
-    SEXP at(int pos) {
+    SEXP at(int pos) const {
       return WrapPolicy::wrap(&data_->adjs[pos]);
     }
     int size() const {
       return data_->length;
     }
-    SEXP wrap() {
+    SEXP wrap() const {
       const int len = size();
       cpp11::writable::list output;
       output.reserve(len);
@@ -57,13 +57,13 @@ class IIncList {
     ~IIncList() noexcept {
       if (data_) igraph_inclist_destroy(data_.get());
     }
-    SEXP at(int pos) {
+    SEXP at(int pos) const {
       return WrapPolicy::wrap(&data_->incs[pos]);
     }
     int size() const {
       return data_->length;
     }
-    SEXP wrap() {
+    SEXP wrap() const {
       const int len = size();
       cpp11::writable::list output;
       output.reserve(len);

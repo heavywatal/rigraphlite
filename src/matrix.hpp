@@ -10,12 +10,12 @@
 
 class IMatrix {
   public:
-    IMatrix(int nrow, int ncol): robj_(nrow, ncol) {
+    IMatrix(int nrow, int ncol): robj_(cpp11::writable::doubles_matrix<>(nrow, ncol)) {
       igraph_vector_view(&data_->data, REAL(robj_.data()), nrow * ncol);
       data_->nrow = nrow;
       data_->ncol = ncol;
     }
-    IMatrix(cpp11::doubles_matrix<>&& obj): robj_(std::move(obj)) {
+    IMatrix(SEXP obj): robj_(obj) {
       igraph_vector_view(&data_->data, REAL(robj_.data()), robj_.nrow() * robj_.ncol());
       data_->nrow = robj_.nrow();
       data_->ncol = robj_.ncol();
@@ -24,10 +24,10 @@ class IMatrix {
     IMatrix(IMatrix&& other) noexcept = delete;
     ~IMatrix() noexcept = default;
     double at(int i, int j) const {return MATRIX(*data_, i, j);}
-    cpp11::doubles_matrix<> wrap() const {return robj_;}
+    SEXP wrap() const {return robj_;}
     igraph_matrix_t* data() {return data_.get();}
   private:
-    cpp11::writable::doubles_matrix<> robj_;
+    const cpp11::doubles_matrix<> robj_;
     std::unique_ptr<igraph_matrix_t> data_ = std::make_unique<igraph_matrix_t>();
 };
 
