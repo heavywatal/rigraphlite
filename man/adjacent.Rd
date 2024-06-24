@@ -4,7 +4,7 @@
 \alias{are_adjacent}
 \title{Basic Properties}
 \source{
-\url{https://igraph.org/c/doc/igraph-Structural.html}
+\url{https://igraph.org/c/doc/igraph-Structural.html#basic-properties}
 }
 \usage{
 are_adjacent(graph, from, to)

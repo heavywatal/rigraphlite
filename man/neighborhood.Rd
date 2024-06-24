@@ -5,7 +5,7 @@
 \alias{neighborhood}
 \title{Neighborhood of vertices}
 \source{
-\url{https://igraph.org/c/doc/igraph-Structural.html}
+\url{https://igraph.org/c/doc/igraph-Structural.html#neighborhood-of-a-vertex}
 }
 \usage{
 neighborhood_size(

@@ -180,10 +180,6 @@ layout_reingold_tilford_circular_ <- function(graph, mode, roots) {
   .Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots)
 }
 
-are_adjacent_ <- function(graph, v1, v2) {
-  .Call(`_igraphlite_are_adjacent_`, graph, v1, v2)
-}
-
 distances_ <- function(graph, from, to, weights, mode, algorithm) {
   .Call(`_igraphlite_distances_`, graph, from, to, weights, mode, algorithm)
 }
@@ -218,6 +214,10 @@ path_length_count_within <- function(graph, vids, directed) {
 
 path_length_count_between <- function(graph, from, to, directed) {
   .Call(`_igraphlite_path_length_count_between`, graph, from, to, directed)
+}
+
+are_adjacent_ <- function(graph, v1, v2) {
+  .Call(`_igraphlite_are_adjacent_`, graph, v1, v2)
 }
 
 neighborhood_size_ <- function(graph, vids, order, mode, mindist) {

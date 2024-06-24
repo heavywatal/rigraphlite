@@ -327,74 +327,74 @@ extern "C" SEXP _igraphlite_layout_reingold_tilford_circular_(SEXP graph, SEXP m
     return cpp11::as_sexp(layout_reingold_tilford_circular_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots)));
   END_CPP11
 }
-// structural.cpp
-bool are_adjacent_(const cpp11::external_pointer<IGraph> graph, int v1, int v2);
-extern "C" SEXP _igraphlite_are_adjacent_(SEXP graph, SEXP v1, SEXP v2) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(are_adjacent_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(v1), cpp11::as_cpp<cpp11::decay_t<int>>(v2)));
-  END_CPP11
-}
-// structural.cpp
+// paths.cpp
 SEXP distances_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, const cpp11::doubles& weights, int mode, const std::string& algorithm);
 extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode, SEXP algorithm) {
   BEGIN_CPP11
     return cpp11::as_sexp(distances_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(algorithm)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 double mean_distances_cpp_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, const cpp11::doubles& weights, int mode, const std::string& algorithm);
 extern "C" SEXP _igraphlite_mean_distances_cpp_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode, SEXP algorithm) {
   BEGIN_CPP11
     return cpp11::as_sexp(mean_distances_cpp_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(algorithm)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 SEXP get_shortest_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, const cpp11::doubles& weights, int mode);
 extern "C" SEXP _igraphlite_get_shortest_paths_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_shortest_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 SEXP get_all_shortest_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, const cpp11::doubles& weights, int mode);
 extern "C" SEXP _igraphlite_get_all_shortest_paths_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_all_shortest_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 SEXP get_all_simple_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, int cutoff, int mode);
 extern "C" SEXP _igraphlite_get_all_simple_paths_(SEXP graph, SEXP from, SEXP to, SEXP cutoff, SEXP mode) {
   BEGIN_CPP11
     return cpp11::as_sexp(get_all_simple_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<int>>(cutoff), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 double average_path_length_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, bool directed, bool unconn);
 extern "C" SEXP _igraphlite_average_path_length_(SEXP graph, SEXP weights, SEXP directed, SEXP unconn) {
   BEGIN_CPP11
     return cpp11::as_sexp(average_path_length_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(unconn)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 SEXP path_length_hist_(const cpp11::external_pointer<IGraph> graph, bool directed);
 extern "C" SEXP _igraphlite_path_length_hist_(SEXP graph, SEXP directed) {
   BEGIN_CPP11
     return cpp11::as_sexp(path_length_hist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 SEXP path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, bool directed);
 extern "C" SEXP _igraphlite_path_length_count_within(SEXP graph, SEXP vids, SEXP directed) {
   BEGIN_CPP11
     return cpp11::as_sexp(path_length_count_within(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
   END_CPP11
 }
-// structural.cpp
+// paths.cpp
 SEXP path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, bool directed);
 extern "C" SEXP _igraphlite_path_length_count_between(SEXP graph, SEXP from, SEXP to, SEXP directed) {
   BEGIN_CPP11
     return cpp11::as_sexp(path_length_count_between(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+  END_CPP11
+}
+// structural.cpp
+bool are_adjacent_(const cpp11::external_pointer<IGraph> graph, int v1, int v2);
+extern "C" SEXP _igraphlite_are_adjacent_(SEXP graph, SEXP v1, SEXP v2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(are_adjacent_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(v1), cpp11::as_cpp<cpp11::decay_t<int>>(v2)));
   END_CPP11
 }
 // structural.cpp

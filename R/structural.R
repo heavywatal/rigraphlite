@@ -1,76 +1,17 @@
 #' Basic Properties
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#basic-properties>
 #' @inheritParams common_params
-#' @rdname connected
+#' @rdname adjacent
 #' @export
 are_adjacent = function(graph, from, to) {
   .Call(`_igraphlite_are_adjacent_`, graph, from, to)
 }
 
-#' Shortest Path Related Functions
-#'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html>
-#' @param algorithm character
-#' @inheritParams common_params
-#' @rdname shortest_paths
-#' @export
-distances = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                     algorithm = c("dijkstra", "bellman-ford", "johnson")) {
-  algorithm = match.arg(algorithm)
-  if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
-  }
-  .Call(`_igraphlite_distances_`, graph, from, to, as.numeric(weights), mode, algorithm)
-}
-
-#' @rdname shortest_paths
-#' @export
-get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {
-  if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
-  }
-  .Call(`_igraphlite_get_shortest_paths_`, graph, from, to, as.numeric(weights), mode)
-}
-
-#' @rdname shortest_paths
-#' @export
-get_all_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {
-  if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
-  }
-  .Call(`_igraphlite_get_all_shortest_paths_`, graph, from, to, as.numeric(weights), mode)
-}
-
-#' @param cutoff integer
-#' @rdname shortest_paths
-#' @export
-get_all_simple_paths = function(graph, from, to = integer(0L), cutoff = -1L, mode = 3L) {
-  res = .Call(`_igraphlite_get_all_simple_paths_`, graph, from, to, cutoff, mode)
-  pos = which(res == 0L)
-  split_at(res[-pos], pos - seq_along(pos))
-}
-
-#' @param unconn logical
-#' @rdname shortest_paths
-#' @export
-average_path_length = function(graph, weights = numeric(0L), directed = FALSE, unconn = TRUE) {
-  .Call(`_igraphlite_average_path_length_`, graph, weights, directed, unconn)
-}
-
-#' @rdname shortest_paths
-#' @export
-path_length_hist = function(graph, directed = FALSE) {
-  .Call(`_igraphlite_path_length_hist_`, graph, directed)
-}
-
 
 #' Neighborhood of vertices
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#neighborhood-of-a-vertex>
 #' @param order integer
 #' @param mindist The minimum distance to include a vertex in the counting.
 #' @inheritParams common_params
@@ -89,7 +30,7 @@ neighborhood = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist
 
 #' Graph Components
 #'
-#' @source <https://igraph.org/c/doc/igraph-Structural.html>
+#' @source <https://igraph.org/c/doc/igraph-Structural.html#graph-components>
 #' @inheritParams common_params
 #' @rdname component
 #' @export
