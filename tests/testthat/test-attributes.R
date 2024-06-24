@@ -27,6 +27,15 @@ test_that("attribute getters/setters work", {
     expect_s3_class("data.frame")
   Eattr(g) = eattr
   expect_identical(Eattr(g), eattr)
+
+  expect_null(Vattr(g, "argument"))
+  Vattr(g, "argument") = V(g)
+  expect_null(Vattr(g)[["brackets"]])
+  Vattr(g)[["brackets"]] = V(g)
+  skip_if_not_installed("tibble")
+  expect_null(Vattr(g)$dollar) |>
+    expect_warning("column")
+  Vattr(g)$dollar = V(g)
 })
 
 test_that("name-id conversion works", {

@@ -1,5 +1,6 @@
 #include "igraph.hpp"
 #include "vector.hpp"
+#include "dataframe.hpp"
 
 [[cpp11::register]] SEXP
 V_(const cpp11::external_pointer<IGraph> graph) {return graph->V();}
@@ -18,10 +19,12 @@ getEattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Eattr_;}
 [[cpp11::register]]
 void setVattr_(cpp11::external_pointer<IGraph> graph, SEXP other) {
   graph->Vattr_ = cpp11::writable::data_frame(other);
+  impl::set_tbl_class(&graph->Vattr_);
 }
 [[cpp11::register]]
 void setEattr_(cpp11::external_pointer<IGraph> graph, SEXP other) {
   graph->Eattr_ = cpp11::writable::data_frame(other);
+  impl::set_tbl_class(&graph->Eattr_);
 }
 
 SEXP IGraph::V() const {

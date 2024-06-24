@@ -49,8 +49,5 @@ subcomponents = function(graph, vids, mode = 1L) {
 #' @rdname component
 #' @export
 induced_subgraph = function(graph, vids, impl = 0L) {
-  vids = sort(vids)
-  subg = .Call(`_igraphlite_induced_subgraph_`, graph, vids, impl)
-  Vattr(subg) = Vattr(graph)[vids, , drop = FALSE]
-  set_ptr_class(subg)
+  .Call(`_igraphlite_induced_subgraph_`, graph, sort(vids), impl) |> set_ptr_class()
 }

@@ -38,17 +38,37 @@ test_that("subcomponent works", {
 })
 
 test_that("induced_subgraph works", {
-  el = matrix(seq_len(8L), ncol = 2L)
-  g = graph_from_symbolic_edgelist(el)
-  Eattr(g, "name") = as.character(E(g))
+  g = graph_tree(7L)
+  vids = seq_len(4L)
+  subg = induced_subgraph(g, vids)
+  expect_s3_class(subg, "igraph_ptr")
+  length(V(subg)) |>
+    expect_identical(vcount(subg)) |>
+    expect_identical(nrow(Vattr(subg))) |>
+    expect_identical(4L)
+  length(E(subg)) |>
+    expect_identical(ecount(subg)) |>
+    expect_identical(nrow(Eattr(subg))) |>
+    expect_identical(3L)
+
+  g = graph_tree(7L)
+  Vattr(g, "name") = LETTERS[V(g)]
+  Vattr(g, "weight") = as.double(V(g))
+  Eattr(g, "name") = LETTERS[E(g)]
+  Eattr(g, "weight") = as.double(E(g))
   vids = seq_len(4L)
   expect_silent({
     subg = induced_subgraph(g, vids)
   })
-  expect_s3_class(subg, "igraph_ptr")
+  length(V(subg)) |>
+    expect_identical(vcount(subg)) |>
+    expect_identical(nrow(Vattr(subg))) |>
+    expect_identical(4L)
+  length(E(subg)) |>
+    expect_identical(ecount(subg)) |>
+    expect_identical(nrow(Eattr(subg))) |>
+    expect_identical(3L)
   expect_length(V(subg), length(vids))
-  expect_identical(nrow(Vattr(subg)), vcount(subg))
-  expect_identical(nrow(Eattr(subg)), ecount(subg))
   expect_identical(ncol(Vattr(subg)), ncol(Vattr(g)))
   expect_identical(ncol(Eattr(subg)), 0L) # discarded
 })

@@ -34,6 +34,16 @@ namespace impl {
   template <> inline
   SEXP na<SEXP>() {return R_NaString;}
 
+  inline R_xlen_t idx_size(const cpp11::r_vector<int>& idx) {
+    return idx.size();
+  }
+
+  inline R_xlen_t idx_size(const cpp11::r_vector<cpp11::r_bool>& idx) {
+    int n = 0;
+    for (const auto x: idx) n += static_cast<int>(x);
+    return n;
+  }
+
   template <class RTYPE, class T> inline
   cpp11::r_vector<RTYPE> elongate(const cpp11::r_vector<RTYPE>& x, int n) {
     int len = x.size();
@@ -48,28 +58,51 @@ namespace impl {
   }
 
   template <class T> inline
-  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::logicals& idx) {
+  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::logicals& idx, const bool negate = false) {
     cpp11::writable::r_vector<T> res;
+    if (negate) {
+      res.reserve(x.size() - idx_size(idx));
+    } else {
+      res.reserve(idx_size(idx));
+    }
     for (int i = 0; i < idx.size(); ++i) {
-      if (idx[i]) res.push_back(x[i]);
+      if (static_cast<bool>(idx[i]) xor negate) res.push_back(x[i]);
     }
     return res;
   }
 
   template <class T> inline
-  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::integers& idx) {
+  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::integers& idx, const bool negate = false) {
     cpp11::writable::r_vector<T> res;
-    res.reserve(idx.size());
-    for (int i: idx) {
-      res.push_back(x[--i]);
+    if (negate) {
+      res.reserve(x.size() - idx.size());
+      const int x_size1 = x.size() + 1;
+      auto it = idx.begin();
+      for (int i = 1; i < x_size1; ++i) {
+        if (it != idx.end() && i == *it) {
+          ++it;
+        } else {
+          res.push_back(x[i - 1]);
+        }
+      }
+    } else {
+      res.reserve(idx.size());
+      for (int i: idx) {
+        res.push_back(x[--i]);
+      }
     }
     return res;
   }
 
-  inline void append_na_rows(cpp11::writable::data_frame& df, int n) {
+  inline void append_na_rows(cpp11::writable::data_frame* df, int n) {
+    const auto ncol = df->size();
+    if (ncol == 0) {
+      set_rownames(df, df->nrow() + n);
+      return;
+    }
     cpp11::writable::list newcols;
-    newcols.reserve(df.size());
-    for (const auto col: df) {
+    newcols.reserve(ncol);
+    for (const auto col: *df) {
       switch (TYPEOF(col)) {
         case INTSXP:  newcols.push_back(elongate<int, int>(col, n)); break;
         case REALSXP: newcols.push_back(elongate<double, double>(col, n)); break;
@@ -77,25 +110,37 @@ namespace impl {
         default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(col));
       }
     }
-    const cpp11::strings names(df.names());
-    df = cpp11::writable::data_frame(std::move(newcols));
-    df.names() = names;
+    const cpp11::strings names(df->names());
+    *df = cpp11::writable::data_frame(std::move(newcols));
+    df->names() = names;
+    set_tbl_class(df);
   }
 
-  inline void filter(cpp11::writable::data_frame& df, const cpp11::logicals& idx) {
+  template <class T>
+  inline void filter(cpp11::writable::data_frame* df, const cpp11::r_vector<T>& idx, bool negate = false) {
+    const auto ncol = df->size();
+    if (ncol == 0) {
+      if (negate) {
+        set_rownames(df, df->nrow() - idx_size(idx));
+      } else {
+        set_rownames(df, idx_size(idx));
+      }
+      return;
+    }
     cpp11::writable::list newcols;
-    newcols.reserve(df.size());
-    for (const auto col: df) {
+    newcols.reserve(ncol);
+    for (const auto col: *df) {
       switch (TYPEOF(col)) {
-        case INTSXP:  newcols.push_back(subset<int>(col, idx)); break;
-        case REALSXP: newcols.push_back(subset<double>(col, idx)); break;
-        case STRSXP:  newcols.push_back(subset<cpp11::r_string>(col, idx)); break;
+        case INTSXP:  newcols.push_back(subset<int>(col, idx, negate)); break;
+        case REALSXP: newcols.push_back(subset<double>(col, idx, negate)); break;
+        case STRSXP:  newcols.push_back(subset<cpp11::r_string>(col, idx, negate)); break;
         default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(col));
       }
     }
-    const cpp11::strings names(df.names());
-    df = cpp11::writable::data_frame(std::move(newcols));
-    df.names() = names;
+    const cpp11::strings names(df->names());
+    *df = cpp11::writable::data_frame(std::move(newcols));
+    df->names() = names;
+    set_tbl_class(df);
   }
 
   template <class T, class Fn>
@@ -112,23 +157,10 @@ namespace impl {
     return res;
   }
 
-  inline cpp11::logicals negate(const cpp11::logicals& x) {
-    return transform(x, [](cpp11::r_bool b) {return cpp11::r_bool(b ? FALSE : TRUE);});
-  }
-
-  inline cpp11::logicals negate(const cpp11::integers& idx, int n) {
-    std::unordered_set<int> set(idx.begin(), idx.end());
-    cpp11::writable::logicals res;
-    res.reserve(n);
-    for (int i=0; i<n; ++i) {
-      res.push_back(static_cast<Rboolean>(set.find(i) == set.end()));
-    }
-    return res;
-  }
-
-  inline cpp11::logicals R_in(const cpp11::integers& x, const cpp11::integers& table) {
-    std::unordered_set<int> set(table.begin(), table.end());
-    return transform(x, [&set](int i) {return cpp11::r_bool(set.find(i) != set.end());});
+  template <class T>
+  inline cpp11::logicals R_in(const cpp11::r_vector<T>& x, const cpp11::r_vector<T>& table) {
+    std::unordered_set<T> set(table.begin(), table.end());
+    return transform(x, [&set](T i) {return cpp11::r_bool(set.find(i) != set.end());});
   }
 
 }

@@ -64,7 +64,7 @@ degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids
 [[cpp11::register]]
 void add_vertices_(cpp11::external_pointer<IGraph> graph, int n) {
   igraph_add_vertices(graph->data(), n, nullptr);
-  impl::append_na_rows(graph->Vattr_, n);
+  impl::append_na_rows(&graph->Vattr_, n);
 }
 
 [[cpp11::register]]
@@ -72,20 +72,18 @@ void add_edges_(cpp11::external_pointer<IGraph> graph, const cpp11::integers& ed
   const int new_vs = *std::max_element(edges.begin(), edges.end()) - graph->vcount();
   if (new_vs) add_vertices_(graph, new_vs);
   igraph_add_edges(graph->data(), ISelectorInPlace(edges).data(), nullptr);
-  impl::append_na_rows(graph->Eattr_, edges.size() / 2);
+  impl::append_na_rows(&graph->Eattr_, edges.size() / 2);
 }
 
 [[cpp11::register]]
 void delete_edges_(cpp11::external_pointer<IGraph> graph, const cpp11::integers& eids) {
-  ISelectorInPlace ceids(eids);
-  impl::filter(graph->Eattr_, impl::negate(eids, graph->ecount()));
-  igraph_delete_edges(graph->data(), ceids.ess());
+  impl::filter(&graph->Eattr_, eids, true);
+  igraph_delete_edges(graph->data(), ISelectorInPlace(eids).ess());
 }
 
 [[cpp11::register]]
 void delete_vertices_(cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids) {
-  impl::filter(graph->Eattr_, impl::R_in(graph->from(), vids) | impl::R_in(graph->to(), vids));
-  ISelectorInPlace cvids(vids);
-  impl::filter(graph->Vattr_, impl::negate(vids, graph->vcount()));
-  igraph_delete_vertices(graph->data(), cvids.vss());
+  impl::filter(&graph->Eattr_, impl::R_in(graph->from(), vids) | impl::R_in(graph->to(), vids), true);
+  impl::filter(&graph->Vattr_, vids, true);
+  igraph_delete_vertices(graph->data(), ISelectorInPlace(vids).vss());
 }

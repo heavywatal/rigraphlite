@@ -75,7 +75,9 @@ induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::inte
   igraph_induced_subgraph(
     other->data(), p->data(), ISelectorInPlace(vids).vss(),
     static_cast<igraph_subgraph_implementation_t>(impl));
-  p->init_attr();
+  p->Vattr_ = other->Vattr_;
+  impl::filter(&p->Vattr_, vids);
+  impl::set_data_frame_attributes(&p->Eattr_, p->ecount()); // TODO
   return p;
 }
 
