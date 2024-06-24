@@ -17,7 +17,7 @@ test_that("attribute getters/setters work", {
   Vattr(g, "name") = V(g) |> as.character()
   expect_type(Vnames(g), "character")
   Vattr(g, "name") = V(g) |> as.complex()
-  expect_error(Vnames(g))
+  expect_identical(Vnames(g), V(g))
 
   Eattr(g, "name") = E(g)
   Eattr(g, "name") |>

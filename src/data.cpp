@@ -34,10 +34,6 @@ as_data_frame_(const cpp11::external_pointer<IGraph> graph) {
   ls.reserve(2 + eattr_size);
   const auto vnames = graph->Vattr_["name"];
   switch (TYPEOF(vnames)) {
-    case NULL:
-      ls.push_back("from"_nm = graph->from());
-      ls.push_back("to"_nm = graph->to());
-      break;
     case INTSXP:
       ls.push_back("from"_nm = impl::subset<int>(vnames, graph->from()));
       ls.push_back("to"_nm = impl::subset<int>(vnames, graph->to()));
@@ -50,7 +46,10 @@ as_data_frame_(const cpp11::external_pointer<IGraph> graph) {
       ls.push_back("from"_nm = impl::subset<cpp11::r_string>(vnames, graph->from()));
       ls.push_back("to"_nm = impl::subset<cpp11::r_string>(vnames, graph->to()));
       break;
-    default: cpp11::stop("Invalid type for vnames: %d", TYPEOF(vnames));
+    default:
+      ls.push_back("from"_nm = graph->from());
+      ls.push_back("to"_nm = graph->to());
+      break;
   }
   const auto eattr_names = cpp11::as_cpp<cpp11::strings>(graph->Eattr_.names());
   for (int i=0; i<eattr_size; ++i) {

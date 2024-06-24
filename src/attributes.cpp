@@ -35,15 +35,14 @@ SEXP IGraph::E() const {
 SEXP IGraph::Vnames() const {
   const auto vnames = Vattr_["name"];
   switch (TYPEOF(vnames)) {
-    case NULL:
-      return V();
     case INTSXP:
       return cpp11::as_cpp<cpp11::integers>(vnames);
     case REALSXP:
       return cpp11::as_cpp<cpp11::doubles>(vnames);
     case STRSXP:
       return cpp11::as_cpp<cpp11::strings>(vnames);
-    default: cpp11::stop("Invalid type for vnames: %d", TYPEOF(vnames));
+    default:
+      return V();
   }
 }
 
