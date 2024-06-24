@@ -56,7 +56,7 @@
 <span></span>
 <span><span class="fu">layout_fruchterman_reingold</span><span class="op">(</span><span class="va">graph</span>, grid <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">layout_mds</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span><span class="fu">layout_mds</span><span class="op">(</span><span class="va">graph</span>, <span class="va">dist</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">layout_reingold_tilford</span><span class="op">(</span><span class="va">graph</span>, mode <span class="op">=</span> <span class="fl">1L</span>, roots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -80,6 +80,10 @@
 <dt>grid</dt>
 <dd><p>Whether to use the (fast but less accurate) grid based version;
 {0: GRID, 1: NOGRID, 2: AUTOGRID}.</p></dd>
+
+
+<dt>dist</dt>
+<dd><p>A distant matrix.</p></dd>
 
 
 <dt>mode</dt>

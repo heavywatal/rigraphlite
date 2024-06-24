@@ -168,8 +168,8 @@ layout_fruchterman_reingold_ <- function(graph, grid) {
   .Call(`_igraphlite_layout_fruchterman_reingold_`, graph, grid)
 }
 
-layout_mds_ <- function(graph) {
-  .Call(`_igraphlite_layout_mds_`, graph)
+layout_mds_ <- function(graph, dist) {
+  .Call(`_igraphlite_layout_mds_`, graph, dist)
 }
 
 layout_reingold_tilford_ <- function(graph, mode, roots) {

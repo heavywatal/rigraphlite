@@ -21,7 +21,7 @@ layout_drl(graph)
 
 layout_fruchterman_reingold(graph, grid = 2L)
 
-layout_mds(graph)
+layout_mds(graph, dist)
 
 layout_reingold_tilford(graph, mode = 1L, roots = integer(0))
 
@@ -34,6 +34,8 @@ layout_reingold_tilford_circular(graph, mode = 1L, roots = integer(0))
 
 \item{grid}{Whether to use the (fast but less accurate) grid based version;
 \{0: GRID, 1: NOGRID, 2: AUTOGRID\}.}
+
+\item{dist}{A distant matrix.}
 
 \item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 

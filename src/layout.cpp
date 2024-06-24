@@ -1,3 +1,4 @@
+// <https://igraph.org/c/doc/igraph-Layout.html>
 #include "igraph.hpp"
 #include "vector.hpp"
 #include "matrix.hpp"
@@ -64,12 +65,11 @@ layout_fruchterman_reingold_(const cpp11::external_pointer<IGraph> graph, int gr
 }
 
 [[cpp11::register]] SEXP
-layout_mds_(const cpp11::external_pointer<IGraph> graph) {
+layout_mds_(const cpp11::external_pointer<IGraph> graph, SEXP dist) {
   cpp11::writable::doubles null{};
   cpp11::writable::integers nulli{};
-  IMatrix dist(distances_(graph, nulli, nulli, null, 3, "unweighted"));
   IMatrix res(graph->vcount(), 2);
-  igraph_layout_mds(graph->data(), res.data(), dist.data(), 2);
+  igraph_layout_mds(graph->data(), res.data(), IMatrix(dist).data(), 2);
   return as_named_data_frame(res.wrap());
 }
 

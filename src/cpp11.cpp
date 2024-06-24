@@ -307,10 +307,10 @@ extern "C" SEXP _igraphlite_layout_fruchterman_reingold_(SEXP graph, SEXP grid) 
   END_CPP11
 }
 // layout.cpp
-SEXP layout_mds_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_layout_mds_(SEXP graph) {
+SEXP layout_mds_(const cpp11::external_pointer<IGraph> graph, SEXP dist);
+extern "C" SEXP _igraphlite_layout_mds_(SEXP graph, SEXP dist) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_mds_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+    return cpp11::as_sexp(layout_mds_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<SEXP>>(dist)));
   END_CPP11
 }
 // layout.cpp
@@ -469,7 +469,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
     {"_igraphlite_layout_drl_",                       (DL_FUNC) &_igraphlite_layout_drl_,                       1},
     {"_igraphlite_layout_fruchterman_reingold_",      (DL_FUNC) &_igraphlite_layout_fruchterman_reingold_,      2},
-    {"_igraphlite_layout_mds_",                       (DL_FUNC) &_igraphlite_layout_mds_,                       1},
+    {"_igraphlite_layout_mds_",                       (DL_FUNC) &_igraphlite_layout_mds_,                       2},
     {"_igraphlite_layout_random_",                    (DL_FUNC) &_igraphlite_layout_random_,                    1},
     {"_igraphlite_layout_reingold_tilford_",          (DL_FUNC) &_igraphlite_layout_reingold_tilford_,          3},
     {"_igraphlite_layout_reingold_tilford_circular_", (DL_FUNC) &_igraphlite_layout_reingold_tilford_circular_, 3},

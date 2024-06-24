@@ -79,8 +79,4 @@ class IGraph {
     cpp11::writable::data_frame Eattr_;
 };
 
-extern SEXP distances_(
-  const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to,
-  const cpp11::doubles& weights, int mode, const std::string& algorithm);
-
 #endif // IGRAPHLITE_IGRAPH_HPP_

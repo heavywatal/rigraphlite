@@ -29,10 +29,11 @@ layout_fruchterman_reingold = function(graph, grid = 2L) {
   .Call(`_igraphlite_layout_fruchterman_reingold_`, graph, grid = grid)
 }
 
+#' @param dist A distant matrix.
 #' @rdname layout
 #' @export
-layout_mds = function(graph) {
-  .Call(`_igraphlite_layout_mds_`, graph)
+layout_mds = function(graph, dist) {
+  .Call(`_igraphlite_layout_mds_`, graph, dist)
 }
 
 #' @param roots Root vertices.
