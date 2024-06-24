@@ -194,6 +194,69 @@ extern "C" SEXP _igraphlite_as_data_frame_(SEXP graph) {
   END_CPP11
 }
 // generators.cpp
+SEXP graph_create_(const cpp11::integers& edges, int n, bool directed);
+extern "C" SEXP _igraphlite_graph_create_(SEXP edges, SEXP n, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_create_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(edges), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_star_(int n, int mode, int center);
+extern "C" SEXP _igraphlite_graph_star_(SEXP n, SEXP mode, SEXP center) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_star_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<int>>(center)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_lattice_(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular);
+extern "C" SEXP _igraphlite_graph_lattice_(SEXP dim, SEXP nei, SEXP directed, SEXP mutual, SEXP circular) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_lattice_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(dim), cpp11::as_cpp<cpp11::decay_t<int>>(nei), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_ring_(int n, bool directed, bool mutual, bool circular);
+extern "C" SEXP _igraphlite_graph_ring_(SEXP n, SEXP directed, SEXP mutual, SEXP circular) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_ring_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_tree_(int n, int children, int mode);
+extern "C" SEXP _igraphlite_graph_tree_(SEXP n, SEXP children, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_tree_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(children), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_full_(int n, bool directed, bool loops);
+extern "C" SEXP _igraphlite_graph_full_(SEXP n, SEXP directed, SEXP loops) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_full_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(loops)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_famous_(const char* name);
+extern "C" SEXP _igraphlite_graph_famous_(SEXP name) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_famous_(cpp11::as_cpp<cpp11::decay_t<const char*>>(name)));
+  END_CPP11
+}
+// generators.cpp
+SEXP induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl);
+extern "C" SEXP _igraphlite_induced_subgraph_(SEXP other, SEXP vids, SEXP impl) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(induced_subgraph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(other), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<int>>(impl)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_from_edgelist_(const cpp11::sexp edgelist, bool directed);
+extern "C" SEXP _igraphlite_graph_from_edgelist_(SEXP edgelist, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_from_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp>>(edgelist), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+  END_CPP11
+}
+// generators.cpp
 SEXP graph_from_data_frame_(const cpp11::data_frame& df, bool directed);
 extern "C" SEXP _igraphlite_graph_from_data_frame_(SEXP df, SEXP directed) {
   BEGIN_CPP11
@@ -205,69 +268,6 @@ SEXP graph_from_symbolic_edgelist_(const cpp11::sexp edgelist, bool directed);
 extern "C" SEXP _igraphlite_graph_from_symbolic_edgelist_(SEXP edgelist, SEXP directed) {
   BEGIN_CPP11
     return cpp11::as_sexp(graph_from_symbolic_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp>>(edgelist), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_from_edgelist_(const cpp11::sexp edgelist, bool directed);
-extern "C" SEXP _igraphlite_graph_from_edgelist_(SEXP edgelist, SEXP directed) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_from_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp>>(edgelist), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_create_(const cpp11::integers& edges, int n, bool directed);
-extern "C" SEXP _igraphlite_graph_create_(SEXP edges, SEXP n, SEXP directed) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_create_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(edges), cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_star_(int n, int mode, int center);
-extern "C" SEXP _igraphlite_graph_star_(SEXP n, SEXP mode, SEXP center) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_star_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<int>>(center)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_lattice_(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular);
-extern "C" SEXP _igraphlite_graph_lattice_(SEXP dim, SEXP nei, SEXP directed, SEXP mutual, SEXP circular) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_lattice_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(dim), cpp11::as_cpp<cpp11::decay_t<int>>(nei), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_ring_(int n, bool directed, bool mutual, bool circular);
-extern "C" SEXP _igraphlite_graph_ring_(SEXP n, SEXP directed, SEXP mutual, SEXP circular) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_ring_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_tree_(int n, int children, int mode);
-extern "C" SEXP _igraphlite_graph_tree_(SEXP n, SEXP children, SEXP mode) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_tree_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(children), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_full_(int n, bool directed, bool mutual);
-extern "C" SEXP _igraphlite_graph_full_(SEXP n, SEXP directed, SEXP mutual) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_full_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> graph_famous_(const char* name);
-extern "C" SEXP _igraphlite_graph_famous_(SEXP name) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(graph_famous_(cpp11::as_cpp<cpp11::decay_t<const char*>>(name)));
-  END_CPP11
-}
-// generators.cpp
-cpp11::external_pointer<IGraph> induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl);
-extern "C" SEXP _igraphlite_induced_subgraph_(SEXP other, SEXP vids, SEXP impl) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(induced_subgraph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(other), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<int>>(impl)));
   END_CPP11
 }
 // init.cpp

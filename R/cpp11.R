@@ -104,18 +104,6 @@ as_data_frame_ <- function(graph) {
   .Call(`_igraphlite_as_data_frame_`, graph)
 }
 
-graph_from_data_frame_ <- function(df, directed) {
-  .Call(`_igraphlite_graph_from_data_frame_`, df, directed)
-}
-
-graph_from_symbolic_edgelist_ <- function(edgelist, directed) {
-  .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed)
-}
-
-graph_from_edgelist_ <- function(edgelist, directed) {
-  .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed)
-}
-
 graph_create_ <- function(edges, n, directed) {
   .Call(`_igraphlite_graph_create_`, edges, n, directed)
 }
@@ -136,8 +124,8 @@ graph_tree_ <- function(n, children, mode) {
   .Call(`_igraphlite_graph_tree_`, n, children, mode)
 }
 
-graph_full_ <- function(n, directed, mutual) {
-  .Call(`_igraphlite_graph_full_`, n, directed, mutual)
+graph_full_ <- function(n, directed, loops) {
+  .Call(`_igraphlite_graph_full_`, n, directed, loops)
 }
 
 graph_famous_ <- function(name) {
@@ -146,6 +134,18 @@ graph_famous_ <- function(name) {
 
 induced_subgraph_ <- function(other, vids, impl) {
   .Call(`_igraphlite_induced_subgraph_`, other, vids, impl)
+}
+
+graph_from_edgelist_ <- function(edgelist, directed) {
+  .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed)
+}
+
+graph_from_data_frame_ <- function(df, directed) {
+  .Call(`_igraphlite_graph_from_data_frame_`, df, directed)
+}
+
+graph_from_symbolic_edgelist_ <- function(edgelist, directed) {
+  .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed)
 }
 
 igraph_version_ <- function() {

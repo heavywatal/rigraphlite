@@ -9,6 +9,76 @@
 
 #include <unordered_map>
 
+[[cpp11::register]] SEXP
+graph_create_(const cpp11::integers& edges, int n = 0, bool directed = true) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_create(p->data(), ISelectorInPlace(edges).data(), n, directed);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_star_(int n, int mode = 0, int center = 1) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_star(p->data(), n, static_cast<igraph_star_mode_t>(mode), center);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_lattice_(const cpp11::integers& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_vector_bool_t periodic;
+  igraph_vector_bool_init(&periodic, dim.size());
+  igraph_vector_bool_fill(&periodic, circular);
+  igraph_square_lattice(p->data(), IVector<AsValues, InitViewInt>(dim).data(), nei, directed, mutual, &periodic);
+  igraph_vector_bool_destroy(&periodic);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_ring_(int n, bool directed = false, bool mutual = false, bool circular = true) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_ring(p->data(), n, directed, mutual, circular);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_tree_(int n, int children = 2, int mode = 0) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_kary_tree(p->data(), n, children, static_cast<igraph_tree_mode_t>(mode));
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_full_(int n, bool directed = false, bool loops = false) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_full(p->data(), n, directed, loops);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_famous_(const char* name) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_famous(p->data(), name);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_induced_subgraph(
+    other->data(), p->data(), ISelectorInPlace(vids).vss(),
+    static_cast<igraph_subgraph_implementation_t>(impl));
+  p->init_attr();
+  return p;
+}
+
 namespace std {
   template <> struct hash<cpp11::r_string> {
     std::size_t operator()(const cpp11::r_string& x) const {
@@ -50,9 +120,9 @@ namespace impl {
   cpp11::external_pointer<IGraph>
   graph_from_symbolic_edges(const cpp11::r_vector<T>& sym_edges, bool directed) {
     cpp11::writable::r_vector<T> symbols;
-    cpp11::writable::integers edgelist;
+    cpp11::writable::integers edges;
     symbols.reserve(sym_edges.size());
-    edgelist.reserve(sym_edges.size());
+    edges.reserve(sym_edges.size());
     std::unordered_map<T, int> map;
     int i = 1;
     for (const auto& elem: sym_edges) {
@@ -61,10 +131,12 @@ namespace impl {
         symbols.push_back(elem);
         ++i;
       }
-      edgelist.push_back(p.first->second);
+      edges.push_back(p.first->second);
     }
-    cpp11::external_pointer<IGraph> g(new IGraph(edgelist, 0, directed));
+    cpp11::external_pointer<IGraph> g = graph_create_(edges, 0, directed);
     g->Vattr_ = cpp11::writable::data_frame{cpp11::named_arg("name") = symbols};
+    impl::set_tbl_class(&g->Vattr_);
+    impl::set_data_frame_attributes(&g->Eattr_, g->ecount());
     return g;
   }
 
@@ -82,84 +154,16 @@ namespace impl {
         ls.push_back(cpp11::named_arg(static_cast<std::string>(names[i]).c_str()) = df[i]);
       }
       g->Eattr_ = cpp11::writable::data_frame(std::move(ls));
+      impl::set_tbl_class(&g->Eattr_);
     }
     return g;
   }
 
 }
 
-IGraph::IGraph():
-  data_(std::make_unique<igraph_t>()),
-  Vattr_(cpp11::writable::list{}),
-  Eattr_(cpp11::writable::list{}) {}
-
-IGraph::~IGraph() noexcept {
-  if (data_) igraph_destroy(data_.get());
-}
-
-IGraph::IGraph(const IGraph& other) noexcept: IGraph::IGraph() {
-  igraph_copy(data_.get(), other.data_.get());
-  Vattr_ = other.Vattr_;
-  Eattr_ = other.Eattr_;
-}
-
-IGraph::IGraph(IGraph&& other) = default;
-
-IGraph::IGraph(int n, bool directed): IGraph::IGraph() {
-  igraph_empty(data_.get(), n, directed);
-  init_attr();
-}
-
-IGraph::IGraph(const cpp11::integers& edges, int n, bool directed): IGraph::IGraph() {
-  igraph_create(data_.get(), ISelectorInPlace(edges).data(), n, directed);
-  init_attr();
-}
-
-IGraph::IGraph(int n, int mode, double center): IGraph::IGraph() {
-  // double center to distinguish overloaded contructors (vs tree).
-  igraph_star(data_.get(), n, static_cast<igraph_star_mode_t>(mode), static_cast<int>(center));
-  init_attr();
-}
-
-IGraph::IGraph(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular): IGraph::IGraph() {
-  igraph_vector_bool_t periodic;
-  igraph_vector_bool_init(&periodic, dim.size());
-  igraph_vector_bool_fill(&periodic, circular);
-  igraph_square_lattice(data_.get(), IVector<AsValues, InitViewInt>(dim).data(), nei, directed, mutual, &periodic);
-  igraph_vector_bool_destroy(&periodic);
-  init_attr();
-}
-
-IGraph::IGraph(int n, bool directed, bool mutual, bool circular): IGraph::IGraph() {
-  igraph_ring(data_.get(), n, directed, mutual, circular);
-  init_attr();
-}
-
-IGraph::IGraph(int n, int children, int mode): IGraph::IGraph() {
-  igraph_kary_tree(data_.get(), n, children, static_cast<igraph_tree_mode_t>(mode));
-  init_attr();
-}
-
-IGraph::IGraph(int n, bool directed, bool loops): IGraph::IGraph() {
-  igraph_full(data_.get(), n, directed, loops);
-  init_attr();
-}
-
-IGraph::IGraph(const char* name): IGraph::IGraph() {
-  igraph_famous(data_.get(), name);
-  init_attr();
-}
-
-IGraph::IGraph(const IGraph& other, const cpp11::integers& vids, int impl): IGraph::IGraph() {
-  igraph_induced_subgraph(
-    other.data(), data_.get(), ISelectorInPlace(vids).vss(),
-    static_cast<igraph_subgraph_implementation_t>(impl));
-  init_attr();
-}
-
-void IGraph::init_attr() {
-  impl::set_data_frame_attributes(&Vattr_, vcount());
-  impl::set_data_frame_attributes(&Eattr_, ecount());
+[[cpp11::register]] SEXP
+graph_from_edgelist_(const cpp11::sexp edgelist, bool directed = true) {
+  return graph_create_(impl::flatten_edgelist<int>(edgelist), 0, directed);
 }
 
 [[cpp11::register]] SEXP
@@ -184,56 +188,23 @@ graph_from_symbolic_edgelist_(const cpp11::sexp edgelist, bool directed) {
   }
 }
 
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_from_edgelist_(const cpp11::sexp edgelist, bool directed = true) {
-  return new IGraph(impl::flatten_edgelist<int>(edgelist), 0, directed);
+IGraph::IGraph() noexcept:
+  data_(std::make_unique<igraph_t>()),
+  Vattr_(cpp11::writable::list{}),
+  Eattr_(cpp11::writable::list{}) {}
+
+IGraph::~IGraph() noexcept {
+  if (data_) igraph_destroy(data_.get());
 }
 
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_create_(const cpp11::integers& edges, int n = 0, bool directed = true) {
-  return new IGraph(edges, n, directed);
+IGraph::IGraph(const IGraph& other) noexcept:
+  data_(std::make_unique<igraph_t>()),
+  Vattr_(other.Vattr_),
+  Eattr_(other.Eattr_) {
+  igraph_copy(data_.get(), other.data_.get());
 }
 
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_star_(int n, int mode = 0, int center = 1) {
-  return new IGraph(n, mode, static_cast<double>(center));
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_lattice_(const cpp11::integers& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
-  return new IGraph(dim, nei, directed, mutual, circular);
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_ring_(int n, bool directed = false, bool mutual = false, bool circular = true) {
-  return new IGraph(n, directed, mutual, circular);
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_tree_(int n, int children = 2, int mode = 0) {
-  return new IGraph(n, children, mode);
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_full_(int n, bool directed = false, bool mutual = false) {
-  return new IGraph(n, directed, mutual);
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-graph_famous_(const char* name) {
-  return new IGraph(name);
-}
-
-[[cpp11::register]]
-cpp11::external_pointer<IGraph>
-induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl) {
-  return new IGraph(*other.get(), vids, impl);
+void IGraph::init_attr() {
+  impl::set_data_frame_attributes(&Vattr_, vcount());
+  impl::set_data_frame_attributes(&Eattr_, ecount());
 }
