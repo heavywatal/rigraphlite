@@ -25,7 +25,10 @@ void warning_handler(const char* reason, const char* file, int line) {
 }
 
 igraph_error_t interruption_handler(void* data) {
-  // Rcpp::checkUserInterrupt();
+  if (!R_ToplevelExec([](void*){cpp11::check_user_interrupt();}, NULL)) {
+    IGRAPH_FINALLY_FREE();
+    return IGRAPH_INTERRUPTED;
+  }
   return IGRAPH_SUCCESS;
 }
 
