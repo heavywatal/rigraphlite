@@ -2,8 +2,8 @@ test_that("attribute getters/setters work", {
   n = 7L
   g = graph_tree(7L)
 
-  Vattr(g, "name") = V(g)
-  Vattr(g, "name") |>
+  Vattr(g)$name = V(g)
+  Vattr(g)$name |>
     expect_identical(Vnames(g)) |>
     expect_identical(V(g)) |>
     expect_identical(seq_len(vcount(g)))
@@ -12,15 +12,15 @@ test_that("attribute getters/setters work", {
   Vattr(g) = vattr
   expect_identical(Vattr(g), vattr)
 
-  Vattr(g, "name") = V(g) |> as.double()
+  Vattr(g)$name = V(g) |> as.double()
   expect_type(Vnames(g), "double")
-  Vattr(g, "name") = V(g) |> as.character()
+  Vattr(g)$name = V(g) |> as.character()
   expect_type(Vnames(g), "character")
-  Vattr(g, "name") = V(g) |> as.complex()
+  Vattr(g)$name = V(g) |> as.complex()
   expect_identical(Vnames(g), V(g))
 
-  Eattr(g, "name") = E(g)
-  Eattr(g, "name") |>
+  Eattr(g)$name = E(g)
+  Eattr(g)$name |>
     expect_identical(E(g)) |>
     expect_identical(seq_len(ecount(g)))
   eattr = Eattr(g) |>

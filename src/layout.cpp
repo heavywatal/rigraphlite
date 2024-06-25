@@ -18,12 +18,10 @@ inline SEXP col(const cpp11::doubles_matrix<>& mat, const int i) {
 
 inline SEXP as_named_data_frame(const cpp11::doubles_matrix<>& mat) {
   using namespace cpp11::literals;
-  cpp11::writable::data_frame df({
+  return impl::tibble({
     "x"_nm = col(mat, 0),
     "y"_nm = col(mat, 1)
   });
-  impl::set_tbl_class(&df);
-  return df;
 }
 
 [[cpp11::register]] SEXP

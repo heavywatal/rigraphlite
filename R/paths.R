@@ -9,8 +9,7 @@ distances = function(graph, from = integer(0L), to = from, weights = numeric(0L)
                      algorithm = c("dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
+    weights = Eattr(graph)$weight
   }
   .Call(`_igraphlite_distances_`, graph, from, to, as.numeric(weights), mode, algorithm)
 }
@@ -19,8 +18,7 @@ distances = function(graph, from = integer(0L), to = from, weights = numeric(0L)
 #' @export
 get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
+    weights = Eattr(graph)$weight
   }
   .Call(`_igraphlite_get_shortest_paths_`, graph, from, to, as.numeric(weights), mode)
 }
@@ -29,8 +27,7 @@ get_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0
 #' @export
 get_all_shortest_paths = function(graph, from, to = integer(0L), weights = numeric(0L), mode = 3L) {
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
+    weights = Eattr(graph)$weight
   }
   .Call(`_igraphlite_get_all_shortest_paths_`, graph, from, to, as.numeric(weights), mode)
 }

@@ -136,8 +136,7 @@ namespace impl {
       edges.push_back(p.first->second);
     }
     cpp11::external_pointer<IGraph> g = graph_create_(edges, 0, directed);
-    g->Vattr_ = cpp11::writable::data_frame{cpp11::named_arg("name") = symbols};
-    impl::set_tbl_class(&g->Vattr_);
+    g->Vattr_ = impl::tibble({cpp11::named_arg("name") = symbols});
     impl::set_data_frame_attributes(&g->Eattr_, g->ecount());
     return g;
   }
@@ -155,8 +154,7 @@ namespace impl {
       for (int i = 2; i < n; ++i) {
         ls.push_back(cpp11::named_arg(static_cast<std::string>(names[i]).c_str()) = df[i]);
       }
-      g->Eattr_ = cpp11::writable::data_frame(std::move(ls));
-      impl::set_tbl_class(&g->Eattr_);
+      g->Eattr_ = impl::tibble(std::move(ls));
     }
     return g;
   }
@@ -192,8 +190,8 @@ graph_from_symbolic_edgelist_(const cpp11::sexp edgelist, bool directed) {
 
 IGraph::IGraph() noexcept:
   data_(std::make_unique<igraph_t>()),
-  Vattr_(cpp11::writable::list{}),
-  Eattr_(cpp11::writable::list{}) {}
+  Vattr_(impl::tibble({})),
+  Eattr_(impl::tibble({})) {}
 
 IGraph::~IGraph() noexcept {
   if (data_) igraph_destroy(data_.get());

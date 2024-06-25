@@ -70,6 +70,22 @@ extern "C" SEXP _igraphlite_setEattr_(SEXP graph, SEXP other) {
     return R_NilValue;
   END_CPP11
 }
+// attributes.cpp
+void mutate_Vattr_(cpp11::external_pointer<IGraph> graph, const char* key, SEXP value);
+extern "C" SEXP _igraphlite_mutate_Vattr_(SEXP graph, SEXP key, SEXP value) {
+  BEGIN_CPP11
+    mutate_Vattr_(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(key), cpp11::as_cpp<cpp11::decay_t<SEXP>>(value));
+    return R_NilValue;
+  END_CPP11
+}
+// attributes.cpp
+void mutate_Eattr_(cpp11::external_pointer<IGraph> graph, const char* key, SEXP value);
+extern "C" SEXP _igraphlite_mutate_Eattr_(SEXP graph, SEXP key, SEXP value) {
+  BEGIN_CPP11
+    mutate_Eattr_(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(key), cpp11::as_cpp<cpp11::decay_t<SEXP>>(value));
+    return R_NilValue;
+  END_CPP11
+}
 // basic.cpp
 int vcount_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_vcount_(SEXP graph) {
@@ -474,6 +490,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_layout_reingold_tilford_",          (DL_FUNC) &_igraphlite_layout_reingold_tilford_,          3},
     {"_igraphlite_layout_reingold_tilford_circular_", (DL_FUNC) &_igraphlite_layout_reingold_tilford_circular_, 3},
     {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               6},
+    {"_igraphlite_mutate_Eattr_",                     (DL_FUNC) &_igraphlite_mutate_Eattr_,                     3},
+    {"_igraphlite_mutate_Vattr_",                     (DL_FUNC) &_igraphlite_mutate_Vattr_,                     3},
     {"_igraphlite_neighborhood_",                     (DL_FUNC) &_igraphlite_neighborhood_,                     5},
     {"_igraphlite_neighborhood_size_",                (DL_FUNC) &_igraphlite_neighborhood_size_,                5},
     {"_igraphlite_neighbors_",                        (DL_FUNC) &_igraphlite_neighbors_,                        3},

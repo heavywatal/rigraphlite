@@ -18,11 +18,9 @@ Vattr = function(graph, name) {
 #' @export
 `Vattr<-` = function(graph, name, value) {
   if (missing(name)) {
-    setVattr_(graph, value)
+    .Call(`_igraphlite_setVattr_`, graph, value)
   } else {
-    x = .Call(`_igraphlite_getVattr_`, graph)
-    x[[name]] = value
-    setVattr_(graph, x)
+    .Call(`_igraphlite_mutate_Vattr_`, graph, name, value)
   }
   graph
 }
@@ -41,11 +39,9 @@ Eattr = function(graph, name) {
 #' @export
 `Eattr<-` = function(graph, name, value) {
   if (missing(name)) {
-    setEattr_(graph, value)
+    .Call(`_igraphlite_setEattr_`, graph, value)
   } else {
-    x = .Call(`_igraphlite_getEattr_`, graph)
-    x[[name]] = value
-    setEattr_(graph, x)
+    .Call(`_igraphlite_mutate_Eattr_`, graph, name, value)
   }
   graph
 }

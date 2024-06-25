@@ -36,6 +36,14 @@ setEattr_ <- function(graph, other) {
   invisible(.Call(`_igraphlite_setEattr_`, graph, other))
 }
 
+mutate_Vattr_ <- function(graph, key, value) {
+  invisible(.Call(`_igraphlite_mutate_Vattr_`, graph, key, value))
+}
+
+mutate_Eattr_ <- function(graph, key, value) {
+  invisible(.Call(`_igraphlite_mutate_Eattr_`, graph, key, value))
+}
+
 vcount_ <- function(graph) {
   .Call(`_igraphlite_vcount_`, graph)
 }

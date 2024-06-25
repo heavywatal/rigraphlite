@@ -50,8 +50,7 @@ mean_distances_vec = function(graph, from = integer(0L), to = from, weights = nu
                               algorithm = c("dijkstra", "bellman-ford", "johnson")) {
   algorithm = match.arg(algorithm)
   if (isTRUE(weights)) {
-    stopifnot(utils::hasName(Eattr(graph), "weight"))
-    weights = Eattr(graph, "weight")
+    weights = Eattr(graph)$weight
   }
   mean_distances_cpp_(graph, from, to, weights, mode, algorithm)
 }

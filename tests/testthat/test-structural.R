@@ -52,10 +52,10 @@ test_that("induced_subgraph works", {
     expect_identical(3L)
 
   g = graph_tree(7L)
-  Vattr(g, "name") = LETTERS[V(g)]
-  Vattr(g, "weight") = as.double(V(g))
-  Eattr(g, "name") = LETTERS[E(g)]
-  Eattr(g, "weight") = as.double(E(g))
+  Vattr(g)$name = LETTERS[V(g)]
+  Vattr(g)$weight = as.double(V(g))
+  Eattr(g)$name = LETTERS[E(g)]
+  Eattr(g)$weight = as.double(E(g))
   vids = seq_len(4L)
   expect_silent({
     subg = induced_subgraph(g, vids)

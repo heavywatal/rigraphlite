@@ -2,6 +2,8 @@
 #ifndef IGRAPHLITE_DATAFRAME_HPP_
 #define IGRAPHLITE_DATAFRAME_HPP_
 
+#include "cpp11.hpp"
+
 #include <unordered_set>
 #include <numeric>
 
@@ -15,14 +17,22 @@ namespace impl {
     df->attr(R_RowNamesSymbol) = cpp11::writable::integers{NA_INTEGER, -n};
   }
 
-  inline void set_tbl_class(cpp11::writable::data_frame* df) {
-    df->attr(R_ClassSymbol) = {"tbl_df", "tbl", "data.frame"};
-  }
-
   inline void set_data_frame_attributes(cpp11::writable::data_frame* df, const int n) {
     set_colnames(df);
     set_rownames(df, n);
-    set_tbl_class(df);
+  }
+
+  inline auto set_tbl_class(cpp11::writable::data_frame&& df) {
+    df.attr(R_ClassSymbol) = {"tbl_df", "tbl", "data.frame"};
+    return std::move(df);
+  }
+
+  inline auto tibble(SEXP x) {
+    return set_tbl_class(cpp11::writable::data_frame(std::move(x)));
+  }
+
+  inline auto tibble(std::initializer_list<cpp11::named_arg> il) {
+    return set_tbl_class(cpp11::writable::data_frame(il));
   }
 
   template <class T> inline
@@ -111,9 +121,8 @@ namespace impl {
       }
     }
     const cpp11::strings names(df->names());
-    *df = cpp11::writable::data_frame(std::move(newcols));
+    *df = tibble(std::move(newcols));
     df->names() = names;
-    set_tbl_class(df);
   }
 
   template <class T>
@@ -138,9 +147,28 @@ namespace impl {
       }
     }
     const cpp11::strings names(df->names());
-    *df = cpp11::writable::data_frame(std::move(newcols));
+    *df = tibble(std::move(newcols));
     df->names() = names;
-    set_tbl_class(df);
+  }
+
+  inline void mutate(cpp11::writable::list* x, const char* key, SEXP value) {
+    SEXP names = PROTECT(x->names());
+    R_xlen_t size = Rf_xlength(names);
+    for (R_xlen_t pos = 0; pos < size; ++pos) {
+      if (Rf_translateCharUTF8(STRING_ELT(names, pos)) == key) {
+        UNPROTECT(1);
+        x[pos] = value;
+        return;
+      }
+    }
+    UNPROTECT(1);
+    x->push_back({cpp11::named_arg(static_cast<std::string>(key).c_str()) = value});
+  }
+
+  inline void mutate(cpp11::writable::data_frame* x, const char* key, SEXP value) {
+    cpp11::writable::list ls(std::move(*x));
+    mutate(&ls, key, value);
+    *x = tibble(std::move(ls));
   }
 
   template <class T, class Fn>

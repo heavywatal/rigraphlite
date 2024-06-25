@@ -18,13 +18,19 @@ getVattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Vattr_;}
 getEattr_(const cpp11::external_pointer<IGraph> graph) {return graph->Eattr_;}
 [[cpp11::register]]
 void setVattr_(cpp11::external_pointer<IGraph> graph, SEXP other) {
-  graph->Vattr_ = cpp11::writable::data_frame(other);
-  impl::set_tbl_class(&graph->Vattr_);
+  graph->Vattr_ = impl::tibble(other);
 }
 [[cpp11::register]]
 void setEattr_(cpp11::external_pointer<IGraph> graph, SEXP other) {
-  graph->Eattr_ = cpp11::writable::data_frame(other);
-  impl::set_tbl_class(&graph->Eattr_);
+  graph->Eattr_ = impl::tibble(other);
+}
+[[cpp11::register]]
+void mutate_Vattr_(cpp11::external_pointer<IGraph> graph, const char* key, SEXP value) {
+  impl::mutate(&graph->Vattr_, key, value);
+}
+[[cpp11::register]]
+void mutate_Eattr_(cpp11::external_pointer<IGraph> graph, const char* key, SEXP value) {
+  impl::mutate(&graph->Eattr_, key, value);
 }
 
 SEXP IGraph::V() const {

@@ -15,8 +15,8 @@ test_that("distances works", {
     expect_length(n**2L)
   expect_true(is.matrix(dw))
   expect_identical(dim(dw), c(vcount(g), vcount(g)))
-  expect_error(distances(g, weights = TRUE), "hasName")
-  Eattr(g, "weight") = E(g)
+  expect_warning(get_shortest_paths(g, 1L, weights = TRUE), "column")
+  Eattr(g)$weight = E(g)
   expect_identical(distances(g, weights = TRUE), dw)
 })
 
@@ -37,8 +37,8 @@ test_that("get_shortest_paths works", {
     get_shortest_paths(g, 1L, mode = 2L),
     "Couldn't reach some vertices"
   )
-  expect_error(get_shortest_paths(g, 1L, weights = TRUE), "hasName")
-  Eattr(g, "weight") = E(g)
+  expect_warning(get_shortest_paths(g, 1L, weights = TRUE), "column")
+  Eattr(g)$weight = E(g)
   expect_type(get_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
@@ -56,8 +56,8 @@ test_that("get_all_shortest_paths works", {
     "Expected single integer value"
   )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
-  expect_error(get_all_shortest_paths(g, 1L, weights = TRUE), "hasName")
-  Eattr(g, "weight") = E(g)
+  expect_warning(get_shortest_paths(g, 1L, weights = TRUE), "column")
+  Eattr(g)$weight = E(g)
   expect_type(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
 })
 
