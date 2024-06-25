@@ -4,20 +4,15 @@ test_that("attribute getters/setters work", {
 
   Vattr(g)$name = V(g)
   Vattr(g)$name |>
-    expect_identical(Vnames(g)) |>
     expect_identical(V(g)) |>
     expect_identical(seq_len(vcount(g)))
   vattr = Vattr(g) |>
     expect_s3_class("data.frame")
+  vattr$weight = V(g) + 10
   Vattr(g) = vattr
   expect_identical(Vattr(g), vattr)
-
-  Vattr(g)$name = V(g) |> as.double()
-  expect_type(Vnames(g), "double")
-  Vattr(g)$name = V(g) |> as.character()
-  expect_type(Vnames(g), "character")
-  Vattr(g)$name = V(g) |> as.complex()
-  expect_identical(Vnames(g), V(g))
+  Vattr(g)$weight = V(g) + 100
+  expect_true(all(Vattr(g)$weight > vattr$weight))
 
   Eattr(g)$name = E(g)
   Eattr(g)$name |>
@@ -25,17 +20,40 @@ test_that("attribute getters/setters work", {
     expect_identical(seq_len(ecount(g)))
   eattr = Eattr(g) |>
     expect_s3_class("data.frame")
+  eattr$weight = E(g) + 10
   Eattr(g) = eattr
   expect_identical(Eattr(g), eattr)
+  Eattr(g)$weight = E(g) + 100
+  expect_true(all(Eattr(g)$weight > eattr$weight))
 
   expect_null(Vattr(g, "argument"))
   Vattr(g, "argument") = V(g)
+  expect_identical(Vattr(g, "argument"), V(g))
   expect_null(Vattr(g)[["brackets"]])
   Vattr(g)[["brackets"]] = V(g)
+  expect_identical(Vattr(g)[["brackets"]], V(g))
   skip_if_not_installed("tibble")
   expect_null(Vattr(g)$dollar) |>
     expect_warning("column")
   Vattr(g)$dollar = V(g)
+  expect_identical(Vattr(g)$dollar, V(g))
+})
+
+test_that("Vnames() works", {
+  g = graph_tree(7L)
+  expect_identical(Vnames(g), V(g))
+  Vattr(g)$name = V(g) |> as.raw()
+  expect_type(Vnames(g), "raw")
+  Vattr(g)$name = V(g)
+  expect_type(Vnames(g), "integer")
+  Vattr(g)$name = V(g) |> as.double()
+  expect_type(Vnames(g), "double")
+  Vattr(g)$name = V(g) |> as.complex()
+  expect_type(Vnames(g), "complex")
+  Vattr(g)$name = V(g) |> as.character()
+  expect_type(Vnames(g), "character")
+  Vattr(g)$name = V(g) |> as.list()
+  expect_type(Vnames(g), "list")
 })
 
 test_that("name-id conversion works", {

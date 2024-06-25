@@ -6,9 +6,7 @@
 #' @rdname s3-method
 #' @export
 as.data.frame.igraph_ptr = function(x, ...) {
-  df = .Call(`_igraphlite_as_data_frame_`, x)
-  class(df) = c("tbl_df", "tbl", "data.frame")
-  df
+  .Call(`_igraphlite_as_data_frame_`, x)
 }
 
 #' @rdname s3-method

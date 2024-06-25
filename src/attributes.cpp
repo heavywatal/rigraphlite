@@ -43,16 +43,8 @@ SEXP IGraph::E() const {
 
 SEXP IGraph::Vnames() const {
   const auto vnames = Vattr_["name"];
-  switch (TYPEOF(vnames)) {
-    case INTSXP:
-      return cpp11::as_cpp<cpp11::integers>(vnames);
-    case REALSXP:
-      return cpp11::as_cpp<cpp11::doubles>(vnames);
-    case STRSXP:
-      return cpp11::as_cpp<cpp11::strings>(vnames);
-    default:
-      return V();
-  }
+  if (vnames == R_NilValue) return V();
+  return vnames;
 }
 
 cpp11::integers IGraph::from() const {return AsIndices::wrap(&data_->from);}

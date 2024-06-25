@@ -33,28 +33,17 @@ as_data_frame_(const cpp11::external_pointer<IGraph> graph) {
   cpp11::writable::list ls;
   ls.reserve(2 + eattr_size);
   const auto vnames = graph->Vattr_["name"];
-  switch (TYPEOF(vnames)) {
-    case INTSXP:
-      ls.push_back("from"_nm = impl::subset<int>(vnames, graph->from()));
-      ls.push_back("to"_nm = impl::subset<int>(vnames, graph->to()));
-      break;
-    case REALSXP:
-      ls.push_back("from"_nm = impl::subset<double>(vnames, graph->from()));
-      ls.push_back("to"_nm = impl::subset<double>(vnames, graph->to()));
-      break;
-    case STRSXP:
-      ls.push_back("from"_nm = impl::subset<cpp11::r_string>(vnames, graph->from()));
-      ls.push_back("to"_nm = impl::subset<cpp11::r_string>(vnames, graph->to()));
-      break;
-    default:
-      ls.push_back("from"_nm = graph->from());
-      ls.push_back("to"_nm = graph->to());
-      break;
+  if (vnames == R_NilValue) {
+    ls.push_back("from"_nm = graph->from());
+    ls.push_back("to"_nm = graph->to());
+  } else {
+    ls.push_back("from"_nm = impl::subset(vnames, graph->from()));
+    ls.push_back("to"_nm = impl::subset(vnames, graph->to()));
   }
   const auto eattr_names = cpp11::as_cpp<cpp11::strings>(graph->Eattr_.names());
   for (int i=0; i<eattr_size; ++i) {
     const auto name = eattr_names[i];
     ls.push_back(cpp11::named_arg(static_cast<std::string>(name).c_str()) = graph->Eattr_[i]);
   }
-  return cpp11::writable::data_frame(std::move(ls));
+  return impl::tibble(std::move(ls));
 }

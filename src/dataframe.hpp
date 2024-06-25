@@ -7,6 +7,13 @@
 #include <unordered_set>
 #include <numeric>
 
+namespace cpp11 {
+  template <> inline
+  uint8_t na<uint8_t>() {return 0;}
+  template <> inline
+  SEXP na<SEXP>() {return NA_STRING;}
+}
+
 namespace impl {
 
   inline void set_colnames(cpp11::writable::data_frame* df) {
@@ -35,60 +42,67 @@ namespace impl {
     return set_tbl_class(cpp11::writable::data_frame(il));
   }
 
-  template <class T> inline
-  T na() {return T{};}
-  template <> inline
-  int na<int>() {return R_NaInt;}
-  template <> inline
-  double na<double>() {return R_NaReal;}
-  template <> inline
-  SEXP na<SEXP>() {return R_NaString;}
-
   inline R_xlen_t idx_size(const cpp11::r_vector<int>& idx) {
     return idx.size();
   }
 
   inline R_xlen_t idx_size(const cpp11::r_vector<cpp11::r_bool>& idx) {
-    int n = 0;
+    R_xlen_t n = 0;
     for (const auto x: idx) n += static_cast<int>(x);
     return n;
   }
 
-  template <class RTYPE, class T> inline
-  cpp11::r_vector<RTYPE> elongate(const cpp11::r_vector<RTYPE>& x, int n) {
-    int len = x.size();
-    cpp11::writable::r_vector<RTYPE> res(len + n);
-    for (int i = 0; i < len; ++i) {
+  template <class T> inline
+  cpp11::r_vector<T>
+  elongate_vector(const cpp11::r_vector<T>& x, const int n) {
+    R_xlen_t len = x.size();
+    cpp11::writable::r_vector<T> res(len + n);
+    for (R_xlen_t i = 0; i < len; ++i) {
       res[i] = x[i];
     }
-    for (int i = len; i < res.size(); ++i) {
-      res[i] = na<T>();
+    for (R_xlen_t i = len; i < res.size(); ++i) {
+      res[i] = cpp11::na<T>();
     }
     return res;
   }
 
+  inline SEXP elongate(SEXP x, const int n) {
+    switch (TYPEOF(x)) {
+      case RAWSXP:  return elongate_vector<uint8_t>(x, n);
+      case LGLSXP:  return elongate_vector<cpp11::r_bool>(x, n);
+      case INTSXP:  return elongate_vector<int>(x, n);
+      case REALSXP: return elongate_vector<double>(x, n);
+      case STRSXP:  return elongate_vector<cpp11::r_string>(x, n);
+      case VECSXP:  return elongate_vector<SEXP>(x, n);
+      default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(x));
+    }
+  }
+
   template <class T> inline
-  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::logicals& idx, const bool negate = false) {
+  cpp11::r_vector<T>
+  subset_vector(const cpp11::r_vector<T>& x, const cpp11::logicals& idx, const bool negate = false) {
     cpp11::writable::r_vector<T> res;
     if (negate) {
       res.reserve(x.size() - idx_size(idx));
     } else {
       res.reserve(idx_size(idx));
     }
-    for (int i = 0; i < idx.size(); ++i) {
+    const R_xlen_t n = idx.size();
+    for (R_xlen_t i = 0; i < n; ++i) {
       if (static_cast<bool>(idx[i]) xor negate) res.push_back(x[i]);
     }
     return res;
   }
 
   template <class T> inline
-  cpp11::r_vector<T> subset(const cpp11::r_vector<T>& x, const cpp11::integers& idx, const bool negate = false) {
+  cpp11::r_vector<T>
+  subset_vector(const cpp11::r_vector<T>& x, const cpp11::integers& idx, const bool negate = false) {
     cpp11::writable::r_vector<T> res;
     if (negate) {
       res.reserve(x.size() - idx.size());
-      const int x_size1 = x.size() + 1;
+      const R_xlen_t x_size1 = x.size() + 1;
       auto it = idx.begin();
-      for (int i = 1; i < x_size1; ++i) {
+      for (R_xlen_t i = 1; i < x_size1; ++i) {
         if (it != idx.end() && i == *it) {
           ++it;
         } else {
@@ -104,6 +118,19 @@ namespace impl {
     return res;
   }
 
+  template <class T> inline
+  SEXP subset(SEXP x, const cpp11::r_vector<T>& idx, const bool negate = false) {
+    switch (TYPEOF(x)) {
+      case RAWSXP:  return subset_vector<uint8_t>(x, idx, negate);
+      case LGLSXP:  return subset_vector<cpp11::r_bool>(x, idx, negate);
+      case INTSXP:  return subset_vector<int>(x, idx, negate);
+      case REALSXP: return subset_vector<double>(x, idx, negate);
+      case STRSXP:  return subset_vector<cpp11::r_string>(x, idx, negate);
+      case VECSXP:  return subset_vector<SEXP>(x, idx, negate);
+      default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(x));
+    }
+  }
+
   inline void append_na_rows(cpp11::writable::data_frame* df, int n) {
     const auto ncol = df->size();
     if (ncol == 0) {
@@ -113,12 +140,7 @@ namespace impl {
     cpp11::writable::list newcols;
     newcols.reserve(ncol);
     for (const auto col: *df) {
-      switch (TYPEOF(col)) {
-        case INTSXP:  newcols.push_back(elongate<int, int>(col, n)); break;
-        case REALSXP: newcols.push_back(elongate<double, double>(col, n)); break;
-        case STRSXP:  newcols.push_back(elongate<cpp11::r_string, SEXP>(col, n)); break;
-        default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(col));
-      }
+      newcols.push_back(elongate(col, n));
     }
     const cpp11::strings names(df->names());
     *df = tibble(std::move(newcols));
@@ -139,12 +161,7 @@ namespace impl {
     cpp11::writable::list newcols;
     newcols.reserve(ncol);
     for (const auto col: *df) {
-      switch (TYPEOF(col)) {
-        case INTSXP:  newcols.push_back(subset<int>(col, idx, negate)); break;
-        case REALSXP: newcols.push_back(subset<double>(col, idx, negate)); break;
-        case STRSXP:  newcols.push_back(subset<cpp11::r_string>(col, idx, negate)); break;
-        default: cpp11::stop("Invalid type for attributes: %d", TYPEOF(col));
-      }
+      newcols.push_back(subset(col, idx, negate));
     }
     const cpp11::strings names(df->names());
     *df = tibble(std::move(newcols));

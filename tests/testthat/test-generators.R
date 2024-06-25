@@ -30,22 +30,23 @@ test_that("generator round-trip", {
   df = as.data.frame(tree)
   df$from = df$from + 10L
   df$to = df$to + 10L
+  df$weight = df$to * 100
   g_df = graph_from_data_frame(df)
   expect_identical(as.data.frame(g_df), df)
 
-  el = as.matrix(df)
+  el = as.matrix(df[, 1:2])
   g_el = graph_from_symbolic_edgelist(el)
   expect_identical(as.data.frame(g_el) |> as.matrix(), el)
 
   df$from = as.double(df$from)
   df$to = as.double(df$to)
-  gdf = graph_from_data_frame(df)
-  expect_identical(as.data.frame(gdf), df)
+  g_df = graph_from_data_frame(df)
+  expect_identical(as.data.frame(g_df), df)
 
   df$from = as.character(df$from)
   df$to = as.character(df$to)
-  gdf = graph_from_data_frame(df)
-  expect_identical(as.data.frame(gdf), df)
+  g_df = graph_from_data_frame(df)
+  expect_identical(as.data.frame(g_df), df)
 
   df$from = as.complex(df$from)
   df$to = as.complex(df$to)

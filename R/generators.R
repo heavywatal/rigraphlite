@@ -25,7 +25,7 @@ as_igraph.matrix = function(x) {
 #' @rdname as_igraph
 #' @export
 as_igraph.data.frame = function(x) {
-  graph_from_data_frame(x) |> set_ptr_class()
+  graph_from_data_frame(x)
 }
 
 #' @param df data.frame that includes an edgelist and edge attributes.
