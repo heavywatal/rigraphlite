@@ -259,13 +259,6 @@ extern "C" SEXP _igraphlite_graph_famous_(SEXP name) {
   END_CPP11
 }
 // generators.cpp
-SEXP induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl);
-extern "C" SEXP _igraphlite_induced_subgraph_(SEXP other, SEXP vids, SEXP impl) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(induced_subgraph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(other), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<int>>(impl)));
-  END_CPP11
-}
-// generators.cpp
 SEXP graph_from_edgelist_(const cpp11::sexp edgelist, bool directed);
 extern "C" SEXP _igraphlite_graph_from_edgelist_(SEXP edgelist, SEXP directed) {
   BEGIN_CPP11
@@ -341,6 +334,27 @@ SEXP layout_reingold_tilford_circular_(const cpp11::external_pointer<IGraph> gra
 extern "C" SEXP _igraphlite_layout_reingold_tilford_circular_(SEXP graph, SEXP mode, SEXP roots) {
   BEGIN_CPP11
     return cpp11::as_sexp(layout_reingold_tilford_circular_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots)));
+  END_CPP11
+}
+// operators.cpp
+SEXP induced_subgraph_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, int impl);
+extern "C" SEXP _igraphlite_induced_subgraph_(SEXP graph, SEXP vids, SEXP impl) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(induced_subgraph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<int>>(impl)));
+  END_CPP11
+}
+// operators.cpp
+SEXP induced_subgraph_edges_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids);
+extern "C" SEXP _igraphlite_induced_subgraph_edges_(SEXP graph, SEXP vids) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(induced_subgraph_edges_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids)));
+  END_CPP11
+}
+// operators.cpp
+SEXP subgraph_from_edges_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& eids, const bool delete_vertices);
+extern "C" SEXP _igraphlite_subgraph_from_edges_(SEXP graph, SEXP eids, SEXP delete_vertices) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(subgraph_from_edges_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(delete_vertices)));
   END_CPP11
 }
 // paths.cpp
@@ -482,6 +496,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_igraph_version_",                   (DL_FUNC) &_igraphlite_igraph_version_,                   0},
     {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         3},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},
+    {"_igraphlite_induced_subgraph_edges_",           (DL_FUNC) &_igraphlite_induced_subgraph_edges_,           2},
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
     {"_igraphlite_layout_drl_",                       (DL_FUNC) &_igraphlite_layout_drl_,                       1},
     {"_igraphlite_layout_fruchterman_reingold_",      (DL_FUNC) &_igraphlite_layout_fruchterman_reingold_,      2},
@@ -503,6 +518,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_setVattr_",                         (DL_FUNC) &_igraphlite_setVattr_,                         2},
     {"_igraphlite_subcomponent_",                     (DL_FUNC) &_igraphlite_subcomponent_,                     3},
     {"_igraphlite_subcomponents_",                    (DL_FUNC) &_igraphlite_subcomponents_,                    3},
+    {"_igraphlite_subgraph_from_edges_",              (DL_FUNC) &_igraphlite_subgraph_from_edges_,              3},
     {"_igraphlite_to_",                               (DL_FUNC) &_igraphlite_to_,                               1},
     {"_igraphlite_vcount_",                           (DL_FUNC) &_igraphlite_vcount_,                           1},
     {NULL, NULL, 0}

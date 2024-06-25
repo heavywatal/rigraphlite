@@ -31,6 +31,7 @@ neighborhood = function(graph, vids = integer(0), order = 1L, mode = 1L, mindist
 #' Graph Components
 #'
 #' @source <https://igraph.org/c/doc/igraph-Structural.html#graph-components>
+#' @seealso [induced_subgraph()]
 #' @inheritParams common_params
 #' @rdname component
 #' @export
@@ -42,12 +43,4 @@ subcomponent = function(graph, vid, mode = 1L) {
 #' @export
 subcomponents = function(graph, vids, mode = 1L) {
   .Call(`_igraphlite_subcomponents_`, graph, vids, mode)
-}
-
-#' @param impl how to construct a new graph:
-#'             \{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH\}
-#' @rdname component
-#' @export
-induced_subgraph = function(graph, vids, impl = 0L) {
-  .Call(`_igraphlite_induced_subgraph_`, graph, sort(vids), impl) |> set_ptr_class()
 }

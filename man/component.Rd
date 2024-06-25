@@ -3,7 +3,6 @@
 \name{subcomponent}
 \alias{subcomponent}
 \alias{subcomponents}
-\alias{induced_subgraph}
 \title{Graph Components}
 \source{
 \url{https://igraph.org/c/doc/igraph-Structural.html#graph-components}
@@ -12,8 +11,6 @@
 subcomponent(graph, vid, mode = 1L)
 
 subcomponents(graph, vids, mode = 1L)
-
-induced_subgraph(graph, vids, impl = 0L)
 }
 \arguments{
 \item{graph}{igraph_ptr object.}
@@ -23,10 +20,10 @@ induced_subgraph(graph, vids, impl = 0L)
 \item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{vids}{Vertices of interest.}
-
-\item{impl}{how to construct a new graph:
-\{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH\}}
 }
 \description{
 Graph Components
+}
+\seealso{
+\code{\link[=induced_subgraph]{induced_subgraph()}}
 }

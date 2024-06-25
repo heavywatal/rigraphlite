@@ -5,7 +5,6 @@
 
 #include <igraph/igraph_interface.h>
 #include <igraph/igraph_constructors.h>
-#include <igraph/igraph_operators.h>
 
 #include <unordered_map>
 
@@ -66,18 +65,6 @@ graph_famous_(const char* name) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_famous(p->data(), name);
   p->init_attr();
-  return p;
-}
-
-[[cpp11::register]] SEXP
-induced_subgraph_(const cpp11::external_pointer<IGraph> other, const cpp11::integers& vids, int impl) {
-  cpp11::external_pointer<IGraph> p(new IGraph());
-  igraph_induced_subgraph(
-    other->data(), p->data(), ISelectorInPlace(vids).vss(),
-    static_cast<igraph_subgraph_implementation_t>(impl));
-  p->Vattr_ = other->Vattr_;
-  impl::filter(&p->Vattr_, vids);
-  impl::set_data_frame_attributes(&p->Eattr_, p->ecount()); // TODO
   return p;
 }
 

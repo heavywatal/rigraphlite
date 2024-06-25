@@ -140,10 +140,6 @@ graph_famous_ <- function(name) {
   .Call(`_igraphlite_graph_famous_`, name)
 }
 
-induced_subgraph_ <- function(other, vids, impl) {
-  .Call(`_igraphlite_induced_subgraph_`, other, vids, impl)
-}
-
 graph_from_edgelist_ <- function(edgelist, directed) {
   .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed)
 }
@@ -186,6 +182,18 @@ layout_reingold_tilford_ <- function(graph, mode, roots) {
 
 layout_reingold_tilford_circular_ <- function(graph, mode, roots) {
   .Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots)
+}
+
+induced_subgraph_ <- function(graph, vids, impl) {
+  .Call(`_igraphlite_induced_subgraph_`, graph, vids, impl)
+}
+
+induced_subgraph_edges_ <- function(graph, vids) {
+  .Call(`_igraphlite_induced_subgraph_edges_`, graph, vids)
+}
+
+subgraph_from_edges_ <- function(graph, eids, delete_vertices) {
+  .Call(`_igraphlite_subgraph_from_edges_`, graph, eids, delete_vertices)
 }
 
 distances_ <- function(graph, from, to, weights, mode, algorithm) {
