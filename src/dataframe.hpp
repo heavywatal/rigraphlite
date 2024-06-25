@@ -174,7 +174,7 @@ namespace impl {
     for (R_xlen_t pos = 0; pos < size; ++pos) {
       if (Rf_translateCharUTF8(STRING_ELT(names, pos)) == key) {
         UNPROTECT(1);
-        x[pos] = value;
+        (*x)[pos] = value;
         return;
       }
     }

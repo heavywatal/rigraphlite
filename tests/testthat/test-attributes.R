@@ -26,10 +26,6 @@ test_that("attribute getters/setters work", {
   Eattr(g)$weight = E(g) + 100
   expect_true(all(Eattr(g)$weight > eattr$weight))
 
-  expect_null(Vattr(g, "argument"))
-  Vattr(g, "argument") = V(g)
-  expect_identical(Vattr(g, "argument"), V(g))
-  expect_null(Vattr(g)[["brackets"]])
   Vattr(g)[["brackets"]] = V(g)
   expect_identical(Vattr(g)[["brackets"]], V(g))
   skip_if_not_installed("tibble")
@@ -37,6 +33,30 @@ test_that("attribute getters/setters work", {
     expect_warning("column")
   Vattr(g)$dollar = V(g)
   expect_identical(Vattr(g)$dollar, V(g))
+})
+
+test_that("mutate_*attr_() works", {
+  g = graph_tree(7L)
+
+  # mutate_Vattr_ push_back
+  expect_null(Vattr(g, "argument"))
+  Vattr(g, "argument") = V(g)
+  expect_identical(Vattr(g, "argument"), V(g))
+
+  # mutate_Vattr_ existing
+  Vattr(g, "argument") = -V(g)
+  expect_identical(Vattr(g, "argument"), -V(g))
+  expect_null(Vattr(g)[["brackets"]])
+
+  # mutate_Eattr_ push_back
+  expect_null(Eattr(g, "argument"))
+  Eattr(g, "argument") = E(g)
+  expect_identical(Eattr(g, "argument"), E(g))
+
+  # mutate_Eattr_ existing
+  Eattr(g, "argument") = -E(g)
+  expect_identical(Eattr(g, "argument"), -E(g))
+  expect_null(Eattr(g)[["brackets"]])
 })
 
 test_that("Vnames() works", {
