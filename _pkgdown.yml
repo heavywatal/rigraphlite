@@ -41,7 +41,11 @@ reference:
   desc: https://igraph.org/c/doc/igraph-Random.html
   contents:
   - igraph_rng_seed
-- title: Misc.
+- title: Miscellaneous operators
+  desc: https://igraph.org/c/doc/igraph-Operators.html
+  contents:
+  - ends_with("subgraph")
+- title: Non-graph related functions
   desc: https://igraph.org/c/doc/igraph-Nongraph.html
   contents:
   - ends_with("version")

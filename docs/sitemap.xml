@@ -16,6 +16,9 @@
     <loc>/index.html</loc>
   </url>
   <url>
+    <loc>/reference/adjacent.html</loc>
+  </url>
+  <url>
     <loc>/reference/adjlist.html</loc>
   </url>
   <url>
@@ -35,9 +38,6 @@
   </url>
   <url>
     <loc>/reference/component.html</loc>
-  </url>
-  <url>
-    <loc>/reference/connected.html</loc>
   </url>
   <url>
     <loc>/reference/experimental.html</loc>
@@ -82,10 +82,10 @@
     <loc>/reference/s3-method.html</loc>
   </url>
   <url>
-    <loc>/reference/shortest_paths.html</loc>
+    <loc>/reference/sink.html</loc>
   </url>
   <url>
-    <loc>/reference/sink.html</loc>
+    <loc>/reference/subgraph.html</loc>
   </url>
   <url>
     <loc>/reference/tbl_tree.html</loc>
