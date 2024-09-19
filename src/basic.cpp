@@ -69,7 +69,7 @@ void add_vertices_(cpp11::external_pointer<IGraph> graph, int n) {
 
 [[cpp11::register]]
 void add_edges_(cpp11::external_pointer<IGraph> graph, const cpp11::integers& edges) {
-  const int new_vs = *std::max_element(edges.begin(), edges.end()) - graph->vcount();
+  const int new_vs = std::max(0, *std::max_element(edges.begin(), edges.end()) - graph->vcount());
   if (new_vs) add_vertices_(graph, new_vs);
   igraph_add_edges(graph->data(), ISelectorInPlace(edges).data(), nullptr);
   impl::append_na_rows(&graph->Eattr_, edges.size() / 2);

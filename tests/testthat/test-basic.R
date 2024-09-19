@@ -61,7 +61,8 @@ graph_tree_test = function(n = 7L) {
 
 test_that("add_edges/add_vertices work", {
   g = graph_tree(7L)
-  add_edges(g, c(6L, 7L, 8L, 9L))
+  add_edges(g, c(6L, 7L))
+  add_edges(g, c(8L, 9L))
   length(E(g)) |>
     expect_identical(ecount(g)) |>
     expect_identical(nrow(Eattr(g))) |>
@@ -72,7 +73,8 @@ test_that("add_edges/add_vertices work", {
     expect_identical(9L)
 
   g = graph_tree_test(7L)
-  add_edges(g, c(6L, 7L, 8L, 9L))
+  add_edges(g, c(6L, 7L))
+  add_edges(g, c(8L, 9L))
   length(E(g)) |>
     expect_identical(ecount(g)) |>
     expect_identical(nrow(Eattr(g))) |>
