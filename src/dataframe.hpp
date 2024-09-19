@@ -11,7 +11,7 @@ namespace cpp11 {
   template <> inline
   uint8_t na<uint8_t>() {return 0;}
   template <> inline
-  SEXP na<SEXP>() {return NA_STRING;}
+  SEXP na<SEXP>() {return R_NilValue;}
 }
 
 namespace impl {
