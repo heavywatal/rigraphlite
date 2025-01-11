@@ -104,7 +104,7 @@ test_that("delete_edges/delete_vertices work", {
     expect_identical(5L)
 
   g = graph_tree_test(7L)
-  delete_edges(g, c(2L, 4L))
+  delete_edges(g, c(4L, 2L))
   length(E(g)) |>
     expect_identical(ecount(g)) |>
     expect_identical(nrow(Eattr(g))) |>
@@ -112,7 +112,7 @@ test_that("delete_edges/delete_vertices work", {
   expect_identical(nrow(Eattr(g)), ecount(g))
   expect_identical(Eattr(g)$name, c("A", "C", "E", "F"))
   expect_identical(Eattr(g)$weight, c(1, 3, 5, 6))
-  delete_vertices(g, c(2L, 4L))
+  delete_vertices(g, c(4L, 2L))
   length(V(g)) |>
     expect_identical(vcount(g)) |>
     expect_identical(nrow(Vattr(g))) |>

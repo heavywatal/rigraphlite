@@ -4,8 +4,9 @@
 
 #include "cpp11.hpp"
 
-#include <unordered_set>
 #include <numeric>
+#include <set>
+#include <unordered_set>
 
 namespace cpp11 {
   template <> inline
@@ -101,9 +102,10 @@ namespace impl {
     if (negate) {
       res.reserve(x.size() - idx.size());
       const R_xlen_t x_size1 = x.size() + 1;
-      auto it = idx.begin();
+      const std::set<int> idx_set{idx.begin(), idx.end()};
+      auto it = idx_set.cbegin();
       for (R_xlen_t i = 1; i < x_size1; ++i) {
-        if (it != idx.end() && i == *it) {
+        if (it != idx_set.cend() && i == *it) {
           ++it;
         } else {
           res.push_back(x[i - 1]);
