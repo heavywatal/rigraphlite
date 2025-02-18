@@ -6,9 +6,9 @@
 #' @rdname tbl_tree
 #' @export
 as_igraph.tbl_tree = function(x) {
-  el = cbind(x[["parent"]], x[["node"]])
-  idx = (el[, 1L] != el[, 2L])
-  g = graph_from_edgelist(el[idx, ])
+  .el = cbind(x[["parent"]], x[["node"]])
+  idx = (.el[, 1L] != .el[, 2L])
+  g = graph_from_edgelist(.el[idx, ])
   Vattr(g)$name = x[["label"]]
   Eattr(g)$branch.length = x[["branch.length"]][idx]
   g
@@ -17,10 +17,10 @@ as_igraph.tbl_tree = function(x) {
 #' @rdname tbl_tree
 #' @export
 as_tbl_tree = function(x) {
-  el = phylo_edge(x)
-  colnames(el) = c("parent", "node")
-  root = setdiff(V(x), el[, 2L])
-  res = as.data.frame(rbind(c(root, root), el))
+  .el = phylo_edge(x)
+  colnames(.el) = c("parent", "node")
+  root = setdiff(V(x), .el[, 2L])
+  res = as.data.frame(rbind(c(root, root), .el))
   res["branch.length"] = c(NA_real_, branch_length(x))
   res = res[order(res[["node"]]), ]
   old_ids = c(Vsink(x), setdiff(V(x), Vsink(x)))

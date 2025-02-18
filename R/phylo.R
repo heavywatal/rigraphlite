@@ -16,12 +16,12 @@ as_igraph.phylo = function(x) {
 #' @rdname phylo
 #' @export
 as_phylo = function(x) {
-  labels = Vnames(x)
+  .labels = Vnames(x)
   idx_sink = is_sink(x)
   structure(list(
     edge = phylo_edge(x),
-    tip.label = labels[idx_sink],
-    node.label = labels[!idx_sink],
+    tip.label = .labels[idx_sink],
+    node.label = .labels[!idx_sink],
     edge.length = phylo_edge_length(x),
     Nnode = sum(!idx_sink)
   ), class = "phylo", order = "cladewise")

@@ -43,20 +43,19 @@ augment.igraph_ptr = function(x, layout = NULL, ...) {
     layout = layout(x, ...)
   }
   if (is.data.frame(layout)) {
-    stopifnot(all(utils::hasName(layout, c("x", "y"))))
+    stopifnot(utils::hasName(layout, c("x", "y")))
     stopifnot(nrow(layout) == vcount(x))
   } else {
-    stop("Invalid type '", typeof(layout), "' for argument 'layout'")
+    stop("Invalid type '", typeof(layout), "' for argument 'layout'", call. = FALSE)
   }
   root = Vsource(x)
   from = c(root, igraph_from(x))
   to = c(root, igraph_to(x))
-  df = segment_df(from, to, layout[["x"]], layout[["y"]], Vnames(x))
-  df
+  segment_df(from, to, layout[["x"]], layout[["y"]], Vnames(x))
 }
 
 segment_df = function(from, to, x, y, vnames = NULL) {
-  df = data.frame(
+  .df = data.frame(
     from, to,
     x = x[to],
     y = y[to],
@@ -64,11 +63,11 @@ segment_df = function(from, to, x, y, vnames = NULL) {
     yend = y[from]
   )
   if (!is.null(vnames)) {
-    df$from = vnames[from]
-    df$to = vnames[to]
+    .df$from = vnames[from]
+    .df$to = vnames[to]
   }
-  class(df) = c("tbl_df", "tbl", "data.frame")
-  df
+  class(.df) = c("tbl_df", "tbl", "data.frame")
+  .df
 }
 
 #' @param lwd passed to [ggplot2::geom_segment()].
@@ -76,8 +75,8 @@ segment_df = function(from, to, x, y, vnames = NULL) {
 #' @rdname plot
 #' @export
 plot.igraph_ptr = function(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16) {
-  data = augment(x, ...)
-  ggplot2::ggplot(data) +
+  .df = augment(x, ...)
+  ggplot2::ggplot(.df) +
     ggplot2::aes(.data[["x"]], .data[["y"]]) +
     ggplot2::geom_segment(ggplot2::aes(xend = .data[["xend"]], yend = .data[["yend"]]), linewidth = lwd) +
     ggplot2::geom_point(shape = pch, size = cex, colour = col) +
