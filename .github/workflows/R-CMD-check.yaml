@@ -4,7 +4,6 @@ on:
   push:
     branches: [main, master]
   pull_request:
-    branches: [main, master]
 
 name: R-CMD-check
 
@@ -20,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest, r: 'release'}
+          - {os: macos-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'release'}
 
     env:
@@ -54,7 +53,7 @@ jobs:
           upload-snapshots: true
 
       - name: Test coverage
-        if: matrix.config.os == 'ubuntu-latest'
+        if: matrix.config.os == 'macos-latest'
         run: |
           cov <- covr::package_coverage(
             type = "all",
@@ -65,11 +64,11 @@ jobs:
           covr::to_cobertura(cov)
         shell: Rscript {0}
 
-      - uses: codecov/codecov-action@v4
-        if: matrix.config.os == 'ubuntu-latest'
+      - uses: codecov/codecov-action@v5
+        if: matrix.config.os == 'macos-latest'
         with:
           fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
-          file: ./cobertura.xml
-          plugin: noop
+          files: ./cobertura.xml
+          plugins: noop
           disable_search: true
           token: ${{ secrets.CODECOV_TOKEN }}
