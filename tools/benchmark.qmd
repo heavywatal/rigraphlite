@@ -9,12 +9,12 @@ format:
 
 ```{r, setup}
 #| output: false
-loadNamespace("igraphlite")
+# loadNamespace("igraphlite")
 # loadNamespace("igraph")
-devtools::load_all()
+# devtools::load_all()
 knitr::opts_chunk$set(message = NA)
 knitr::opts_chunk$set(warning = NA)
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(cache = FALSE)
 knitr::opts_chunk$set(autodep = TRUE)
 ```
 

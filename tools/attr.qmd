@@ -1,0 +1,58 @@
+---
+title: "Benchmark Vattr/Eattr usage"
+format:
+  html:
+    minimal: true
+    embed-resources: true
+---
+
+
+```{r, setup}
+#| include: false
+knitr::opts_chunk$set(message = NA)
+knitr::opts_chunk$set(warning = NA)
+knitr::opts_chunk$set(cache = FALSE)
+knitr::opts_chunk$set(autodep = TRUE)
+```
+
+
+```{r, prepare}
+library(igraphlite)
+g = graph_tree(8191L)
+```
+
+## Setter
+
+```{r, setter}
+x = as.character(V(g))
+assign_arg = \() {Vattr(g, "name") = x}
+assign_bra = \() {Vattr(g)[["name"]] = x}
+assign_dol = \() {Vattr(g)$name = x}
+
+bench::mark(
+  assign_arg(),
+  assign_bra(),
+  assign_dol(),
+  check = TRUE
+)
+```
+
+## Getter
+
+```{r, getter}
+Vattr(g, "name") = as.character(V(g))
+bench::mark(
+  Vattr(g, "name"),
+  Vattr(g)[["name"]],
+  Vattr(g)$name,
+  Vnames(g),
+  check = TRUE
+)
+
+bench::mark(
+  suppressWarnings(Vattr(g)$unknown),
+  Vattr(g, "unknown"),
+  Vattr(g)[["unknown"]],
+  check = TRUE
+)
+```
