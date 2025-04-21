@@ -1,0 +1,16 @@
+linters: linters_with_tags(
+    NULL,
+    assignment_linter(operator = "="),
+    consecutive_assertion_linter = NULL,
+    cyclocomp_linter = NULL,
+    implicit_integer_linter = NULL,
+    line_length_linter(120),
+    nonportable_path_linter = NULL,
+    object_length_linter = NULL,
+    object_name_linter = NULL,
+    undesirable_function_linter = NULL,
+    unnecessary_nesting_linter = NULL
+  )
+exclusions: list(
+    "R/cpp11.R" = list(assignment_linter = Inf)
+  )

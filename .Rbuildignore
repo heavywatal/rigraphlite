@@ -2,7 +2,7 @@
 ^_pkgdown\.yml$
 ^docs$
 ^codecov\.yml$
-^\.travis\.yml$
+^\.lintr$
 ^\.vscode$
 ^\.github$
 ^LICENSE\.md$

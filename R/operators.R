@@ -23,6 +23,6 @@ induced_subgraph_edges = function(graph, vids) {
 #' @param delete_vertices whether to delete the unused vertices.
 #' @rdname subgraph
 #' @export
-subgraph_from_edges <- function(graph, eids, delete_vertices = TRUE) {
+subgraph_from_edges = function(graph, eids, delete_vertices = TRUE) {
   .Call(`_igraphlite_subgraph_from_edges_`, graph, eids, delete_vertices) |> set_ptr_class()
 }
