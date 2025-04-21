@@ -3,10 +3,15 @@ template:
   bootstrap: 5
 destination: docs
 reference:
+- title: R Interface
+  contents:
+  - igraph_ptr
+  - as_igraph
+  - graph_from_data_frame
+  - print.igraph_ptr
 - title: Basic Interface
   desc: https://igraph.org/c/doc/igraph-Basic.html
   contents:
-  - igraph_ptr
   - is_igraph
   - basic-query
   - basic-add-delete
@@ -14,13 +19,11 @@ reference:
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
   contents:
-  - as.data.frame.igraph_ptr
   - as_adjlist
 - title: Graph Generators
   desc: https://igraph.org/c/doc/igraph-Generators.html
   contents:
   - graph_create
-  - as_igraph
 - title: Structural Properties
   desc: https://igraph.org/c/doc/igraph-Structural.html
   contents:

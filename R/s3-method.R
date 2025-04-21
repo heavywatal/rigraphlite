@@ -2,19 +2,6 @@
 #'
 #' @param x igraph_ptr object.
 #' @param ... passed to methods.
-#' @seealso [graph_from_data_frame()], [graph_from_symbolic_edgelist()]
-#' @rdname s3-method
-#' @export
-as.data.frame.igraph_ptr = function(x, ...) {
-  .Call(`_igraphlite_as_data_frame_`, x)
-}
-
-#' @rdname s3-method
-#' @export
-as.matrix.igraph_ptr = function(x, ...) {
-  .Call(`_igraphlite_as_edgelist_`, x)
-}
-
 #' @rdname s3-method
 #' @export
 print.igraph_ptr = function(x, ...) {
