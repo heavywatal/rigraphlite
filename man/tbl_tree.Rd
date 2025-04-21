@@ -8,12 +8,14 @@
 \url{https://cran.r-project.org/package=tidytree}
 }
 \usage{
-\method{as_igraph}{tbl_tree}(x)
+\method{as_igraph}{tbl_tree}(x, ...)
 
 as_tbl_tree(x)
 }
 \arguments{
 \item{x}{An object to convert.}
+
+\item{...}{Additional arguments passed to \code{\link[=graph_from_edgelist]{graph_from_edgelist()}}.}
 }
 \description{
 Conversion between tbl_tree and igraph

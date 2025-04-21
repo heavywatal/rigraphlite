@@ -2,13 +2,14 @@
 #'
 #' @source <https://cran.r-project.org/package=tidytree>
 #' @param x An object to convert.
+#' @param ... Additional arguments passed to [graph_from_edgelist()].
 
 #' @rdname tbl_tree
 #' @export
-as_igraph.tbl_tree = function(x) {
+as_igraph.tbl_tree = function(x, ...) {
   .el = cbind(x$parent, x$node)
   idx = (.el[, 1L] != .el[, 2L])
-  g = graph_from_edgelist(.el[idx, ])
+  g = graph_from_edgelist(.el[idx, ], ...)
   Vattr(g, "name") = x$label
   Eattr(g, "branch.length") = x$branch.length[idx]
   g

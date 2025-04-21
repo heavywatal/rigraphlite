@@ -8,12 +8,14 @@
 \url{https://cran.r-project.org/package=ape}
 }
 \usage{
-\method{as_igraph}{phylo}(x)
+\method{as_igraph}{phylo}(x, ...)
 
 as_phylo(x)
 }
 \arguments{
 \item{x}{An object to convert.}
+
+\item{...}{Additional arguments passed to \code{\link[=graph_from_edgelist]{graph_from_edgelist()}}.}
 }
 \description{
 Conversion between phylo and igraph

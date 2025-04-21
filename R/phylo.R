@@ -2,11 +2,12 @@
 #'
 #' @source <https://cran.r-project.org/package=ape>
 #' @param x An object to convert.
+#' @param ... Additional arguments passed to [graph_from_edgelist()].
 
 #' @rdname phylo
 #' @export
-as_igraph.phylo = function(x) {
-  g = graph_from_edgelist(x[["edge"]])
+as_igraph.phylo = function(x, ...) {
+  g = graph_from_edgelist(x[["edge"]], ...)
   node.label = x[["node.label"]] %||% rep(NA, x[["Nnode"]])
   Vattr(g, "name") = c(x[["tip.label"]], node.label)
   Eattr(g, "edge.length") = x[["edge.length"]]
