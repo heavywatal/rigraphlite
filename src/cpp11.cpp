@@ -279,6 +279,13 @@ extern "C" SEXP _igraphlite_graph_from_symbolic_edgelist_(SEXP edgelist, SEXP di
     return cpp11::as_sexp(graph_from_symbolic_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp>>(edgelist), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
   END_CPP11
 }
+// generators.cpp
+SEXP graph_from_symbolic_edges_(const cpp11::sexp edges, bool directed);
+extern "C" SEXP _igraphlite_graph_from_symbolic_edges_(SEXP edges, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_from_symbolic_edges_(cpp11::as_cpp<cpp11::decay_t<const cpp11::sexp>>(edges), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+  END_CPP11
+}
 // init.cpp
 cpp11::r_string igraph_version_();
 extern "C" SEXP _igraphlite_igraph_version_() {
@@ -488,6 +495,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_from_data_frame_",            (DL_FUNC) &_igraphlite_graph_from_data_frame_,            2},
     {"_igraphlite_graph_from_edgelist_",              (DL_FUNC) &_igraphlite_graph_from_edgelist_,              2},
     {"_igraphlite_graph_from_symbolic_edgelist_",     (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist_,     2},
+    {"_igraphlite_graph_from_symbolic_edges_",        (DL_FUNC) &_igraphlite_graph_from_symbolic_edges_,        2},
     {"_igraphlite_graph_full_",                       (DL_FUNC) &_igraphlite_graph_full_,                       3},
     {"_igraphlite_graph_lattice_",                    (DL_FUNC) &_igraphlite_graph_lattice_,                    5},
     {"_igraphlite_graph_ring_",                       (DL_FUNC) &_igraphlite_graph_ring_,                       4},

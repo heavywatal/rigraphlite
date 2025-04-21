@@ -13,7 +13,12 @@
 #' @rdname generators
 #' @export
 graph_create = function(edges, n = 0L, directed = TRUE) {
-  .Call(`_igraphlite_graph_create_`, edges, n, directed) |> set_ptr_class()
+  if (is.integer(edges)) {
+    g = .Call(`_igraphlite_graph_create_`, edges, n, directed)
+  } else {
+    g = .Call(`_igraphlite_graph_from_symbolic_edges_`, edges, directed)
+  }
+  set_ptr_class(g)
 }
 
 #' @param center Id of the vertex which will be the center of the graph.

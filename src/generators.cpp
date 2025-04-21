@@ -175,6 +175,17 @@ graph_from_symbolic_edgelist_(const cpp11::sexp edgelist, bool directed) {
   }
 }
 
+[[cpp11::register]] SEXP
+graph_from_symbolic_edges_(const cpp11::sexp edges, bool directed) {
+  switch (TYPEOF(edges)) {
+    case INTSXP:  return impl::graph_from_symbolic_edges(cpp11::as_cpp<cpp11::integers>(edges), directed);
+    case REALSXP: return impl::graph_from_symbolic_edges(cpp11::as_cpp<cpp11::doubles>(edges), directed);
+    case STRSXP:  return impl::graph_from_symbolic_edges(cpp11::as_cpp<cpp11::strings>(edges), directed);
+    default:
+      cpp11::stop("Invalid type for vertex names: %d", TYPEOF(edges));
+  }
+}
+
 IGraph::IGraph() noexcept:
   data_(std::make_unique<igraph_t>()),
   Vattr_(impl::tibble({})),

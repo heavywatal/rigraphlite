@@ -152,6 +152,10 @@ graph_from_symbolic_edgelist_ <- function(edgelist, directed) {
   .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed)
 }
 
+graph_from_symbolic_edges_ <- function(edges, directed) {
+  .Call(`_igraphlite_graph_from_symbolic_edges_`, edges, directed)
+}
+
 igraph_version_ <- function() {
   .Call(`_igraphlite_igraph_version_`)
 }
