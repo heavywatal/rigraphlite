@@ -18,6 +18,15 @@ Vsource(graph)
 \arguments{
 \item{graph}{igraph_ptr object.}
 }
+\value{
+\code{is_sink()} and \code{is_source()} return a logical vector indicating
+whether the vertices in the graph are terminating or starting points,
+respectively.
+
+\code{Vsink()} and \code{Vsource()} return the terminating and starting
+vertices of a graph, respectively.
+a graph, respectively.
+}
 \description{
 Shortcuts to get sink/source vertices.
 }

@@ -9,6 +9,9 @@ is_igraph(x)
 \arguments{
 \item{x}{object to be tested.}
 }
+\value{
+\code{TRUE} if the object is of class \code{igraph_ptr}, \code{FALSE} otherwise.
+}
 \description{
 Check if an object is igraph_ptr class
 }

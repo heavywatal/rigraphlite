@@ -8,7 +8,8 @@ reference:
   contents:
   - igraph_ptr
   - is_igraph
-  - vcount
+  - basic-query
+  - basic-add-delete
   - is_sink
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html

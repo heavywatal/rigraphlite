@@ -20,6 +20,7 @@ NULL
 #' @param x object to be tested.
 #'
 #' @rdname is_igraph
+#' @returns `TRUE` if the object is of class `igraph_ptr`, `FALSE` otherwise.
 #' @export
 is_igraph = function(x) {
   inherits(x, "igraph_ptr")
