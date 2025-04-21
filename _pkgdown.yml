@@ -36,6 +36,7 @@ reference:
   contents:
   - Vattr
   - Vnames
+  - igraph_from
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
   contents:

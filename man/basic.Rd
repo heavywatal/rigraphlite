@@ -6,8 +6,6 @@
 \alias{ecount}
 \alias{is_directed}
 \alias{edge}
-\alias{igraph_from}
-\alias{igraph_to}
 \alias{neighbors}
 \alias{incident}
 \alias{degree}
@@ -23,10 +21,6 @@ ecount(graph)
 is_directed(graph)
 
 edge(graph, eid)
-
-igraph_from(graph)
-
-igraph_to(graph)
 
 neighbors(graph, vid, mode = 3L)
 
@@ -55,10 +49,6 @@ degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 \code{is_directed()} returns whether the graph is directed.
 
 \code{edge()} returns the head and tail vertices of an edge.
-
-\code{igraph_from()} returns the head vertices of all the edges.
-
-\code{igraph_to()} returns the tail vertices of all the edges.
 
 \code{neighbors()} returns the adjacent vertices to a vertex.
 

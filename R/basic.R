@@ -34,20 +34,6 @@ edge = function(graph, eid) {
   .Call(`_igraphlite_edge_`, graph, eid)
 }
 
-#' @returns `igraph_from()` returns the head vertices of all the edges.
-#' @rdname basic
-#' @export
-igraph_from = function(graph) {
-  .Call(`_igraphlite_from_`, graph)
-}
-
-#' @returns `igraph_to()` returns the tail vertices of all the edges.
-#' @rdname basic
-#' @export
-igraph_to = function(graph) {
-  .Call(`_igraphlite_to_`, graph)
-}
-
 #' @returns `neighbors()` returns the adjacent vertices to a vertex.
 #' @rdname basic
 #' @export

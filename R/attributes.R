@@ -79,3 +79,29 @@ as_vids = function(graph, vnames) {
 as_vnames = function(graph, vids = V(graph)) {
   Vnames(graph)[vids]
 }
+
+#' Quick access to edge list columns
+#'
+#' If only one of the two columns in the edge list is needed,
+#' these functions provide a more efficient way to access them.
+#' @seealso [as.matrix.igraph_ptr()] and [as.data.frame.igraph_ptr()] to
+#' get entire edge lists.
+#' @source <https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h>
+#' @inheritParams common_params
+#' @returns `igraph_from()` returns the head vertices of all the edges.
+#' @rdname from-to
+#' @export
+#' @examples
+#' g = graph_create(seq_len(6L))
+#' igraph_from(g)
+#' igraph_to(g)
+igraph_from = function(graph) {
+  .Call(`_igraphlite_from_`, graph)
+}
+
+#' @returns `igraph_to()` returns the tail vertices of all the edges.
+#' @rdname from-to
+#' @export
+igraph_to = function(graph) {
+  .Call(`_igraphlite_to_`, graph)
+}
