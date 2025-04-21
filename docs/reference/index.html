@@ -31,9 +31,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="basic-interface">Basic Interface<a class="anchor" aria-label="anchor" href="#basic-interface"></a></h2>
+      <h2 id="r-interface">R Interface<a class="anchor" aria-label="anchor" href="#r-interface"></a></h2>
 
-      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Basic.html" class="external-link uri">https://igraph.org/c/doc/igraph-Basic.html</a></p></div>
+
 
 
     </div><div class="section level2">
@@ -49,16 +49,51 @@
         <dd>igraph_ptr class: thin wrapper of <code>igraph_t</code>.</dd>
       </dl><dl><dt>
 
+          <code><a href="conversion.html">as_igraph()</a></code> <code><a href="conversion.html">as.data.frame(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="conversion.html">as.matrix(<i>&lt;igraph_ptr&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Convert igraph objects to and from other formats.</dd>
+      </dl><dl><dt>
+
+          <code><a href="conversion-impl.html">graph_from_data_frame()</a></code> <code><a href="conversion-impl.html">graph_from_symbolic_edgelist()</a></code> <code><a href="conversion-impl.html">graph_from_edgelist()</a></code>
+
+        </dt>
+        <dd>Convert edge lists to igraph objects.</dd>
+      </dl><dl><dt>
+
+          <code><a href="s3-method.html">print(<i>&lt;igraph_ptr&gt;</i>)</a></code>
+
+        </dt>
+        <dd>S3 methods to get and view internal data.</dd>
+      </dl></div><div class="section level2">
+      <h2 id="basic-interface">Basic Interface<a class="anchor" aria-label="anchor" href="#basic-interface"></a></h2>
+
+      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Basic.html" class="external-link uri">https://igraph.org/c/doc/igraph-Basic.html</a></p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
           <code><a href="is_igraph.html">is_igraph()</a></code>
 
         </dt>
         <dd>Check if an object is igraph_ptr class</dd>
       </dl><dl><dt>
 
-          <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">igraph_from()</a></code> <code><a href="basic.html">igraph_to()</a></code> <code><a href="basic.html">edge()</a></code> <code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">is_directed()</a></code> <code><a href="basic.html">degree()</a></code> <code><a href="basic.html">add_vertices()</a></code> <code><a href="basic.html">add_edges()</a></code> <code><a href="basic.html">delete_vertices()</a></code> <code><a href="basic.html">delete_edges()</a></code>
+          <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">is_directed()</a></code> <code><a href="basic.html">edge()</a></code> <code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">degree()</a></code>
 
         </dt>
         <dd>Basic Query Operations</dd>
+      </dl><dl><dt>
+
+          <code><a href="basic-add-delete.html">add_edges()</a></code> <code><a href="basic-add-delete.html">add_vertices()</a></code> <code><a href="basic-add-delete.html">delete_edges()</a></code> <code><a href="basic-add-delete.html">delete_vertices()</a></code>
+
+        </dt>
+        <dd>Adding and deleting vertices and edges</dd>
       </dl><dl><dt>
 
           <code><a href="sink.html">is_sink()</a></code> <code><a href="sink.html">is_source()</a></code> <code><a href="sink.html">Vsink()</a></code> <code><a href="sink.html">Vsource()</a></code>
@@ -77,12 +112,6 @@
 
 
       <dl><dt>
-
-          <code><a href="s3-method.html">as.data.frame(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="s3-method.html">as.matrix(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="s3-method.html">print(<i>&lt;igraph_ptr&gt;</i>)</a></code>
-
-        </dt>
-        <dd>S3 methods to get and view internal data.</dd>
-      </dl><dl><dt>
 
           <code><a href="adjlist.html">as_adjlist()</a></code> <code><a href="adjlist.html">as_inclist()</a></code>
 
@@ -105,12 +134,6 @@
 
         </dt>
         <dd>Deterministic Graph Generators</dd>
-      </dl><dl><dt>
-
-          <code><a href="as_igraph.html">as_igraph()</a></code> <code><a href="as_igraph.html">graph_from_data_frame()</a></code> <code><a href="as_igraph.html">graph_from_symbolic_edgelist()</a></code> <code><a href="as_igraph.html">graph_from_edgelist()</a></code>
-
-        </dt>
-        <dd>Create graph from R objects</dd>
       </dl></div><div class="section level2">
       <h2 id="structural-properties">Structural Properties<a class="anchor" aria-label="anchor" href="#structural-properties"></a></h2>
 
@@ -175,6 +198,12 @@
 
         </dt>
         <dd>Conversion between vertex IDs and names</dd>
+      </dl><dl><dt>
+
+          <code><a href="from-to.html">igraph_from()</a></code> <code><a href="from-to.html">igraph_to()</a></code>
+
+        </dt>
+        <dd>Quick access to edge list columns</dd>
       </dl></div><div class="section level2">
       <h2 id="generating-layouts-for-graph-drawing">Generating Layouts for Graph Drawing<a class="anchor" aria-label="anchor" href="#generating-layouts-for-graph-drawing"></a></h2>
 
