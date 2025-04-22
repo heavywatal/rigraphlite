@@ -53,8 +53,7 @@ mean_distances_cpp_(
   const int from_size = from.size();
   const int true_from_size = from_size > 0 ? from_size : graph->vcount();
   const int to_size = to.size();
-  const auto to_selector = ISelector(to);
-  const auto to_vss = to_size > 0 ? to_selector.vss() : igraph_vss_all();
+  const auto to_vss = to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all();
   const auto weights_data = weights.size() ? IVectorView(weights).data() : nullptr;
   IMatrix res(1, to_size > 0 ? to_size : graph->vcount());
   double total = 0.0;
