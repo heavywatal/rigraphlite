@@ -58,26 +58,59 @@
 
 
 <dl><dt id="arg-graph">graph<a class="anchor" aria-label="anchor" href="#arg-graph"></a></dt>
-<dd><p>igraph_ptr object.</p></dd>
+<dd><p>An <code><a href="igraph-class.html">igraph_ptr</a></code> object.</p></dd>
 
 
 <dt id="arg-vids">vids<a class="anchor" aria-label="anchor" href="#arg-vids"></a></dt>
-<dd><p>Vertices of interest.</p></dd>
+<dd><p>An integer vector of vertex IDs.</p></dd>
 
 
 <dt id="arg-order">order<a class="anchor" aria-label="anchor" href="#arg-order"></a></dt>
-<dd><p>integer</p></dd>
+<dd><p>An integer giving the order of the neighborhood;
+e.g., <code>order = 1L</code> considers only the immediate neighbors.</p></dd>
 
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
-<dd><p>Edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
+<dd><p>An integer value of edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
 
 
 <dt id="arg-mindist">mindist<a class="anchor" aria-label="anchor" href="#arg-mindist"></a></dt>
-<dd><p>The minimum distance to include a vertex in the counting.</p></dd>
+<dd><p>The minimum distance to include a vertex in the counting;
+e.g., <code>mindist = 1L</code> excludes the starting vertex itself, and <code>2L</code> excludes
+the immediate neighbors.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p><code>neighborhood_size()</code> returns an integer vector of the neighborhood
+sizes for the given vertices.</p>
+<p><code>neighborhood()</code> returns a list of integer vectors, each containing the
+vertex IDs of the neighbors of the given vertices.</p>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="generators.html">graph_tree</a></span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">neighborhood_size</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 3 1 1 1</span>
+<span class="r-in"><span><span class="fu">neighborhood</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 4 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

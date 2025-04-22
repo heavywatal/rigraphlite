@@ -50,18 +50,36 @@
 
 
 <dl><dt id="arg-graph">graph<a class="anchor" aria-label="anchor" href="#arg-graph"></a></dt>
-<dd><p>igraph_ptr object.</p></dd>
+<dd><p>An <code><a href="igraph-class.html">igraph_ptr</a></code> object.</p></dd>
 
 
 <dt id="arg-from">from<a class="anchor" aria-label="anchor" href="#arg-from"></a></dt>
-<dd><p>Vertices of interest.</p></dd>
+<dd><p>An integer vector of vertex IDs.</p></dd>
 
 
 <dt id="arg-to">to<a class="anchor" aria-label="anchor" href="#arg-to"></a></dt>
-<dd><p>Vertices of interest.</p></dd>
+<dd><p>An integer vector of vertex IDs.</p></dd>
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A logical, <code>TRUE</code> if <code>from</code> and <code>to</code> are adjacent, <code>FALSE</code> otherwise.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="basic-adjacent.html">edge()</a></code>, <code><a href="basic-adjacent.html">neighbors()</a></code>, <code><a href="basic-adjacent.html">incident()</a></code> for similar operations.
+<code><a href="adjlist.html">as_adjlist()</a></code> and <code><a href="basic-adjacent.html">degree()</a></code> can apply to all vertices at once.</p></div>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="generators.html">graph_tree</a></span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">are_adjacent</span><span class="op">(</span><span class="va">g</span>, <span class="fl">1L</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="fu">are_adjacent</span><span class="op">(</span><span class="va">g</span>, <span class="fl">1L</span>, <span class="fl">4L</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

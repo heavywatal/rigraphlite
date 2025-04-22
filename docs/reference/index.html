@@ -84,10 +84,16 @@
         <dd>Check if an object is igraph_ptr class</dd>
       </dl><dl><dt>
 
-          <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">is_directed()</a></code> <code><a href="basic.html">edge()</a></code> <code><a href="basic.html">neighbors()</a></code> <code><a href="basic.html">incident()</a></code> <code><a href="basic.html">degree()</a></code>
+          <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">is_directed()</a></code>
 
         </dt>
-        <dd>Basic Query Operations</dd>
+        <dd>Basic query operations</dd>
+      </dl><dl><dt>
+
+          <code><a href="basic-adjacent.html">edge()</a></code> <code><a href="basic-adjacent.html">neighbors()</a></code> <code><a href="basic-adjacent.html">incident()</a></code> <code><a href="basic-adjacent.html">degree()</a></code>
+
+        </dt>
+        <dd>Basic query operations to get adjacency</dd>
       </dl><dl><dt>
 
           <code><a href="basic-add-delete.html">add_edges()</a></code> <code><a href="basic-add-delete.html">add_vertices()</a></code> <code><a href="basic-add-delete.html">delete_edges()</a></code> <code><a href="basic-add-delete.html">delete_vertices()</a></code>
@@ -116,7 +122,24 @@
           <code><a href="adjlist.html">as_adjlist()</a></code> <code><a href="adjlist.html">as_inclist()</a></code>
 
         </dt>
-        <dd>Adjacency lists</dd>
+        <dd>Adjacency lists and incidence lists</dd>
+      </dl></div><div class="section level2">
+      <h2 id="random-numbers">Random numbers<a class="anchor" aria-label="anchor" href="#random-numbers"></a></h2>
+
+      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Random.html" class="external-link uri">https://igraph.org/c/doc/igraph-Random.html</a></p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="random.html">igraph_rng_seed()</a></code>
+
+        </dt>
+        <dd>Seeds a random number generator</dd>
       </dl></div><div class="section level2">
       <h2 id="graph-generators">Graph Generators<a class="anchor" aria-label="anchor" href="#graph-generators"></a></h2>
 
@@ -135,50 +158,9 @@
         </dt>
         <dd>Deterministic Graph Generators</dd>
       </dl></div><div class="section level2">
-      <h2 id="structural-properties">Structural Properties<a class="anchor" aria-label="anchor" href="#structural-properties"></a></h2>
-
-      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Structural.html" class="external-link uri">https://igraph.org/c/doc/igraph-Structural.html</a></p></div>
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="adjacent.html">are_adjacent()</a></code>
-
-        </dt>
-        <dd>Basic Properties</dd>
-      </dl><dl><dt>
-
-          <code><a href="paths.html">distances()</a></code> <code><a href="paths.html">get_shortest_paths()</a></code> <code><a href="paths.html">get_all_shortest_paths()</a></code> <code><a href="paths.html">get_all_simple_paths()</a></code> <code><a href="paths.html">average_path_length()</a></code> <code><a href="paths.html">path_length_hist()</a></code>
-
-        </dt>
-        <dd>Shortest Path Related Functions</dd>
-      </dl><dl><dt>
-
-          <code><a href="neighborhood.html">neighborhood_size()</a></code> <code><a href="neighborhood.html">neighborhood()</a></code>
-
-        </dt>
-        <dd>Neighborhood of vertices</dd>
-      </dl><dl><dt>
-
-          <code><a href="component.html">subcomponent()</a></code> <code><a href="component.html">subcomponents()</a></code>
-
-        </dt>
-        <dd>Graph Components</dd>
-      </dl><dl><dt>
-
-          <code><a href="centrality.html">edge_betweenness()</a></code> <code><a href="centrality.html">edge_betweenness_subset()</a></code>
-
-        </dt>
-        <dd>Centrality measures</dd>
-      </dl></div><div class="section level2">
       <h2 id="attributes-of-graph-vertices-and-edges">Attributes of Graph, Vertices, and Edges<a class="anchor" aria-label="anchor" href="#attributes-of-graph-vertices-and-edges"></a></h2>
 
-
+      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Attributes.html" class="external-link uri">https://igraph.org/c/doc/igraph-Attributes.html</a></p></div>
 
 
     </div><div class="section level2">
@@ -205,6 +187,53 @@
         </dt>
         <dd>Quick access to edge list columns</dd>
       </dl></div><div class="section level2">
+      <h2 id="structural-properties">Structural Properties<a class="anchor" aria-label="anchor" href="#structural-properties"></a></h2>
+
+      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Structural.html" class="external-link uri">https://igraph.org/c/doc/igraph-Structural.html</a></p></div>
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="adjacent.html">are_adjacent()</a></code>
+
+        </dt>
+        <dd>Basic Properties</dd>
+      </dl><dl><dt>
+
+          <code><a href="distances.html">distances()</a></code> <code><a href="distances.html">average_path_length()</a></code> <code><a href="distances.html">path_length_hist()</a></code>
+
+        </dt>
+        <dd>Distance-related Functions</dd>
+      </dl><dl><dt>
+
+          <code><a href="paths.html">get_shortest_paths()</a></code> <code><a href="paths.html">get_all_shortest_paths()</a></code> <code><a href="paths.html">get_all_simple_paths()</a></code>
+
+        </dt>
+        <dd>Shortest Path Related Functions</dd>
+      </dl><dl><dt>
+
+          <code><a href="neighborhood.html">neighborhood_size()</a></code> <code><a href="neighborhood.html">neighborhood()</a></code>
+
+        </dt>
+        <dd>Neighborhood of vertices</dd>
+      </dl><dl><dt>
+
+          <code><a href="components.html">subcomponent()</a></code> <code><a href="components.html">subcomponents()</a></code>
+
+        </dt>
+        <dd>Graph Components</dd>
+      </dl><dl><dt>
+
+          <code><a href="centrality.html">edge_betweenness()</a></code> <code><a href="centrality.html">edge_betweenness_subset()</a></code>
+
+        </dt>
+        <dd>Centrality measures</dd>
+      </dl></div><div class="section level2">
       <h2 id="generating-layouts-for-graph-drawing">Generating Layouts for Graph Drawing<a class="anchor" aria-label="anchor" href="#generating-layouts-for-graph-drawing"></a></h2>
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Layout.html" class="external-link uri">https://igraph.org/c/doc/igraph-Layout.html</a></p></div>
@@ -227,23 +256,6 @@
 
         </dt>
         <dd>Methods for quick visualization</dd>
-      </dl></div><div class="section level2">
-      <h2 id="random-numbers">Random numbers<a class="anchor" aria-label="anchor" href="#random-numbers"></a></h2>
-
-      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Random.html" class="external-link uri">https://igraph.org/c/doc/igraph-Random.html</a></p></div>
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
-          <code><a href="random.html">igraph_rng_seed()</a></code>
-
-        </dt>
-        <dd>Random numbers</dd>
       </dl></div><div class="section level2">
       <h2 id="miscellaneous-operators">Miscellaneous operators<a class="anchor" aria-label="anchor" href="#miscellaneous-operators"></a></h2>
 
@@ -277,19 +289,13 @@
           <code><a href="version.html">igraph_version()</a></code>
 
         </dt>
-        <dd>Check and return igraph version.h</dd>
+        <dd>Get the version of the igraph C library</dd>
       </dl><dl><dt>
 
           <code><a href="common_params.html">common_params()</a></code>
 
         </dt>
         <dd>Common parameters used throughout the package</dd>
-      </dl><dl><dt>
-
-          <code><a href="experimental.html">find_common_ancestors()</a></code> <code><a href="experimental.html">upstream_vertices()</a></code>
-
-        </dt>
-        <dd>Experimental functions</dd>
       </dl></div><div class="section level2">
       <h2 id="other-packages">Other Packages<a class="anchor" aria-label="anchor" href="#other-packages"></a></h2>
 
@@ -313,6 +319,12 @@
 
         </dt>
         <dd>Conversion between tbl_tree and igraph</dd>
+      </dl><dl><dt>
+
+          <code><a href="experimental.html">find_common_ancestors()</a></code> <code><a href="experimental.html">upstream_vertices()</a></code>
+
+        </dt>
+        <dd>Experimental functions</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
