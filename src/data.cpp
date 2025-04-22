@@ -4,12 +4,12 @@
 
 [[cpp11::register]] SEXP
 as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const int multiple) {
-  return IAdjList<AsIndices>(graph->data(), mode, loops, multiple).wrap();
+  return IAdjList(graph->data(), mode, loops, multiple).wrap();
 }
 
 [[cpp11::register]] SEXP
 as_inclist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops) {
-  return IIncList<AsIndices>(graph->data(), mode, loops).wrap();
+  return IIncList(graph->data(), mode, loops).wrap();
 }
 
 [[cpp11::register]] SEXP

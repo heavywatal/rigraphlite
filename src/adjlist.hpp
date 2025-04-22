@@ -9,7 +9,6 @@
 
 #include "policy.hpp"
 
-template <class WrapPolicy>
 class IAdjList {
   public:
     IAdjList(const igraph_t* graph, int mode, int loops, int multiple) {
@@ -24,7 +23,7 @@ class IAdjList {
       if (data_) igraph_adjlist_destroy(data_.get());
     }
     SEXP at(int pos) const {
-      return WrapPolicy::wrap(&data_->adjs[pos]);
+      return AsIndices::wrap(&data_->adjs[pos]);
     }
     int size() const {
       return data_->length;
@@ -43,7 +42,6 @@ class IAdjList {
     std::unique_ptr<igraph_adjlist_t> data_ = std::make_unique<igraph_adjlist_t>();
 };
 
-template <class WrapPolicy>
 class IIncList {
   public:
     IIncList(const igraph_t* graph, int mode, int loops) {
@@ -58,7 +56,7 @@ class IIncList {
       if (data_) igraph_inclist_destroy(data_.get());
     }
     SEXP at(int pos) const {
-      return WrapPolicy::wrap(&data_->incs[pos]);
+      return AsIndices::wrap(&data_->incs[pos]);
     }
     int size() const {
       return data_->length;
