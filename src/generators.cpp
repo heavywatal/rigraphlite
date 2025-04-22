@@ -3,7 +3,6 @@
 #include "vector.hpp"
 #include "dataframe.hpp"
 
-#include <igraph/igraph_interface.h>
 #include <igraph/igraph_constructors.h>
 
 #include <unordered_map>
@@ -184,20 +183,4 @@ graph_from_symbolic_edges_(const cpp11::sexp edges, bool directed) {
     default:
       cpp11::stop("Invalid type for vertex names: %d", TYPEOF(edges));
   }
-}
-
-IGraph::IGraph() noexcept:
-  data_(std::make_unique<igraph_t>()),
-  Vattr_(impl::tibble({})),
-  Eattr_(impl::tibble({})) {}
-
-IGraph::~IGraph() noexcept {
-  if (data_) igraph_destroy(data_.get());
-}
-
-IGraph::IGraph(const IGraph& other) noexcept:
-  data_(std::make_unique<igraph_t>()),
-  Vattr_(other.Vattr_),
-  Eattr_(other.Eattr_) {
-  igraph_copy(data_.get(), other.data_.get());
 }

@@ -1,8 +1,5 @@
 #include "igraph.hpp"
-#include "policy.hpp"
 #include "dataframe.hpp"
-
-#include <igraph/igraph_datatype.h>
 
 [[cpp11::register]] SEXP
 V_(const cpp11::external_pointer<IGraph> graph) {
@@ -45,15 +42,3 @@ void mutate_Vattr_(cpp11::external_pointer<IGraph> graph, const char* key, SEXP 
 void mutate_Eattr_(cpp11::external_pointer<IGraph> graph, const char* key, SEXP value) {
   impl::mutate(&graph->Eattr_, key, value);
 }
-
-void IGraph::init_attr() {
-  impl::set_data_frame_attributes(&Vattr_, vcount());
-  impl::set_data_frame_attributes(&Eattr_, ecount());
-}
-
-cpp11::integers IGraph::from() const {return AsIndices::wrap(&data_->from);}
-cpp11::integers IGraph::to() const {return AsIndices::wrap(&data_->to);}
-cpp11::integers IGraph::oi() const {return AsIndices::wrap(&data_->oi);}
-cpp11::integers IGraph::ii() const {return AsIndices::wrap(&data_->ii);}
-cpp11::integers IGraph::os() const {return AsIndices::wrap(&data_->os);}
-cpp11::integers IGraph::is() const {return AsIndices::wrap(&data_->is);}

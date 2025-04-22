@@ -15,14 +15,6 @@ int ecount_(const cpp11::external_pointer<IGraph> graph) {
   return igraph_ecount(graph->data());
 }
 
-int IGraph::vcount() const {
-  return igraph_vcount(data_.get());
-}
-
-int IGraph::ecount() const {
-  return igraph_ecount(data_.get());
-}
-
 [[cpp11::register]]
 bool is_directed_(const cpp11::external_pointer<IGraph> graph) {
   return igraph_is_directed(graph->data());
