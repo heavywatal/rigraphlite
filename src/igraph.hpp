@@ -15,20 +15,9 @@ class IGraph {
     IGraph(const IGraph& other) noexcept;
     IGraph(IGraph&& other) = default;
 
-    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
-    // Basic interface
-
     int vcount() const;
     int ecount() const;
 
-    /////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
-    // Original methods
-
-    SEXP V() const;
-    SEXP E() const;
-    SEXP Vnames() const;
-
-    // igraph_t getter
     cpp11::integers from() const;
     cpp11::integers to() const;
     cpp11::integers oi() const;

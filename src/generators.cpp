@@ -201,8 +201,3 @@ IGraph::IGraph(const IGraph& other) noexcept:
   Eattr_(other.Eattr_) {
   igraph_copy(data_.get(), other.data_.get());
 }
-
-void IGraph::init_attr() {
-  impl::set_data_frame_attributes(&Vattr_, vcount());
-  impl::set_data_frame_attributes(&Eattr_, ecount());
-}
