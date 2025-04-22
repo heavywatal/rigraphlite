@@ -10,9 +10,9 @@ find_common_ancestors(graph, vids)
 upstream_vertices(graph, vids, to_mrca = TRUE)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{vids}{Vertices of interest.}
+\item{vids}{An integer vector of vertex IDs.}
 
 \item{to_mrca}{Boolean.}
 }

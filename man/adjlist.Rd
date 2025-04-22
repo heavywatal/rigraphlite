@@ -3,7 +3,7 @@
 \name{as_adjlist}
 \alias{as_adjlist}
 \alias{as_inclist}
-\title{Adjacency lists}
+\title{Adjacency lists and incidence lists}
 \source{
 \url{https://igraph.org/c/doc/igraph-Data-structures.html#igraph-Adjlists}
 }
@@ -13,21 +13,27 @@ as_adjlist(graph, mode = 3L, loops = 1L, multiple = 1L)
 as_inclist(graph, mode = 3L, loops = 1L)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
+\item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{loops}{How to treat loop edges; \{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}}
+\item{loops}{An integer value, how to treat loop edges;
+\{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}}
 
-\item{multiple}{Boolean, whether to keep multiple (parallel) edges.}
+\item{multiple}{A logical value, whether to keep multiple (parallel) edges.}
+}
+\value{
+\code{as_adjlist()} returns a list of adjacent vertices for each vertex.
+
+\code{as_inclist()} returns a list of incident edges for each vertex.
 }
 \description{
-These functions are all-vertices version of \code{neighbors()} and \code{incident()}.
+Both lists have the same length as the number of vertices in the graph.
 }
-\details{
-\code{as_adjlist()}: Convert a graph to a list of adjacent vertices.
-
-\code{as_inclist()}: Convert a graph to a list of incident edges.
+\examples{
+g = graph_tree(5L)
+as_adjlist(g, mode = 1L)
+as_inclist(g, mode = 1L)
 }
 \seealso{
 \code{\link[=neighbors]{neighbors()}} and \code{\link[=incident]{incident()}} for single-vertex version.

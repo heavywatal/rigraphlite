@@ -16,7 +16,7 @@ Vsink(graph)
 Vsource(graph)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 }
 \value{
 \code{is_sink()} and \code{is_source()} return a logical vector indicating
@@ -25,8 +25,14 @@ respectively.
 
 \code{Vsink()} and \code{Vsource()} return the terminating and starting
 vertices of a graph, respectively.
-a graph, respectively.
 }
 \description{
-Shortcuts to get sink/source vertices.
+These are simple wrappers around \code{degree()} to get zero-degree vertices.
+}
+\examples{
+g = graph_tree(5L)
+is_sink(g)
+is_source(g)
+Vsink(g)
+Vsource(g)
 }

@@ -10,15 +10,27 @@ Vnames(graph)
 
 as_vids(graph, vnames)
 
-as_vnames(graph, vids = V(graph))
+as_vnames(graph, vids)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{vnames}{Vertex names stored in \code{Vattr[["name"]]}.}
+\item{vnames}{Vertex names stored in \code{Vattr(g)$name}.}
 
-\item{vids}{Vertices of interest.}
+\item{vids}{An integer vector of vertex IDs.}
+}
+\value{
+\code{Vnames()} and \code{as_vnames()} return a character vector of vertex names.
+
+\code{as_vids()} returns an integer vector of vertex IDs.
 }
 \description{
-Conversion between vertex IDs and names
+\code{Vnames()} is equivalent to \code{\link[=Vattr]{Vattr()}} on "name", but is slightly faster.
+\code{as_vids()} and \code{as_vnames()} are shorthands using \code{Vnames()}.
+}
+\examples{
+g = graph_create(letters[1:6])
+Vnames(g)
+as_vids(g, c("d", "b"))
+as_vnames(g, c(4L, 2L))
 }

@@ -14,7 +14,11 @@ external pointer to C++ IGraph class object.
 igraph_ptr class: thin wrapper of \code{igraph_t}.
 }
 \seealso{
-\code{\link[=graph_from_edgelist]{graph_from_edgelist()}}, \code{\link[=graph_from_data_frame]{graph_from_data_frame()}}, \code{\link[=graph_tree]{graph_tree()}}
-for object instantiation.
+\code{\link[=is_igraph]{is_igraph()}} to check if an object is of class \code{igraph_ptr}.
+
+\code{\link[=as_igraph]{as_igraph()}} and \code{\link[=as.data.frame.igraph_ptr]{as.data.frame.igraph_ptr()}} for conversion
+from and to R objects.
+
+\code{\link[=graph_lattice]{graph_lattice()}} and \code{\link[=graph_tree]{graph_tree()}} for deterministic graph generation.
 }
 \keyword{data}

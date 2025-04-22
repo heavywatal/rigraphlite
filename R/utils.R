@@ -1,18 +1,20 @@
 #' Common parameters used throughout the package
 #'
 #' This function does nothing. It is designed to be used with @@inheritParams.
-#' @param graph igraph_ptr object.
-#' @param vids Vertices of interest.
-#' @param vid  Vertices of interest.
-#' @param from Vertices of interest.
-#' @param to   Vertices of interest.
-#' @param eids Edges of interest.
-#' @param eid  Edges of interest.
-#' @param mode Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.
-#' @param weights Numeric edge weights; `TRUE` to use `Eattr(graph, "weight")`.
-#' @param directed Boolean, whether to consider directed paths. Ignored for undirected graphs.
-#' @param loops How to treat loop edges; \{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}
-#' @param multiple Boolean, whether to keep multiple (parallel) edges.
+#' @param graph An [`igraph_ptr`] object.
+#' @param vids An integer vector of vertex IDs.
+#' @param vid  An integer value of vertex ID.
+#' @param from An integer vector of vertex IDs.
+#' @param to   An integer vector of vertex IDs.
+#' @param eids An integer vector of edge IDs.
+#' @param eid  An integer value of edge ID.
+#' @param mode An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.
+#' @param weights A numeric vector of edge weights; `TRUE` to use `Eattr(graph, "weight")`.
+#' @param directed A logical value, whether to consider directed paths.
+#' Ignored for undirected graphs.
+#' @param loops An integer value, how to treat loop edges;
+#' \{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}
+#' @param multiple A logical value, whether to keep multiple (parallel) edges.
 #' @keywords internal
 common_params = function(graph, vids, vid, from, to, eids, eid, mode, weights, directed, loops, multiple) {
   invisible(NULL)

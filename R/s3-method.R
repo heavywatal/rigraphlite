@@ -1,9 +1,12 @@
 #' S3 methods to get and view internal data.
 #'
-#' @param x igraph_ptr object.
-#' @param ... passed to methods.
+#' @param x An igraph_ptr object.
+#' @param ... Extra arguments passed to the method.
+#' @returns The original `x` invisibly.
 #' @rdname s3-method
 #' @export
+#' @examples
+#' print(graph_tree(5L))
 print.igraph_ptr = function(x, ...) {
   cat("$V  ")
   utils::str(Vattr(x))
@@ -17,12 +20,19 @@ generics::augment
 
 #' Methods for quick visualization
 #'
-#' @param x igraph_ptr object.
+#' @param x An igraph_ptr object.
 #' @param layout A function or resulting data.frame.
 #'   If not provided, [layout_nicely()] is applied.
-#' @param ... passed to [augment()] or layout function.
+#' @param ... Extra arguments passed to the layout function.
+#' @returns `augment()` returns a data frame to be used with [ggplot2::ggplot()].
 #' @rdname plot
 #' @export
+#' @examples
+#' g = graph_tree(5L)
+#' augment(g, layout = layout_reingold_tilford)
+#'
+#' plot(g, layout = layout_reingold_tilford) +
+#'   ggplot2::theme_minimal(base_size = 14)
 augment.igraph_ptr = function(x, layout = NULL, ...) {
   if (is.null(layout)) {
     layout = layout_nicely(x, ...)
@@ -57,11 +67,12 @@ segment_df = function(from, to, x, y, vnames = NULL) {
   .df
 }
 
-#' @param lwd passed to [ggplot2::geom_segment()].
-#' @param cex,col,pch passed to [ggplot2::geom_point()] and [ggplot2::geom_text()].
+#' @param lwd Passed to [ggplot2::geom_segment()].
+#' @param cex,col,pch Passed to [ggplot2::geom_point()] and [ggplot2::geom_text()].
+#' @returns `plot.igraph_ptr()` returns a ggplot object.
 #' @rdname plot
 #' @export
-plot.igraph_ptr = function(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16) {
+plot.igraph_ptr = function(x, ..., lwd = 0.6, cex = 6, col = "#cccccc", pch = 16) {
   .df = augment(x, ...)
   ggplot2::ggplot(.df) +
     ggplot2::aes(.data$x, .data$y) +

@@ -28,7 +28,7 @@ layout_reingold_tilford(graph, mode = 1L, roots = integer(0))
 layout_reingold_tilford_circular(graph, mode = 1L, roots = integer(0))
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
 \item{...}{Passed to an internal layout function.}
 
@@ -37,7 +37,7 @@ layout_reingold_tilford_circular(graph, mode = 1L, roots = integer(0))
 
 \item{dist}{A distant matrix.}
 
-\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
+\item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{roots}{Root vertices.}
 }

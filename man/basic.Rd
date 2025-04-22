@@ -5,13 +5,9 @@
 \alias{vcount}
 \alias{ecount}
 \alias{is_directed}
-\alias{edge}
-\alias{neighbors}
-\alias{incident}
-\alias{degree}
-\title{Basic Query Operations}
+\title{Basic query operations}
 \source{
-\url{https://igraph.org/c/doc/igraph-Basic.html}
+\url{https://igraph.org/c/doc/igraph-Basic.html#basic-query-operations}
 }
 \usage{
 vcount(graph)
@@ -19,27 +15,9 @@ vcount(graph)
 ecount(graph)
 
 is_directed(graph)
-
-edge(graph, eid)
-
-neighbors(graph, vid, mode = 3L)
-
-incident(graph, vid, mode = 3L)
-
-degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
-
-\item{eid}{Edges of interest.}
-
-\item{vid}{Vertices of interest.}
-
-\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
-
-\item{vids}{Vertices of interest.}
-
-\item{loops}{whether self-loop should be counted.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 }
 \value{
 \code{vcount()} returns the number of vertices in a graph.
@@ -47,19 +25,13 @@ degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 \code{ecount()} returns the number of edges in a graph.
 
 \code{is_directed()} returns whether the graph is directed.
-
-\code{edge()} returns the head and tail vertices of an edge.
-
-\code{neighbors()} returns the adjacent vertices to a vertex.
-
-\code{incident()} returns the incident edges of a vertex.
-
-\code{degree()} returns the degrees of vertices in a graph.
 }
 \description{
-Basic Query Operations
+Basic query operations
 }
-\seealso{
-\code{\link[=as_adjlist]{as_adjlist()}} and \code{\link[=as_inclist]{as_inclist()}} for the all-vertices version of
-\code{neighbors()} and \code{incident()}.
+\examples{
+g = graph_tree(5L)
+vcount(g)
+ecount(g)
+is_directed(g)
 }

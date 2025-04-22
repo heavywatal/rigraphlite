@@ -1,19 +1,21 @@
-#' Adjacency lists
+#' Adjacency lists and incidence lists
 #'
-#' These functions are all-vertices version of `neighbors()` and `incident()`.
+#' Both lists have the same length as the number of vertices in the graph.
 #' @seealso [neighbors()] and [incident()] for single-vertex version.
 #' @source <https://igraph.org/c/doc/igraph-Data-structures.html#igraph-Adjlists>
-#' @details
-#' `as_adjlist()`: Convert a graph to a list of adjacent vertices.
 #' @inheritParams common_params
+#' @examples
+#' g = graph_tree(5L)
+#' as_adjlist(g, mode = 1L)
+#' as_inclist(g, mode = 1L)
+#' @returns `as_adjlist()` returns a list of adjacent vertices for each vertex.
 #' @rdname adjlist
 #' @export
 as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = 1L) {
   .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
 }
 
-#' @details
-#' `as_inclist()`: Convert a graph to a list of incident edges.
+#' @returns `as_inclist()` returns a list of incident edges for each vertex.
 #' @rdname adjlist
 #' @export
 as_inclist = function(graph, mode = 3L, loops = 1L) {

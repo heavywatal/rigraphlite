@@ -7,20 +7,32 @@
 \usage{
 \method{augment}{igraph_ptr}(x, layout = NULL, ...)
 
-\method{plot}{igraph_ptr}(x, ..., lwd = 0.5, cex = 5, col = "#cccccc", pch = 16)
+\method{plot}{igraph_ptr}(x, ..., lwd = 0.6, cex = 6, col = "#cccccc", pch = 16)
 }
 \arguments{
-\item{x}{igraph_ptr object.}
+\item{x}{An igraph_ptr object.}
 
 \item{layout}{A function or resulting data.frame.
 If not provided, \code{\link[=layout_nicely]{layout_nicely()}} is applied.}
 
-\item{...}{passed to \code{\link[=augment]{augment()}} or layout function.}
+\item{...}{Extra arguments passed to the layout function.}
 
-\item{lwd}{passed to \code{\link[ggplot2:geom_segment]{ggplot2::geom_segment()}}.}
+\item{lwd}{Passed to \code{\link[ggplot2:geom_segment]{ggplot2::geom_segment()}}.}
 
-\item{cex, col, pch}{passed to \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}} and \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}}.}
+\item{cex, col, pch}{Passed to \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}} and \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}}.}
+}
+\value{
+\code{augment()} returns a data frame to be used with \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.
+
+\code{plot.igraph_ptr()} returns a ggplot object.
 }
 \description{
 Methods for quick visualization
+}
+\examples{
+g = graph_tree(5L)
+augment(g, layout = layout_reingold_tilford)
+
+plot(g, layout = layout_reingold_tilford) +
+  ggplot2::theme_minimal(base_size = 14)
 }

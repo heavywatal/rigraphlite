@@ -14,39 +14,42 @@ reference:
   contents:
   - is_igraph
   - basic-query
+  - basic-adjacent
   - basic-add-delete
   - is_sink
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
   contents:
   - as_adjlist
+- title: Random numbers
+  desc: https://igraph.org/c/doc/igraph-Random.html
+  contents:
+  - igraph_rng_seed
 - title: Graph Generators
   desc: https://igraph.org/c/doc/igraph-Generators.html
   contents:
   - graph_create
+- title: Attributes of Graph, Vertices, and Edges
+  desc: https://igraph.org/c/doc/igraph-Attributes.html
+  contents:
+  - Vattr
+  - Vnames
+  - igraph_from
 - title: Structural Properties
   desc: https://igraph.org/c/doc/igraph-Structural.html
   contents:
   - are_adjacent
   - distances
+  - paths
   - neighborhood
-  - subcomponent
-  - edge_betweenness
-- title: Attributes of Graph, Vertices, and Edges
-  contents:
-  - Vattr
-  - Vnames
-  - igraph_from
+  - components
+  - centrality
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
   contents:
   - layout_nicely
   - starts_with("augment")
   - starts_with("plot")
-- title: Random numbers
-  desc: https://igraph.org/c/doc/igraph-Random.html
-  contents:
-  - igraph_rng_seed
 - title: Miscellaneous operators
   desc: https://igraph.org/c/doc/igraph-Operators.html
   contents:
@@ -56,9 +59,9 @@ reference:
   contents:
   - ends_with("version")
   - common_params
-  - find_common_ancestors
-  - upstream_vertices
 - title: Other Packages
   contents:
   - as_phylo
   - as_tbl_tree
+  - find_common_ancestors
+  - upstream_vertices

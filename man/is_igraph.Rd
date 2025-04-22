@@ -7,11 +7,18 @@
 is_igraph(x)
 }
 \arguments{
-\item{x}{object to be tested.}
+\item{x}{An object to be tested.}
 }
 \value{
 \code{TRUE} if the object is of class \code{igraph_ptr}, \code{FALSE} otherwise.
 }
 \description{
 Check if an object is igraph_ptr class
+}
+\examples{
+is_igraph(graph_tree(6L))
+is_igraph(seq_len(6L))
+}
+\seealso{
+\code{\link[=as_igraph]{as_igraph()}} to convert an object to \code{igraph_ptr}.
 }

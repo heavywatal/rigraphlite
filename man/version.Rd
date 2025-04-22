@@ -2,13 +2,19 @@
 % Please edit documentation in R/igraphlite-package.R
 \name{igraph_version}
 \alias{igraph_version}
-\title{Check and return igraph version.h}
+\title{Get the version of the igraph C library}
 \source{
 \url{https://igraph.org/c/doc/igraph-Nongraph.html}
 }
 \usage{
 igraph_version()
 }
+\value{
+A character string with the igraph version.
+}
 \description{
-Check and return igraph version.h
+Not to be confused with the R package version.
+}
+\examples{
+igraph_version()
 }

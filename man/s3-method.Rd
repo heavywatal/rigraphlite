@@ -7,10 +7,16 @@
 \method{print}{igraph_ptr}(x, ...)
 }
 \arguments{
-\item{x}{igraph_ptr object.}
+\item{x}{An igraph_ptr object.}
 
-\item{...}{passed to methods.}
+\item{...}{Extra arguments passed to the method.}
+}
+\value{
+The original \code{x} invisibly.
 }
 \description{
 S3 methods to get and view internal data.
+}
+\examples{
+print(graph_tree(5L))
 }

@@ -16,14 +16,14 @@ induced_subgraph_edges(graph, vids)
 subgraph_from_edges(graph, eids, delete_vertices = TRUE)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{vids}{Vertices of interest.}
+\item{vids}{An integer vector of vertex IDs.}
 
 \item{impl}{how to construct a new graph:
 \{0: AUTO, 1: COPY_AND_DELETE, 2: CREATE_FROM_SCRATCH\}}
 
-\item{eids}{Edges of interest.}
+\item{eids}{An integer vector of edge IDs.}
 
 \item{delete_vertices}{whether to delete the unused vertices.}
 }

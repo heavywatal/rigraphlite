@@ -1,9 +1,29 @@
 #' Get and set vertex and edge attributes
 #'
+#' @description
+#' Attributes can be set and retrieved in several ways:
+#' - with the `name` argument: `Vattr(g, "name") = letters[1:6]`
+#' - with the `$` operator: `Vattr(g)$name = letters[1:6]`
+#' - with the `[[` operator: `Vattr(g)[["name"]] = letters[1:6]`
+#' - direct operation with a data.frame: `Vattr(g) = data.frame(name = letters[1:6])`
+#'
+#' Using the `name` argument for setting and `$` operetor for getting is the most
+#' efficient way according to the brief benchmarking.
 #' @inheritParams common_params
 #' @param name Name of the attribute to query or set.
 #'   If missing, all the attributes are returned or replaced.
 #' @param value A vector or data.frame.
+#' @returns `Vattr()` and `Eattr()` return a data.frame with the same nubmer of
+#' rows as the number of vertices and edges in the graph, respectively.
+#' @returns `V()` and `E()` return an integer vector of vertex and edge IDs, respectively.
+#' @seealso [Vnames()] for specialized function for "name" attribute.
+#' @examples
+#' g = graph_create(letters[1:6])
+#' Vattr(g)
+#' Eattr(g, "weight") = seq_len(ecount(g))
+#' Eattr(g)
+#' V(g)
+#' E(g)
 #' @rdname attributes
 #' @export
 Vattr = function(graph, name) {
@@ -60,14 +80,23 @@ E = function(graph) {
 
 #' Conversion between vertex IDs and names
 #'
+#' `Vnames()` is equivalent to [Vattr()] on "name", but is slightly faster.
+#' `as_vids()` and `as_vnames()` are shorthands using `Vnames()`.
 #' @inheritParams common_params
-#' @param vnames Vertex names stored in `Vattr[["name"]]`.
+#' @param vnames Vertex names stored in `Vattr(g)$name`.
+#' @returns `Vnames()` and `as_vnames()` return a character vector of vertex names.
+#' @examples
+#' g = graph_create(letters[1:6])
+#' Vnames(g)
+#' as_vids(g, c("d", "b"))
+#' as_vnames(g, c(4L, 2L))
 #' @rdname vnames
 #' @export
 Vnames = function(graph) {
   .Call(`_igraphlite_Vnames_`, graph)
 }
 
+#' @returns `as_vids()` returns an integer vector of vertex IDs.
 #' @rdname vnames
 #' @export
 as_vids = function(graph, vnames) {
@@ -76,7 +105,7 @@ as_vids = function(graph, vnames) {
 
 #' @rdname vnames
 #' @export
-as_vnames = function(graph, vids = V(graph)) {
+as_vnames = function(graph, vids) {
   Vnames(graph)[vids]
 }
 

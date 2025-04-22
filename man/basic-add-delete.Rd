@@ -20,13 +20,13 @@ delete_edges(graph, eids)
 delete_vertices(graph, vids)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{eids}{Edges of interest.}
+\item{eids}{An integer vector of edge IDs.}
 
 \item{n}{number of vertices to add.}
 
-\item{vids}{Vertices of interest.}
+\item{vids}{An integer vector of vertex IDs.}
 }
 \value{
 A modified graph.

@@ -22,13 +22,39 @@ V(graph)
 E(graph)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
 \item{name}{Name of the attribute to query or set.
 If missing, all the attributes are returned or replaced.}
 
 \item{value}{A vector or data.frame.}
 }
+\value{
+\code{Vattr()} and \code{Eattr()} return a data.frame with the same nubmer of
+rows as the number of vertices and edges in the graph, respectively.
+
+\code{V()} and \code{E()} return an integer vector of vertex and edge IDs, respectively.
+}
 \description{
-Get and set vertex and edge attributes
+Attributes can be set and retrieved in several ways:
+\itemize{
+\item with the \code{name} argument: \code{Vattr(g, "name") = letters[1:6]}
+\item with the \code{$} operator: \code{Vattr(g)$name = letters[1:6]}
+\item with the \code{[[} operator: \code{Vattr(g)[["name"]] = letters[1:6]}
+\item direct operation with a data.frame: \code{Vattr(g) = data.frame(name = letters[1:6])}
+}
+
+Using the \code{name} argument for setting and \code{$} operetor for getting is the most
+efficient way according to the brief benchmarking.
+}
+\examples{
+g = graph_create(letters[1:6])
+Vattr(g)
+Eattr(g, "weight") = seq_len(ecount(g))
+Eattr(g)
+V(g)
+E(g)
+}
+\seealso{
+\code{\link[=Vnames]{Vnames()}} for specialized function for "name" attribute.
 }

@@ -13,7 +13,7 @@ igraph_from(graph)
 igraph_to(graph)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 }
 \value{
 \code{igraph_from()} returns the head vertices of all the edges.

@@ -20,29 +20,31 @@ common_params(
 )
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{vids}{Vertices of interest.}
+\item{vids}{An integer vector of vertex IDs.}
 
-\item{vid}{Vertices of interest.}
+\item{vid}{An integer value of vertex ID.}
 
-\item{from}{Vertices of interest.}
+\item{from}{An integer vector of vertex IDs.}
 
-\item{to}{Vertices of interest.}
+\item{to}{An integer vector of vertex IDs.}
 
-\item{eids}{Edges of interest.}
+\item{eids}{An integer vector of edge IDs.}
 
-\item{eid}{Edges of interest.}
+\item{eid}{An integer value of edge ID.}
 
-\item{mode}{Edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
+\item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{weights}{Numeric edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
+\item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
 
-\item{directed}{Boolean, whether to consider directed paths. Ignored for undirected graphs.}
+\item{directed}{A logical value, whether to consider directed paths.
+Ignored for undirected graphs.}
 
-\item{loops}{How to treat loop edges; \{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}}
+\item{loops}{An integer value, how to treat loop edges;
+\{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}}
 
-\item{multiple}{Boolean, whether to keep multiple (parallel) edges.}
+\item{multiple}{A logical value, whether to keep multiple (parallel) edges.}
 }
 \description{
 This function does nothing. It is designed to be used with @inheritParams.

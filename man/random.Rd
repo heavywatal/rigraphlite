@@ -2,7 +2,7 @@
 % Please edit documentation in R/igraphlite-package.R
 \name{igraph_rng_seed}
 \alias{igraph_rng_seed}
-\title{Random numbers}
+\title{Seeds a random number generator}
 \source{
 \url{https://igraph.org/c/doc/igraph-Random.html}
 }
@@ -12,6 +12,12 @@ igraph_rng_seed(seed)
 \arguments{
 \item{seed}{An integer.}
 }
+\value{
+\code{NULL}.
+}
 \description{
-Random numbers
+Initializes \code{igraph_rng_default()} with an integer seed.
+}
+\examples{
+igraph_rng_seed(24601L)
 }

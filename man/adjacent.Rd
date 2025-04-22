@@ -10,12 +10,24 @@
 are_adjacent(graph, from, to)
 }
 \arguments{
-\item{graph}{igraph_ptr object.}
+\item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{from}{Vertices of interest.}
+\item{from}{An integer vector of vertex IDs.}
 
-\item{to}{Vertices of interest.}
+\item{to}{An integer vector of vertex IDs.}
+}
+\value{
+A logical, \code{TRUE} if \code{from} and \code{to} are adjacent, \code{FALSE} otherwise.
 }
 \description{
 Basic Properties
+}
+\examples{
+g = graph_tree(5L)
+are_adjacent(g, 1L, 2L)
+are_adjacent(g, 1L, 4L)
+}
+\seealso{
+\code{\link[=edge]{edge()}}, \code{\link[=neighbors]{neighbors()}}, \code{\link[=incident]{incident()}} for similar operations.
+\code{\link[=as_adjlist]{as_adjlist()}} and \code{\link[=degree]{degree()}} can apply to all vertices at once.
 }
