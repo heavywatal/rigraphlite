@@ -46,6 +46,7 @@
 <span>  <span class="va">to</span>,</span>
 <span>  <span class="va">eids</span>,</span>
 <span>  <span class="va">eid</span>,</span>
+<span>  <span class="va">edges</span>,</span>
 <span>  <span class="va">mode</span>,</span>
 <span>  <span class="va">weights</span>,</span>
 <span>  <span class="va">directed</span>,</span>
@@ -86,6 +87,10 @@
 <dd><p>An integer value of edge ID.</p></dd>
 
 
+<dt id="arg-edges">edges<a class="anchor" aria-label="anchor" href="#arg-edges"></a></dt>
+<dd><p>An integer vector of vertex IDs; the first two elements are the first edge, etc.</p></dd>
+
+
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
 <dd><p>An integer value of edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
 
@@ -101,7 +106,7 @@ Ignored for undirected graphs.</p></dd>
 
 <dt id="arg-loops">loops<a class="anchor" aria-label="anchor" href="#arg-loops"></a></dt>
 <dd><p>An integer value, how to treat loop edges;
-{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE}</p></dd>
+{0: NO_LOOPS, 1: LOOPS/LOOPS_TWICE, 2: LOOPS_ONCE}</p></dd>
 
 
 <dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>

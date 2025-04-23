@@ -49,6 +49,12 @@
         <dd>igraph_ptr class: thin wrapper of <code>igraph_t</code>.</dd>
       </dl><dl><dt>
 
+          <code><a href="is_igraph.html">is_igraph()</a></code>
+
+        </dt>
+        <dd>Check if an object is igraph_ptr class</dd>
+      </dl><dl><dt>
+
           <code><a href="conversion.html">as_igraph()</a></code> <code><a href="conversion.html">as.data.frame(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="conversion.html">as.matrix(<i>&lt;igraph_ptr&gt;</i>)</a></code>
 
         </dt>
@@ -78,10 +84,10 @@
 
       <dl><dt>
 
-          <code><a href="is_igraph.html">is_igraph()</a></code>
+          <code><a href="constructors.html">graph_empty()</a></code> <code><a href="constructors.html">graph_copy()</a></code>
 
         </dt>
-        <dd>Check if an object is igraph_ptr class</dd>
+        <dd>Graph constructors</dd>
       </dl><dl><dt>
 
           <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">is_directed()</a></code>
@@ -100,12 +106,6 @@
 
         </dt>
         <dd>Adding and deleting vertices and edges</dd>
-      </dl><dl><dt>
-
-          <code><a href="sink.html">is_sink()</a></code> <code><a href="sink.html">is_source()</a></code> <code><a href="sink.html">Vsink()</a></code> <code><a href="sink.html">Vsource()</a></code>
-
-        </dt>
-        <dd>Shortcuts to get sink/source vertices.</dd>
       </dl></div><div class="section level2">
       <h2 id="data-structure">Data Structure<a class="anchor" aria-label="anchor" href="#data-structure"></a></h2>
 
@@ -148,15 +148,51 @@
 
     </div><div class="section level2">
 
+      <h3 id="deterministic-graph-generators">Deterministic Graph Generators<a class="anchor" aria-label="anchor" href="#deterministic-graph-generators"></a></h3>
+
+
+
+    </div><div class="section level2">
+
 
 
 
       <dl><dt>
 
-          <code><a href="generators.html">graph_create()</a></code> <code><a href="generators.html">graph_star()</a></code> <code><a href="generators.html">graph_lattice()</a></code> <code><a href="generators.html">graph_ring()</a></code> <code><a href="generators.html">graph_tree()</a></code> <code><a href="generators.html">graph_full()</a></code> <code><a href="generators.html">graph_famous()</a></code>
+          <code><a href="graph_create.html">graph_create()</a></code>
 
         </dt>
-        <dd>Deterministic Graph Generators</dd>
+        <dd>Create a graph with the specified edges</dd>
+      </dl><dl><dt>
+
+          <code><a href="graph_star.html">graph_star()</a></code>
+
+        </dt>
+        <dd>Create a star graph</dd>
+      </dl><dl><dt>
+
+          <code><a href="graph_lattice.html">graph_square_lattice()</a></code> <code><a href="graph_lattice.html">graph_ring()</a></code>
+
+        </dt>
+        <dd>Create arbitrary dimensional lattices</dd>
+      </dl><dl><dt>
+
+          <code><a href="graph_tree.html">graph_kary_tree()</a></code>
+
+        </dt>
+        <dd>Create a tree graph</dd>
+      </dl><dl><dt>
+
+          <code><a href="graph_full.html">graph_full()</a></code>
+
+        </dt>
+        <dd>Create a full graph (complete graph)</dd>
+      </dl><dl><dt>
+
+          <code><a href="graph_famous.html">graph_famous()</a></code>
+
+        </dt>
+        <dd>Create a famous graph by simply providing its name</dd>
       </dl></div><div class="section level2">
       <h2 id="attributes-of-graph-vertices-and-edges">Attributes of Graph, Vertices, and Edges<a class="anchor" aria-label="anchor" href="#attributes-of-graph-vertices-and-edges"></a></h2>
 
@@ -319,6 +355,12 @@
 
         </dt>
         <dd>Conversion between tbl_tree and igraph</dd>
+      </dl><dl><dt>
+
+          <code><a href="sink.html">is_sink()</a></code> <code><a href="sink.html">is_source()</a></code> <code><a href="sink.html">Vsink()</a></code> <code><a href="sink.html">Vsource()</a></code>
+
+        </dt>
+        <dd>Shortcuts to get sink/source vertices.</dd>
       </dl><dl><dt>
 
           <code><a href="experimental.html">find_common_ancestors()</a></code> <code><a href="experimental.html">upstream_vertices()</a></code>

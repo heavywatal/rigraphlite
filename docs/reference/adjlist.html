@@ -61,7 +61,7 @@
 
 <dt id="arg-loops">loops<a class="anchor" aria-label="anchor" href="#arg-loops"></a></dt>
 <dd><p>An integer value, how to treat loop edges;
-{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE}</p></dd>
+{0: NO_LOOPS, 1: LOOPS/LOOPS_TWICE, 2: LOOPS_ONCE}</p></dd>
 
 
 <dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>
@@ -80,7 +80,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="generators.html">graph_tree</a></span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="graph_tree.html">graph_tree</a></span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">as_adjlist</span><span class="op">(</span><span class="va">g</span>, mode <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 3</span>
