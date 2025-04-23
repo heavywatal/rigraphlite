@@ -238,10 +238,10 @@ extern "C" SEXP _igraphlite_graph_star_(SEXP n, SEXP mode, SEXP center) {
   END_CPP11
 }
 // generators.cpp
-SEXP graph_lattice_(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular);
-extern "C" SEXP _igraphlite_graph_lattice_(SEXP dim, SEXP nei, SEXP directed, SEXP mutual, SEXP circular) {
+SEXP graph_square_lattice_(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular);
+extern "C" SEXP _igraphlite_graph_square_lattice_(SEXP dim, SEXP nei, SEXP directed, SEXP mutual, SEXP circular) {
   BEGIN_CPP11
-    return cpp11::as_sexp(graph_lattice_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(dim), cpp11::as_cpp<cpp11::decay_t<int>>(nei), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
+    return cpp11::as_sexp(graph_square_lattice_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(dim), cpp11::as_cpp<cpp11::decay_t<int>>(nei), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
   END_CPP11
 }
 // generators.cpp
@@ -252,10 +252,10 @@ extern "C" SEXP _igraphlite_graph_ring_(SEXP n, SEXP directed, SEXP mutual, SEXP
   END_CPP11
 }
 // generators.cpp
-SEXP graph_tree_(int n, int children, int mode);
-extern "C" SEXP _igraphlite_graph_tree_(SEXP n, SEXP children, SEXP mode) {
+SEXP graph_kary_tree_(int n, int children, int mode);
+extern "C" SEXP _igraphlite_graph_kary_tree_(SEXP n, SEXP children, SEXP mode) {
   BEGIN_CPP11
-    return cpp11::as_sexp(graph_tree_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(children), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
+    return cpp11::as_sexp(graph_kary_tree_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<int>>(children), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
 // generators.cpp
@@ -513,10 +513,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_from_symbolic_edgelist_",     (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist_,     2},
     {"_igraphlite_graph_from_symbolic_edges_",        (DL_FUNC) &_igraphlite_graph_from_symbolic_edges_,        2},
     {"_igraphlite_graph_full_",                       (DL_FUNC) &_igraphlite_graph_full_,                       3},
-    {"_igraphlite_graph_lattice_",                    (DL_FUNC) &_igraphlite_graph_lattice_,                    5},
+    {"_igraphlite_graph_kary_tree_",                  (DL_FUNC) &_igraphlite_graph_kary_tree_,                  3},
     {"_igraphlite_graph_ring_",                       (DL_FUNC) &_igraphlite_graph_ring_,                       4},
+    {"_igraphlite_graph_square_lattice_",             (DL_FUNC) &_igraphlite_graph_square_lattice_,             5},
     {"_igraphlite_graph_star_",                       (DL_FUNC) &_igraphlite_graph_star_,                       3},
-    {"_igraphlite_graph_tree_",                       (DL_FUNC) &_igraphlite_graph_tree_,                       3},
     {"_igraphlite_igraph_version_",                   (DL_FUNC) &_igraphlite_igraph_version_,                   0},
     {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         3},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},

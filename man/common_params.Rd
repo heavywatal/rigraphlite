@@ -45,7 +45,7 @@ common_params(
 Ignored for undirected graphs.}
 
 \item{loops}{An integer value, how to treat loop edges;
-\{0: NO_LOOPS, 1: LOOPS, 2: LOOPS_ONCE\}}
+\{0: NO_LOOPS, 1: LOOPS/LOOPS_TWICE, 2: LOOPS_ONCE\}}
 
 \item{multiple}{A logical value, whether to keep multiple (parallel) edges.}
 }

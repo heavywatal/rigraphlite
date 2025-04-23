@@ -8,6 +8,7 @@
 #' Normal assignment like `g2 = g1` creates a shallow copy, which means that
 #' the internal data is shared between the two R objects, and the modification
 #' on one of them will affect the other.
+#' @family deterministic generators
 #' @param n An integer, the number of vertices in the graph.
 #' @inheritParams common_params
 #' @returns An [`igraph_ptr`] object.
@@ -22,7 +23,6 @@
 #' g_shallow
 #'
 #' g_deep
-#' @name constructors
 #' @rdname constructors
 #' @export
 graph_empty = function(n = 0L, directed = TRUE) {

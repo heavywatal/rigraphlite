@@ -4,7 +4,7 @@ template:
 destination: docs
 reference:
 - title: R Interface
-  contents:
+- contents:
   - igraph_ptr
   - is_igraph
   - as_igraph
@@ -12,32 +12,38 @@ reference:
   - print.igraph_ptr
 - title: Basic Interface
   desc: https://igraph.org/c/doc/igraph-Basic.html
-  contents:
-  - constructors
+- contents:
+  - graph_empty
   - basic-query
   - basic-adjacent
   - add-delete
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
-  contents:
+- contents:
   - as_adjlist
 - title: Random numbers
   desc: https://igraph.org/c/doc/igraph-Random.html
-  contents:
+- contents:
   - igraph_rng_seed
 - title: Graph Generators
   desc: https://igraph.org/c/doc/igraph-Generators.html
-  contents:
+- subtitle: Deterministic Graph Generators
+- contents:
   - graph_create
+  - graph_star
+  - graph_lattice
+  - graph_tree
+  - graph_full
+  - graph_famous
 - title: Attributes of Graph, Vertices, and Edges
   desc: https://igraph.org/c/doc/igraph-Attributes.html
-  contents:
+- contents:
   - Vattr
   - Vnames
   - igraph_from
 - title: Structural Properties
   desc: https://igraph.org/c/doc/igraph-Structural.html
-  contents:
+- contents:
   - are_adjacent
   - distances
   - paths
@@ -46,21 +52,21 @@ reference:
   - centrality
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
-  contents:
+- contents:
   - layout_nicely
   - starts_with("augment")
   - starts_with("plot")
 - title: Miscellaneous operators
   desc: https://igraph.org/c/doc/igraph-Operators.html
-  contents:
+- contents:
   - ends_with("subgraph")
 - title: Non-graph related functions
   desc: https://igraph.org/c/doc/igraph-Nongraph.html
-  contents:
+- contents:
   - ends_with("version")
   - common_params
 - title: Other Packages
-  contents:
+- contents:
   - as_phylo
   - as_tbl_tree
   - is_sink

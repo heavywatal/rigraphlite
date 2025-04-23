@@ -16,7 +16,7 @@ graph_create_(const cpp11::integers& edges, int n = 0, bool directed = true) {
 }
 
 [[cpp11::register]] SEXP
-graph_star_(int n, int mode = 0, int center = 1) {
+graph_star_(int n, int mode = 0, int center = 0) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_star(p->data(), n, static_cast<igraph_star_mode_t>(mode), center);
   p->init_attr();
@@ -24,7 +24,7 @@ graph_star_(int n, int mode = 0, int center = 1) {
 }
 
 [[cpp11::register]] SEXP
-graph_lattice_(const cpp11::integers& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
+graph_square_lattice_(const cpp11::integers& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_vector_bool_t periodic;
   igraph_vector_bool_init(&periodic, dim.size());
@@ -44,7 +44,7 @@ graph_ring_(int n, bool directed = false, bool mutual = false, bool circular = t
 }
 
 [[cpp11::register]] SEXP
-graph_tree_(int n, int children = 2, int mode = 0) {
+graph_kary_tree_(int n, int children = 2, int mode = 0) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_kary_tree(p->data(), n, children, static_cast<igraph_tree_mode_t>(mode));
   p->init_attr();

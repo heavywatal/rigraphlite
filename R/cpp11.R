@@ -128,16 +128,16 @@ graph_star_ <- function(n, mode, center) {
   .Call(`_igraphlite_graph_star_`, n, mode, center)
 }
 
-graph_lattice_ <- function(dim, nei, directed, mutual, circular) {
-  .Call(`_igraphlite_graph_lattice_`, dim, nei, directed, mutual, circular)
+graph_square_lattice_ <- function(dim, nei, directed, mutual, circular) {
+  .Call(`_igraphlite_graph_square_lattice_`, dim, nei, directed, mutual, circular)
 }
 
 graph_ring_ <- function(n, directed, mutual, circular) {
   .Call(`_igraphlite_graph_ring_`, n, directed, mutual, circular)
 }
 
-graph_tree_ <- function(n, children, mode) {
-  .Call(`_igraphlite_graph_tree_`, n, children, mode)
+graph_kary_tree_ <- function(n, children, mode) {
+  .Call(`_igraphlite_graph_kary_tree_`, n, children, mode)
 }
 
 graph_full_ <- function(n, directed, loops) {
