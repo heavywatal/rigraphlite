@@ -6,17 +6,17 @@ reference:
 - title: R Interface
   contents:
   - igraph_ptr
+  - is_igraph
   - as_igraph
   - graph_from_data_frame
   - print.igraph_ptr
 - title: Basic Interface
   desc: https://igraph.org/c/doc/igraph-Basic.html
   contents:
-  - is_igraph
+  - constructors
   - basic-query
   - basic-adjacent
   - basic-add-delete
-  - is_sink
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
   contents:
@@ -63,5 +63,6 @@ reference:
   contents:
   - as_phylo
   - as_tbl_tree
+  - is_sink
   - find_common_ancestors
   - upstream_vertices

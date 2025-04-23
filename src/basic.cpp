@@ -5,6 +5,19 @@
 
 #include <igraph/igraph_interface.h>
 
+[[cpp11::register]] SEXP
+graph_empty_(int n = 0, bool directed = true) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_empty(p->data(), n, directed);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_copy_(const cpp11::external_pointer<IGraph> graph) {
+  return cpp11::external_pointer<IGraph>(new IGraph(*graph.get()));
+}
+
 [[cpp11::register]]
 int vcount_(const cpp11::external_pointer<IGraph> graph) {
   return igraph_vcount(graph->data());

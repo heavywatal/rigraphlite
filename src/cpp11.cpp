@@ -87,6 +87,20 @@ extern "C" SEXP _igraphlite_mutate_Eattr_(SEXP graph, SEXP key, SEXP value) {
   END_CPP11
 }
 // basic.cpp
+SEXP graph_empty_(int n, bool directed);
+extern "C" SEXP _igraphlite_graph_empty_(SEXP n, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_empty_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+  END_CPP11
+}
+// basic.cpp
+SEXP graph_copy_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_graph_copy_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_copy_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// basic.cpp
 int vcount_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_vcount_(SEXP graph) {
   BEGIN_CPP11
@@ -490,7 +504,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_get_all_shortest_paths_",           (DL_FUNC) &_igraphlite_get_all_shortest_paths_,           5},
     {"_igraphlite_get_all_simple_paths_",             (DL_FUNC) &_igraphlite_get_all_simple_paths_,             5},
     {"_igraphlite_get_shortest_paths_",               (DL_FUNC) &_igraphlite_get_shortest_paths_,               5},
+    {"_igraphlite_graph_copy_",                       (DL_FUNC) &_igraphlite_graph_copy_,                       1},
     {"_igraphlite_graph_create_",                     (DL_FUNC) &_igraphlite_graph_create_,                     3},
+    {"_igraphlite_graph_empty_",                      (DL_FUNC) &_igraphlite_graph_empty_,                      2},
     {"_igraphlite_graph_famous_",                     (DL_FUNC) &_igraphlite_graph_famous_,                     1},
     {"_igraphlite_graph_from_data_frame_",            (DL_FUNC) &_igraphlite_graph_from_data_frame_,            2},
     {"_igraphlite_graph_from_edgelist_",              (DL_FUNC) &_igraphlite_graph_from_edgelist_,              2},

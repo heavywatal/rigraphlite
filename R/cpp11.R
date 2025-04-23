@@ -44,6 +44,14 @@ mutate_Eattr_ <- function(graph, key, value) {
   invisible(.Call(`_igraphlite_mutate_Eattr_`, graph, key, value))
 }
 
+graph_empty_ <- function(n, directed) {
+  .Call(`_igraphlite_graph_empty_`, n, directed)
+}
+
+graph_copy_ <- function(graph) {
+  .Call(`_igraphlite_graph_copy_`, graph)
+}
+
 vcount_ <- function(graph) {
   .Call(`_igraphlite_vcount_`, graph)
 }
