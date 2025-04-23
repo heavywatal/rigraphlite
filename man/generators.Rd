@@ -34,11 +34,12 @@ graph_full(n, directed = FALSE, mutual = FALSE)
 graph_famous(name)
 }
 \arguments{
-\item{edges}{The edges to add, the first two elements are the first edge, etc.}
+\item{edges}{An integer vector of vertex IDs; the first two elements are the first edge, etc.}
 
 \item{n}{Integer, the number of vertices in the graph.}
 
-\item{directed}{Boolean}
+\item{directed}{A logical value, whether to consider directed paths.
+Ignored for undirected graphs.}
 
 \item{mode}{Integer;
 \itemize{

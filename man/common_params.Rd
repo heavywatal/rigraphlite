@@ -12,6 +12,7 @@ common_params(
   to,
   eids,
   eid,
+  edges,
   mode,
   weights,
   directed,
@@ -33,6 +34,8 @@ common_params(
 \item{eids}{An integer vector of edge IDs.}
 
 \item{eid}{An integer value of edge ID.}
+
+\item{edges}{An integer vector of vertex IDs; the first two elements are the first edge, etc.}
 
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 

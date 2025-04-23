@@ -1,8 +1,7 @@
 #' Deterministic Graph Generators
 #'
-#' @param edges The edges to add, the first two elements are the first edge, etc.
+#' @inheritParams common_params
 #' @param n Integer, the number of vertices in the graph.
-#' @param directed Boolean
 #' @param mutual Boolean
 #' @param circular Boolean
 #' @param mode Integer;

@@ -16,7 +16,7 @@ reference:
   - constructors
   - basic-query
   - basic-adjacent
-  - basic-add-delete
+  - add-delete
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
   contents:
