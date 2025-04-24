@@ -13,6 +13,7 @@ graph_create = function(edges, n = 0L, directed = TRUE) {
     g = .Call(`_igraphlite_graph_create_`, edges, n, directed)
   } else {
     g = .Call(`_igraphlite_graph_from_symbolic_edges_`, edges, directed)
+    add_vertices(g, n - length(edges))
   }
   set_ptr_class(g)
 }

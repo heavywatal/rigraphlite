@@ -68,6 +68,7 @@ degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids
 
 [[cpp11::register]]
 void add_vertices_(cpp11::external_pointer<IGraph> graph, int n) {
+  if (n <= 0) return;
   igraph_add_vertices(graph->data(), n, nullptr);
   impl::append_na_rows(&graph->Vattr_, n);
 }
