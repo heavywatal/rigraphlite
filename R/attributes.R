@@ -80,16 +80,20 @@ E = function(graph) {
 
 #' Conversion between vertex IDs and names
 #'
-#' `Vnames()` is equivalent to [Vattr()] on "name", but is slightly faster.
-#' `as_vids()` and `as_vnames()` are shorthands using `Vnames()`.
+#' `Vnames()` is a faster alternative to [Vattr()] to get the "name" attribute,
+#' falling back to `V()` when it is not set.
+#' `as_vids()` and `as_vnames()` provide convenient shorthands using `Vnames()`.
 #' @inheritParams common_params
 #' @param vnames Vertex names stored in `Vattr(g)$name`.
-#' @returns `Vnames()` and `as_vnames()` return a character vector of vertex names.
+#' @returns `Vnames()` and `as_vnames()` return a vector of vertex names or IDs.
 #' @examples
 #' g = graph_create(letters[1:6])
 #' Vnames(g)
 #' as_vids(g, c("d", "b"))
 #' as_vnames(g, c(4L, 2L))
+#'
+#' # Falls back to V(), not NULL
+#' Vnames(graph_empty(3L))
 #' @rdname vnames
 #' @export
 Vnames = function(graph) {

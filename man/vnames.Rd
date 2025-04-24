@@ -20,17 +20,21 @@ as_vnames(graph, vids)
 \item{vids}{An integer vector of vertex IDs.}
 }
 \value{
-\code{Vnames()} and \code{as_vnames()} return a character vector of vertex names.
+\code{Vnames()} and \code{as_vnames()} return a vector of vertex names or IDs.
 
 \code{as_vids()} returns an integer vector of vertex IDs.
 }
 \description{
-\code{Vnames()} is equivalent to \code{\link[=Vattr]{Vattr()}} on "name", but is slightly faster.
-\code{as_vids()} and \code{as_vnames()} are shorthands using \code{Vnames()}.
+\code{Vnames()} is a faster alternative to \code{\link[=Vattr]{Vattr()}} to get the "name" attribute,
+falling back to \code{V()} when it is not set.
+\code{as_vids()} and \code{as_vnames()} provide convenient shorthands using \code{Vnames()}.
 }
 \examples{
 g = graph_create(letters[1:6])
 Vnames(g)
 as_vids(g, c("d", "b"))
 as_vnames(g, c(4L, 2L))
+
+# Falls back to V(), not NULL
+Vnames(graph_empty(3L))
 }
