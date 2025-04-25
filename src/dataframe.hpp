@@ -174,7 +174,7 @@ namespace impl {
     SEXP names = PROTECT(x->names());
     R_xlen_t size = Rf_xlength(names);
     for (R_xlen_t pos = 0; pos < size; ++pos) {
-      if (Rf_translateCharUTF8(STRING_ELT(names, pos)) == key) {
+      if (std::strcmp(Rf_translateCharUTF8(STRING_ELT(names, pos)), key) == 0) {
         UNPROTECT(1);
         (*x)[pos] = value;
         return;
