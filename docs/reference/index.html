@@ -43,16 +43,10 @@
 
       <dl><dt>
 
-          <code><a href="igraph-class.html">igraph_ptr</a></code>
+          <code><a href="igraph-class.html">is_igraph()</a></code>
 
         </dt>
-        <dd>igraph_ptr class: thin wrapper of <code>igraph_t</code>.</dd>
-      </dl><dl><dt>
-
-          <code><a href="is_igraph.html">is_igraph()</a></code>
-
-        </dt>
-        <dd>Check if an object is igraph_ptr class</dd>
+        <dd><code>igraph_ptr</code>: cpp11-powered class for igraph objects</dd>
       </dl><dl><dt>
 
           <code><a href="conversion.html">as_igraph()</a></code> <code><a href="conversion.html">as.data.frame(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="conversion.html">as.matrix(<i>&lt;igraph_ptr&gt;</i>)</a></code>
@@ -65,12 +59,6 @@
 
         </dt>
         <dd>Convert edge lists to igraph objects.</dd>
-      </dl><dl><dt>
-
-          <code><a href="s3-method.html">print(<i>&lt;igraph_ptr&gt;</i>)</a></code>
-
-        </dt>
-        <dd>S3 methods to get and view internal data.</dd>
       </dl></div><div class="section level2">
       <h2 id="basic-interface">Basic Interface<a class="anchor" aria-label="anchor" href="#basic-interface"></a></h2>
 
@@ -282,10 +270,22 @@
 
       <dl><dt>
 
-          <code><a href="layout.html">layout_nicely()</a></code> <code><a href="layout.html">layout_random()</a></code> <code><a href="layout.html">layout_drl()</a></code> <code><a href="layout.html">layout_fruchterman_reingold()</a></code> <code><a href="layout.html">layout_mds()</a></code> <code><a href="layout.html">layout_reingold_tilford()</a></code> <code><a href="layout.html">layout_reingold_tilford_circular()</a></code>
+          <code><a href="layout-2d.html">layout_random()</a></code> <code><a href="layout-2d.html">layout_drl()</a></code> <code><a href="layout-2d.html">layout_fruchterman_reingold()</a></code> <code><a href="layout-2d.html">layout_mds()</a></code>
 
         </dt>
-        <dd>Layouts for Graph Drawing</dd>
+        <dd>2D layout generators</dd>
+      </dl><dl><dt>
+
+          <code><a href="layout-tree.html">layout_reingold_tilford()</a></code> <code><a href="layout-tree.html">layout_reingold_tilford_circular()</a></code>
+
+        </dt>
+        <dd>Layouts for trees and acyclic graphs</dd>
+      </dl><dl><dt>
+
+          <code><a href="layout.html">layout_nicely()</a></code>
+
+        </dt>
+        <dd>Choose a layout algorithm automatically</dd>
       </dl><dl><dt>
 
           <code><a href="plot.html">augment(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;igraph_ptr&gt;</i>)</a></code>
