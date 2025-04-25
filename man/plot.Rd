@@ -10,7 +10,7 @@
 \method{plot}{igraph_ptr}(x, ..., lwd = 0.6, cex = 6, col = "#cccccc", pch = 16)
 }
 \arguments{
-\item{x}{An igraph_ptr object.}
+\item{x}{An \link{igraph_ptr} object.}
 
 \item{layout}{A function or resulting data.frame.
 If not provided, \code{\link[=layout_nicely]{layout_nicely()}} is applied.}

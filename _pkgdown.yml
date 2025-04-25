@@ -6,10 +6,8 @@ reference:
 - title: R Interface
 - contents:
   - igraph_ptr
-  - is_igraph
   - as_igraph
   - graph_from_data_frame
-  - print.igraph_ptr
 - title: Basic Interface
   desc: https://igraph.org/c/doc/igraph-Basic.html
 - contents:

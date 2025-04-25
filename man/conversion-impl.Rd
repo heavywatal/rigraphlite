@@ -22,7 +22,7 @@ A data.frame may contain additional columns for edge attributes.}
 \item{directed}{A logical.}
 }
 \value{
-An igraph object.
+An \link{igraph_ptr} object.
 }
 \description{
 An edge list is a two-column matrix or data.frame where the first column

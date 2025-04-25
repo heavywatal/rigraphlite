@@ -11,7 +11,7 @@
 #' Other functions support non-numeric values, treating them as vertex names.
 #' A data.frame may contain additional columns for edge attributes.
 #' @param directed A logical.
-#' @returns An igraph object.
+#' @returns An [igraph_ptr] object.
 #' @rdname conversion-impl
 #' @export
 #' @examples

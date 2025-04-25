@@ -27,7 +27,7 @@ as_igraph(x, ...)
 \item{...}{Additional arguments passed to the conversion function.}
 }
 \value{
-\code{as_igraph()} returns an igraph object.
+\code{as_igraph()} returns an \link{igraph_ptr} object.
 
 \code{as.data.frame()} returns an edge list in data.frame format,
 which may include additional columns for edge attributes.

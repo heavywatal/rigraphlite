@@ -3,31 +3,29 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' igraph_ptr class: thin wrapper of `igraph_t`.
+#' `igraph_ptr`: cpp11-powered class for igraph objects
 #'
-#' @seealso [is_igraph()] to check if an object is of class `igraph_ptr`.
+#' `igraph_ptr` is a subclass of external pointer to C++ `IGraph` objects.
+#' The `IGraph` class is a thin wrapper of `igraph_t` in C igraph library.
 #' @seealso [as_igraph()] and [as.data.frame.igraph_ptr()] for conversion
 #' from and to R objects.
-#' @seealso [graph_lattice()] and [graph_tree()] for deterministic graph generation.
 #' @source <https://github.com/igraph/igraph/blob/master/include/igraph_datatype.h>
-#' @docType class
-#' @keywords data
-#' @format external pointer to C++ IGraph class object.
 #' @name igraph_ptr
 #' @rdname igraph-class
 NULL
 
-#' Check if an object is igraph_ptr class
-#'
 #' @param x An object to be tested.
-#'
-#' @returns `TRUE` if the object is of class `igraph_ptr`, `FALSE` otherwise.
-#' @seealso [as_igraph()] to convert an object to `igraph_ptr`.
-#' @rdname is_igraph
+#' @returns A logical, `TRUE` if `x` is of class `igraph_ptr`, `FALSE` otherwise.
+#' @rdname igraph-class
 #' @export
 #' @examples
-#' is_igraph(graph_tree(6L))
-#' is_igraph(seq_len(6L))
+#' v = seq_len(6L)
+#' is_igraph(v)
+#'
+#' g = graph_create(v)
+#' is_igraph(g)
+#'
+#' print(g)
 is_igraph = function(x) {
   inherits(x, "igraph_ptr")
 }

@@ -1,12 +1,4 @@
-#' S3 methods to get and view internal data.
-#'
-#' @param x An igraph_ptr object.
-#' @param ... Extra arguments passed to the method.
-#' @returns The original `x` invisibly.
-#' @rdname s3-method
 #' @export
-#' @examples
-#' print(graph_tree(5L))
 print.igraph_ptr = function(x, ...) {
   cat("$V  ")
   utils::str(Vattr(x))
@@ -20,7 +12,7 @@ generics::augment
 
 #' Methods for quick visualization
 #'
-#' @param x An igraph_ptr object.
+#' @param x An [igraph_ptr] object.
 #' @param layout A function or resulting data.frame.
 #'   If not provided, [layout_nicely()] is applied.
 #' @param ... Extra arguments passed to the layout function.

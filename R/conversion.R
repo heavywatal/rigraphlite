@@ -7,7 +7,7 @@
 #' [graph_from_data_frame()], [graph_create()] for underlying functions.
 #' @param x A vector, matrix, data.frame, or graph object to be converted.
 #' @param ... Additional arguments passed to the conversion function.
-#' @returns `as_igraph()` returns an igraph object.
+#' @returns `as_igraph()` returns an [igraph_ptr] object.
 #' @rdname conversion
 #' @export
 #' @examples
