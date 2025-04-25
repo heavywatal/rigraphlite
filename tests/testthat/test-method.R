@@ -10,7 +10,7 @@ test_that("visualization methods work", {
   .colnames = c("from", "to", "x", "y", "xend", "yend")
   expect_named(augment(g), .colnames)
   expect_named(augment(g, layout = layout_reingold_tilford), .colnames)
-  expect_named(augment(g, layout = layout_reingold_tilford(g)), .colnames)
+  expect_named(augment(g, layout = layout_reingold_tilford(g) |> Vattr()), .colnames)
   expect_error(augment(g, layout = data.frame(a = 0, b = 0)), "hasName")
   expect_error(augment(g, layout = data.frame(x = 0, y = 0)), "nrow")
   expect_error(augment(g, layout = "layout_reingold_tilford"), "Invalid type")

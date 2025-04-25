@@ -2,45 +2,31 @@
 % Please edit documentation in R/layout.R
 \name{layout_nicely}
 \alias{layout_nicely}
-\alias{layout_random}
-\alias{layout_drl}
-\alias{layout_fruchterman_reingold}
-\alias{layout_mds}
-\alias{layout_reingold_tilford}
-\alias{layout_reingold_tilford_circular}
-\title{Layouts for Graph Drawing}
+\title{Choose a layout algorithm automatically}
 \source{
-\url{https://igraph.org/c/doc/igraph-Layout.html}
+\url{https://r.igraph.org/reference/layout_nicely.html}
 }
 \usage{
 layout_nicely(graph, ...)
-
-layout_random(graph)
-
-layout_drl(graph)
-
-layout_fruchterman_reingold(graph, grid = 2L)
-
-layout_mds(graph, dist)
-
-layout_reingold_tilford(graph, mode = 1L, roots = integer(0))
-
-layout_reingold_tilford_circular(graph, mode = 1L, roots = integer(0))
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{...}{Passed to an internal layout function.}
-
-\item{grid}{Whether to use the (fast but less accurate) grid based version;
-\{0: GRID, 1: NOGRID, 2: AUTOGRID\}.}
-
-\item{dist}{A distant matrix.}
-
-\item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
-
-\item{roots}{Root vertices.}
+\item{...}{Additional arguments passed to the layout function.}
+}
+\value{
+An \code{\link{igraph_ptr}} object with vertex attributes \code{x} and \code{y}.
 }
 \description{
-Layouts for Graph Drawing
+Layout functions add \code{x} and \code{y} vertex attributes to the graph object.
+The object is modified in place, and its shallow copy is returned.
 }
+\examples{
+layout_nicely(graph_tree(5L)) |> Vattr()
+}
+\seealso{
+Other layouts: 
+\code{\link{layout_random}()},
+\code{\link{layout_reingold_tilford}()}
+}
+\concept{layouts}

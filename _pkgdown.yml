@@ -51,6 +51,8 @@ reference:
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
 - contents:
+  - layout_random
+  - layout_reingold_tilford
   - layout_nicely
   - starts_with("augment")
   - starts_with("plot")

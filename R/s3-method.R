@@ -12,35 +12,41 @@ generics::augment
 
 #' Methods for quick visualization
 #'
+#' Vertex attributes "x" and "y" are used as the cartesian coordinates for plotting.
+#' They can be set by layout functions beforehand, or within `augment()`.
+#' `plot()` internally calls `augment()`.
 #' @param x An [igraph_ptr] object.
-#' @param layout A function or resulting data.frame.
-#'   If not provided, [layout_nicely()] is applied.
+#' @param layout A layout function or a `Vattr(x)`-like data.frame with "x" and "y".
+#'   If not provided, [layout_nicely()] is applied,
+#'   which does nothing if "x" and "y" are already set in vertex attributes.
 #' @param ... Extra arguments passed to the layout function.
 #' @returns `augment()` returns a data frame to be used with [ggplot2::ggplot()].
+#' @seealso [layout_random()] and others for layout functions.
 #' @rdname plot
 #' @export
 #' @examples
-#' g = graph_tree(5L)
-#' augment(g, layout = layout_reingold_tilford)
+#' g = graph_tree(5L) |> layout_reingold_tilford()
 #'
-#' plot(g, layout = layout_reingold_tilford) +
-#'   ggplot2::theme_minimal(base_size = 14)
+#' augment(g)
+#'
+#' plot(g) + ggplot2::theme_minimal(base_size = 14)
 augment.igraph_ptr = function(x, layout = NULL, ...) {
   if (is.null(layout)) {
-    layout = layout_nicely(x, ...)
+    layout_nicely(x, ...)
   } else if (is.function(layout)) {
-    layout = layout(x, ...)
-  }
-  if (is.data.frame(layout)) {
+    layout(x, ...)
+  } else if (is.data.frame(layout)) {
     stopifnot(utils::hasName(layout, c("x", "y")))
     stopifnot(nrow(layout) == vcount(x))
+    Vattr(x, "x") = layout$x
+    Vattr(x, "y") = layout$y
   } else {
     stop("Invalid type '", typeof(layout), "' for argument 'layout'", call. = FALSE)
   }
   root = Vsource(x)
   from = c(root, igraph_from(x))
   to = c(root, igraph_to(x))
-  segment_df(from, to, layout$x, layout$y, Vnames(x))
+  segment_df(from, to, Vattr(x)$x, Vattr(x)$y, Vnames(x))
 }
 
 segment_df = function(from, to, x, y, vnames = NULL) {

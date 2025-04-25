@@ -316,45 +316,51 @@ extern "C" SEXP _igraphlite_rng_seed(SEXP seed) {
   END_CPP11
 }
 // layout.cpp
-SEXP layout_random_(const cpp11::external_pointer<IGraph> graph);
+void layout_random_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_layout_random_(SEXP graph) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_random_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+    layout_random_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph));
+    return R_NilValue;
   END_CPP11
 }
 // layout.cpp
-SEXP layout_drl_(const cpp11::external_pointer<IGraph> graph);
+void layout_drl_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_layout_drl_(SEXP graph) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_drl_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+    layout_drl_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph));
+    return R_NilValue;
   END_CPP11
 }
 // layout.cpp
-SEXP layout_fruchterman_reingold_(const cpp11::external_pointer<IGraph> graph, int grid);
+void layout_fruchterman_reingold_(const cpp11::external_pointer<IGraph> graph, int grid);
 extern "C" SEXP _igraphlite_layout_fruchterman_reingold_(SEXP graph, SEXP grid) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_fruchterman_reingold_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(grid)));
+    layout_fruchterman_reingold_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(grid));
+    return R_NilValue;
   END_CPP11
 }
 // layout.cpp
-SEXP layout_mds_(const cpp11::external_pointer<IGraph> graph, SEXP dist);
+void layout_mds_(const cpp11::external_pointer<IGraph> graph, SEXP dist);
 extern "C" SEXP _igraphlite_layout_mds_(SEXP graph, SEXP dist) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_mds_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<SEXP>>(dist)));
+    layout_mds_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<SEXP>>(dist));
+    return R_NilValue;
   END_CPP11
 }
 // layout.cpp
-SEXP layout_reingold_tilford_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots);
+void layout_reingold_tilford_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots);
 extern "C" SEXP _igraphlite_layout_reingold_tilford_(SEXP graph, SEXP mode, SEXP roots) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_reingold_tilford_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots)));
+    layout_reingold_tilford_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots));
+    return R_NilValue;
   END_CPP11
 }
 // layout.cpp
-SEXP layout_reingold_tilford_circular_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots);
+void layout_reingold_tilford_circular_(const cpp11::external_pointer<IGraph> graph, int mode, const cpp11::integers& roots);
 extern "C" SEXP _igraphlite_layout_reingold_tilford_circular_(SEXP graph, SEXP mode, SEXP roots) {
   BEGIN_CPP11
-    return cpp11::as_sexp(layout_reingold_tilford_circular_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots)));
+    layout_reingold_tilford_circular_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(roots));
+    return R_NilValue;
   END_CPP11
 }
 // operators.cpp

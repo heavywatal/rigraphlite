@@ -1,12 +1,12 @@
 test_that("layout functions return x-y columns", {
   g = graph_tree(7L)
-  expect_named(layout_random(g), c("x", "y"))
-  expect_named(layout_nicely(g), c("x", "y"))
-  expect_named(layout_drl(g), c("x", "y"))
-  expect_named(layout_fruchterman_reingold(g), c("x", "y"))
-  expect_named(layout_mds(g, distances(g)), c("x", "y"))
-  expect_named(layout_reingold_tilford(g), c("x", "y"))
-  expect_named(layout_reingold_tilford_circular(g), c("x", "y"))
+  expect_named(layout_nicely(g) |> Vattr(), c("x", "y"))
+  expect_named(layout_random(g) |> Vattr(), c("x", "y"))
+  expect_named(layout_drl(g) |> Vattr(), c("x", "y"))
+  expect_named(layout_fruchterman_reingold(g) |> Vattr(), c("x", "y"))
+  expect_named(layout_mds(g, distances(g)) |> Vattr(), c("x", "y"))
+  expect_named(layout_reingold_tilford(g) |> Vattr(), c("x", "y"))
+  expect_named(layout_reingold_tilford_circular(g) |> Vattr(), c("x", "y"))
 })
 
 test_that("layout_random() generates consistent numbers", {

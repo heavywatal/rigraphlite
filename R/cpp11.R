@@ -173,27 +173,27 @@ rng_seed <- function(seed) {
 }
 
 layout_random_ <- function(graph) {
-  .Call(`_igraphlite_layout_random_`, graph)
+  invisible(.Call(`_igraphlite_layout_random_`, graph))
 }
 
 layout_drl_ <- function(graph) {
-  .Call(`_igraphlite_layout_drl_`, graph)
+  invisible(.Call(`_igraphlite_layout_drl_`, graph))
 }
 
 layout_fruchterman_reingold_ <- function(graph, grid) {
-  .Call(`_igraphlite_layout_fruchterman_reingold_`, graph, grid)
+  invisible(.Call(`_igraphlite_layout_fruchterman_reingold_`, graph, grid))
 }
 
 layout_mds_ <- function(graph, dist) {
-  .Call(`_igraphlite_layout_mds_`, graph, dist)
+  invisible(.Call(`_igraphlite_layout_mds_`, graph, dist))
 }
 
 layout_reingold_tilford_ <- function(graph, mode, roots) {
-  .Call(`_igraphlite_layout_reingold_tilford_`, graph, mode, roots)
+  invisible(.Call(`_igraphlite_layout_reingold_tilford_`, graph, mode, roots))
 }
 
 layout_reingold_tilford_circular_ <- function(graph, mode, roots) {
-  .Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots)
+  invisible(.Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots))
 }
 
 induced_subgraph_ <- function(graph, vids, impl) {

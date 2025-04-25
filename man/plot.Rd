@@ -12,8 +12,9 @@
 \arguments{
 \item{x}{An \link{igraph_ptr} object.}
 
-\item{layout}{A function or resulting data.frame.
-If not provided, \code{\link[=layout_nicely]{layout_nicely()}} is applied.}
+\item{layout}{A layout function or a \code{Vattr(x)}-like data.frame with "x" and "y".
+If not provided, \code{\link[=layout_nicely]{layout_nicely()}} is applied,
+which does nothing if "x" and "y" are already set in vertex attributes.}
 
 \item{...}{Extra arguments passed to the layout function.}
 
@@ -27,12 +28,17 @@ If not provided, \code{\link[=layout_nicely]{layout_nicely()}} is applied.}
 \code{plot.igraph_ptr()} returns a ggplot object.
 }
 \description{
-Methods for quick visualization
+Vertex attributes "x" and "y" are used as the cartesian coordinates for plotting.
+They can be set by layout functions beforehand, or within \code{augment()}.
+\code{plot()} internally calls \code{augment()}.
 }
 \examples{
-g = graph_tree(5L)
-augment(g, layout = layout_reingold_tilford)
+g = graph_tree(5L) |> layout_reingold_tilford()
 
-plot(g, layout = layout_reingold_tilford) +
-  ggplot2::theme_minimal(base_size = 14)
+augment(g)
+
+plot(g) + ggplot2::theme_minimal(base_size = 14)
+}
+\seealso{
+\code{\link[=layout_random]{layout_random()}} and others for layout functions.
 }
