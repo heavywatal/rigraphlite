@@ -24,5 +24,3 @@ common_params = function(graph, vids, vid, from, to, eids, eid, edges, mode, wei
 split_at = function(x, pos) {
   unname(split(x, findInterval(seq_along(x), pos + 1L)))
 }
-
-`%||%` = function(x, y) if (is.null(x)) y else x
