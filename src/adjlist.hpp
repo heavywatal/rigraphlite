@@ -3,11 +3,10 @@
 #ifndef IGRAPHLITE_ADJLIST_HPP_
 #define IGRAPHLITE_ADJLIST_HPP_
 
-#include "cpp11.hpp"
+#include "policy.hpp"
 
 #include <igraph/igraph_adjlist.h>
-
-#include "policy.hpp"
+#include <cpp11/list.hpp>
 
 class IAdjList {
   public:

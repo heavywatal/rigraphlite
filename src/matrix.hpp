@@ -2,9 +2,8 @@
 #ifndef IGRAPHLITE_MATRIX_HPP_
 #define IGRAPHLITE_MATRIX_HPP_
 
-#include "cpp11.hpp"
-
 #include <igraph/igraph_matrix.h>
+#include <cpp11/matrix.hpp>
 
 #include <memory>
 

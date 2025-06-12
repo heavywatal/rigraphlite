@@ -2,9 +2,15 @@
 #ifndef IGRAPHLITE_DATAFRAME_HPP_
 #define IGRAPHLITE_DATAFRAME_HPP_
 
-#include "cpp11.hpp"
+#include <cpp11/data_frame.hpp>
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/list.hpp>
+#include <cpp11/logicals.hpp>
+#include <cpp11/raws.hpp>
+#include <cpp11/strings.hpp>
 
-#include <numeric>
+#include <algorithm>
 #include <set>
 #include <unordered_set>
 

@@ -61,8 +61,6 @@ layout_fruchterman_reingold_(const cpp11::external_pointer<IGraph> graph, int gr
 
 [[cpp11::register]] void
 layout_mds_(const cpp11::external_pointer<IGraph> graph, SEXP dist) {
-  cpp11::writable::doubles null{};
-  cpp11::writable::integers nulli{};
   IMatrix res(graph->vcount(), 2);
   igraph_layout_mds(graph->data(), res.data(), IMatrix(dist).data(), 2);
   mutate_vattr_xy(&graph->Vattr_, res.wrap());

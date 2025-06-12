@@ -2,9 +2,8 @@
 #ifndef IGRAPHLITE_STRVECTOR_HPP_
 #define IGRAPHLITE_STRVECTOR_HPP_
 
-#include "cpp11.hpp"
-
 #include <igraph/igraph_strvector.h>
+#include <cpp11/strings.hpp>
 
 class IStrVector {
   public:

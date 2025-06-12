@@ -2,9 +2,9 @@
 #ifndef IGRAPHLITE_POLICY_HPP_
 #define IGRAPHLITE_POLICY_HPP_
 
-#include "cpp11.hpp"
-
 #include <igraph/igraph_vector.h>
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 // StoragePolicy

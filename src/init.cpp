@@ -1,9 +1,8 @@
-#include "cpp11.hpp"
-
 #include <igraph/igraph_error.h>
 #include <igraph/igraph_interrupt.h>
 #include <igraph/igraph_random.h>
 #include <igraph/igraph_version.h>
+#include <cpp11/r_string.hpp>
 
 [[cpp11::register]]
 cpp11::r_string igraph_version_() {
@@ -25,6 +24,7 @@ void warning_handler(const char* reason, const char* file, int line) {
 }
 
 igraph_error_t interruption_handler(void* data) {
+  (void)data;
   if (!R_ToplevelExec([](void*){cpp11::check_user_interrupt();}, NULL)) {
     IGRAPH_FINALLY_FREE();
     return IGRAPH_INTERRUPTED;
@@ -36,6 +36,7 @@ igraph_rng_t igraph_rng_R_instance;
 
 [[cpp11::init]]
 void igraphlite_init(DllInfo *dll) {
+  (void)dll;
   igraph_version_();
   igraph_set_error_handler(&error_handler);
   igraph_set_warning_handler(&warning_handler);

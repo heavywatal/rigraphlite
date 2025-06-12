@@ -2,13 +2,12 @@
 #ifndef IGRAPHLITE_VECTOR_HPP_
 #define IGRAPHLITE_VECTOR_HPP_
 
-#include "cpp11.hpp"
-
 #include "policy.hpp"
 
 #include <igraph/igraph_vector.h>
 #include <igraph/igraph_vector_list.h>
 #include <igraph/igraph_iterators.h>
+#include <cpp11/list.hpp>
 
 template <class WrapPolicy, class StoragePolicy = InitSizeInt>
 class IVector {

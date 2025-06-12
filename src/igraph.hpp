@@ -2,7 +2,9 @@
 #ifndef IGRAPHLITE_IGRAPH_HPP_
 #define IGRAPHLITE_IGRAPH_HPP_
 
-#include "cpp11.hpp"
+#include <cpp11/data_frame.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/external_pointer.hpp>
 
 #include <memory>
 

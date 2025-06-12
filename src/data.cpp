@@ -2,6 +2,8 @@
 #include "adjlist.hpp"
 #include "dataframe.hpp"
 
+#include <cpp11/matrix.hpp>
+
 [[cpp11::register]] SEXP
 as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const int multiple) {
   return IAdjList(graph->data(), mode, loops, multiple).wrap();

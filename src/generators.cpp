@@ -4,6 +4,7 @@
 #include "dataframe.hpp"
 
 #include <igraph/igraph_constructors.h>
+#include <cpp11/matrix.hpp>
 
 #include <unordered_map>
 
@@ -80,13 +81,13 @@ namespace impl {
   template <class T> inline
   cpp11::r_vector<T>
   flatten_edgelist(const cpp11::sexp edgelist) {
-    const auto mtrx = cpp11::as_cpp<cpp11::matrix<cpp11::r_vector<T>, T>>(edgelist);
-    const int nrow = mtrx.nrow();
+    const auto mat = cpp11::as_cpp<cpp11::matrix<cpp11::r_vector<T>, T>>(edgelist);
+    const int nrow = mat.nrow();
     cpp11::writable::r_vector<T> edges;
     edges.reserve(2 * nrow);
     for (int r = 0; r < nrow; ++r) {
-      edges.push_back(mtrx(r, 0));
-      edges.push_back(mtrx(r, 1));
+      edges.push_back(mat(r, 0));
+      edges.push_back(mat(r, 1));
     }
     return edges;
   }
