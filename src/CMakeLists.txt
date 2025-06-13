@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.18)
+cmake_minimum_required(VERSION 3.20)
 project(rigraphlite
   VERSION 0.10.16
   LANGUAGES C CXX)
@@ -21,7 +21,7 @@ if(igraph_FOUND AND (IGRAPH_INTEGER_SIZE STREQUAL "32"))
   get_target_property(INCLUDEDIR igraph::igraph INTERFACE_INCLUDE_DIRECTORIES)
   list(GET INCLUDEDIR 1 INCLUDEDIR)
   get_target_property(LIBDIR igraph::igraph IMPORTED_LOCATION_RELEASE)
-  get_filename_component(LIBDIR "${LIBDIR}" DIRECTORY)
+  cmake_path(REMOVE_FILENAME LIBDIR)
   get_target_property(LIB_TYPE igraph::igraph TYPE)
   if(LIB_TYPE STREQUAL "SHARED_LIBRARY")
     set(BUILD_SHARED_LIBS ON) # for conditinal LDFLAGS
