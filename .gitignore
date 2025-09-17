@@ -1,9 +1,1 @@
-/docs/deps/**.map
-/docs/deps/clipboard*
-/docs/deps/headroom*
-/docs/deps/font-awesome*/css/*.css
-!/docs/deps/font-awesome*/css/*.min.css
-/docs/deps/font-awesome*/webfonts/*
-!/docs/deps/font-awesome*/webfonts/fa-brands-400.woff2
-/docs/deps/jquery*/jquery-*.js
-!/docs/deps/jquery*/jquery-*.min.js
+/docs
