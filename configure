@@ -10,6 +10,7 @@ fi
 CXX=${CXX%% *}
 echo "CXX: $CXX"
 echo "PWD: $PWD"
+echo "R_LIBRARY_DIR: $R_LIBRARY_DIR"
 echo "R_PACKAGE_DIR: $R_PACKAGE_DIR"
 BUILD_DIR="${R_SESSION_TMPDIR}/${R_PACKAGE_NAME}-build"
 echo "BUILD_DIR: $BUILD_DIR"

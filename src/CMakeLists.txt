@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24)
 project(rigraphlite
   VERSION 0.10.16
   LANGUAGES C CXX)
@@ -8,15 +8,15 @@ include(FetchContent)
 include(GNUInstallDirs)
 cmake_print_variables(CMAKE_CURRENT_SOURCE_DIR)
 
-function(import_env variable)
-  if(DEFINED ENV{${variable}})
-    set(${variable} $ENV{${variable}} PARENT_SCOPE)
-  endif()
+function(print_env_variables)
+  foreach(var IN LISTS ARGN)
+    message(STATUS "ENV{${var}}=$ENV{${var}}")
+  endforeach()
 endfunction()
+print_env_variables(igraph_ROOT CMAKE_PREFIX_PATH)
 
-cmake_print_variables(igraph_ROOT CMAKE_PREFIX_PATH)
 find_package(igraph ${PROJECT_VERSION} QUIET)
-cmake_print_variables(igraph_FOUND IGRAPH_INTEGER_SIZE igraph_DIR)
+cmake_print_variables(igraph_FOUND igraph_DIR IGRAPH_INTEGER_SIZE)
 if(igraph_FOUND AND (IGRAPH_INTEGER_SIZE STREQUAL "32"))
   get_target_property(INCLUDEDIR igraph::igraph INTERFACE_INCLUDE_DIRECTORIES)
   list(GET INCLUDEDIR 1 INCLUDEDIR)
@@ -24,17 +24,12 @@ if(igraph_FOUND AND (IGRAPH_INTEGER_SIZE STREQUAL "32"))
   cmake_path(REMOVE_FILENAME LIBDIR)
   get_target_property(LIB_TYPE igraph::igraph TYPE)
   if(LIB_TYPE STREQUAL "SHARED_LIBRARY")
-    set(BUILD_SHARED_LIBS ON) # for conditinal LDFLAGS
+    set(BUILD_SHARED_LIBS ON) # for conditional LDFLAGS
   endif()
 else()
-  set(FETCHCONTENT_QUIET OFF)
-  import_env("FETCHCONTENT_SOURCE_DIR_IGRAPH")
-  cmake_print_variables(FETCHCONTENT_SOURCE_DIR_IGRAPH)
-  FetchContent_Declare(
-    igraph
-    GIT_REPOSITORY https://github.com/igraph/igraph.git
-    GIT_TAG ${PROJECT_VERSION}
-    GIT_SHALLOW ON
+  FetchContent_Declare(igraph
+    URL https://github.com/igraph/igraph/releases/download/${PROJECT_VERSION}/igraph-${PROJECT_VERSION}.tar.gz
+    URL_HASH SHA256=15a1540a8d270232c9aa99adeeffb7787bea96289d6bef6646ec9c91a9a93992
   )
   set(CMAKE_BUILD_TYPE Release)
   set(CMAKE_INSTALL_LIBDIR "libs")
