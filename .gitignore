@@ -1,0 +1,9 @@
+/deps/**.map
+/deps/clipboard*
+/deps/headroom*
+/deps/font-awesome*/css/*.css
+!/deps/font-awesome*/css/*.min.css
+/deps/font-awesome*/webfonts/*
+!/deps/font-awesome*/webfonts/fa-brands-400.woff2
+/deps/jquery*/jquery-*.js
+!/deps/jquery*/jquery-*.min.js
