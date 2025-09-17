@@ -28,9 +28,8 @@ test_that("attribute getters/setters work", {
 
   Vattr(g)[["brackets"]] = V(g)
   expect_identical(Vattr(g)[["brackets"]], V(g))
-  skip_if_not_installed("tibble")
   expect_null(Vattr(g)$dollar) |>
-    expect_warning("column")
+    suppressWarnings()
   Vattr(g)$dollar = V(g)
   expect_identical(Vattr(g)$dollar, V(g))
 })

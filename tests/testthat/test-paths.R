@@ -15,7 +15,8 @@ test_that("distances works", {
     expect_length(n**2L)
   expect_true(is.matrix(dw))
   expect_identical(dim(dw), c(vcount(g), vcount(g)))
-  expect_warning(get_shortest_paths(g, 1L, weights = TRUE), "column")
+  suppressWarnings(distances(g, weights = TRUE)) |>
+    expect_identical(d)
   Eattr(g)$weight = E(g)
   expect_identical(distances(g, weights = TRUE), dw)
 })
@@ -23,7 +24,10 @@ test_that("distances works", {
 test_that("get_shortest_paths works", {
   g = graph_tree(7L)
   to = seq_len(3L)
-  get_shortest_paths(g, 1L) |>
+  d = get_shortest_paths(g, 1L) |>
+    expect_type("list") |>
+    expect_length(vcount(g))
+  dw = get_shortest_paths(g, 1L, weights = E(g)) |>
     expect_type("list") |>
     expect_length(vcount(g))
   get_shortest_paths(g, 1L, to) |>
@@ -37,15 +41,19 @@ test_that("get_shortest_paths works", {
     get_shortest_paths(g, 1L, mode = 2L),
     "Couldn't reach some vertices"
   )
-  expect_warning(get_shortest_paths(g, 1L, weights = TRUE), "column")
+  suppressWarnings(get_shortest_paths(g, 1L, weights = TRUE)) |>
+    expect_identical(d)
   Eattr(g)$weight = E(g)
-  expect_type(get_shortest_paths(g, 1L, weights = TRUE), "list")
+  expect_identical(get_shortest_paths(g, 1L, weights = TRUE), dw)
 })
 
 test_that("get_all_shortest_paths works", {
   g = graph_tree(7L)
   to = seq_len(3L)
-  get_all_shortest_paths(g, 1L) |>
+  d = get_all_shortest_paths(g, 1L) |>
+    expect_type("list") |>
+    expect_length(vcount(g))
+  dw = get_all_shortest_paths(g, 1L, weights = E(g)) |>
     expect_type("list") |>
     expect_length(vcount(g))
   get_all_shortest_paths(g, 1L, to) |>
@@ -56,9 +64,10 @@ test_that("get_all_shortest_paths works", {
     "Expected single integer value"
   )
   expect_length(get_all_shortest_paths(g, 1L, mode = 2L), 1L)
-  expect_warning(get_shortest_paths(g, 1L, weights = TRUE), "column")
+  suppressWarnings(get_all_shortest_paths(g, 1L, weights = TRUE)) |>
+    expect_identical(d)
   Eattr(g)$weight = E(g)
-  expect_type(get_all_shortest_paths(g, 1L, weights = TRUE), "list")
+  expect_identical(get_all_shortest_paths(g, 1L, weights = TRUE), dw)
 })
 
 test_that("get_all_simple_paths works", {
