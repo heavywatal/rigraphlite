@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project(rigraphlite
-  VERSION 0.10.16
+  VERSION 0.10.17
   LANGUAGES C CXX)
 
 include(CMakePrintHelpers)
@@ -29,7 +29,7 @@ if(igraph_FOUND AND (IGRAPH_INTEGER_SIZE STREQUAL "32"))
 else()
   FetchContent_Declare(igraph
     URL https://github.com/igraph/igraph/releases/download/${PROJECT_VERSION}/igraph-${PROJECT_VERSION}.tar.gz
-    URL_HASH SHA256=15a1540a8d270232c9aa99adeeffb7787bea96289d6bef6646ec9c91a9a93992
+    URL_HASH SHA256=21016ecf309a235f2bd9e208606d5a24c14a1f701dd7b2497e2e5f6bf2c5f848
   )
   set(CMAKE_BUILD_TYPE Release)
   set(CMAKE_INSTALL_LIBDIR "libs")

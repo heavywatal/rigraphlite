@@ -1,6 +1,6 @@
 Package: igraphlite
 Title: Lightweight R Interface to Igraph Network Analysis Library
-Version: 0.10.16
+Version: 0.10.17
 Authors@R:
     person("Watal M.", "Iwasaki", , "heavywatal@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4718-7605"))
