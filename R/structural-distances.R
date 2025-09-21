@@ -5,6 +5,7 @@
 #' @source <https://igraph.org/c/doc/igraph-Structural.html#shortest-path-related-functions>
 #' @param ... Unused, but temporarily included to avoid silent bugs and
 #'   to prompt users to cope with breaking changes in version 1.0.
+#' @param cutoff Maximum length of paths to be considered. Unlimited if negative.
 #' @inheritParams common_params
 #' @examples
 #' g = graph_tree(5L)
@@ -15,14 +16,14 @@
 #' @name distances
 #' @rdname distances
 #' @export
-distances = function(graph, ..., weights = numeric(0L), from = integer(0L), to = from, mode = 3L) {
+distances = function(graph, ..., weights = numeric(0L), from = integer(0L), to = from, mode = 3L, cutoff = -1) {
   if (!missing(...)) {
     stop("Use named arguments to cope with breaking changes in 1.0.", call. = FALSE)
   }
   if (isTRUE(weights)) {
     weights = Eattr(graph)$weight
   }
-  .Call(`_igraphlite_distances_`, graph, as.numeric(weights), from, to, mode)
+  .Call(`_igraphlite_distances_`, graph, as.numeric(weights), from, to, mode, cutoff)
 }
 
 #' @param unconn A logical value.

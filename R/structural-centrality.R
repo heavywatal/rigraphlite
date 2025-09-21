@@ -4,6 +4,7 @@
 #' @source <https://igraph.org/c/doc/igraph-Structural.html#centrality-measures>
 #' @param ... Unused, but temporarily included to avoid silent bugs and
 #'   to prompt users to cope with breaking changes in version 1.0.
+#' @param cutoff Maximum length of paths to be considered. Unlimited if negative.
 #' @inheritParams common_params
 #' @returns `edge_betweenness()` returns a numeric vector of edge betweenness
 #' for each edge in the graph.
@@ -15,12 +16,19 @@
 #' @rdname centrality
 #' @export
 edge_betweenness = function(
-    graph, ..., weights = numeric(0), eids = integer(0),
-    directed = is_directed(graph), normalized = FALSE) {
+    graph, ..., weights = numeric(0), from = integer(0), to = integer(0), eids = integer(0),
+    directed = is_directed(graph), normalized = FALSE, cutoff = -1) {
   if (!missing(...)) {
     stop("Use named arguments to cope with breaking changes in 1.0.", call. = FALSE)
   }
-  .Call(`_igraphlite_edge_betweenness_`, graph, weights, eids, directed, normalized)
+  if (missing(from) && missing(to)) {
+    .Call(`_igraphlite_edge_betweenness_`, graph, weights, eids, directed, normalized, cutoff)
+  } else {
+    if (!missing(cutoff)) {
+      warning("`cutoff` is ignored when `from` or `to` is specified.", call. = FALSE)
+    }
+    .Call(`_igraphlite_edge_betweenness_subset_`, graph, weights, from, to, eids, directed, normalized)
+  }
 }
 
 #' @returns `edge_betweenness_subset()` is a variant of `edge_betweenness()`
@@ -30,6 +38,7 @@ edge_betweenness = function(
 edge_betweenness_subset = function(
     graph, ..., weights = numeric(0), from = integer(0), to = integer(0), eids = integer(0),
     directed = is_directed(graph), normalized = FALSE) {
+  warning("`edge_betweenness_subset()` is deprecated; use `edge_betweenness()` instead.", call. = FALSE)
   if (!missing(...)) {
     stop("Use named arguments to cope with breaking changes in 1.0.", call. = FALSE)
   }

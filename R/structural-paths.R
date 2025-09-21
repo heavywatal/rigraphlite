@@ -42,8 +42,8 @@ get_all_shortest_paths = function(graph, ..., weights = numeric(0L), from = inte
   .Call(`_igraphlite_get_all_shortest_paths_`, graph, as.numeric(weights), from, to, mode)
 }
 
-#' @param minlen Minimum length of paths that is considered. Unlimited if negative.
-#' @param maxlen Maximum length of paths that is considered. Unlimited if negative.
+#' @param minlen Minimum length of paths to be considered. Unlimited if negative.
+#' @param maxlen Maximum length of paths to be considered. Unlimited if negative.
 #' @param max_results At most this many paths will be recorded. Unlimited if negative.
 #' @rdname paths
 #' @export

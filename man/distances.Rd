@@ -15,7 +15,8 @@ distances(
   weights = numeric(0L),
   from = integer(0L),
   to = from,
-  mode = 3L
+  mode = 3L,
+  cutoff = -1
 )
 
 average_path_length(
@@ -41,6 +42,8 @@ to prompt users to cope with breaking changes in version 1.0.}
 \item{to}{An integer vector of vertex IDs.}
 
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
+
+\item{cutoff}{Maximum length of paths to be considered. Unlimited if negative.}
 
 \item{directed}{A logical value, whether to consider directed paths.
 Ignored for undirected graphs.}

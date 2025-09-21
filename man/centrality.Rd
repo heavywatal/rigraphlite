@@ -13,9 +13,12 @@ edge_betweenness(
   graph,
   ...,
   weights = numeric(0),
+  from = integer(0),
+  to = integer(0),
   eids = integer(0),
   directed = is_directed(graph),
-  normalized = FALSE
+  normalized = FALSE,
+  cutoff = -1
 )
 
 edge_betweenness_subset(
@@ -37,6 +40,10 @@ to prompt users to cope with breaking changes in version 1.0.}
 
 \item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
 
+\item{from}{An integer vector of vertex IDs.}
+
+\item{to}{An integer vector of vertex IDs.}
+
 \item{eids}{An integer vector of edge IDs.}
 
 \item{directed}{A logical value, whether to consider directed paths.
@@ -44,9 +51,7 @@ Ignored for undirected graphs.}
 
 \item{normalized}{A logical value, whether to normalize the result.}
 
-\item{from}{An integer vector of vertex IDs.}
-
-\item{to}{An integer vector of vertex IDs.}
+\item{cutoff}{Maximum length of paths to be considered. Unlimited if negative.}
 }
 \value{
 \code{edge_betweenness()} returns a numeric vector of edge betweenness

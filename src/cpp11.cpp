@@ -182,10 +182,10 @@ extern "C" SEXP _igraphlite_delete_vertices_(SEXP graph, SEXP vids) {
   END_CPP11
 }
 // centrality.cpp
-SEXP edge_betweenness_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& eids, const bool directed, const bool normalized);
-extern "C" SEXP _igraphlite_edge_betweenness_(SEXP graph, SEXP weights, SEXP eids, SEXP directed, SEXP normalized) {
+SEXP edge_betweenness_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& eids, const bool directed, const bool normalized, const double cutoff);
+extern "C" SEXP _igraphlite_edge_betweenness_(SEXP graph, SEXP weights, SEXP eids, SEXP directed, SEXP normalized, SEXP cutoff) {
   BEGIN_CPP11
-    return cpp11::as_sexp(edge_betweenness_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
+    return cpp11::as_sexp(edge_betweenness_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized), cpp11::as_cpp<cpp11::decay_t<const double>>(cutoff)));
   END_CPP11
 }
 // centrality.cpp
@@ -385,10 +385,10 @@ extern "C" SEXP _igraphlite_subgraph_from_edges_(SEXP graph, SEXP eids, SEXP del
   END_CPP11
 }
 // paths.cpp
-SEXP distances_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& from, const cpp11::integers& to, const int mode);
-extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode) {
+SEXP distances_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& from, const cpp11::integers& to, const int mode, const double cutoff);
+extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode, SEXP cutoff) {
   BEGIN_CPP11
-    return cpp11::as_sexp(distances_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+    return cpp11::as_sexp(distances_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const double>>(cutoff)));
   END_CPP11
 }
 // paths.cpp
@@ -499,10 +499,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_degree_",                           (DL_FUNC) &_igraphlite_degree_,                           4},
     {"_igraphlite_delete_edges_",                     (DL_FUNC) &_igraphlite_delete_edges_,                     2},
     {"_igraphlite_delete_vertices_",                  (DL_FUNC) &_igraphlite_delete_vertices_,                  2},
-    {"_igraphlite_distances_",                        (DL_FUNC) &_igraphlite_distances_,                        5},
+    {"_igraphlite_distances_",                        (DL_FUNC) &_igraphlite_distances_,                        6},
     {"_igraphlite_ecount_",                           (DL_FUNC) &_igraphlite_ecount_,                           1},
     {"_igraphlite_edge_",                             (DL_FUNC) &_igraphlite_edge_,                             2},
-    {"_igraphlite_edge_betweenness_",                 (DL_FUNC) &_igraphlite_edge_betweenness_,                 5},
+    {"_igraphlite_edge_betweenness_",                 (DL_FUNC) &_igraphlite_edge_betweenness_,                 6},
     {"_igraphlite_edge_betweenness_subset_",          (DL_FUNC) &_igraphlite_edge_betweenness_subset_,          7},
     {"_igraphlite_from_",                             (DL_FUNC) &_igraphlite_from_,                             1},
     {"_igraphlite_getEattr_",                         (DL_FUNC) &_igraphlite_getEattr_,                         1},

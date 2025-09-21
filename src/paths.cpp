@@ -28,19 +28,28 @@ namespace impl {
 [[cpp11::register]] SEXP
 distances_(
   const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights,
-  const cpp11::integers& from, const cpp11::integers& to, const int mode) {
+  const cpp11::integers& from, const cpp11::integers& to, const int mode, const double cutoff) {
 
   const int from_size = from.size();
   const int to_size = to.size();
   const int nrow = from_size > 0 ? from_size : graph->vcount();
   const int ncol = to_size > 0 ? to_size : graph->vcount();
   IMatrix res(nrow, ncol);
-  igraph_distances(graph->data(),
-    weights.size() ? IVectorView(weights).data() : nullptr,
-    res.data(),
-    from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
-    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
-    static_cast<igraph_neimode_t>(mode));
+  if (cutoff > 0.0) {
+    igraph_distances_cutoff(graph->data(),
+      weights.size() ? IVectorView(weights).data() : nullptr,
+      res.data(),
+      from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
+      to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+      static_cast<igraph_neimode_t>(mode), cutoff);
+  } else {
+    igraph_distances(graph->data(),
+      weights.size() ? IVectorView(weights).data() : nullptr,
+      res.data(),
+      from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
+      to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+      static_cast<igraph_neimode_t>(mode));
+  }
   return res.wrap();
 }
 

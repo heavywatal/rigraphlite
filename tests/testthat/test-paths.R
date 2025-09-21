@@ -19,6 +19,10 @@ test_that("distances works", {
     expect_identical(d)
   Eattr(g)$weight = E(g)
   expect_identical(distances(g, weights = TRUE), dw)
+  distances(g, cutoff = 3) |>
+    is.infinite() |>
+    sum() |>
+    expect_identical(8L)
 })
 
 test_that("get_shortest_paths works", {

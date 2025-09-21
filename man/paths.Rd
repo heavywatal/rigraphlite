@@ -52,9 +52,9 @@ to prompt users to cope with breaking changes in version 1.0.}
 
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{minlen}{Minimum length of paths that is considered. Unlimited if negative.}
+\item{minlen}{Minimum length of paths to be considered. Unlimited if negative.}
 
-\item{maxlen}{Maximum length of paths that is considered. Unlimited if negative.}
+\item{maxlen}{Maximum length of paths to be considered. Unlimited if negative.}
 
 \item{max_results}{At most this many paths will be recorded. Unlimited if negative.}
 }

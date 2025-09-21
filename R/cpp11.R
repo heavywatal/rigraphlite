@@ -96,8 +96,8 @@ delete_vertices_ <- function(graph, vids) {
   invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
-edge_betweenness_ <- function(graph, weights, eids, directed, normalized) {
-  .Call(`_igraphlite_edge_betweenness_`, graph, weights, eids, directed, normalized)
+edge_betweenness_ <- function(graph, weights, eids, directed, normalized, cutoff) {
+  .Call(`_igraphlite_edge_betweenness_`, graph, weights, eids, directed, normalized, cutoff)
 }
 
 edge_betweenness_subset_ <- function(graph, weights, sources, targets, eids, directed, normalized) {
@@ -208,8 +208,8 @@ subgraph_from_edges_ <- function(graph, eids, delete_vertices) {
   .Call(`_igraphlite_subgraph_from_edges_`, graph, eids, delete_vertices)
 }
 
-distances_ <- function(graph, weights, from, to, mode) {
-  .Call(`_igraphlite_distances_`, graph, weights, from, to, mode)
+distances_ <- function(graph, weights, from, to, mode, cutoff) {
+  .Call(`_igraphlite_distances_`, graph, weights, from, to, mode, cutoff)
 }
 
 mean_distances_cpp_ <- function(graph, from, to, weights, mode, algorithm) {
