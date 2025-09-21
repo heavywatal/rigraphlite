@@ -9,7 +9,7 @@ result of distances(), but should be faster as they are written in C."></head><b
 
     <a class="navbar-brand me-2" href="../index.html">igraphlite</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,15 +43,16 @@ result of <code>distances()</code>, but should be faster as they are written in 
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">distances</span><span class="op">(</span></span>
 <span>  <span class="va">graph</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
 <span>  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
 <span>  to <span class="op">=</span> <span class="va">from</span>,</span>
-<span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
-<span>  mode <span class="op">=</span> <span class="fl">3L</span>,</span>
-<span>  algorithm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dijkstra"</span>, <span class="st">"bellman-ford"</span>, <span class="st">"johnson"</span><span class="op">)</span></span>
+<span>  mode <span class="op">=</span> <span class="fl">3L</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">average_path_length</span><span class="op">(</span></span>
 <span>  <span class="va">graph</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
 <span>  directed <span class="op">=</span> <span class="fu"><a href="basic.html">is_directed</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span>,</span>
 <span>  unconn <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -72,6 +73,15 @@ result of <code>distances()</code>, but should be faster as they are written in 
 <dd><p>An <code><a href="igraph-class.html">igraph_ptr</a></code> object.</p></dd>
 
 
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Unused, but temporarily included to avoid silent bugs and
+to prompt users to cope with breaking changes in version 1.0.</p></dd>
+
+
+<dt id="arg-weights">weights<a class="anchor" aria-label="anchor" href="#arg-weights"></a></dt>
+<dd><p>A numeric vector of edge weights; <code>TRUE</code> to use <code>Eattr(graph, "weight")</code>.</p></dd>
+
+
 <dt id="arg-from">from<a class="anchor" aria-label="anchor" href="#arg-from"></a></dt>
 <dd><p>An integer vector of vertex IDs.</p></dd>
 
@@ -80,16 +90,8 @@ result of <code>distances()</code>, but should be faster as they are written in 
 <dd><p>An integer vector of vertex IDs.</p></dd>
 
 
-<dt id="arg-weights">weights<a class="anchor" aria-label="anchor" href="#arg-weights"></a></dt>
-<dd><p>A numeric vector of edge weights; <code>TRUE</code> to use <code>Eattr(graph, "weight")</code>.</p></dd>
-
-
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
 <dd><p>An integer value of edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
-
-
-<dt id="arg-algorithm">algorithm<a class="anchor" aria-label="anchor" href="#arg-algorithm"></a></dt>
-<dd><p>A character string.</p></dd>
 
 
 <dt id="arg-directed">directed<a class="anchor" aria-label="anchor" href="#arg-directed"></a></dt>

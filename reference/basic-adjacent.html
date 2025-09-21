@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">igraphlite</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.17</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,11 +40,11 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">edge</span><span class="op">(</span><span class="va">graph</span>, <span class="va">eid</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">neighbors</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vid</span>, mode <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span>
+<span><span class="fu">neighbors</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vid</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">incident</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vid</span>, mode <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span>
+<span><span class="fu">incident</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vid</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">degree</span><span class="op">(</span><span class="va">graph</span>, vids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">degree</span><span class="op">(</span><span class="va">graph</span>, vids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fl">3L</span>, loops <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,12 +71,16 @@
 <dd><p>An integer value of edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
 
 
-<dt id="arg-vids">vids<a class="anchor" aria-label="anchor" href="#arg-vids"></a></dt>
-<dd><p>An integer vector of vertex IDs.</p></dd>
-
-
 <dt id="arg-loops">loops<a class="anchor" aria-label="anchor" href="#arg-loops"></a></dt>
 <dd><p>whether self-loop should be counted.</p></dd>
+
+
+<dt id="arg-multiple">multiple<a class="anchor" aria-label="anchor" href="#arg-multiple"></a></dt>
+<dd><p>A logical value, whether to keep multiple (parallel) edges.</p></dd>
+
+
+<dt id="arg-vids">vids<a class="anchor" aria-label="anchor" href="#arg-vids"></a></dt>
+<dd><p>An integer vector of vertex IDs.</p></dd>
 
 </dl></div>
     <div class="section level2">

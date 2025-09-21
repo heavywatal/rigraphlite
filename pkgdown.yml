@@ -2,7 +2,7 @@ pandoc: '3.8'
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles: {}
-last_built: 2025-09-20T09:02Z
+last_built: 2025-09-21T16:27Z
 urls:
   reference: https://heavywatal.github.io/rigraphlite/reference
   article: https://heavywatal.github.io/rigraphlite/articles
