@@ -1,3 +1,4 @@
+#include <igraph/igraph_setup.h>
 #include <igraph/igraph_error.h>
 #include <igraph/igraph_interrupt.h>
 #include <igraph/igraph_random.h>
@@ -36,6 +37,7 @@ igraph_rng_t igraph_rng_R_instance;
 [[cpp11::init]]
 void igraphlite_init(DllInfo *dll) {
   (void)dll;
+  igraph_setup();
   igraph_version_();
   igraph_set_error_handler(&error_handler);
   igraph_set_warning_handler(&warning_handler);
