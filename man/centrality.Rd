@@ -9,26 +9,40 @@
 \url{https://igraph.org/c/doc/igraph-Structural.html#centrality-measures}
 }
 \usage{
-edge_betweenness(graph, directed = is_directed(graph), weights = numeric(0))
+edge_betweenness(
+  graph,
+  ...,
+  weights = numeric(0),
+  eids = integer(0),
+  directed = is_directed(graph),
+  normalized = FALSE
+)
 
 edge_betweenness_subset(
   graph,
-  directed = is_directed(graph),
-  eids = integer(0),
+  ...,
   weights = numeric(0),
   from = integer(0),
-  to = integer(0)
+  to = integer(0),
+  eids = integer(0),
+  directed = is_directed(graph),
+  normalized = FALSE
 )
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{directed}{A logical value, whether to consider directed paths.
-Ignored for undirected graphs.}
+\item{...}{Unused, but temporarily included to avoid silent bugs and
+to prompt users to cope with breaking changes in version 1.0.}
 
 \item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
 
 \item{eids}{An integer vector of edge IDs.}
+
+\item{directed}{A logical value, whether to consider directed paths.
+Ignored for undirected graphs.}
+
+\item{normalized}{A logical value, whether to normalize the result.}
 
 \item{from}{An integer vector of vertex IDs.}
 

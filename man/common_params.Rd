@@ -17,7 +17,8 @@ common_params(
   weights,
   directed,
   loops,
-  multiple
+  multiple,
+  normalized
 )
 }
 \arguments{
@@ -48,6 +49,8 @@ Ignored for undirected graphs.}
 \{0: NO_LOOPS, 1: LOOPS/LOOPS_TWICE, 2: LOOPS_ONCE\}}
 
 \item{multiple}{A logical value, whether to keep multiple (parallel) edges.}
+
+\item{normalized}{A logical value, whether to normalize the result.}
 }
 \description{
 This function does nothing. It is designed to be used with @inheritParams.

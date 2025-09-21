@@ -42,27 +42,29 @@ edge_(const cpp11::external_pointer<IGraph> graph, int eid) {
 }
 
 [[cpp11::register]] SEXP
-neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode) {
+neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode, int loops, bool multiple) {
   IVector<AsIndices> res(1);
-  igraph_neighbors(graph->data(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
+  igraph_neighbors(graph->data(), res.data(), --node,
+    static_cast<igraph_neimode_t>(mode), static_cast<igraph_loops_t>(loops), multiple);
   return res.wrap();
 }
 
 [[cpp11::register]] SEXP
-incident_(const cpp11::external_pointer<IGraph> graph, int node, const int mode) {
+incident_(const cpp11::external_pointer<IGraph> graph, int node, const int mode, const int loops) {
   IVector<AsIndices> res(1);
-  igraph_incident(graph->data(), res.data(), --node, static_cast<igraph_neimode_t>(mode));
+  igraph_incident(graph->data(), res.data(), --node,
+    static_cast<igraph_neimode_t>(mode), static_cast<igraph_loops_t>(loops));
   return res.wrap();
 }
 
 [[cpp11::register]] SEXP
-degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const bool loops) {
+degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const int loops) {
   const R_xlen_t n = vids.size();
   IVector<AsValues> res(n > 0 ? n : graph->vcount());
   igraph_degree(
     graph->data(), res.data(),
     (n > 0) ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
-    static_cast<igraph_neimode_t>(mode), loops);
+    static_cast<igraph_neimode_t>(mode), static_cast<igraph_loops_t>(loops));
   return res.wrap();
 }
 

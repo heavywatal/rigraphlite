@@ -2,13 +2,12 @@
 #ifndef IGRAPHLITE_IGRAPH_HPP_
 #define IGRAPHLITE_IGRAPH_HPP_
 
+#include <igraph/igraph_datatype.h>
 #include <cpp11/data_frame.hpp>
 #include <cpp11/integers.hpp>
 #include <cpp11/external_pointer.hpp>
 
 #include <memory>
-
-typedef struct igraph_s igraph_t;
 
 class IGraph {
   public:

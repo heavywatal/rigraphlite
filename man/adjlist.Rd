@@ -8,7 +8,7 @@
 \url{https://igraph.org/c/doc/igraph-Data-structures.html#igraph-Adjlists}
 }
 \usage{
-as_adjlist(graph, mode = 3L, loops = 1L, multiple = 1L)
+as_adjlist(graph, mode = 3L, loops = 1L, multiple = TRUE)
 
 as_inclist(graph, mode = 3L, loops = 1L)
 }

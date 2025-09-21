@@ -129,24 +129,24 @@ extern "C" SEXP _igraphlite_edge_(SEXP graph, SEXP eid) {
   END_CPP11
 }
 // basic.cpp
-SEXP neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode);
-extern "C" SEXP _igraphlite_neighbors_(SEXP graph, SEXP node, SEXP mode) {
+SEXP neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode, int loops, bool multiple);
+extern "C" SEXP _igraphlite_neighbors_(SEXP graph, SEXP node, SEXP mode, SEXP loops, SEXP multiple) {
   BEGIN_CPP11
-    return cpp11::as_sexp(neighbors_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(node), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+    return cpp11::as_sexp(neighbors_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(node), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<int>>(loops), cpp11::as_cpp<cpp11::decay_t<bool>>(multiple)));
   END_CPP11
 }
 // basic.cpp
-SEXP incident_(const cpp11::external_pointer<IGraph> graph, int node, const int mode);
-extern "C" SEXP _igraphlite_incident_(SEXP graph, SEXP node, SEXP mode) {
+SEXP incident_(const cpp11::external_pointer<IGraph> graph, int node, const int mode, const int loops);
+extern "C" SEXP _igraphlite_incident_(SEXP graph, SEXP node, SEXP mode, SEXP loops) {
   BEGIN_CPP11
-    return cpp11::as_sexp(incident_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(node), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+    return cpp11::as_sexp(incident_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(node), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops)));
   END_CPP11
 }
 // basic.cpp
-SEXP degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const bool loops);
+SEXP degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const int loops);
 extern "C" SEXP _igraphlite_degree_(SEXP graph, SEXP vids, SEXP mode, SEXP loops) {
   BEGIN_CPP11
-    return cpp11::as_sexp(degree_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const bool>>(loops)));
+    return cpp11::as_sexp(degree_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops)));
   END_CPP11
 }
 // basic.cpp
@@ -182,24 +182,24 @@ extern "C" SEXP _igraphlite_delete_vertices_(SEXP graph, SEXP vids) {
   END_CPP11
 }
 // centrality.cpp
-SEXP edge_betweenness_(const cpp11::external_pointer<IGraph> graph, const bool directed, const cpp11::doubles& weights);
-extern "C" SEXP _igraphlite_edge_betweenness_(SEXP graph, SEXP directed, SEXP weights) {
+SEXP edge_betweenness_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& eids, const bool directed, const bool normalized);
+extern "C" SEXP _igraphlite_edge_betweenness_(SEXP graph, SEXP weights, SEXP eids, SEXP directed, SEXP normalized) {
   BEGIN_CPP11
-    return cpp11::as_sexp(edge_betweenness_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights)));
+    return cpp11::as_sexp(edge_betweenness_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
   END_CPP11
 }
 // centrality.cpp
-SEXP edge_betweenness_subset_(const cpp11::external_pointer<IGraph> graph, const bool directed, const cpp11::integers& eids, const cpp11::doubles& weights, const cpp11::integers& sources, const cpp11::integers& targets);
-extern "C" SEXP _igraphlite_edge_betweenness_subset_(SEXP graph, SEXP directed, SEXP eids, SEXP weights, SEXP sources, SEXP targets) {
+SEXP edge_betweenness_subset_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& sources, const cpp11::integers& targets, const cpp11::integers& eids, const bool directed, const bool normalized);
+extern "C" SEXP _igraphlite_edge_betweenness_subset_(SEXP graph, SEXP weights, SEXP sources, SEXP targets, SEXP eids, SEXP directed, SEXP normalized) {
   BEGIN_CPP11
-    return cpp11::as_sexp(edge_betweenness_subset_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sources), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(targets)));
+    return cpp11::as_sexp(edge_betweenness_subset_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sources), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(targets), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
   END_CPP11
 }
 // data.cpp
-SEXP as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const int multiple);
+SEXP as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const bool multiple);
 extern "C" SEXP _igraphlite_as_adjlist_(SEXP graph, SEXP mode, SEXP loops, SEXP multiple) {
   BEGIN_CPP11
-    return cpp11::as_sexp(as_adjlist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops), cpp11::as_cpp<cpp11::decay_t<const int>>(multiple)));
+    return cpp11::as_sexp(as_adjlist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops), cpp11::as_cpp<cpp11::decay_t<const bool>>(multiple)));
   END_CPP11
 }
 // data.cpp
@@ -385,10 +385,10 @@ extern "C" SEXP _igraphlite_subgraph_from_edges_(SEXP graph, SEXP eids, SEXP del
   END_CPP11
 }
 // paths.cpp
-SEXP distances_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, const cpp11::doubles& weights, int mode, const std::string& algorithm);
-extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode, SEXP algorithm) {
+SEXP distances_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& from, const cpp11::integers& to, const int mode);
+extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode) {
   BEGIN_CPP11
-    return cpp11::as_sexp(distances_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(algorithm)));
+    return cpp11::as_sexp(distances_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
   END_CPP11
 }
 // paths.cpp
@@ -399,24 +399,24 @@ extern "C" SEXP _igraphlite_mean_distances_cpp_(SEXP graph, SEXP from, SEXP to, 
   END_CPP11
 }
 // paths.cpp
-SEXP get_shortest_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, const cpp11::doubles& weights, int mode);
-extern "C" SEXP _igraphlite_get_shortest_paths_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode) {
+SEXP get_shortest_paths_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, int from, const cpp11::integers& to, int mode);
+extern "C" SEXP _igraphlite_get_shortest_paths_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode) {
   BEGIN_CPP11
-    return cpp11::as_sexp(get_shortest_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
+    return cpp11::as_sexp(get_shortest_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
 // paths.cpp
-SEXP get_all_shortest_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, const cpp11::doubles& weights, int mode);
-extern "C" SEXP _igraphlite_get_all_shortest_paths_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode) {
+SEXP get_all_shortest_paths_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, int from, const cpp11::integers& to, int mode);
+extern "C" SEXP _igraphlite_get_all_shortest_paths_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode) {
   BEGIN_CPP11
-    return cpp11::as_sexp(get_all_shortest_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
+    return cpp11::as_sexp(get_all_shortest_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
 // paths.cpp
-SEXP get_all_simple_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, int cutoff, int mode);
-extern "C" SEXP _igraphlite_get_all_simple_paths_(SEXP graph, SEXP from, SEXP to, SEXP cutoff, SEXP mode) {
+SEXP get_all_simple_paths_(const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, int mode, const int minlen, const int maxlen, const int max_results);
+extern "C" SEXP _igraphlite_get_all_simple_paths_(SEXP graph, SEXP from, SEXP to, SEXP mode, SEXP minlen, SEXP maxlen, SEXP max_results) {
   BEGIN_CPP11
-    return cpp11::as_sexp(get_all_simple_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<int>>(cutoff), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
+    return cpp11::as_sexp(get_all_simple_paths_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(minlen), cpp11::as_cpp<cpp11::decay_t<const int>>(maxlen), cpp11::as_cpp<cpp11::decay_t<const int>>(max_results)));
   END_CPP11
 }
 // paths.cpp
@@ -434,17 +434,17 @@ extern "C" SEXP _igraphlite_path_length_hist_(SEXP graph, SEXP directed) {
   END_CPP11
 }
 // paths.cpp
-SEXP path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, bool directed);
-extern "C" SEXP _igraphlite_path_length_count_within(SEXP graph, SEXP vids, SEXP directed) {
+SEXP path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids);
+extern "C" SEXP _igraphlite_path_length_count_within(SEXP graph, SEXP vids) {
   BEGIN_CPP11
-    return cpp11::as_sexp(path_length_count_within(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+    return cpp11::as_sexp(path_length_count_within(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids)));
   END_CPP11
 }
 // paths.cpp
-SEXP path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, bool directed);
-extern "C" SEXP _igraphlite_path_length_count_between(SEXP graph, SEXP from, SEXP to, SEXP directed) {
+SEXP path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to);
+extern "C" SEXP _igraphlite_path_length_count_between(SEXP graph, SEXP from, SEXP to) {
   BEGIN_CPP11
-    return cpp11::as_sexp(path_length_count_between(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
+    return cpp11::as_sexp(path_length_count_between(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to)));
   END_CPP11
 }
 // structural.cpp
@@ -499,16 +499,16 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_degree_",                           (DL_FUNC) &_igraphlite_degree_,                           4},
     {"_igraphlite_delete_edges_",                     (DL_FUNC) &_igraphlite_delete_edges_,                     2},
     {"_igraphlite_delete_vertices_",                  (DL_FUNC) &_igraphlite_delete_vertices_,                  2},
-    {"_igraphlite_distances_",                        (DL_FUNC) &_igraphlite_distances_,                        6},
+    {"_igraphlite_distances_",                        (DL_FUNC) &_igraphlite_distances_,                        5},
     {"_igraphlite_ecount_",                           (DL_FUNC) &_igraphlite_ecount_,                           1},
     {"_igraphlite_edge_",                             (DL_FUNC) &_igraphlite_edge_,                             2},
-    {"_igraphlite_edge_betweenness_",                 (DL_FUNC) &_igraphlite_edge_betweenness_,                 3},
-    {"_igraphlite_edge_betweenness_subset_",          (DL_FUNC) &_igraphlite_edge_betweenness_subset_,          6},
+    {"_igraphlite_edge_betweenness_",                 (DL_FUNC) &_igraphlite_edge_betweenness_,                 5},
+    {"_igraphlite_edge_betweenness_subset_",          (DL_FUNC) &_igraphlite_edge_betweenness_subset_,          7},
     {"_igraphlite_from_",                             (DL_FUNC) &_igraphlite_from_,                             1},
     {"_igraphlite_getEattr_",                         (DL_FUNC) &_igraphlite_getEattr_,                         1},
     {"_igraphlite_getVattr_",                         (DL_FUNC) &_igraphlite_getVattr_,                         1},
     {"_igraphlite_get_all_shortest_paths_",           (DL_FUNC) &_igraphlite_get_all_shortest_paths_,           5},
-    {"_igraphlite_get_all_simple_paths_",             (DL_FUNC) &_igraphlite_get_all_simple_paths_,             5},
+    {"_igraphlite_get_all_simple_paths_",             (DL_FUNC) &_igraphlite_get_all_simple_paths_,             7},
     {"_igraphlite_get_shortest_paths_",               (DL_FUNC) &_igraphlite_get_shortest_paths_,               5},
     {"_igraphlite_graph_copy_",                       (DL_FUNC) &_igraphlite_graph_copy_,                       1},
     {"_igraphlite_graph_create_",                     (DL_FUNC) &_igraphlite_graph_create_,                     3},
@@ -524,7 +524,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_square_lattice_",             (DL_FUNC) &_igraphlite_graph_square_lattice_,             5},
     {"_igraphlite_graph_star_",                       (DL_FUNC) &_igraphlite_graph_star_,                       3},
     {"_igraphlite_igraph_version_",                   (DL_FUNC) &_igraphlite_igraph_version_,                   0},
-    {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         3},
+    {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         4},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},
     {"_igraphlite_induced_subgraph_edges_",           (DL_FUNC) &_igraphlite_induced_subgraph_edges_,           2},
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
@@ -539,9 +539,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_mutate_Vattr_",                     (DL_FUNC) &_igraphlite_mutate_Vattr_,                     3},
     {"_igraphlite_neighborhood_",                     (DL_FUNC) &_igraphlite_neighborhood_,                     5},
     {"_igraphlite_neighborhood_size_",                (DL_FUNC) &_igraphlite_neighborhood_size_,                5},
-    {"_igraphlite_neighbors_",                        (DL_FUNC) &_igraphlite_neighbors_,                        3},
-    {"_igraphlite_path_length_count_between",         (DL_FUNC) &_igraphlite_path_length_count_between,         4},
-    {"_igraphlite_path_length_count_within",          (DL_FUNC) &_igraphlite_path_length_count_within,          3},
+    {"_igraphlite_neighbors_",                        (DL_FUNC) &_igraphlite_neighbors_,                        5},
+    {"_igraphlite_path_length_count_between",         (DL_FUNC) &_igraphlite_path_length_count_between,         3},
+    {"_igraphlite_path_length_count_within",          (DL_FUNC) &_igraphlite_path_length_count_within,          2},
     {"_igraphlite_path_length_hist_",                 (DL_FUNC) &_igraphlite_path_length_hist_,                 2},
     {"_igraphlite_rng_seed",                          (DL_FUNC) &_igraphlite_rng_seed,                          1},
     {"_igraphlite_setEattr_",                         (DL_FUNC) &_igraphlite_setEattr_,                         2},

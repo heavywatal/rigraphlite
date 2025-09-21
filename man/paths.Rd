@@ -12,34 +12,51 @@
 \usage{
 get_shortest_paths(
   graph,
-  from,
-  to = integer(0L),
+  ...,
   weights = numeric(0L),
+  from = integer(0L),
+  to = integer(0L),
   mode = 3L
 )
 
 get_all_shortest_paths(
   graph,
-  from,
-  to = integer(0L),
+  ...,
   weights = numeric(0L),
+  from = integer(0L),
+  to = integer(0L),
   mode = 3L
 )
 
-get_all_simple_paths(graph, from, to = integer(0L), cutoff = -1L, mode = 3L)
+get_all_simple_paths(
+  graph,
+  from,
+  to = integer(0L),
+  mode = 3L,
+  minlen = -1L,
+  maxlen = -1L,
+  max_results = -1L
+)
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
+
+\item{...}{Unused, but temporarily included to avoid silent bugs and
+to prompt users to cope with breaking changes in version 1.0.}
+
+\item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
 
 \item{from}{An integer vector of vertex IDs.}
 
 \item{to}{An integer vector of vertex IDs.}
 
-\item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
-
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{cutoff}{integer}
+\item{minlen}{Minimum length of paths that is considered. Unlimited if negative.}
+
+\item{maxlen}{Maximum length of paths that is considered. Unlimited if negative.}
+
+\item{max_results}{At most this many paths will be recorded. Unlimited if negative.}
 }
 \value{
 A list of integer IDs of vertices in the paths.
@@ -55,7 +72,7 @@ the paths may differ.
 g = graph_tree(5L)
 vsource = Vsource(g)
 vsink = Vsink(g)
-get_shortest_paths(g, vsource, vsink, mode = 1L)
-get_all_shortest_paths(g, vsource, vsink, mode = 1L)
-get_all_simple_paths(g, vsource, vsink, mode = 1L)
+get_shortest_paths(g, from = vsource, to = vsink, mode = 1L)
+get_all_shortest_paths(g, from = vsource, to = vsink, mode = 1L)
+get_all_simple_paths(g, from = vsource, to = vsink, mode = 1L)
 }

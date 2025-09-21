@@ -7,13 +7,13 @@
 
 class IStrVector {
   public:
-    IStrVector(int n = 0) {
+    IStrVector(igraph_int_t n = 0) {
       igraph_strvector_init(data_.get(), n);
     }
     IStrVector(const cpp11::strings& x) {
-      int n = x.size();
+      const auto n = x.size();
       igraph_strvector_init(data_.get(), n);
-      for (int i = 0; i < n; ++i) {
+      for (igraph_int_t i = 0; i < n; ++i) {
         igraph_strvector_set(data_.get(), i, std::string(x[i]).c_str());
       }
     }
@@ -24,16 +24,16 @@ class IStrVector {
     ~IStrVector() noexcept {
       if (data_) igraph_strvector_destroy(data_.get());
     }
-    const char* at(int pos) const {
+    const char* at(igraph_int_t pos) const {
       return igraph_strvector_get(data_.get(), pos);
     }
-    int size() const {
+    igraph_int_t size() const {
       return igraph_strvector_size(data_.get());
     }
     SEXP wrap() const {
-      const int n = size();
+      const auto n = size();
       cpp11::writable::strings output(n);
-      for (int i = 0; i < n; ++i) {
+      for (igraph_int_t i = 0; i < n; ++i) {
         output[i] = at(i);
       }
       return output;

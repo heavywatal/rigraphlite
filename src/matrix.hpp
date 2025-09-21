@@ -9,20 +9,20 @@
 
 class IMatrix {
   public:
-    IMatrix(int nrow, int ncol): robj_(cpp11::writable::doubles_matrix<>(nrow, ncol)) {
-      igraph_vector_view(&data_->data, REAL(robj_.data()), nrow * ncol);
+    IMatrix(igraph_int_t nrow, igraph_int_t ncol): robj_(cpp11::writable::doubles_matrix<>(nrow, ncol)) {
+      data_->data = igraph_vector_view(REAL(robj_.data()), nrow * ncol);
       data_->nrow = nrow;
       data_->ncol = ncol;
     }
     IMatrix(SEXP obj): robj_(obj) {
-      igraph_vector_view(&data_->data, REAL(robj_.data()), robj_.nrow() * robj_.ncol());
+      data_->data = igraph_vector_view(REAL(robj_.data()), robj_.nrow() * robj_.ncol());
       data_->nrow = robj_.nrow();
       data_->ncol = robj_.ncol();
     }
     IMatrix(const IMatrix& other) noexcept = delete;
     IMatrix(IMatrix&& other) noexcept = delete;
     ~IMatrix() noexcept = default;
-    double at(int i, int j) const {return MATRIX(*data_, i, j);}
+    double at(igraph_int_t i, igraph_int_t j) const {return MATRIX(*data_, i, j);}
     SEXP wrap() const {return robj_;}
     igraph_matrix_t* data() {return data_.get();}
   private:

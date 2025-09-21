@@ -23,10 +23,10 @@ class IVector {
     }
     igraph_es_t ess() const {return igraph_ess_vector(data_.get());}
     igraph_vs_t vss() const {return igraph_vss_vector(data_.get());}
-    auto at(const int pos) const {
+    auto at(const igraph_int_t pos) const {
       return StoragePolicy::get(data_.get(), pos);
     }
-    int size() const {
+    igraph_int_t size() const {
       return igraph_vector_size(data_.get());
     }
     auto wrap() const {
@@ -45,7 +45,7 @@ using ISelectorInPlace = IVector<AsIndices, InitIndicesInPlace>;
 template <class WrapPolicy>
 class IVectorIntList {
   public:
-    IVectorIntList(int n = 0) {
+    IVectorIntList(igraph_int_t n = 0) {
       igraph_vector_int_list_init(data_.get(), n);
     }
     IVectorIntList(const IVectorIntList&) = delete;
@@ -53,20 +53,20 @@ class IVectorIntList {
     ~IVectorIntList() noexcept {
       igraph_vector_int_list_destroy(data_.get());
     }
-    void reserve(int n) {
+    void reserve(igraph_int_t n) {
       igraph_vector_int_list_reserve(data_.get(), n);
     }
-    auto at(int pos) const {
+    auto at(igraph_int_t pos) const {
       return WrapPolicy::wrap(igraph_vector_int_list_get_ptr(data_.get(), pos));
     }
-    int size() const {
+    igraph_int_t size() const {
       return igraph_vector_int_list_size(data_.get());
     }
     SEXP wrap() const {
-      const int len = size();
+      const auto len = size();
       cpp11::writable::list output;
       output.reserve(len);
-      for (int i = 0; i < len; ++i) {
+      for (igraph_int_t i = 0; i < len; ++i) {
         output.push_back(at(i));
       }
       return output;

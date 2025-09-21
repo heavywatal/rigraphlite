@@ -13,11 +13,11 @@
 \usage{
 edge(graph, eid)
 
-neighbors(graph, vid, mode = 3L)
+neighbors(graph, vid, mode = 3L, loops = 1L, multiple = TRUE)
 
-incident(graph, vid, mode = 3L)
+incident(graph, vid, mode = 3L, loops = 1L)
 
-degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
+degree(graph, vids = integer(0), mode = 3L, loops = 1L)
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
@@ -28,9 +28,11 @@ degree(graph, vids = integer(0), mode = 3L, loops = TRUE)
 
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
-\item{vids}{An integer vector of vertex IDs.}
-
 \item{loops}{whether self-loop should be counted.}
+
+\item{multiple}{A logical value, whether to keep multiple (parallel) edges.}
+
+\item{vids}{An integer vector of vertex IDs.}
 }
 \value{
 \code{edge()} returns the head and tail vertices of an edge.

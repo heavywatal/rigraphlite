@@ -16,11 +16,9 @@
 #' @param loops An integer value, how to treat loop edges;
 #' \{0: NO_LOOPS, 1: LOOPS/LOOPS_TWICE, 2: LOOPS_ONCE\}
 #' @param multiple A logical value, whether to keep multiple (parallel) edges.
+#' @param normalized A logical value, whether to normalize the result.
 #' @keywords internal
-common_params = function(graph, vids, vid, from, to, eids, eid, edges, mode, weights, directed, loops, multiple) {
+common_params = function(
+    graph, vids, vid, from, to, eids, eid, edges, mode, weights, directed, loops, multiple, normalized) {
   invisible(NULL)
-}
-
-split_at = function(x, pos) {
-  unname(split(x, findInterval(seq_along(x), pos + 1L)))
 }

@@ -23,13 +23,12 @@ void warning_handler(const char* reason, const char* file, int line) {
   cpp11::warning("%s:%d: %s", file, line, reason);
 }
 
-igraph_error_t interruption_handler(void* data) {
-  (void)data;
+igraph_bool_t interruption_handler(void) {
   if (!R_ToplevelExec([](void*){cpp11::check_user_interrupt();}, NULL)) {
     IGRAPH_FINALLY_FREE();
-    return IGRAPH_INTERRUPTED;
+    return true;
   }
-  return IGRAPH_SUCCESS;
+  return false;
 }
 
 igraph_rng_t igraph_rng_R_instance;

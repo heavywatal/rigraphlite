@@ -2,7 +2,6 @@
 #include "policy.hpp"
 #include "dataframe.hpp"
 
-#include <igraph/igraph_datatype.h>
 #include <igraph/igraph_interface.h>
 
 IGraph::IGraph() noexcept:

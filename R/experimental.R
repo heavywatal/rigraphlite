@@ -35,9 +35,8 @@ mean_distances = function(graph, from = integer(0L), to = from) {
   }
 }
 
-mean_distances_mat = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                              algorithm = c("dijkstra", "bellman-ford", "johnson")) {
-  m = distances(graph, from = from, to = to, weights = weights, mode = mode, algorithm = algorithm)
+mean_distances_mat = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L) {
+  m = distances(graph, from = from, to = to, weights = weights, mode = mode)
   if (length(from)) {
     nzero = sum(from %in% to)
   } else {

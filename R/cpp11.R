@@ -68,12 +68,12 @@ edge_ <- function(graph, eid) {
   .Call(`_igraphlite_edge_`, graph, eid)
 }
 
-neighbors_ <- function(graph, node, mode) {
-  .Call(`_igraphlite_neighbors_`, graph, node, mode)
+neighbors_ <- function(graph, node, mode, loops, multiple) {
+  .Call(`_igraphlite_neighbors_`, graph, node, mode, loops, multiple)
 }
 
-incident_ <- function(graph, node, mode) {
-  .Call(`_igraphlite_incident_`, graph, node, mode)
+incident_ <- function(graph, node, mode, loops) {
+  .Call(`_igraphlite_incident_`, graph, node, mode, loops)
 }
 
 degree_ <- function(graph, vids, mode, loops) {
@@ -96,12 +96,12 @@ delete_vertices_ <- function(graph, vids) {
   invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
-edge_betweenness_ <- function(graph, directed, weights) {
-  .Call(`_igraphlite_edge_betweenness_`, graph, directed, weights)
+edge_betweenness_ <- function(graph, weights, eids, directed, normalized) {
+  .Call(`_igraphlite_edge_betweenness_`, graph, weights, eids, directed, normalized)
 }
 
-edge_betweenness_subset_ <- function(graph, directed, eids, weights, sources, targets) {
-  .Call(`_igraphlite_edge_betweenness_subset_`, graph, directed, eids, weights, sources, targets)
+edge_betweenness_subset_ <- function(graph, weights, sources, targets, eids, directed, normalized) {
+  .Call(`_igraphlite_edge_betweenness_subset_`, graph, weights, sources, targets, eids, directed, normalized)
 }
 
 as_adjlist_ <- function(graph, mode, loops, multiple) {
@@ -208,24 +208,24 @@ subgraph_from_edges_ <- function(graph, eids, delete_vertices) {
   .Call(`_igraphlite_subgraph_from_edges_`, graph, eids, delete_vertices)
 }
 
-distances_ <- function(graph, from, to, weights, mode, algorithm) {
-  .Call(`_igraphlite_distances_`, graph, from, to, weights, mode, algorithm)
+distances_ <- function(graph, weights, from, to, mode) {
+  .Call(`_igraphlite_distances_`, graph, weights, from, to, mode)
 }
 
 mean_distances_cpp_ <- function(graph, from, to, weights, mode, algorithm) {
   .Call(`_igraphlite_mean_distances_cpp_`, graph, from, to, weights, mode, algorithm)
 }
 
-get_shortest_paths_ <- function(graph, from, to, weights, mode) {
-  .Call(`_igraphlite_get_shortest_paths_`, graph, from, to, weights, mode)
+get_shortest_paths_ <- function(graph, weights, from, to, mode) {
+  .Call(`_igraphlite_get_shortest_paths_`, graph, weights, from, to, mode)
 }
 
-get_all_shortest_paths_ <- function(graph, from, to, weights, mode) {
-  .Call(`_igraphlite_get_all_shortest_paths_`, graph, from, to, weights, mode)
+get_all_shortest_paths_ <- function(graph, weights, from, to, mode) {
+  .Call(`_igraphlite_get_all_shortest_paths_`, graph, weights, from, to, mode)
 }
 
-get_all_simple_paths_ <- function(graph, from, to, cutoff, mode) {
-  .Call(`_igraphlite_get_all_simple_paths_`, graph, from, to, cutoff, mode)
+get_all_simple_paths_ <- function(graph, from, to, mode, minlen, maxlen, max_results) {
+  .Call(`_igraphlite_get_all_simple_paths_`, graph, from, to, mode, minlen, maxlen, max_results)
 }
 
 average_path_length_ <- function(graph, weights, directed, unconn) {
@@ -236,12 +236,12 @@ path_length_hist_ <- function(graph, directed) {
   .Call(`_igraphlite_path_length_hist_`, graph, directed)
 }
 
-path_length_count_within <- function(graph, vids, directed) {
-  .Call(`_igraphlite_path_length_count_within`, graph, vids, directed)
+path_length_count_within <- function(graph, vids) {
+  .Call(`_igraphlite_path_length_count_within`, graph, vids)
 }
 
-path_length_count_between <- function(graph, from, to, directed) {
-  .Call(`_igraphlite_path_length_count_between`, graph, from, to, directed)
+path_length_count_between <- function(graph, from, to) {
+  .Call(`_igraphlite_path_length_count_between`, graph, from, to)
 }
 
 are_adjacent_ <- function(graph, v1, v2) {

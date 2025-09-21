@@ -48,10 +48,10 @@ g
 
 # Invisibly returned objects can be used with the pipe operator.
 g |>
- add_edges(c(3L, 4L)) |>
- delete_edges(1L) |>
- delete_vertices(6L) |>
- print()
+  add_edges(c(3L, 4L)) |>
+  delete_edges(1L) |>
+  delete_vertices(6L) |>
+  print()
 
 # No need to assign the result
 g

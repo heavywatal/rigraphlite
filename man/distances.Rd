@@ -11,15 +11,16 @@
 \usage{
 distances(
   graph,
+  ...,
+  weights = numeric(0L),
   from = integer(0L),
   to = from,
-  weights = numeric(0L),
-  mode = 3L,
-  algorithm = c("dijkstra", "bellman-ford", "johnson")
+  mode = 3L
 )
 
 average_path_length(
   graph,
+  ...,
   weights = numeric(0L),
   directed = is_directed(graph),
   unconn = TRUE
@@ -30,15 +31,16 @@ path_length_hist(graph, directed = is_directed(graph))
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
 
+\item{...}{Unused, but temporarily included to avoid silent bugs and
+to prompt users to cope with breaking changes in version 1.0.}
+
+\item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
+
 \item{from}{An integer vector of vertex IDs.}
 
 \item{to}{An integer vector of vertex IDs.}
 
-\item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
-
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
-
-\item{algorithm}{A character string.}
 
 \item{directed}{A logical value, whether to consider directed paths.
 Ignored for undirected graphs.}

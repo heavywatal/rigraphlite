@@ -10,10 +10,9 @@
 
 class IAdjList {
   public:
-    IAdjList(const igraph_t* graph, int mode, int loops, int multiple) {
+    IAdjList(const igraph_t* graph, int mode, int loops, bool multiple) {
       igraph_adjlist_init(graph, data_.get(), static_cast<igraph_neimode_t>(mode),
-                          static_cast<igraph_loops_t>(loops),
-                          static_cast<igraph_multiple_t>(multiple));
+                          static_cast<igraph_loops_t>(loops), multiple);
     }
     IAdjList() = delete;
     IAdjList(const IAdjList&) = delete;
@@ -21,17 +20,17 @@ class IAdjList {
     ~IAdjList() noexcept {
       if (data_) igraph_adjlist_destroy(data_.get());
     }
-    SEXP at(int pos) const {
+    SEXP at(igraph_int_t pos) const {
       return AsIndices::wrap(&data_->adjs[pos]);
     }
-    int size() const {
+    igraph_int_t size() const {
       return data_->length;
     }
     SEXP wrap() const {
-      const int len = size();
+      const auto len = size();
       cpp11::writable::list output;
       output.reserve(len);
-      for (int i = 0; i < len; ++i) {
+      for (igraph_int_t i = 0; i < len; ++i) {
         output.push_back(at(i));
       }
       return output;
@@ -54,17 +53,17 @@ class IIncList {
     ~IIncList() noexcept {
       if (data_) igraph_inclist_destroy(data_.get());
     }
-    SEXP at(int pos) const {
+    SEXP at(igraph_int_t pos) const {
       return AsIndices::wrap(&data_->incs[pos]);
     }
-    int size() const {
+    igraph_int_t size() const {
       return data_->length;
     }
     SEXP wrap() const {
-      const int len = size();
+      const auto len = size();
       cpp11::writable::list output;
       output.reserve(len);
-      for (int i = 0; i < len; ++i) {
+      for (igraph_int_t i = 0; i < len; ++i) {
         output.push_back(at(i));
       }
       return output;

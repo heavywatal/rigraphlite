@@ -5,7 +5,7 @@
 #include <cpp11/matrix.hpp>
 
 [[cpp11::register]] SEXP
-as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const int multiple) {
+as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const bool multiple) {
   return IAdjList(graph->data(), mode, loops, multiple).wrap();
 }
 

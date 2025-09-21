@@ -18,7 +18,7 @@ namespace impl {
     if (algorithm == "bellman-ford") {
       igraph_distances_bellman_ford(graph, res, from, to, weights, mode);
     } else if (algorithm == "johnson") {
-      igraph_distances_johnson(graph, res, from, to, weights);
+      igraph_distances_johnson(graph, res, from, to, weights, mode);
     } else {
       igraph_distances_dijkstra(graph, res, from, to, weights, mode);
     }
@@ -27,19 +27,20 @@ namespace impl {
 
 [[cpp11::register]] SEXP
 distances_(
-  const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to,
-  const cpp11::doubles& weights, int mode, const std::string& algorithm) {
+  const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights,
+  const cpp11::integers& from, const cpp11::integers& to, const int mode) {
 
   const int from_size = from.size();
   const int to_size = to.size();
   const int nrow = from_size > 0 ? from_size : graph->vcount();
   const int ncol = to_size > 0 ? to_size : graph->vcount();
   IMatrix res(nrow, ncol);
-  impl::distances(graph->data(), res.data(),
-                  from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
-                  to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
-                  weights.size() ? IVectorView(weights).data() : nullptr,
-                  static_cast<igraph_neimode_t>(mode), algorithm);
+  igraph_distances(graph->data(),
+    weights.size() ? IVectorView(weights).data() : nullptr,
+    res.data(),
+    from_size > 0 ? ISelector(from).vss() : igraph_vss_all(),
+    to_size > 0 ? ISelector(to).vss() : igraph_vss_all(),
+    static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
@@ -76,16 +77,17 @@ mean_distances_cpp_(
 
 [[cpp11::register]] SEXP
 get_shortest_paths_(
-  const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to,
-  const cpp11::doubles& weights, int mode) {
-
+  const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights,
+  int from, const cpp11::integers& to, int mode) {
   const int to_size = to.size();
   IVectorIntList<AsIndices> res;
   res.reserve(to_size > 0 ? to_size : graph->vcount());
-  igraph_get_shortest_paths_dijkstra(
-    graph->data(), res.data(), nullptr, --from,
-    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
+  igraph_get_shortest_paths(
+    graph->data(),
     weights.size() ? IVectorView(weights).data() : nullptr,
+    res.data(), nullptr,
+    --from,
+    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
     static_cast<igraph_neimode_t>(mode),
     nullptr, nullptr);
   return res.wrap();
@@ -93,31 +95,34 @@ get_shortest_paths_(
 
 [[cpp11::register]] SEXP
 get_all_shortest_paths_(
-  const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to,
-  const cpp11::doubles& weights, int mode) {
+  const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights,
+  int from, const cpp11::integers& to, int mode) {
 
   const int to_size = to.size();
   IVectorIntList<AsIndices> res;
   res.reserve(to_size > 0 ? to_size : graph->vcount());
-  igraph_get_all_shortest_paths_dijkstra(
-    graph->data(), res.data(), nullptr, nullptr, --from,
-    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
+  igraph_get_all_shortest_paths(
+    graph->data(),
     weights.size() ? IVectorView(weights).data() : nullptr,
+    res.data(), nullptr, nullptr, --from,
+    to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
     static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 
 [[cpp11::register]] SEXP
 get_all_simple_paths_(
-  const cpp11::external_pointer<IGraph> graph, int from, const cpp11::integers& to, int cutoff, int mode) {
+  const cpp11::external_pointer<IGraph> graph,
+  int from, const cpp11::integers& to, int mode,
+  const int minlen, const int maxlen, const int max_results) {
 
   const int to_size = to.size();
-  IVector<AsIndices> res(to_size > 0 ? to_size : graph->vcount());
+  IVectorIntList<AsIndices> res;
   igraph_get_all_simple_paths(
     graph->data(), res.data(), --from,
     to_size > 0 ? ISelectorInPlace(to).vss() : igraph_vss_all(),
-    cutoff,
-    static_cast<igraph_neimode_t>(mode));
+    static_cast<igraph_neimode_t>(mode),
+    minlen, maxlen, max_results);
   return res.wrap();
 }
 
@@ -127,10 +132,9 @@ average_path_length_(
   const cpp11::external_pointer<IGraph> graph,
   const cpp11::doubles& weights, bool directed, bool unconn) {
   double res;
-  igraph_average_path_length_dijkstra(
-    graph->data(), &res, nullptr,
+  igraph_average_path_length(graph->data(),
     weights.size() ? IVectorView(weights).data() : nullptr,
-    directed, unconn);
+    &res, nullptr, directed, unconn);
   return res;
 }
 
@@ -143,14 +147,14 @@ path_length_hist_(const cpp11::external_pointer<IGraph> graph, bool directed) {
 }
 
 [[cpp11::register]] SEXP
-path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, bool directed) {
+path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
   for (const int i: vids) {
     auto vs_i = igraph_vss_1(i - 1);
     for (const int j: vids) {
       if (i <= j) continue;
-      igraph_distances(graph->data(), res.data(), vs_i, igraph_vss_1(j - 1), IGRAPH_ALL);
+      igraph_distances(graph->data(), nullptr, res.data(), vs_i, igraph_vss_1(j - 1), IGRAPH_ALL);
       ++counter[static_cast<int>(res.at(0, 0))];
     }
   }
@@ -163,13 +167,13 @@ path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp1
 }
 
 [[cpp11::register]] SEXP
-path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, bool directed) {
+path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to) {
   std::map<int, int> counter;
   IMatrix res(1, 1);
   for (const int i: from) {
     auto vs_i = igraph_vss_1(i - 1);
     for (const int j: to) {
-      igraph_distances(graph->data(), res.data(), vs_i, igraph_vss_1(j - 1), IGRAPH_ALL);
+      igraph_distances(graph->data(), nullptr, res.data(), vs_i, igraph_vss_1(j - 1), IGRAPH_ALL);
       ++counter[static_cast<int>(res.at(0, 0))];
     }
   }

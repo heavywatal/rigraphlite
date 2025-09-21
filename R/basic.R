@@ -56,15 +56,15 @@ edge = function(graph, eid) {
 #' @returns `neighbors()` returns the adjacent vertices to a vertex.
 #' @rdname basic-adjacent
 #' @export
-neighbors = function(graph, vid, mode = 3L) {
-  .Call(`_igraphlite_neighbors_`, graph, vid, mode)
+neighbors = function(graph, vid, mode = 3L, loops = 1L, multiple = TRUE) {
+  .Call(`_igraphlite_neighbors_`, graph, vid, mode, loops, multiple)
 }
 
 #' @returns `incident()` returns the incident edges of a vertex.
 #' @rdname basic-adjacent
 #' @export
-incident = function(graph, vid, mode = 3L) {
-  .Call(`_igraphlite_incident_`, graph, vid, mode)
+incident = function(graph, vid, mode = 3L, loops = 1L) {
+  .Call(`_igraphlite_incident_`, graph, vid, mode, loops)
 }
 
 #' @returns `degree()` returns the degrees of vertices in a graph.
@@ -73,6 +73,6 @@ incident = function(graph, vid, mode = 3L) {
 #' @seealso [is_sink()], [is_source()], [Vsink()], [Vsource()] for shortcuts to
 #' get zero-degree vertices.
 #' @export
-degree = function(graph, vids = integer(0), mode = 3L, loops = TRUE) {
+degree = function(graph, vids = integer(0), mode = 3L, loops = 1L) {
   .Call(`_igraphlite_degree_`, graph, vids, mode, loops)
 }

@@ -11,7 +11,7 @@
 #' @returns `as_adjlist()` returns a list of adjacent vertices for each vertex.
 #' @rdname adjlist
 #' @export
-as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = 1L) {
+as_adjlist = function(graph, mode = 3L, loops = 1L, multiple = TRUE) {
   .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
 }
 
