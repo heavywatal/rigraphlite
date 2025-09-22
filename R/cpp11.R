@@ -96,6 +96,14 @@ delete_vertices_ <- function(graph, vids) {
   invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
+betweenness_ <- function(graph, weights, vids, directed, normalized, cutoff) {
+  .Call(`_igraphlite_betweenness_`, graph, weights, vids, directed, normalized, cutoff)
+}
+
+betweenness_subset_ <- function(graph, weights, sources, targets, vids, directed, normalized) {
+  .Call(`_igraphlite_betweenness_subset_`, graph, weights, sources, targets, vids, directed, normalized)
+}
+
 edge_betweenness_ <- function(graph, weights, eids, directed, normalized, cutoff) {
   .Call(`_igraphlite_edge_betweenness_`, graph, weights, eids, directed, normalized, cutoff)
 }

@@ -1,13 +1,37 @@
-test_that("edge_betweenness() works", {
+test_that("betweenness() works", {
   g = graph_tree(7L)
-  plot(g)
-  exp = c(2, 2, 1, 1, 1, 1)
-  expect_identical(edge_betweenness(g, from = Vsource(g), to = Vsink(g)), exp)
-  expect_identical(edge_betweenness(g, cutoff = 1), c(1, 1, 1, 1, 1, 1))
-  expect_warning(edge_betweenness(g, from = Vsource(g), to = Vsink(g), cutoff = 1), "ignored")
-  expect_warning(edge_betweenness_subset(g, from = Vsource(g), to = Vsink(g)), "deprecated")
+  betweenness(g) |>
+    expect_identical(c(0, 2, 2, 0, 0, 0, 0)) |>
+    expect_identical(suppressWarnings(betweenness(g, weights = TRUE))) |>
+    expect_identical(betweenness(g, from = Vsource(g), to = Vsink(g)))
+  betweenness(g, cutoff = 1) |>
+    expect_identical(c(0, 0, 0, 0, 0, 0, 0))
+  expect_warning(betweenness(g, from = Vsource(g), to = Vsink(g), cutoff = 1), "ignored")
+  expect_error(betweenness(g, Vsource(g)), "named arguments")
 
   skip("'weights' ignored in C igraph?")
   w = rep_len(3, ecount(g))
-  expect_identical(edge_betweenness_subset(g, weights = w, from = Vsource(g), to = Vsink(g)), w * exp)
+  expect_identical(betweenness(g, weights = w), w * betweenness(g))
+})
+
+test_that("edge_betweenness() works", {
+  g = graph_tree(7L)
+  edge_betweenness(g) |>
+    expect_identical(c(3, 3, 2, 2, 2, 2)) |>
+    expect_identical(suppressWarnings(edge_betweenness(g, weights = TRUE)))
+  edge_betweenness(g, from = Vsource(g), to = Vsink(g)) |>
+    expect_identical(c(2, 2, 1, 1, 1, 1))
+  edge_betweenness(g, cutoff = 1) |>
+    expect_identical(c(1, 1, 1, 1, 1, 1))
+  expect_warning(edge_betweenness(g, from = Vsource(g), to = Vsink(g), cutoff = 1), "ignored")
+  expect_error(edge_betweenness(g, Vsource(g)), "named arguments")
+
+  suppressWarnings(edge_betweenness_subset(g, to = Vsink(g), weights = TRUE)) |>
+    expect_identical(edge_betweenness(g, to = Vsink(g)))
+  expect_warning(edge_betweenness_subset(g, to = Vsink(g)), "deprecated")
+  expect_error(edge_betweenness_subset(g, Vsource(g)), "named arguments")
+
+  skip("'weights' ignored in C igraph?")
+  w = rep_len(3, ecount(g))
+  expect_identical(edge_betweenness(g, weights = w), w * edge_betweenness(g))
 })

@@ -2,6 +2,7 @@
 % Please edit documentation in R/structural-centrality.R
 \name{centrality}
 \alias{centrality}
+\alias{betweenness}
 \alias{edge_betweenness}
 \alias{edge_betweenness_subset}
 \title{Centrality measures}
@@ -9,6 +10,18 @@
 \url{https://igraph.org/c/doc/igraph-Structural.html#centrality-measures}
 }
 \usage{
+betweenness(
+  graph,
+  ...,
+  weights = numeric(0),
+  from = integer(0),
+  to = integer(0),
+  vids = integer(0),
+  directed = is_directed(graph),
+  normalized = FALSE,
+  cutoff = -1
+)
+
 edge_betweenness(
   graph,
   ...,
@@ -44,7 +57,7 @@ to prompt users to cope with breaking changes in version 1.0.}
 
 \item{to}{An integer vector of vertex IDs.}
 
-\item{eids}{An integer vector of edge IDs.}
+\item{vids}{An integer vector of vertex IDs.}
 
 \item{directed}{A logical value, whether to consider directed paths.
 Ignored for undirected graphs.}
@@ -52,8 +65,13 @@ Ignored for undirected graphs.}
 \item{normalized}{A logical value, whether to normalize the result.}
 
 \item{cutoff}{Maximum length of paths to be considered. Unlimited if negative.}
+
+\item{eids}{An integer vector of edge IDs.}
 }
 \value{
+\code{betweenness()} returns a numeric vector of betweenness
+for each vertex in the graph.
+
 \code{edge_betweenness()} returns a numeric vector of edge betweenness
 for each edge in the graph.
 
@@ -61,10 +79,14 @@ for each edge in the graph.
 that computes the betweenness using a subset of paths between \code{from} and \code{to}.
 }
 \description{
-The betweenness centrality of an edge is the number of geodesics going through it.
+The betweenness centrality of a vertex or an edge is the number of geodesics
+going through it.
 }
 \examples{
 g = graph_tree(5L)
+betweenness(g)
 edge_betweenness(g)
-edge_betweenness_subset(g, from = Vsource(g), to = Vsink(g))
+edge_betweenness(g, from = Vsource(g), to = Vsink(g))
+edge_betweenness(g, normalized = TRUE)
+edge_betweenness(g, cutoff = 1)
 }

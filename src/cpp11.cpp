@@ -182,6 +182,20 @@ extern "C" SEXP _igraphlite_delete_vertices_(SEXP graph, SEXP vids) {
   END_CPP11
 }
 // centrality.cpp
+SEXP betweenness_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& vids, const bool directed, const bool normalized, const double cutoff);
+extern "C" SEXP _igraphlite_betweenness_(SEXP graph, SEXP weights, SEXP vids, SEXP directed, SEXP normalized, SEXP cutoff) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(betweenness_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized), cpp11::as_cpp<cpp11::decay_t<const double>>(cutoff)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP betweenness_subset_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& sources, const cpp11::integers& targets, const cpp11::integers& vids, const bool directed, const bool normalized);
+extern "C" SEXP _igraphlite_betweenness_subset_(SEXP graph, SEXP weights, SEXP sources, SEXP targets, SEXP vids, SEXP directed, SEXP normalized) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(betweenness_subset_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sources), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(targets), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
+  END_CPP11
+}
+// centrality.cpp
 SEXP edge_betweenness_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& eids, const bool directed, const bool normalized, const double cutoff);
 extern "C" SEXP _igraphlite_edge_betweenness_(SEXP graph, SEXP weights, SEXP eids, SEXP directed, SEXP normalized, SEXP cutoff) {
   BEGIN_CPP11
@@ -496,6 +510,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_as_edgelist_",                      (DL_FUNC) &_igraphlite_as_edgelist_,                      1},
     {"_igraphlite_as_inclist_",                       (DL_FUNC) &_igraphlite_as_inclist_,                       3},
     {"_igraphlite_average_path_length_",              (DL_FUNC) &_igraphlite_average_path_length_,              4},
+    {"_igraphlite_betweenness_",                      (DL_FUNC) &_igraphlite_betweenness_,                      6},
+    {"_igraphlite_betweenness_subset_",               (DL_FUNC) &_igraphlite_betweenness_subset_,               7},
     {"_igraphlite_degree_",                           (DL_FUNC) &_igraphlite_degree_,                           4},
     {"_igraphlite_delete_edges_",                     (DL_FUNC) &_igraphlite_delete_edges_,                     2},
     {"_igraphlite_delete_vertices_",                  (DL_FUNC) &_igraphlite_delete_vertices_,                  2},
