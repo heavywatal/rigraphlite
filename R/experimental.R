@@ -36,7 +36,10 @@ mean_distances = function(graph, from = integer(0L), to = from) {
 }
 
 mean_distances_mat = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L) {
-  m = distances(graph, from = from, to = to, weights = weights, mode = mode)
+  if (isTRUE(weights)) {
+    weights = Eattr(graph)$weight
+  }
+  m = distances(graph, from = from, to = to, weights = as.numeric(weights), mode = mode)
   if (length(from)) {
     nzero = sum(from %in% to)
   } else {
@@ -51,7 +54,7 @@ mean_distances_vec = function(graph, from = integer(0L), to = from, weights = nu
   if (isTRUE(weights)) {
     weights = Eattr(graph)$weight
   }
-  mean_distances_cpp_(graph, from, to, weights, mode, algorithm)
+  mean_distances_cpp_(graph, from, to, as.numeric(weights), mode, algorithm)
 }
 
 mean_distances_hist = function(graph, from = NULL, to = from) {
@@ -69,8 +72,11 @@ mean_distances_avg = function(graph, from = NULL, to = from, weights = numeric(0
     vids = upstream_vertices(graph, unique(c(from, to)))
     graph = induced_subgraph(graph, vids)
   }
+  if (isTRUE(weights)) {
+    weights = Eattr(graph)$weight
+  }
   # TODO: Exclude internal nodes
-  average_path_length(graph, weights, FALSE)
+  average_path_length(graph, as.numeric(weights), FALSE)
 }
 
 # nocov end

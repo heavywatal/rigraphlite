@@ -37,7 +37,7 @@ average_path_length = function(graph, ..., weights = numeric(0L), directed = is_
   if (isTRUE(weights)) {
     weights = Eattr(graph)$weight
   }
-  .Call(`_igraphlite_average_path_length_`, graph, weights, directed, unconn)
+  .Call(`_igraphlite_average_path_length_`, graph, as.numeric(weights), directed, unconn)
 }
 
 #' @returns `path_length_hist()` returns an integer vector.

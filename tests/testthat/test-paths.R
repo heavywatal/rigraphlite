@@ -23,6 +23,7 @@ test_that("distances works", {
     is.infinite() |>
     sum() |>
     expect_identical(8L)
+  expect_error(distances(g, from, to), "named arguments")
 })
 
 test_that("get_shortest_paths works", {
@@ -49,6 +50,7 @@ test_that("get_shortest_paths works", {
     expect_identical(d)
   Eattr(g)$weight = E(g)
   expect_identical(get_shortest_paths(g, weights = TRUE, from = 1L), dw)
+  expect_error(get_shortest_paths(g, from, to), "named arguments")
 })
 
 test_that("get_all_shortest_paths works", {
@@ -72,6 +74,7 @@ test_that("get_all_shortest_paths works", {
     expect_identical(d)
   Eattr(g)$weight = E(g)
   expect_identical(get_all_shortest_paths(g, weights = TRUE, from = 1L), dw)
+  expect_error(get_all_shortest_paths(g, from, to), "named arguments")
 })
 
 test_that("get_all_simple_paths works", {
@@ -87,5 +90,8 @@ test_that("path_length_hist and average_path_length works", {
   expect_identical(mean_hist(h), average_path_length(g, directed = FALSE))
   h = path_length_hist(g, TRUE)
   expect_length(h, 2L)
-  expect_identical(mean_hist(h), average_path_length(g, directed = TRUE))
+  average_path_length(g, directed = TRUE) |>
+    expect_identical(mean_hist(h)) |>
+    expect_identical(suppressWarnings(average_path_length(g, weights = TRUE)))
+  expect_error(average_path_length(g, TRUE), "named arguments")
 })
