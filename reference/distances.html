@@ -47,7 +47,8 @@ result of <code>distances()</code>, but should be faster as they are written in 
 <span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
 <span>  from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
 <span>  to <span class="op">=</span> <span class="va">from</span>,</span>
-<span>  mode <span class="op">=</span> <span class="fl">3L</span></span>
+<span>  mode <span class="op">=</span> <span class="fl">3L</span>,</span>
+<span>  cutoff <span class="op">=</span> <span class="op">-</span><span class="fl">1</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">average_path_length</span><span class="op">(</span></span>
@@ -92,6 +93,10 @@ to prompt users to cope with breaking changes in version 1.0.</p></dd>
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
 <dd><p>An integer value of edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
+
+
+<dt id="arg-cutoff">cutoff<a class="anchor" aria-label="anchor" href="#arg-cutoff"></a></dt>
+<dd><p>Maximum length of paths to be considered. Unlimited if negative.</p></dd>
 
 
 <dt id="arg-directed">directed<a class="anchor" aria-label="anchor" href="#arg-directed"></a></dt>
