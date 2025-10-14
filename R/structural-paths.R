@@ -48,7 +48,8 @@ get_all_shortest_paths = function(graph, ..., weights = numeric(0L), from = inte
 #' @rdname paths
 #' @export
 get_all_simple_paths = function(
-    graph, from, to = integer(0L), mode = 3L,
-    minlen = -1L, maxlen = -1L, max_results = -1L) {
+  graph, from, to = integer(0L), mode = 3L,
+  minlen = -1L, maxlen = -1L, max_results = -1L
+) {
   .Call(`_igraphlite_get_all_simple_paths_`, graph, from, to, mode, minlen, maxlen, max_results)
 }

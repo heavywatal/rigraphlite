@@ -19,6 +19,7 @@
 #' @param normalized A logical value, whether to normalize the result.
 #' @keywords internal
 common_params = function(
-    graph, vids, vid, from, to, eids, eid, edges, mode, weights, directed, loops, multiple, normalized) {
+  graph, vids, vid, from, to, eids, eid, edges, mode, weights, directed, loops, multiple, normalized
+) {
   invisible(NULL)
 }

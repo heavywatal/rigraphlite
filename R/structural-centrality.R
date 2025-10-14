@@ -20,8 +20,9 @@
 #' @rdname centrality
 #' @export
 betweenness = function(
-    graph, ..., weights = numeric(0), from = integer(0), to = integer(0), vids = integer(0),
-    directed = is_directed(graph), normalized = FALSE, cutoff = -1) {
+  graph, ..., weights = numeric(0), from = integer(0), to = integer(0), vids = integer(0),
+  directed = is_directed(graph), normalized = FALSE, cutoff = -1
+) {
   if (!missing(...)) {
     stop("Use named arguments to cope with breaking changes in 1.0.", call. = FALSE)
   }
@@ -43,8 +44,9 @@ betweenness = function(
 #' @rdname centrality
 #' @export
 edge_betweenness = function(
-    graph, ..., weights = numeric(0), from = integer(0), to = integer(0), eids = integer(0),
-    directed = is_directed(graph), normalized = FALSE, cutoff = -1) {
+  graph, ..., weights = numeric(0), from = integer(0), to = integer(0), eids = integer(0),
+  directed = is_directed(graph), normalized = FALSE, cutoff = -1
+) {
   if (!missing(...)) {
     stop("Use named arguments to cope with breaking changes in 1.0.", call. = FALSE)
   }
@@ -66,8 +68,9 @@ edge_betweenness = function(
 #' @rdname centrality
 #' @export
 edge_betweenness_subset = function(
-    graph, ..., weights = numeric(0), from = integer(0), to = integer(0), eids = integer(0),
-    directed = is_directed(graph), normalized = FALSE) {
+  graph, ..., weights = numeric(0), from = integer(0), to = integer(0), eids = integer(0),
+  directed = is_directed(graph), normalized = FALSE
+) {
   if (!missing(...)) {
     stop("Use named arguments to cope with breaking changes in 1.0.", call. = FALSE)
   }
