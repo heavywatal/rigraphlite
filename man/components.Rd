@@ -3,6 +3,13 @@
 \name{components}
 \alias{components}
 \alias{subcomponent}
+\alias{connected_components}
+\alias{is_connected}
+\alias{count_reachable}
+\alias{transitive_closure}
+\alias{articulation_points}
+\alias{bridges}
+\alias{is_biconnected}
 \alias{subcomponents}
 \title{Graph Components}
 \source{
@@ -10,6 +17,20 @@
 }
 \usage{
 subcomponent(graph, vid, mode = 1L)
+
+connected_components(graph, connectedness = 1L)
+
+is_connected(graph, connectedness = 1L)
+
+count_reachable(graph, mode = 1L)
+
+transitive_closure(graph)
+
+articulation_points(graph)
+
+bridges(graph)
+
+is_biconnected(graph)
 
 subcomponents(graph, vids, mode = 1L)
 }
@@ -20,11 +41,26 @@ subcomponents(graph, vids, mode = 1L)
 
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
+\item{connectedness}{An integer indicating the type of connectedness:
+\{1: WEAK (ignore edge directions), 2: STRONG\}}
+
 \item{vids}{An integer vector of vertex IDs.}
 }
 \value{
 \code{subcomponent()} returns the IDs of the vertices reachable from the
 given vertex.
+
+\code{connected_components()} returns component IDs for each vertex.
+
+\code{is_connected()} and \code{is_biconnected()} return logical values.
+
+\code{count_reachable()} returns an integer vector of the number of
+reachable vertices from each vertex including itself.
+
+\code{transitive_closure()} returns the transitive closure graph.
+
+\code{articulation_points()} and \code{bridges()} return vertex IDs and edge IDs,
+respectively.
 
 \code{subcomponents()} returns a list of integer vectors by applying
 \code{subcomponent()} for each vertex in \code{vids}.
@@ -35,6 +71,21 @@ Graph Components
 \examples{
 g = graph_tree(5L)
 subcomponent(g, 2L)
+
+connected_components(g)
+
+is_connected(g)
+
+count_reachable(g)
+
+transitive_closure(g)
+
+articulation_points(g)
+
+bridges(g)
+
+is_biconnected(g)
+
 subcomponents(g, c(1L, 2L))
 }
 \seealso{

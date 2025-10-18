@@ -35,6 +35,16 @@ test_that("subcomponent works", {
   expect_setequal(subcomponent(g, 2, mode = 3L), V(g))
   expect_length(subcomponents(g, V(g)), vcount(g))
   expect_identical(subcomponents(g, c(2L, 3L), mode = 1L), list(c(2L, 4L, 5L), c(3L, 6L, 7L)))
+
+  expect_identical(connected_components(g, connectedness = 1L), rep(1L, vcount(g)))
+  expect_true(is_connected(g))
+  expect_identical(count_reachable(g, mode = 1L), c(7L, 3L, 3L, 1L, 1L, 1L, 1L))
+  expect_identical(count_reachable(g, mode = 2L), c(1L, 2L, 2L, 3L, 3L, 3L, 3L))
+  expect_identical(count_reachable(g, mode = 3L), rep(7L, vcount(g)))
+  expect_s3_class(transitive_closure(g), "igraph_ptr")
+  expect_setequal(articulation_points(g), c(1L, 2L, 3L))
+  expect_setequal(bridges(g), E(g))
+  expect_false(is_biconnected(g))
 })
 
 test_that("non-simple graph functions work", {

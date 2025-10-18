@@ -112,6 +112,34 @@ edge_betweenness_subset_ <- function(graph, weights, sources, targets, eids, dir
   .Call(`_igraphlite_edge_betweenness_subset_`, graph, weights, sources, targets, eids, directed, normalized)
 }
 
+connected_components_ <- function(graph, mode) {
+  .Call(`_igraphlite_connected_components_`, graph, mode)
+}
+
+is_connected_ <- function(graph, mode) {
+  .Call(`_igraphlite_is_connected_`, graph, mode)
+}
+
+count_reachable_ <- function(graph, mode) {
+  .Call(`_igraphlite_count_reachable_`, graph, mode)
+}
+
+transitive_closure_ <- function(graph) {
+  .Call(`_igraphlite_transitive_closure_`, graph)
+}
+
+articulation_points_ <- function(graph) {
+  .Call(`_igraphlite_articulation_points_`, graph)
+}
+
+bridges_ <- function(graph) {
+  .Call(`_igraphlite_bridges_`, graph)
+}
+
+is_biconnected_ <- function(graph) {
+  .Call(`_igraphlite_is_biconnected_`, graph)
+}
+
 as_adjlist_ <- function(graph, mode, loops, multiple) {
   .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
 }

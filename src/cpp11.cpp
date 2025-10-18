@@ -209,6 +209,55 @@ extern "C" SEXP _igraphlite_edge_betweenness_subset_(SEXP graph, SEXP weights, S
     return cpp11::as_sexp(edge_betweenness_subset_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sources), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(targets), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
   END_CPP11
 }
+// components.cpp
+SEXP connected_components_(const cpp11::external_pointer<IGraph> graph, const int mode);
+extern "C" SEXP _igraphlite_connected_components_(SEXP graph, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(connected_components_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+  END_CPP11
+}
+// components.cpp
+bool is_connected_(const cpp11::external_pointer<IGraph> graph, const int mode);
+extern "C" SEXP _igraphlite_is_connected_(SEXP graph, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_connected_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+  END_CPP11
+}
+// components.cpp
+SEXP count_reachable_(const cpp11::external_pointer<IGraph> graph, const int mode);
+extern "C" SEXP _igraphlite_count_reachable_(SEXP graph, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(count_reachable_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+  END_CPP11
+}
+// components.cpp
+SEXP transitive_closure_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_transitive_closure_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(transitive_closure_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// components.cpp
+SEXP articulation_points_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_articulation_points_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(articulation_points_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// components.cpp
+SEXP bridges_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_bridges_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bridges_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// components.cpp
+bool is_biconnected_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_is_biconnected_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_biconnected_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
 // data.cpp
 SEXP as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const bool multiple);
 extern "C" SEXP _igraphlite_as_adjlist_(SEXP graph, SEXP mode, SEXP loops, SEXP multiple) {
@@ -568,6 +617,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_add_edges_",                        (DL_FUNC) &_igraphlite_add_edges_,                        2},
     {"_igraphlite_add_vertices_",                     (DL_FUNC) &_igraphlite_add_vertices_,                     2},
     {"_igraphlite_are_adjacent_",                     (DL_FUNC) &_igraphlite_are_adjacent_,                     3},
+    {"_igraphlite_articulation_points_",              (DL_FUNC) &_igraphlite_articulation_points_,              1},
     {"_igraphlite_as_adjlist_",                       (DL_FUNC) &_igraphlite_as_adjlist_,                       4},
     {"_igraphlite_as_data_frame_",                    (DL_FUNC) &_igraphlite_as_data_frame_,                    1},
     {"_igraphlite_as_edgelist_",                      (DL_FUNC) &_igraphlite_as_edgelist_,                      1},
@@ -575,8 +625,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_average_path_length_",              (DL_FUNC) &_igraphlite_average_path_length_,              4},
     {"_igraphlite_betweenness_",                      (DL_FUNC) &_igraphlite_betweenness_,                      6},
     {"_igraphlite_betweenness_subset_",               (DL_FUNC) &_igraphlite_betweenness_subset_,               7},
+    {"_igraphlite_bridges_",                          (DL_FUNC) &_igraphlite_bridges_,                          1},
+    {"_igraphlite_connected_components_",             (DL_FUNC) &_igraphlite_connected_components_,             2},
     {"_igraphlite_count_loops_",                      (DL_FUNC) &_igraphlite_count_loops_,                      1},
     {"_igraphlite_count_multiple_",                   (DL_FUNC) &_igraphlite_count_multiple_,                   2},
+    {"_igraphlite_count_reachable_",                  (DL_FUNC) &_igraphlite_count_reachable_,                  2},
     {"_igraphlite_degree_",                           (DL_FUNC) &_igraphlite_degree_,                           4},
     {"_igraphlite_delete_edges_",                     (DL_FUNC) &_igraphlite_delete_edges_,                     2},
     {"_igraphlite_delete_vertices_",                  (DL_FUNC) &_igraphlite_delete_vertices_,                  2},
@@ -613,6 +666,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         4},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},
     {"_igraphlite_induced_subgraph_edges_",           (DL_FUNC) &_igraphlite_induced_subgraph_edges_,           2},
+    {"_igraphlite_is_biconnected_",                   (DL_FUNC) &_igraphlite_is_biconnected_,                   1},
+    {"_igraphlite_is_connected_",                     (DL_FUNC) &_igraphlite_is_connected_,                     2},
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
     {"_igraphlite_is_simple_",                        (DL_FUNC) &_igraphlite_is_simple_,                        2},
     {"_igraphlite_layout_drl_",                       (DL_FUNC) &_igraphlite_layout_drl_,                       1},
@@ -638,6 +693,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_subcomponents_",                    (DL_FUNC) &_igraphlite_subcomponents_,                    3},
     {"_igraphlite_subgraph_from_edges_",              (DL_FUNC) &_igraphlite_subgraph_from_edges_,              3},
     {"_igraphlite_to_",                               (DL_FUNC) &_igraphlite_to_,                               1},
+    {"_igraphlite_transitive_closure_",               (DL_FUNC) &_igraphlite_transitive_closure_,               1},
     {"_igraphlite_vcount_",                           (DL_FUNC) &_igraphlite_vcount_,                           1},
     {NULL, NULL, 0}
 };
