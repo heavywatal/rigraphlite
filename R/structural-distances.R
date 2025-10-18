@@ -12,6 +12,10 @@
 #' distances(g, mode = 1L)
 #' average_path_length(g)
 #' path_length_hist(g)
+#' diameter(g)
+#' girth(g)
+#' radius(g)
+#' eccentricity(g)
 #' @returns `distances()` returns a matrix of distances between the vertices.
 #' @name distances
 #' @rdname distances
@@ -45,4 +49,37 @@ average_path_length = function(graph, ..., weights = numeric(0L), directed = is_
 #' @export
 path_length_hist = function(graph, directed = is_directed(graph)) {
   .Call(`_igraphlite_path_length_hist_`, graph, directed)
+}
+
+#' @rdname distances
+#' @export
+eccentricity = function(graph, weights = numeric(0L), vids = integer(0L), mode = 3L) {
+  if (isTRUE(weights)) {
+    weights = Eattr(graph)$weight
+  }
+  .Call(`_igraphlite_eccentricity_`, graph, as.numeric(weights), vids, mode)
+}
+
+#' @rdname distances
+#' @export
+diameter = function(graph, weights = numeric(0L), directed = is_directed(graph), unconn = TRUE) {
+  if (isTRUE(weights)) {
+    weights = Eattr(graph)$weight
+  }
+  .Call(`_igraphlite_diameter_`, graph, as.numeric(weights), directed, unconn)
+}
+
+#' @rdname distances
+#' @export
+girth = function(graph) {
+  .Call(`_igraphlite_girth_`, graph)
+}
+
+#' @rdname distances
+#' @export
+radius = function(graph, weights = numeric(0L), mode = 3L) {
+  if (isTRUE(weights)) {
+    weights = Eattr(graph)$weight
+  }
+  .Call(`_igraphlite_radius_`, graph, as.numeric(weights), mode)
 }

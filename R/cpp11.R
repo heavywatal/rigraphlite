@@ -220,10 +220,6 @@ distances_ <- function(graph, weights, from, to, mode, cutoff) {
   .Call(`_igraphlite_distances_`, graph, weights, from, to, mode, cutoff)
 }
 
-mean_distances_cpp_ <- function(graph, from, to, weights, mode, algorithm) {
-  .Call(`_igraphlite_mean_distances_cpp_`, graph, from, to, weights, mode, algorithm)
-}
-
 get_shortest_paths_ <- function(graph, weights, from, to, mode) {
   .Call(`_igraphlite_get_shortest_paths_`, graph, weights, from, to, mode)
 }
@@ -244,6 +240,22 @@ path_length_hist_ <- function(graph, directed) {
   .Call(`_igraphlite_path_length_hist_`, graph, directed)
 }
 
+eccentricity_ <- function(graph, weights, vids, mode) {
+  .Call(`_igraphlite_eccentricity_`, graph, weights, vids, mode)
+}
+
+diameter_ <- function(graph, weights, directed, unconn) {
+  .Call(`_igraphlite_diameter_`, graph, weights, directed, unconn)
+}
+
+radius_ <- function(graph, weights, mode) {
+  .Call(`_igraphlite_radius_`, graph, weights, mode)
+}
+
+mean_distances_cpp_ <- function(graph, from, to, weights, mode, algorithm) {
+  .Call(`_igraphlite_mean_distances_cpp_`, graph, from, to, weights, mode, algorithm)
+}
+
 path_length_count_within <- function(graph, vids) {
   .Call(`_igraphlite_path_length_count_within`, graph, vids)
 }
@@ -254,6 +266,30 @@ path_length_count_between <- function(graph, from, to) {
 
 are_adjacent_ <- function(graph, v1, v2) {
   .Call(`_igraphlite_are_adjacent_`, graph, v1, v2)
+}
+
+is_simple_ <- function(graph, directed) {
+  .Call(`_igraphlite_is_simple_`, graph, directed)
+}
+
+has_loop_ <- function(graph) {
+  .Call(`_igraphlite_has_loop_`, graph)
+}
+
+count_loops_ <- function(graph) {
+  .Call(`_igraphlite_count_loops_`, graph)
+}
+
+has_multiple_ <- function(graph) {
+  .Call(`_igraphlite_has_multiple_`, graph)
+}
+
+count_multiple_ <- function(graph, eids) {
+  .Call(`_igraphlite_count_multiple_`, graph, eids)
+}
+
+girth_ <- function(graph) {
+  .Call(`_igraphlite_girth_`, graph)
 }
 
 neighborhood_size_ <- function(graph, vids, order, mode, mindist) {

@@ -36,3 +36,20 @@ test_that("subcomponent works", {
   expect_length(subcomponents(g, V(g)), vcount(g))
   expect_identical(subcomponents(g, c(2L, 3L), mode = 1L), list(c(2L, 4L, 5L), c(3L, 6L, 7L)))
 })
+
+test_that("non-simple graph functions work", {
+  g = graph_tree(5L)
+  expect_true(is_simple(g))
+  expect_false(has_loop(g))
+  expect_identical(count_loops(g), 0L)
+  expect_false(has_multiple(g))
+  expect_identical(count_multiple(g), rep(1L, ecount(g)))
+  g = add_edges(g, c(1L, 1L)) # add a loop
+  g = add_edges(g, c(1L, 2L)) # add a multiple edge
+  g = add_edges(g, c(2L, 1L)) # not a multiple edge in directed graph
+  expect_false(is_simple(g))
+  expect_true(has_loop(g))
+  expect_identical(count_loops(g), 1L)
+  expect_true(has_multiple(g))
+  expect_identical(count_multiple(g), c(2L, 1L, 1L, 1L, 1L, 2L, 1L))
+})

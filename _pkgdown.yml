@@ -48,6 +48,7 @@ reference:
   - neighborhood
   - components
   - centrality
+  - is_simple
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
 - contents:

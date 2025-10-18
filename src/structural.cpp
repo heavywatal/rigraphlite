@@ -1,7 +1,6 @@
 #include "igraph.hpp"
 
 #include "vector.hpp"
-#include "matrix.hpp"
 
 #include <igraph/igraph_structural.h>
 #include <igraph/igraph_neighborhood.h>
@@ -11,6 +10,50 @@ bool
 are_adjacent_(const cpp11::external_pointer<IGraph> graph, int v1, int v2) {
   igraph_bool_t res;
   igraph_are_adjacent(graph->data(), --v1, --v2, &res);
+  return res;
+}
+
+[[cpp11::register]] bool
+is_simple_(const cpp11::external_pointer<IGraph> graph, const bool directed) {
+  igraph_bool_t res;
+  igraph_is_simple(graph->data(), &res, directed);
+  return res;
+}
+
+[[cpp11::register]] bool
+has_loop_(const cpp11::external_pointer<IGraph> graph) {
+  igraph_bool_t res;
+  igraph_has_loop(graph->data(), &res);
+  return res;
+}
+
+[[cpp11::register]] int
+count_loops_(const cpp11::external_pointer<IGraph> graph) {
+  int res;
+  igraph_count_loops(graph->data(), &res);
+  return res;
+}
+
+[[cpp11::register]] bool
+has_multiple_(const cpp11::external_pointer<IGraph> graph) {
+  igraph_bool_t res;
+  igraph_has_multiple(graph->data(), &res);
+  return res;
+}
+
+[[cpp11::register]] SEXP
+count_multiple_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& eids) {
+  const int n = eids.size();
+  IVector<AsValues> res(n > 0 ? n : graph->ecount());
+  igraph_count_multiple(graph->data(), res.data(),
+    n > 0 ? ISelectorInPlace(eids).ess() : igraph_ess_all(igraph_edgeorder_type_t::IGRAPH_EDGEORDER_ID));
+  return res.wrap();
+}
+
+[[cpp11::register]] double
+girth_(const cpp11::external_pointer<IGraph> graph) {
+  double res;
+  igraph_girth(graph->data(), &res, nullptr);
   return res;
 }
 

@@ -4,6 +4,10 @@
 \alias{distances}
 \alias{average_path_length}
 \alias{path_length_hist}
+\alias{eccentricity}
+\alias{diameter}
+\alias{girth}
+\alias{radius}
 \title{Distance-related Functions}
 \source{
 \url{https://igraph.org/c/doc/igraph-Structural.html#shortest-path-related-functions}
@@ -28,6 +32,19 @@ average_path_length(
 )
 
 path_length_hist(graph, directed = is_directed(graph))
+
+eccentricity(graph, weights = numeric(0L), vids = integer(0L), mode = 3L)
+
+diameter(
+  graph,
+  weights = numeric(0L),
+  directed = is_directed(graph),
+  unconn = TRUE
+)
+
+girth(graph)
+
+radius(graph, weights = numeric(0L), mode = 3L)
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
@@ -49,6 +66,8 @@ to prompt users to cope with breaking changes in version 1.0.}
 Ignored for undirected graphs.}
 
 \item{unconn}{A logical value.}
+
+\item{vids}{An integer vector of vertex IDs.}
 }
 \value{
 \code{distances()} returns a matrix of distances between the vertices.
@@ -66,4 +85,8 @@ g = graph_tree(5L)
 distances(g, mode = 1L)
 average_path_length(g)
 path_length_hist(g)
+diameter(g)
+girth(g)
+radius(g)
+eccentricity(g)
 }
