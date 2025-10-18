@@ -30,7 +30,7 @@ If missing, all the attributes are returned or replaced.}
 \item{value}{A vector or data.frame.}
 }
 \value{
-\code{Vattr()} and \code{Eattr()} return a data.frame with the same nubmer of
+\code{Vattr()} and \code{Eattr()} return a data.frame with the same number of
 rows as the number of vertices and edges in the graph, respectively.
 
 \code{V()} and \code{E()} return an integer vector of vertex and edge IDs, respectively.
@@ -44,7 +44,7 @@ Attributes can be set and retrieved in several ways:
 \item direct operation with a data.frame: \code{Vattr(g) = data.frame(name = letters[1:6])}
 }
 
-Using the \code{name} argument for setting and \code{$} operetor for getting is the most
+Using the \code{name} argument for setting and \code{$} operator for getting is the most
 efficient way according to the brief benchmarking.
 }
 \examples{

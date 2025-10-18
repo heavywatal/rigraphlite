@@ -26,7 +26,7 @@ graph_ring(n, directed = FALSE, mutual = FALSE, circular = TRUE)
 \item{directed}{A logical value, whether to consider directed paths.
 Ignored for undirected graphs.}
 
-\item{mutual}{A logical, whather to create mutual edges in directed graphs.}
+\item{mutual}{A logical, whether to create mutual edges in directed graphs.}
 
 \item{circular}{A logical, whether to create a closed ring/cycle or an open path.}
 

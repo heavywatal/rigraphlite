@@ -7,13 +7,13 @@
 #' - with the `[[` operator: `Vattr(g)[["name"]] = letters[1:6]`
 #' - direct operation with a data.frame: `Vattr(g) = data.frame(name = letters[1:6])`
 #'
-#' Using the `name` argument for setting and `$` operetor for getting is the most
+#' Using the `name` argument for setting and `$` operator for getting is the most
 #' efficient way according to the brief benchmarking.
 #' @inheritParams common_params
 #' @param name Name of the attribute to query or set.
 #'   If missing, all the attributes are returned or replaced.
 #' @param value A vector or data.frame.
-#' @returns `Vattr()` and `Eattr()` return a data.frame with the same nubmer of
+#' @returns `Vattr()` and `Eattr()` return a data.frame with the same number of
 #' rows as the number of vertices and edges in the graph, respectively.
 #' @returns `V()` and `E()` return an integer vector of vertex and edge IDs, respectively.
 #' @seealso [Vnames()] for specialized function for "name" attribute.

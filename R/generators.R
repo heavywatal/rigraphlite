@@ -44,7 +44,7 @@ graph_star = function(n, mode = 0L, center = 1L) {
 #' @inheritParams graph_create
 #' @param dim An integer vector giving the sizes of the lattice in each of its dimensions.
 #' @param nei An integer distance within which two vertices will be connected.
-#' @param mutual A logical, whather to create mutual edges in directed graphs.
+#' @param mutual A logical, whether to create mutual edges in directed graphs.
 #' @param circular A logical, whether to create a closed ring/cycle or an open path.
 #' @returns An [`igraph_ptr`] object.
 #' @family deterministic generators
