@@ -1,3 +1,34 @@
+test_that("centrality functions works", {
+  g = graph_tree(7L)
+  closeness(g) |>
+    expect_type("double") |>
+    expect_length(vcount(g))
+  harmonic_centrality(g) |>
+    expect_type("double") |>
+    expect_length(vcount(g))
+  pagerank(g) |>
+    expect_type("double") |>
+    expect_length(vcount(g))
+  constraint(g) |>
+    expect_type("double") |>
+    expect_length(vcount(g))
+  for (mode in seq_len(3L)) {
+    deg = degree(g, mode = mode)
+    expect_identical(maxdegree(g, mode = mode), max(deg))
+    expect_identical(strength(g, mode = mode), as.numeric(deg))
+  }
+  eigenvector_centrality(g, mode = 3L) |>
+    expect_type("double") |>
+    expect_length(vcount(g))
+  convergence_degree(g) |>
+    expect_type("double") |>
+    expect_length(ecount(g))
+  ha = hub_and_authority_scores(g) |>
+    expect_s3_class("data.frame") |>
+    expect_named(c("hub", "authority"))
+  expect_identical(nrow(ha), vcount(g))
+})
+
 test_that("betweenness() works", {
   g = graph_tree(7L)
   betweenness(g) |>

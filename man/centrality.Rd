@@ -2,14 +2,39 @@
 % Please edit documentation in R/structural-centrality.R
 \name{centrality}
 \alias{centrality}
+\alias{closeness}
+\alias{harmonic_centrality}
 \alias{betweenness}
 \alias{edge_betweenness}
 \alias{edge_betweenness_subset}
+\alias{pagerank}
+\alias{constraint}
+\alias{maxdegree}
+\alias{strength}
+\alias{eigenvector_centrality}
+\alias{hub_and_authority_scores}
+\alias{convergence_degree}
 \title{Centrality measures}
 \source{
 \url{https://igraph.org/c/doc/igraph-Structural.html#centrality-measures}
 }
 \usage{
+closeness(
+  graph,
+  vids = integer(0),
+  mode = 1L,
+  weights = numeric(0),
+  normalized = TRUE
+)
+
+harmonic_centrality(
+  graph,
+  vids = integer(0),
+  mode = 1L,
+  weights = numeric(0),
+  normalized = TRUE
+)
+
 betweenness(
   graph,
   ...,
@@ -44,31 +69,67 @@ edge_betweenness_subset(
   directed = is_directed(graph),
   normalized = FALSE
 )
+
+pagerank(
+  graph,
+  weights = numeric(0),
+  reset = numeric(0),
+  damping = 0.85,
+  directed = is_directed(graph),
+  vids = integer(0)
+)
+
+constraint(graph, vids = integer(0), weights = numeric(0))
+
+maxdegree(graph, vids = integer(0), mode = 1L, loops = 1L)
+
+strength(graph, vids = integer(0), mode = 1L, loops = 1L, weights = numeric(0))
+
+eigenvector_centrality(graph, mode = 1L, weights = numeric(0))
+
+hub_and_authority_scores(graph, weights = numeric(0))
+
+convergence_degree(graph)
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
 
-\item{...}{Unused, but temporarily included to avoid silent bugs and
-to prompt users to cope with breaking changes in version 1.0.}
+\item{vids}{An integer vector of vertex IDs.}
+
+\item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 
 \item{weights}{A numeric vector of edge weights; \code{TRUE} to use \code{Eattr(graph, "weight")}.}
+
+\item{normalized}{A logical value, whether to normalize the result.}
+
+\item{...}{Unused, but temporarily included to avoid silent bugs and
+to prompt users to cope with breaking changes in version 1.0.}
 
 \item{from}{An integer vector of vertex IDs.}
 
 \item{to}{An integer vector of vertex IDs.}
 
-\item{vids}{An integer vector of vertex IDs.}
-
 \item{directed}{A logical value, whether to consider directed paths.
 Ignored for undirected graphs.}
-
-\item{normalized}{A logical value, whether to normalize the result.}
 
 \item{cutoff}{Maximum length of paths to be considered. Unlimited if negative.}
 
 \item{eids}{An integer vector of edge IDs.}
+
+\item{reset}{A numeric vector of probabilities for each vertex to be a reset point.
+If empty, uniform probabilities are assumed.}
+
+\item{damping}{A numeric value between 0 and 1, the damping factor.
+Walking restarts from a random vertex with probability 1 - \code{damping}.}
+
+\item{loops}{An integer value, how to treat loop edges;
+\{0: NO_LOOPS, 1: LOOPS/LOOPS_TWICE, 2: LOOPS_ONCE\}}
 }
 \value{
+\code{closeness()} returns the inverse of the mean distance to all other vertices.
+
+\code{harmonic_centrality()} returns the mean inverse distance to all other vertices.
+
 \code{betweenness()} returns a numeric vector of betweenness
 for each vertex in the graph.
 
@@ -77,6 +138,23 @@ for each edge in the graph.
 
 \code{edge_betweenness_subset()} is a variant of \code{edge_betweenness()}
 that computes the betweenness using a subset of paths between \code{from} and \code{to}.
+
+\code{pagerank()} returns a numeric vector of PageRank scores for each vertex.
+
+\code{constraint()} returns a numeric vector of Burt's constraint scores.
+
+\code{maxdegree()} is equivalent to \code{max(degree(graph))}.
+
+\code{strength()} of a vertex is the sum of the weights of its incident edges.
+
+\code{eigenvector_centrality()} of each vertex is proportional to
+the sum of eigenvector centralities of its neighbors.
+
+\code{hub_and_authority_scores()} are a generalization of the ideas
+behind eigenvector centrality to directed graphs.
+
+\code{convergence_degree()} returns the normalized value of the difference
+between the size of the input set and the output set.
 }
 \description{
 The betweenness centrality of a vertex or an edge is the number of geodesics
@@ -84,9 +162,30 @@ going through it.
 }
 \examples{
 g = graph_tree(5L)
+closeness(g, mode = 3L)
+closeness(g, mode = 3L, normalized = FALSE)
+
+harmonic_centrality(g, mode = 3L)
+harmonic_centrality(g, mode = 3L, normalized = FALSE)
+
 betweenness(g)
+
 edge_betweenness(g)
 edge_betweenness(g, from = Vsource(g), to = Vsink(g))
 edge_betweenness(g, normalized = TRUE)
 edge_betweenness(g, cutoff = 1)
+
+pagerank(g)
+
+constraint(g)
+
+maxdegree(g, mode = 3L)
+
+strength(g, mode = 3L)
+
+eigenvector_centrality(g, mode = 3L)
+
+convergence_degree(g)
+
+hub_and_authority_scores(g)
 }

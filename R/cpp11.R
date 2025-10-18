@@ -96,6 +96,14 @@ delete_vertices_ <- function(graph, vids) {
   invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
+closeness_ <- function(graph, vids, mode, weights, normalized) {
+  .Call(`_igraphlite_closeness_`, graph, vids, mode, weights, normalized)
+}
+
+harmonic_centrality_ <- function(graph, vids, mode, weights, normalized) {
+  .Call(`_igraphlite_harmonic_centrality_`, graph, vids, mode, weights, normalized)
+}
+
 betweenness_ <- function(graph, weights, vids, directed, normalized, cutoff) {
   .Call(`_igraphlite_betweenness_`, graph, weights, vids, directed, normalized, cutoff)
 }
@@ -110,6 +118,26 @@ edge_betweenness_ <- function(graph, weights, eids, directed, normalized, cutoff
 
 edge_betweenness_subset_ <- function(graph, weights, sources, targets, eids, directed, normalized) {
   .Call(`_igraphlite_edge_betweenness_subset_`, graph, weights, sources, targets, eids, directed, normalized)
+}
+
+pagerank_ <- function(graph, weights, reset, damping, directed, vids) {
+  .Call(`_igraphlite_pagerank_`, graph, weights, reset, damping, directed, vids)
+}
+
+constraint_ <- function(graph, vids, weights) {
+  .Call(`_igraphlite_constraint_`, graph, vids, weights)
+}
+
+eigenvector_centrality_ <- function(graph, mode, weights) {
+  .Call(`_igraphlite_eigenvector_centrality_`, graph, mode, weights)
+}
+
+hub_and_authority_scores_ <- function(graph, weights) {
+  .Call(`_igraphlite_hub_and_authority_scores_`, graph, weights)
+}
+
+convergence_degree_ <- function(graph) {
+  .Call(`_igraphlite_convergence_degree_`, graph)
 }
 
 connected_components_ <- function(graph, mode) {
@@ -330,6 +358,14 @@ neighborhood_ <- function(graph, vids, order, mode, mindist) {
 
 subcomponent_ <- function(graph, v, mode) {
   .Call(`_igraphlite_subcomponent_`, graph, v, mode)
+}
+
+maxdegree_ <- function(graph, vids, mode, loops) {
+  .Call(`_igraphlite_maxdegree_`, graph, vids, mode, loops)
+}
+
+strength_ <- function(graph, vids, mode, loops, weights) {
+  .Call(`_igraphlite_strength_`, graph, vids, mode, loops, weights)
 }
 
 subcomponents_ <- function(graph, vids, mode) {

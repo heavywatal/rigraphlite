@@ -87,6 +87,36 @@ subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const in
   return res.wrap();
 }
 
+[[cpp11::register]] int
+maxdegree_(const cpp11::external_pointer<IGraph> graph,
+    const cpp11::integers& vids,
+    const int mode,
+    const int loops) {
+  const int n = vids.size();
+  int res;
+  igraph_maxdegree(graph->data(), &res,
+    n > 0 ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
+    static_cast<igraph_neimode_t>(mode),
+    static_cast<igraph_loops_t>(loops));
+  return res;
+}
+
+[[cpp11::register]] SEXP
+strength_(const cpp11::external_pointer<IGraph> graph,
+    const cpp11::integers& vids,
+    const int mode,
+    const int loops,
+    const cpp11::doubles& weights) {
+  const int n = vids.size();
+  IVector<AsValues, InitSize> res(n > 0 ? n : graph->vcount());
+  igraph_strength(graph->data(), res.data(),
+    n > 0 ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
+    static_cast<igraph_neimode_t>(mode),
+    static_cast<igraph_loops_t>(loops),
+    weights.size() ? IVectorView(weights).data() : nullptr);
+  return res.wrap();
+}
+
 // experimental
 [[cpp11::register]] SEXP
 subcomponents_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode) {

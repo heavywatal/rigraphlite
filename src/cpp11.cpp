@@ -182,6 +182,20 @@ extern "C" SEXP _igraphlite_delete_vertices_(SEXP graph, SEXP vids) {
   END_CPP11
 }
 // centrality.cpp
+SEXP closeness_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const cpp11::doubles& weights, const bool normalized);
+extern "C" SEXP _igraphlite_closeness_(SEXP graph, SEXP vids, SEXP mode, SEXP weights, SEXP normalized) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(closeness_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP harmonic_centrality_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const cpp11::doubles& weights, const bool normalized);
+extern "C" SEXP _igraphlite_harmonic_centrality_(SEXP graph, SEXP vids, SEXP mode, SEXP weights, SEXP normalized) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(harmonic_centrality_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
+  END_CPP11
+}
+// centrality.cpp
 SEXP betweenness_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& vids, const bool directed, const bool normalized, const double cutoff);
 extern "C" SEXP _igraphlite_betweenness_(SEXP graph, SEXP weights, SEXP vids, SEXP directed, SEXP normalized, SEXP cutoff) {
   BEGIN_CPP11
@@ -207,6 +221,41 @@ SEXP edge_betweenness_subset_(const cpp11::external_pointer<IGraph> graph, const
 extern "C" SEXP _igraphlite_edge_betweenness_subset_(SEXP graph, SEXP weights, SEXP sources, SEXP targets, SEXP eids, SEXP directed, SEXP normalized) {
   BEGIN_CPP11
     return cpp11::as_sexp(edge_betweenness_subset_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(sources), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(targets), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(normalized)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP pagerank_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::doubles& reset, const double damping, const bool directed, const cpp11::integers& vids);
+extern "C" SEXP _igraphlite_pagerank_(SEXP graph, SEXP weights, SEXP reset, SEXP damping, SEXP directed, SEXP vids) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(pagerank_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(reset), cpp11::as_cpp<cpp11::decay_t<const double>>(damping), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP constraint_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const cpp11::doubles& weights);
+extern "C" SEXP _igraphlite_constraint_(SEXP graph, SEXP vids, SEXP weights) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(constraint_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP eigenvector_centrality_(const cpp11::external_pointer<IGraph> graph, const int mode, const cpp11::doubles& weights);
+extern "C" SEXP _igraphlite_eigenvector_centrality_(SEXP graph, SEXP mode, SEXP weights) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(eigenvector_centrality_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP hub_and_authority_scores_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights);
+extern "C" SEXP _igraphlite_hub_and_authority_scores_(SEXP graph, SEXP weights) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(hub_and_authority_scores_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights)));
+  END_CPP11
+}
+// centrality.cpp
+SEXP convergence_degree_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_convergence_degree_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(convergence_degree_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
   END_CPP11
 }
 // components.cpp
@@ -602,6 +651,20 @@ extern "C" SEXP _igraphlite_subcomponent_(SEXP graph, SEXP v, SEXP mode) {
   END_CPP11
 }
 // structural.cpp
+int maxdegree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const int loops);
+extern "C" SEXP _igraphlite_maxdegree_(SEXP graph, SEXP vids, SEXP mode, SEXP loops) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(maxdegree_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops)));
+  END_CPP11
+}
+// structural.cpp
+SEXP strength_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const int loops, const cpp11::doubles& weights);
+extern "C" SEXP _igraphlite_strength_(SEXP graph, SEXP vids, SEXP mode, SEXP loops, SEXP weights) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(strength_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights)));
+  END_CPP11
+}
+// structural.cpp
 SEXP subcomponents_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode);
 extern "C" SEXP _igraphlite_subcomponents_(SEXP graph, SEXP vids, SEXP mode) {
   BEGIN_CPP11
@@ -626,7 +689,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_betweenness_",                      (DL_FUNC) &_igraphlite_betweenness_,                      6},
     {"_igraphlite_betweenness_subset_",               (DL_FUNC) &_igraphlite_betweenness_subset_,               7},
     {"_igraphlite_bridges_",                          (DL_FUNC) &_igraphlite_bridges_,                          1},
+    {"_igraphlite_closeness_",                        (DL_FUNC) &_igraphlite_closeness_,                        5},
     {"_igraphlite_connected_components_",             (DL_FUNC) &_igraphlite_connected_components_,             2},
+    {"_igraphlite_constraint_",                       (DL_FUNC) &_igraphlite_constraint_,                       3},
+    {"_igraphlite_convergence_degree_",               (DL_FUNC) &_igraphlite_convergence_degree_,               1},
     {"_igraphlite_count_loops_",                      (DL_FUNC) &_igraphlite_count_loops_,                      1},
     {"_igraphlite_count_multiple_",                   (DL_FUNC) &_igraphlite_count_multiple_,                   2},
     {"_igraphlite_count_reachable_",                  (DL_FUNC) &_igraphlite_count_reachable_,                  2},
@@ -640,6 +706,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_edge_",                             (DL_FUNC) &_igraphlite_edge_,                             2},
     {"_igraphlite_edge_betweenness_",                 (DL_FUNC) &_igraphlite_edge_betweenness_,                 6},
     {"_igraphlite_edge_betweenness_subset_",          (DL_FUNC) &_igraphlite_edge_betweenness_subset_,          7},
+    {"_igraphlite_eigenvector_centrality_",           (DL_FUNC) &_igraphlite_eigenvector_centrality_,           3},
     {"_igraphlite_from_",                             (DL_FUNC) &_igraphlite_from_,                             1},
     {"_igraphlite_getEattr_",                         (DL_FUNC) &_igraphlite_getEattr_,                         1},
     {"_igraphlite_getVattr_",                         (DL_FUNC) &_igraphlite_getVattr_,                         1},
@@ -660,8 +727,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_ring_",                       (DL_FUNC) &_igraphlite_graph_ring_,                       4},
     {"_igraphlite_graph_square_lattice_",             (DL_FUNC) &_igraphlite_graph_square_lattice_,             5},
     {"_igraphlite_graph_star_",                       (DL_FUNC) &_igraphlite_graph_star_,                       3},
+    {"_igraphlite_harmonic_centrality_",              (DL_FUNC) &_igraphlite_harmonic_centrality_,              5},
     {"_igraphlite_has_loop_",                         (DL_FUNC) &_igraphlite_has_loop_,                         1},
     {"_igraphlite_has_multiple_",                     (DL_FUNC) &_igraphlite_has_multiple_,                     1},
+    {"_igraphlite_hub_and_authority_scores_",         (DL_FUNC) &_igraphlite_hub_and_authority_scores_,         2},
     {"_igraphlite_igraph_version_",                   (DL_FUNC) &_igraphlite_igraph_version_,                   0},
     {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         4},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},
@@ -676,12 +745,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_layout_random_",                    (DL_FUNC) &_igraphlite_layout_random_,                    1},
     {"_igraphlite_layout_reingold_tilford_",          (DL_FUNC) &_igraphlite_layout_reingold_tilford_,          3},
     {"_igraphlite_layout_reingold_tilford_circular_", (DL_FUNC) &_igraphlite_layout_reingold_tilford_circular_, 3},
+    {"_igraphlite_maxdegree_",                        (DL_FUNC) &_igraphlite_maxdegree_,                        4},
     {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               6},
     {"_igraphlite_mutate_Eattr_",                     (DL_FUNC) &_igraphlite_mutate_Eattr_,                     3},
     {"_igraphlite_mutate_Vattr_",                     (DL_FUNC) &_igraphlite_mutate_Vattr_,                     3},
     {"_igraphlite_neighborhood_",                     (DL_FUNC) &_igraphlite_neighborhood_,                     5},
     {"_igraphlite_neighborhood_size_",                (DL_FUNC) &_igraphlite_neighborhood_size_,                5},
     {"_igraphlite_neighbors_",                        (DL_FUNC) &_igraphlite_neighbors_,                        5},
+    {"_igraphlite_pagerank_",                         (DL_FUNC) &_igraphlite_pagerank_,                         6},
     {"_igraphlite_path_length_count_between",         (DL_FUNC) &_igraphlite_path_length_count_between,         3},
     {"_igraphlite_path_length_count_within",          (DL_FUNC) &_igraphlite_path_length_count_within,          2},
     {"_igraphlite_path_length_hist_",                 (DL_FUNC) &_igraphlite_path_length_hist_,                 2},
@@ -689,6 +760,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_rng_seed",                          (DL_FUNC) &_igraphlite_rng_seed,                          1},
     {"_igraphlite_setEattr_",                         (DL_FUNC) &_igraphlite_setEattr_,                         2},
     {"_igraphlite_setVattr_",                         (DL_FUNC) &_igraphlite_setVattr_,                         2},
+    {"_igraphlite_strength_",                         (DL_FUNC) &_igraphlite_strength_,                         5},
     {"_igraphlite_subcomponent_",                     (DL_FUNC) &_igraphlite_subcomponent_,                     3},
     {"_igraphlite_subcomponents_",                    (DL_FUNC) &_igraphlite_subcomponents_,                    3},
     {"_igraphlite_subgraph_from_edges_",              (DL_FUNC) &_igraphlite_subgraph_from_edges_,              3},
