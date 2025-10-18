@@ -40,6 +40,20 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">subcomponent</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vid</span>, mode <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
+<span><span class="fu">connected_components</span><span class="op">(</span><span class="va">graph</span>, connectedness <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_connected</span><span class="op">(</span><span class="va">graph</span>, connectedness <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">count_reachable</span><span class="op">(</span><span class="va">graph</span>, mode <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">transitive_closure</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">articulation_points</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bridges</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">is_biconnected</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">subcomponents</span><span class="op">(</span><span class="va">graph</span>, <span class="va">vids</span>, mode <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -63,6 +77,11 @@
 <dd><p>An integer value of edge type to count; {1: OUT, 2: IN, 3: ALL}.</p></dd>
 
 
+<dt id="arg-connectedness">connectedness<a class="anchor" aria-label="anchor" href="#arg-connectedness"></a></dt>
+<dd><p>An integer indicating the type of connectedness:
+{1: WEAK (ignore edge directions), 2: STRONG}</p></dd>
+
+
 <dt id="arg-vids">vids<a class="anchor" aria-label="anchor" href="#arg-vids"></a></dt>
 <dd><p>An integer vector of vertex IDs.</p></dd>
 
@@ -71,6 +90,13 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>subcomponent()</code> returns the IDs of the vertices reachable from the
 given vertex.</p>
+<p><code>connected_components()</code> returns component IDs for each vertex.</p>
+<p><code>is_connected()</code> and <code>is_biconnected()</code> return logical values.</p>
+<p><code>count_reachable()</code> returns an integer vector of the number of
+reachable vertices from each vertex including itself.</p>
+<p><code>transitive_closure()</code> returns the transitive closure graph.</p>
+<p><code>articulation_points()</code> and <code>bridges()</code> return vertex IDs and edge IDs,
+respectively.</p>
 <p><code>subcomponents()</code> returns a list of integer vectors by applying
 <code>subcomponent()</code> for each vertex in <code>vids</code>.</p>
     </div>
@@ -84,6 +110,38 @@ given vertex.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="graph_tree.html">graph_tree</a></span><span class="op">(</span><span class="fl">5L</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">subcomponent</span><span class="op">(</span><span class="va">g</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 4 5</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">connected_components</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 1 1 1 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">is_connected</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">count_reachable</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5 3 1 1 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">transitive_closure</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $V  tibble [5 × 0] (S3: tbl_df/tbl/data.frame)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Named list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    from    to</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     1     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     1     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     1     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     2     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     2     5</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">articulation_points</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">bridges</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3 4 1 2</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">is_biconnected</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">subcomponents</span><span class="op">(</span><span class="va">g</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">2L</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5</span>

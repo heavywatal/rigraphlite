@@ -59,7 +59,20 @@ result of <code>distances()</code>, but should be faster as they are written in 
 <span>  unconn <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">path_length_hist</span><span class="op">(</span><span class="va">graph</span>, directed <span class="op">=</span> <span class="fu"><a href="basic.html">is_directed</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">path_length_hist</span><span class="op">(</span><span class="va">graph</span>, directed <span class="op">=</span> <span class="fu"><a href="basic.html">is_directed</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">eccentricity</span><span class="op">(</span><span class="va">graph</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>, vids <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">diameter</span><span class="op">(</span></span>
+<span>  <span class="va">graph</span>,</span>
+<span>  weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>,</span>
+<span>  directed <span class="op">=</span> <span class="fu"><a href="basic.html">is_directed</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span>,</span>
+<span>  unconn <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">girth</span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">radius</span><span class="op">(</span><span class="va">graph</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0L</span><span class="op">)</span>, mode <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -107,6 +120,10 @@ Ignored for undirected graphs.</p></dd>
 <dt id="arg-unconn">unconn<a class="anchor" aria-label="anchor" href="#arg-unconn"></a></dt>
 <dd><p>A logical value.</p></dd>
 
+
+<dt id="arg-vids">vids<a class="anchor" aria-label="anchor" href="#arg-vids"></a></dt>
+<dd><p>An integer vector of vertex IDs.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -129,6 +146,14 @@ Ignored for undirected graphs.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.333333</span>
 <span class="r-in"><span><span class="fu">path_length_hist</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4 2</span>
+<span class="r-in"><span><span class="fu">diameter</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-in"><span><span class="fu">girth</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Inf</span>
+<span class="r-in"><span><span class="fu">radius</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-in"><span><span class="fu">eccentricity</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 3 3 3</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
