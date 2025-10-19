@@ -66,6 +66,11 @@ reference:
 - contents:
   - ends_with("version")
   - common_params
+- title: Reading and writing graphs from and to files
+  desc: https://igraph.org/c/doc/igraph-Foreign.html
+- contents:
+  - read_graph
+  - write_graph
 - title: Other Packages
 - contents:
   - as_phylo

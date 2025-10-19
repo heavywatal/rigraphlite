@@ -184,6 +184,66 @@ as_data_frame_ <- function(graph) {
   .Call(`_igraphlite_as_data_frame_`, graph)
 }
 
+read_graph_edgelist_ <- function(path, directed) {
+  .Call(`_igraphlite_read_graph_edgelist_`, path, directed)
+}
+
+write_graph_edgelist_ <- function(graph, path) {
+  .Call(`_igraphlite_write_graph_edgelist_`, graph, path)
+}
+
+read_graph_ncol_ <- function(path, names, directed) {
+  .Call(`_igraphlite_read_graph_ncol_`, path, names, directed)
+}
+
+write_graph_ncol_ <- function(graph, path) {
+  .Call(`_igraphlite_write_graph_ncol_`, graph, path)
+}
+
+read_graph_lgl_ <- function(path, names, directed) {
+  .Call(`_igraphlite_read_graph_lgl_`, path, names, directed)
+}
+
+write_graph_lgl_ <- function(graph, path, isolates) {
+  .Call(`_igraphlite_write_graph_lgl_`, graph, path, isolates)
+}
+
+read_graph_graphml_ <- function(path, index) {
+  .Call(`_igraphlite_read_graph_graphml_`, path, index)
+}
+
+write_graph_graphml_ <- function(graph, path, prefixattr) {
+  .Call(`_igraphlite_write_graph_graphml_`, graph, path, prefixattr)
+}
+
+read_graph_gml_ <- function(path) {
+  .Call(`_igraphlite_read_graph_gml_`, path)
+}
+
+write_graph_gml_ <- function(graph, path, creator) {
+  .Call(`_igraphlite_write_graph_gml_`, graph, path, creator)
+}
+
+read_graph_pajek_ <- function(path) {
+  .Call(`_igraphlite_read_graph_pajek_`, path)
+}
+
+write_graph_pajek_ <- function(graph, path) {
+  .Call(`_igraphlite_write_graph_pajek_`, graph, path)
+}
+
+read_graph_dl_ <- function(path, directed) {
+  .Call(`_igraphlite_read_graph_dl_`, path, directed)
+}
+
+write_graph_dot_ <- function(graph, path) {
+  .Call(`_igraphlite_write_graph_dot_`, graph, path)
+}
+
+write_graph_leda_ <- function(graph, path) {
+  .Call(`_igraphlite_write_graph_leda_`, graph, path)
+}
+
 graph_create_ <- function(edges, n, directed) {
   .Call(`_igraphlite_graph_create_`, edges, n, directed)
 }

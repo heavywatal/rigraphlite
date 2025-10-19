@@ -335,6 +335,111 @@ extern "C" SEXP _igraphlite_as_data_frame_(SEXP graph) {
     return cpp11::as_sexp(as_data_frame_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
   END_CPP11
 }
+// foreign.cpp
+SEXP read_graph_edgelist_(const char* path, const bool directed);
+extern "C" SEXP _igraphlite_read_graph_edgelist_(SEXP path, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_edgelist_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_edgelist_(const cpp11::external_pointer<IGraph> graph, const char* path);
+extern "C" SEXP _igraphlite_write_graph_edgelist_(SEXP graph, SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_edgelist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP read_graph_ncol_(const char* path, const bool names, const bool directed);
+extern "C" SEXP _igraphlite_read_graph_ncol_(SEXP path, SEXP names, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_ncol_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const bool>>(names), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_ncol_(const cpp11::external_pointer<IGraph> graph, const char* path);
+extern "C" SEXP _igraphlite_write_graph_ncol_(SEXP graph, SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_ncol_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP read_graph_lgl_(const char* path, const bool names, const bool directed);
+extern "C" SEXP _igraphlite_read_graph_lgl_(SEXP path, SEXP names, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_lgl_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const bool>>(names), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_lgl_(const cpp11::external_pointer<IGraph> graph, const char* path, const bool isolates);
+extern "C" SEXP _igraphlite_write_graph_lgl_(SEXP graph, SEXP path, SEXP isolates) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_lgl_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const bool>>(isolates)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP read_graph_graphml_(const char* path, const int index);
+extern "C" SEXP _igraphlite_read_graph_graphml_(SEXP path, SEXP index) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_graphml_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const int>>(index)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_graphml_(const cpp11::external_pointer<IGraph> graph, const char* path, const bool prefixattr);
+extern "C" SEXP _igraphlite_write_graph_graphml_(SEXP graph, SEXP path, SEXP prefixattr) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_graphml_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const bool>>(prefixattr)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP read_graph_gml_(const char* path);
+extern "C" SEXP _igraphlite_read_graph_gml_(SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_gml_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_gml_(const cpp11::external_pointer<IGraph> graph, const char* path, const char* creator);
+extern "C" SEXP _igraphlite_write_graph_gml_(SEXP graph, SEXP path, SEXP creator) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_gml_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const char*>>(creator)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP read_graph_pajek_(const char* path);
+extern "C" SEXP _igraphlite_read_graph_pajek_(SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_pajek_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_pajek_(const cpp11::external_pointer<IGraph> graph, const char* path);
+extern "C" SEXP _igraphlite_write_graph_pajek_(SEXP graph, SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_pajek_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP read_graph_dl_(const char* path, const bool directed);
+extern "C" SEXP _igraphlite_read_graph_dl_(SEXP path, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(read_graph_dl_(cpp11::as_cpp<cpp11::decay_t<const char*>>(path), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_dot_(const cpp11::external_pointer<IGraph> graph, const char* path);
+extern "C" SEXP _igraphlite_write_graph_dot_(SEXP graph, SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_dot_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
+// foreign.cpp
+SEXP write_graph_leda_(const cpp11::external_pointer<IGraph> graph, const char* path);
+extern "C" SEXP _igraphlite_write_graph_leda_(SEXP graph, SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(write_graph_leda_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const char*>>(path)));
+  END_CPP11
+}
 // generators.cpp
 SEXP graph_create_(const cpp11::integers& edges, int n, bool directed);
 extern "C" SEXP _igraphlite_graph_create_(SEXP edges, SEXP n, SEXP directed) {
@@ -757,6 +862,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_path_length_count_within",          (DL_FUNC) &_igraphlite_path_length_count_within,          2},
     {"_igraphlite_path_length_hist_",                 (DL_FUNC) &_igraphlite_path_length_hist_,                 2},
     {"_igraphlite_radius_",                           (DL_FUNC) &_igraphlite_radius_,                           3},
+    {"_igraphlite_read_graph_dl_",                    (DL_FUNC) &_igraphlite_read_graph_dl_,                    2},
+    {"_igraphlite_read_graph_edgelist_",              (DL_FUNC) &_igraphlite_read_graph_edgelist_,              2},
+    {"_igraphlite_read_graph_gml_",                   (DL_FUNC) &_igraphlite_read_graph_gml_,                   1},
+    {"_igraphlite_read_graph_graphml_",               (DL_FUNC) &_igraphlite_read_graph_graphml_,               2},
+    {"_igraphlite_read_graph_lgl_",                   (DL_FUNC) &_igraphlite_read_graph_lgl_,                   3},
+    {"_igraphlite_read_graph_ncol_",                  (DL_FUNC) &_igraphlite_read_graph_ncol_,                  3},
+    {"_igraphlite_read_graph_pajek_",                 (DL_FUNC) &_igraphlite_read_graph_pajek_,                 1},
     {"_igraphlite_rng_seed",                          (DL_FUNC) &_igraphlite_rng_seed,                          1},
     {"_igraphlite_setEattr_",                         (DL_FUNC) &_igraphlite_setEattr_,                         2},
     {"_igraphlite_setVattr_",                         (DL_FUNC) &_igraphlite_setVattr_,                         2},
@@ -767,6 +879,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_to_",                               (DL_FUNC) &_igraphlite_to_,                               1},
     {"_igraphlite_transitive_closure_",               (DL_FUNC) &_igraphlite_transitive_closure_,               1},
     {"_igraphlite_vcount_",                           (DL_FUNC) &_igraphlite_vcount_,                           1},
+    {"_igraphlite_write_graph_dot_",                  (DL_FUNC) &_igraphlite_write_graph_dot_,                  2},
+    {"_igraphlite_write_graph_edgelist_",             (DL_FUNC) &_igraphlite_write_graph_edgelist_,             2},
+    {"_igraphlite_write_graph_gml_",                  (DL_FUNC) &_igraphlite_write_graph_gml_,                  3},
+    {"_igraphlite_write_graph_graphml_",              (DL_FUNC) &_igraphlite_write_graph_graphml_,              3},
+    {"_igraphlite_write_graph_leda_",                 (DL_FUNC) &_igraphlite_write_graph_leda_,                 2},
+    {"_igraphlite_write_graph_lgl_",                  (DL_FUNC) &_igraphlite_write_graph_lgl_,                  3},
+    {"_igraphlite_write_graph_ncol_",                 (DL_FUNC) &_igraphlite_write_graph_ncol_,                 2},
+    {"_igraphlite_write_graph_pajek_",                (DL_FUNC) &_igraphlite_write_graph_pajek_,                2},
     {NULL, NULL, 0}
 };
 }
