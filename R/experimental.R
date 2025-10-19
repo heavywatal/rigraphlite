@@ -48,13 +48,11 @@ mean_distances_mat = function(graph, from = integer(0L), to = from, weights = nu
   sum(m) / (nrow(m) * ncol(m) - nzero)
 }
 
-mean_distances_vec = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L,
-                              algorithm = c("dijkstra", "bellman-ford", "johnson")) {
-  algorithm = match.arg(algorithm)
+mean_distances_vec = function(graph, from = integer(0L), to = from, weights = numeric(0L), mode = 3L) {
   if (isTRUE(weights)) {
     weights = Eattr(graph)$weight
   }
-  mean_distances_cpp_(graph, from, to, as.numeric(weights), mode, algorithm)
+  mean_distances_cpp_(graph, as.numeric(weights), from, to, mode)
 }
 
 mean_distances_hist = function(graph, from = NULL, to = from) {
@@ -76,7 +74,7 @@ mean_distances_avg = function(graph, from = NULL, to = from, weights = numeric(0
     weights = Eattr(graph)$weight
   }
   # TODO: Exclude internal nodes
-  average_path_length(graph, as.numeric(weights), FALSE)
+  average_path_length(graph, weights = as.numeric(weights), directed = FALSE)
 }
 
 # nocov end

@@ -665,10 +665,10 @@ extern "C" SEXP _igraphlite_radius_(SEXP graph, SEXP weights, SEXP mode) {
   END_CPP11
 }
 // paths.cpp
-double mean_distances_cpp_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& from, const cpp11::integers& to, const cpp11::doubles& weights, int mode, const std::string& algorithm);
-extern "C" SEXP _igraphlite_mean_distances_cpp_(SEXP graph, SEXP from, SEXP to, SEXP weights, SEXP mode, SEXP algorithm) {
+double mean_distances_cpp_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& from, const cpp11::integers& to, int mode);
+extern "C" SEXP _igraphlite_mean_distances_cpp_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode) {
   BEGIN_CPP11
-    return cpp11::as_sexp(mean_distances_cpp_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<int>>(mode), cpp11::as_cpp<cpp11::decay_t<const std::string&>>(algorithm)));
+    return cpp11::as_sexp(mean_distances_cpp_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(from), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(to), cpp11::as_cpp<cpp11::decay_t<int>>(mode)));
   END_CPP11
 }
 // paths.cpp
@@ -851,7 +851,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_layout_reingold_tilford_",          (DL_FUNC) &_igraphlite_layout_reingold_tilford_,          3},
     {"_igraphlite_layout_reingold_tilford_circular_", (DL_FUNC) &_igraphlite_layout_reingold_tilford_circular_, 3},
     {"_igraphlite_maxdegree_",                        (DL_FUNC) &_igraphlite_maxdegree_,                        4},
-    {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               6},
+    {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               5},
     {"_igraphlite_mutate_Eattr_",                     (DL_FUNC) &_igraphlite_mutate_Eattr_,                     3},
     {"_igraphlite_mutate_Vattr_",                     (DL_FUNC) &_igraphlite_mutate_Vattr_,                     3},
     {"_igraphlite_neighborhood_",                     (DL_FUNC) &_igraphlite_neighborhood_,                     5},

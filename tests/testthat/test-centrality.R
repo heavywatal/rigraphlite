@@ -9,6 +9,9 @@ test_that("centrality functions works", {
   pagerank(g) |>
     expect_type("double") |>
     expect_length(vcount(g))
+  pagerank(g, reset = as.numeric(V(g))) |>
+    expect_type("double") |>
+    expect_length(vcount(g))
   constraint(g) |>
     expect_type("double") |>
     expect_length(vcount(g))
@@ -27,6 +30,36 @@ test_that("centrality functions works", {
     expect_s3_class("data.frame") |>
     expect_named(c("hub", "authority"))
   expect_identical(nrow(ha), vcount(g))
+
+  gw = graph_copy(g)
+  Eattr(gw, "weight") = as.double(E(g))
+  closeness(gw, weights = TRUE) |>
+    expect_type("double") |>
+    expect_length(vcount(gw))
+  harmonic_centrality(gw, weights = TRUE) |>
+    expect_type("double") |>
+    expect_length(vcount(gw))
+  pagerank(gw, weights = TRUE) |>
+    expect_type("double") |>
+    expect_length(vcount(gw))
+  constraint(gw, weights = TRUE) |>
+    expect_type("double") |>
+    expect_length(vcount(gw))
+
+  for (mode in seq_len(3L)) {
+    exp_str = as_inclist(gw, mode = mode) |>
+      lapply(\(edges) sum(Eattr(gw)$weight[edges])) |>
+      unlist(recursive = FALSE, use.names = FALSE)
+    expect_identical(strength(gw, mode = mode, weights = TRUE), exp_str)
+  }
+
+  eigenvector_centrality(gw, mode = 3L, weights = TRUE) |>
+    expect_type("double") |>
+    expect_length(vcount(gw))
+  haw = hub_and_authority_scores(gw, weights = TRUE) |>
+    expect_s3_class("data.frame") |>
+    expect_named(c("hub", "authority"))
+  expect_identical(nrow(haw), vcount(gw))
 })
 
 test_that("betweenness() works", {

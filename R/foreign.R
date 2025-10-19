@@ -21,14 +21,14 @@ read_graph = function(
     match.arg(format)
   }
   switch(format,
-    "edgelist" = read_graph_edgelist(file, ...),
-    "ncol" = read_graph_ncol(file, ...),
-    "lgl" = read_graph_lgl(file, ...),
-    "graphml" = read_graph_graphml(file, ...),
-    "gml" = read_graph_gml(file, ...),
-    "pajek" = read_graph_pajek(file, ...),
-    "net" = read_graph_pajek(file, ...),
-    "dl" = read_graph_dl(file, ...),
+    edgelist = read_graph_edgelist(file, ...),
+    ncol = read_graph_ncol(file, ...),
+    lgl = read_graph_lgl(file, ...),
+    graphml = read_graph_graphml(file, ...),
+    gml = read_graph_gml(file, ...),
+    pajek = read_graph_pajek(file, ...),
+    net = read_graph_pajek(file, ...),
+    dl = read_graph_dl(file, ...),
     stop("Unsupported file format: ", format, call. = FALSE)
   )
 }
@@ -100,15 +100,15 @@ write_graph = function(
     match.arg(format)
   }
   switch(format,
-    "edgelist" = write_graph_edgelist(graph, file, ...),
-    "ncol" = write_graph_ncol(graph, file, ...),
-    "lgl" = write_graph_lgl(graph, file, ...),
-    "graphml" = write_graph_graphml(graph, file, ...),
-    "gml" = write_graph_gml(graph, file, ...),
-    "pajek" = write_graph_pajek(graph, file, ...),
-    "net" = write_graph_pajek(graph, file, ...),
-    "dot" = write_graph_dot(graph, file, ...),
-    "leda" = write_graph_leda(graph, file, ...),
+    edgelist = write_graph_edgelist(graph, file, ...),
+    ncol = write_graph_ncol(graph, file, ...),
+    lgl = write_graph_lgl(graph, file, ...),
+    graphml = write_graph_graphml(graph, file, ...),
+    gml = write_graph_gml(graph, file, ...),
+    pajek = write_graph_pajek(graph, file, ...),
+    net = write_graph_pajek(graph, file, ...),
+    dot = write_graph_dot(graph, file, ...),
+    leda = write_graph_leda(graph, file, ...),
     stop("Unsupported file format: ", format, call. = FALSE)
   )
 }

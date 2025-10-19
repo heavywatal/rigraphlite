@@ -6,6 +6,7 @@ test_that("generator functions work", {
   dfi = as.data.frame(el)
   dfc = as.data.frame(symel)
   expect_s3_class(graph_create(edges), "igraph_ptr")
+  expect_s3_class(graph_create(letters[edges]), "igraph_ptr")
   expect_s3_class(graph_from_edgelist(el), "igraph_ptr")
   expect_identical(graph_from_edgelist(el) |> Vattr() |> ncol(), 0L)
   expect_type(graph_from_symbolic_edgelist(el) |> Vnames(), "integer")

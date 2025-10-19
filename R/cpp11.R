@@ -368,8 +368,8 @@ radius_ <- function(graph, weights, mode) {
   .Call(`_igraphlite_radius_`, graph, weights, mode)
 }
 
-mean_distances_cpp_ <- function(graph, from, to, weights, mode, algorithm) {
-  .Call(`_igraphlite_mean_distances_cpp_`, graph, from, to, weights, mode, algorithm)
+mean_distances_cpp_ <- function(graph, weights, from, to, mode) {
+  .Call(`_igraphlite_mean_distances_cpp_`, graph, weights, from, to, mode)
 }
 
 path_length_count_within <- function(graph, vids) {

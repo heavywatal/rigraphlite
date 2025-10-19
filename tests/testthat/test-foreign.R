@@ -69,4 +69,6 @@ test_that("UCINET DL format can be read", {
   g = read_graph(test_path("fixtures", "ucinet-nodelist1.dl"), directed = FALSE)
   expect_identical(vcount(g), 5L)
   expect_identical(ecount(g), 5L)
+
+  expect_error(write_graph(g, tempfile(fileext = ".dl")), "Unsupported file format")
 })
