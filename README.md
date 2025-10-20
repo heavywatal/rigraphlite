@@ -12,6 +12,8 @@ igraphlite is a cpp11-powered R package interface to [igraph](https://igraph.org
 - Unix-like environment (macOS, Linux, WSL, MinGW on MSYS2, etc.)
 - C++17 compiler (clang++ >= Apple clang 11.0, g++ >= 9.1)
 - [CMake](https://cmake.org/)
+- GLPK
+- libxml2
 - NOT required:
     - R igraph package
     - C igraph library:
@@ -20,6 +22,17 @@ igraphlite is a cpp11-powered R package interface to [igraph](https://igraph.org
       For example, `brew install heavywatal/tap/igraph32` provides such a library.
       Environment variables `${igraph_ROOT}` and `${CMAKE_PREFIX_PATH}` can be used to help CMake find it.
       if not found, an appropriate version is built and installed automatically.
+
+macOS:
+```sh
+brew install cmake glpk
+```
+
+Ubuntu:
+```sh
+sudo apt install build-essential cmake libglpk-dev libxml2-dev
+```
+
 
 ## Installation
 
