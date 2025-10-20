@@ -57,6 +57,8 @@
 <li>Unix-like environment (macOS, Linux, WSL, MinGW on MSYS2, etc.)</li>
 <li>C++17 compiler (clang++ &gt;= Apple clang 11.0, g++ &gt;= 9.1)</li>
 <li><a href="https://cmake.org/" class="external-link">CMake</a></li>
+<li>GLPK</li>
+<li>libxml2</li>
 <li>NOT required:
 <ul>
 <li>R igraph package</li>
@@ -64,11 +66,15 @@
 </ul>
 </li>
 </ul>
+<p>macOS:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">brew</span> install cmake glpk</span></code></pre></div>
+<p>Ubuntu:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">sudo</span> apt install build-essential cmake libglpk-dev libxml2-dev</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"heavywatal/rigraphlite"</span><span class="op">)</span></span></code></pre></div>
 </div>
