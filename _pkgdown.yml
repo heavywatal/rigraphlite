@@ -24,8 +24,8 @@ reference:
 - contents:
   - igraph_rng_seed
 - title: Graph Generators
-  desc: https://igraph.org/c/doc/igraph-Generators.html
 - subtitle: Deterministic Graph Generators
+  desc: https://igraph.org/c/doc/igraph-Generators.html
 - contents:
   - graph_create
   - graph_star
@@ -33,6 +33,12 @@ reference:
   - graph_tree
   - graph_full
   - graph_famous
+- subtitle: Stochastic Graph Generators ("games")
+  desc: https://igraph.org/c/doc/igraph-Games.html
+- contents:
+  - erdos_renyi_game_gnm
+  - degree_sequence_game
+  - watts_strogatz_game
 - title: Attributes of Graph, Vertices, and Edges
   desc: https://igraph.org/c/doc/igraph-Attributes.html
 - contents:

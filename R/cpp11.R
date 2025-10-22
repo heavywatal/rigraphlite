@@ -244,6 +244,30 @@ write_graph_leda_ <- function(graph, path) {
   .Call(`_igraphlite_write_graph_leda_`, graph, path)
 }
 
+erdos_renyi_game_gnm_ <- function(n, m, directed, edge_type_sw) {
+  .Call(`_igraphlite_erdos_renyi_game_gnm_`, n, m, directed, edge_type_sw)
+}
+
+erdos_renyi_game_gnp_ <- function(n, p_, directed, edge_type_sw) {
+  .Call(`_igraphlite_erdos_renyi_game_gnp_`, n, p_, directed, edge_type_sw)
+}
+
+degree_sequence_game_ <- function(out_degrees, in_degrees, method) {
+  .Call(`_igraphlite_degree_sequence_game_`, out_degrees, in_degrees, method)
+}
+
+k_regular_game_ <- function(n, k, directed, multiple) {
+  .Call(`_igraphlite_k_regular_game_`, n, k, directed, multiple)
+}
+
+watts_strogatz_game_ <- function(dim, size, nei, prob, edge_type_sw) {
+  .Call(`_igraphlite_watts_strogatz_game_`, dim, size, nei, prob, edge_type_sw)
+}
+
+rewire_edges_ <- function(graph, prob, edge_type_sw) {
+  invisible(.Call(`_igraphlite_rewire_edges_`, graph, prob, edge_type_sw))
+}
+
 graph_create_ <- function(edges, n, directed) {
   .Call(`_igraphlite_graph_create_`, edges, n, directed)
 }
@@ -318,6 +342,10 @@ layout_reingold_tilford_ <- function(graph, mode, roots) {
 
 layout_reingold_tilford_circular_ <- function(graph, mode, roots) {
   invisible(.Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots))
+}
+
+rewire_ <- function(graph, n, edge_type_sw) {
+  invisible(.Call(`_igraphlite_rewire_`, graph, n, edge_type_sw))
 }
 
 induced_subgraph_ <- function(graph, vids, impl) {

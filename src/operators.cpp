@@ -5,6 +5,13 @@
 
 #include <igraph/igraph_operators.h>
 
+[[cpp11::register]] void
+rewire_(const cpp11::external_pointer<IGraph> graph,
+    const int n,
+    const int edge_type_sw = 0) {
+  igraph_rewire(graph->data(), n, edge_type_sw, nullptr);
+}
+
 [[cpp11::register]] SEXP
 induced_subgraph_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, int impl) {
   cpp11::external_pointer<IGraph> res(new IGraph());
