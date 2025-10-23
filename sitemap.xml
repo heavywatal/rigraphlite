@@ -9,6 +9,7 @@
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/attributes.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/basic-add-delete.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/basic-adjacent.html</loc></url>
+<url><loc>https://heavywatal.github.io/rigraphlite/reference/basic-macros.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/basic.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/centrality.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/common_params.html</loc></url>
@@ -16,7 +17,10 @@
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/constructors.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/conversion-impl.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/conversion.html</loc></url>
+<url><loc>https://heavywatal.github.io/rigraphlite/reference/cycles-acyclic.html</loc></url>
+<url><loc>https://heavywatal.github.io/rigraphlite/reference/cycles-eulerian.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/distances.html</loc></url>
+<url><loc>https://heavywatal.github.io/rigraphlite/reference/efficiency.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/experimental.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/from-to.html</loc></url>
 <url><loc>https://heavywatal.github.io/rigraphlite/reference/games-degree-constrained.html</loc></url>
