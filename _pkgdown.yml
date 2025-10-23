@@ -56,6 +56,11 @@ reference:
   - components
   - centrality
   - is_simple
+- title: Graph cycles
+  desc: https://igraph.org/c/doc/igraph-Cycles.html
+- contents:
+  - is_acyclic
+  - is_eulerian
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
 - contents:

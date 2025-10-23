@@ -168,6 +168,14 @@ is_biconnected_ <- function(graph) {
   .Call(`_igraphlite_is_biconnected_`, graph)
 }
 
+is_dag_ <- function(graph) {
+  .Call(`_igraphlite_is_dag_`, graph)
+}
+
+is_eulerian_ <- function(graph) {
+  .Call(`_igraphlite_is_eulerian_`, graph)
+}
+
 as_adjlist_ <- function(graph, mode, loops, multiple) {
   .Call(`_igraphlite_as_adjlist_`, graph, mode, loops, multiple)
 }
@@ -438,6 +446,10 @@ are_adjacent_ <- function(graph, v1, v2) {
 
 is_simple_ <- function(graph, directed) {
   .Call(`_igraphlite_is_simple_`, graph, directed)
+}
+
+is_acyclic_ <- function(graph) {
+  .Call(`_igraphlite_is_acyclic_`, graph)
 }
 
 has_loop_ <- function(graph) {

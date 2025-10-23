@@ -21,6 +21,13 @@ is_simple_(const cpp11::external_pointer<IGraph> graph, const bool directed) {
 }
 
 [[cpp11::register]] bool
+is_acyclic_(const cpp11::external_pointer<IGraph> graph) {
+  igraph_bool_t res;
+  igraph_is_acyclic(graph->data(), &res);
+  return res;
+}
+
+[[cpp11::register]] bool
 has_loop_(const cpp11::external_pointer<IGraph> graph) {
   igraph_bool_t res;
   igraph_has_loop(graph->data(), &res);

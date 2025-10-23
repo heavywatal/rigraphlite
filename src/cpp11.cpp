@@ -307,6 +307,20 @@ extern "C" SEXP _igraphlite_is_biconnected_(SEXP graph) {
     return cpp11::as_sexp(is_biconnected_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
   END_CPP11
 }
+// cycles.cpp
+bool is_dag_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_is_dag_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_dag_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// cycles.cpp
+SEXP is_eulerian_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_is_eulerian_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_eulerian_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
 // data.cpp
 SEXP as_adjlist_(const cpp11::external_pointer<IGraph> graph, const int mode, const int loops, const bool multiple);
 extern "C" SEXP _igraphlite_as_adjlist_(SEXP graph, SEXP mode, SEXP loops, SEXP multiple) {
@@ -796,6 +810,13 @@ extern "C" SEXP _igraphlite_is_simple_(SEXP graph, SEXP directed) {
   END_CPP11
 }
 // structural.cpp
+bool is_acyclic_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_is_acyclic_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_acyclic_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// structural.cpp
 bool has_loop_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_has_loop_(SEXP graph) {
   BEGIN_CPP11
@@ -941,9 +962,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         4},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},
     {"_igraphlite_induced_subgraph_edges_",           (DL_FUNC) &_igraphlite_induced_subgraph_edges_,           2},
+    {"_igraphlite_is_acyclic_",                       (DL_FUNC) &_igraphlite_is_acyclic_,                       1},
     {"_igraphlite_is_biconnected_",                   (DL_FUNC) &_igraphlite_is_biconnected_,                   1},
     {"_igraphlite_is_connected_",                     (DL_FUNC) &_igraphlite_is_connected_,                     2},
+    {"_igraphlite_is_dag_",                           (DL_FUNC) &_igraphlite_is_dag_,                           1},
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
+    {"_igraphlite_is_eulerian_",                      (DL_FUNC) &_igraphlite_is_eulerian_,                      1},
     {"_igraphlite_is_simple_",                        (DL_FUNC) &_igraphlite_is_simple_,                        2},
     {"_igraphlite_k_regular_game_",                   (DL_FUNC) &_igraphlite_k_regular_game_,                   4},
     {"_igraphlite_layout_circle_",                    (DL_FUNC) &_igraphlite_layout_circle_,                    2},
