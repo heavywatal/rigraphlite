@@ -76,3 +76,26 @@ incident = function(graph, vid, mode = 3L, loops = 1L) {
 degree = function(graph, vids = integer(0), mode = 3L, loops = 1L) {
   .Call(`_igraphlite_degree_`, graph, vids, mode, loops)
 }
+
+#' Miscellaneous macros
+#'
+#' igraphlite uses 32-bit igraph,
+#' which limits the maximum number of vertices to `2 ** 31 - 2`.
+#' @source <https://igraph.org/c/doc/igraph-Basic.html#misc-helper-functions>
+#' @name basic-macros
+#' @rdname basic-macros
+#' @examples
+#' IGRAPH_VCOUNT_MAX
+#'
+#' IGRAPH_ECOUNT_MAX
+#'
+#' IGRAPH_UNLIMITED
+"IGRAPH_VCOUNT_MAX"
+
+#' @format NULL
+#' @rdname basic-macros
+"IGRAPH_ECOUNT_MAX"
+
+#' @format NULL
+#' @rdname basic-macros
+"IGRAPH_UNLIMITED"

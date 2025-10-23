@@ -95,3 +95,15 @@ void delete_vertices_(cpp11::external_pointer<IGraph> graph, const cpp11::intege
   impl::filter(&graph->Vattr_, vids, true);
   igraph_delete_vertices(graph->data(), ISelectorInPlace(vids).vss());
 }
+
+[[cpp11::register]] int
+INTEGER_MAX() { return IGRAPH_INTEGER_MAX; }
+
+[[cpp11::register]] int
+VCOUNT_MAX() { return IGRAPH_VCOUNT_MAX; }
+
+[[cpp11::register]] int
+ECOUNT_MAX() { return IGRAPH_ECOUNT_MAX; }
+
+[[cpp11::register]] int
+UNLIMITED() { return IGRAPH_UNLIMITED; }

@@ -44,3 +44,9 @@ test_that("as_adjlist and as_inclist work", {
     expect_identical(lengths(as_inclist(g, mode)), degree(g, mode = mode))
   }
 })
+
+test_that("macros work", {
+  expect_identical(IGRAPH_VCOUNT_MAX, 2147483646L)
+  expect_identical(IGRAPH_ECOUNT_MAX, IGRAPH_VCOUNT_MAX %/% 2L)
+  expect_identical(IGRAPH_UNLIMITED, -1L)
+})

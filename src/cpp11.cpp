@@ -181,6 +181,34 @@ extern "C" SEXP _igraphlite_delete_vertices_(SEXP graph, SEXP vids) {
     return R_NilValue;
   END_CPP11
 }
+// basic.cpp
+int INTEGER_MAX();
+extern "C" SEXP _igraphlite_INTEGER_MAX() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(INTEGER_MAX());
+  END_CPP11
+}
+// basic.cpp
+int VCOUNT_MAX();
+extern "C" SEXP _igraphlite_VCOUNT_MAX() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(VCOUNT_MAX());
+  END_CPP11
+}
+// basic.cpp
+int ECOUNT_MAX();
+extern "C" SEXP _igraphlite_ECOUNT_MAX() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(ECOUNT_MAX());
+  END_CPP11
+}
+// basic.cpp
+int UNLIMITED();
+extern "C" SEXP _igraphlite_UNLIMITED() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(UNLIMITED());
+  END_CPP11
+}
 // centrality.cpp
 SEXP closeness_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const cpp11::doubles& weights, const bool normalized);
 extern "C" SEXP _igraphlite_closeness_(SEXP graph, SEXP vids, SEXP mode, SEXP weights, SEXP normalized) {
@@ -896,7 +924,11 @@ extern "C" SEXP _igraphlite_subcomponents_(SEXP graph, SEXP vids, SEXP mode) {
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
+    {"_igraphlite_ECOUNT_MAX",                        (DL_FUNC) &_igraphlite_ECOUNT_MAX,                        0},
     {"_igraphlite_E_",                                (DL_FUNC) &_igraphlite_E_,                                1},
+    {"_igraphlite_INTEGER_MAX",                       (DL_FUNC) &_igraphlite_INTEGER_MAX,                       0},
+    {"_igraphlite_UNLIMITED",                         (DL_FUNC) &_igraphlite_UNLIMITED,                         0},
+    {"_igraphlite_VCOUNT_MAX",                        (DL_FUNC) &_igraphlite_VCOUNT_MAX,                        0},
     {"_igraphlite_V_",                                (DL_FUNC) &_igraphlite_V_,                                1},
     {"_igraphlite_Vnames_",                           (DL_FUNC) &_igraphlite_Vnames_,                           1},
     {"_igraphlite_add_edges_",                        (DL_FUNC) &_igraphlite_add_edges_,                        2},

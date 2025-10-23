@@ -15,6 +15,7 @@ reference:
   - basic-query
   - basic-adjacent
   - add-delete
+  - basic-macros
 - title: Data Structure
   desc: https://igraph.org/c/doc/igraph-Data-structures.html
 - contents:

@@ -96,6 +96,22 @@ delete_vertices_ <- function(graph, vids) {
   invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
+INTEGER_MAX <- function() {
+  .Call(`_igraphlite_INTEGER_MAX`)
+}
+
+VCOUNT_MAX <- function() {
+  .Call(`_igraphlite_VCOUNT_MAX`)
+}
+
+ECOUNT_MAX <- function() {
+  .Call(`_igraphlite_ECOUNT_MAX`)
+}
+
+UNLIMITED <- function() {
+  .Call(`_igraphlite_UNLIMITED`)
+}
+
 closeness_ <- function(graph, vids, mode, weights, normalized) {
   .Call(`_igraphlite_closeness_`, graph, vids, mode, weights, normalized)
 }

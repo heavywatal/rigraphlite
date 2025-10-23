@@ -6,3 +6,4 @@
 ^\.vscode$
 ^\.github$
 ^LICENSE\.md$
+^data-raw$
