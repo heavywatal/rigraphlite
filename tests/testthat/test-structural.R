@@ -5,6 +5,21 @@ test_that("are_adjacent works", {
   expect_false(are_adjacent(g, 2L, 3L))
 })
 
+test_that("efficiency measures work", {
+  g = graph_square_lattice(c(3L, 3L))
+  expect_type(global_efficiency(g), "double")
+  expect_length(local_efficiency(g), vcount(g))
+  expect_length(local_efficiency(g, vids = seq_len(3L)), 3L)
+  expect_type(average_local_efficiency(g), "double")
+
+  gw = g
+  Eattr(gw, "weight") = as.numeric(seq_len(ecount(g)))
+  expect_type(global_efficiency(gw, weights = TRUE), "double")
+  expect_length(local_efficiency(gw, weights = TRUE), vcount(g))
+  expect_length(local_efficiency(gw, weights = TRUE, vids = seq_len(3L)), 3L)
+  expect_type(average_local_efficiency(gw, weights = TRUE), "double")
+})
+
 test_that("neighborhood_size works", {
   g = graph_tree(7L)
   vids = seq_len(3L)

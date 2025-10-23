@@ -146,6 +146,49 @@ radius_(const cpp11::external_pointer<IGraph> graph,
   return res;
 }
 
+[[cpp11::register]] double
+global_efficiency_(
+    const cpp11::external_pointer<IGraph> graph,
+    const cpp11::doubles& weights,
+    const bool directed) {
+  double res;
+  igraph_global_efficiency(graph->data(),
+    weights.empty() ? nullptr: IVectorView(weights).data(),
+    &res,
+    directed);
+  return res;
+}
+
+[[cpp11::register]] SEXP
+local_efficiency_(
+    const cpp11::external_pointer<IGraph> graph,
+    const cpp11::doubles& weights,
+    const cpp11::integers& vids,
+    const bool directed,
+    const int mode) {
+  const int n = vids.size();
+  IVector<AsValues, InitSize> res(n > 0 ? n : graph->vcount());
+  igraph_local_efficiency(graph->data(),
+    weights.empty() ? nullptr: IVectorView(weights).data(),
+    res.data(),
+    vids.empty() ? igraph_vss_all() : ISelectorInPlace(vids).vss(),
+    directed, static_cast<igraph_neimode_t>(mode));
+  return res.wrap();
+}
+
+[[cpp11::register]] double
+average_local_efficiency_(
+    const cpp11::external_pointer<IGraph> graph,
+    const cpp11::doubles& weights,
+    const bool directed,
+    const int mode) {
+  double res;
+  igraph_average_local_efficiency(graph->data(),
+    weights.empty() ? nullptr: IVectorView(weights).data(),
+    &res,
+    directed, static_cast<igraph_neimode_t>(mode));
+  return res;
+}
 
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 // experimental

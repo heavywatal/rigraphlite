@@ -29,7 +29,7 @@ reference:
 - contents:
   - graph_create
   - graph_star
-  - graph_lattice
+  - graph_square_lattice
   - graph_tree
   - graph_full
   - graph_famous
@@ -51,6 +51,7 @@ reference:
   - are_adjacent
   - distances
   - paths
+  - global_efficiency
   - neighborhood
   - components
   - centrality

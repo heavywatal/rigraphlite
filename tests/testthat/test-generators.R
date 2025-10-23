@@ -19,7 +19,7 @@ test_that("generator functions work", {
 test_that("named generator functions work", {
   n = 8L
   expect_s3_class(graph_star(n), "igraph_ptr")
-  expect_s3_class(graph_lattice(c(2L, 3L)), "igraph_ptr")
+  expect_s3_class(graph_square_lattice(c(2L, 3L)), "igraph_ptr")
   expect_s3_class(graph_ring(n), "igraph_ptr")
   expect_s3_class(graph_tree(n), "igraph_ptr")
   expect_s3_class(graph_full(n), "igraph_ptr")

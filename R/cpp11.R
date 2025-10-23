@@ -396,6 +396,18 @@ radius_ <- function(graph, weights, mode) {
   .Call(`_igraphlite_radius_`, graph, weights, mode)
 }
 
+global_efficiency_ <- function(graph, weights, directed) {
+  .Call(`_igraphlite_global_efficiency_`, graph, weights, directed)
+}
+
+local_efficiency_ <- function(graph, weights, vids, directed, mode) {
+  .Call(`_igraphlite_local_efficiency_`, graph, weights, vids, directed, mode)
+}
+
+average_local_efficiency_ <- function(graph, weights, directed, mode) {
+  .Call(`_igraphlite_average_local_efficiency_`, graph, weights, directed, mode)
+}
+
 mean_distances_cpp_ <- function(graph, weights, from, to, mode) {
   .Call(`_igraphlite_mean_distances_cpp_`, graph, weights, from, to, mode)
 }

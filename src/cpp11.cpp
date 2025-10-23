@@ -716,6 +716,27 @@ extern "C" SEXP _igraphlite_radius_(SEXP graph, SEXP weights, SEXP mode) {
   END_CPP11
 }
 // paths.cpp
+double global_efficiency_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const bool directed);
+extern "C" SEXP _igraphlite_global_efficiency_(SEXP graph, SEXP weights, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(global_efficiency_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// paths.cpp
+SEXP local_efficiency_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& vids, const bool directed, const int mode);
+extern "C" SEXP _igraphlite_local_efficiency_(SEXP graph, SEXP weights, SEXP vids, SEXP directed, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(local_efficiency_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+  END_CPP11
+}
+// paths.cpp
+double average_local_efficiency_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const bool directed, const int mode);
+extern "C" SEXP _igraphlite_average_local_efficiency_(SEXP graph, SEXP weights, SEXP directed, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(average_local_efficiency_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+  END_CPP11
+}
+// paths.cpp
 double mean_distances_cpp_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& from, const cpp11::integers& to, int mode);
 extern "C" SEXP _igraphlite_mean_distances_cpp_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode) {
   BEGIN_CPP11
@@ -841,6 +862,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_as_data_frame_",                    (DL_FUNC) &_igraphlite_as_data_frame_,                    1},
     {"_igraphlite_as_edgelist_",                      (DL_FUNC) &_igraphlite_as_edgelist_,                      1},
     {"_igraphlite_as_inclist_",                       (DL_FUNC) &_igraphlite_as_inclist_,                       3},
+    {"_igraphlite_average_local_efficiency_",         (DL_FUNC) &_igraphlite_average_local_efficiency_,         4},
     {"_igraphlite_average_path_length_",              (DL_FUNC) &_igraphlite_average_path_length_,              4},
     {"_igraphlite_betweenness_",                      (DL_FUNC) &_igraphlite_betweenness_,                      6},
     {"_igraphlite_betweenness_subset_",               (DL_FUNC) &_igraphlite_betweenness_subset_,               7},
@@ -873,6 +895,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_get_all_simple_paths_",             (DL_FUNC) &_igraphlite_get_all_simple_paths_,             7},
     {"_igraphlite_get_shortest_paths_",               (DL_FUNC) &_igraphlite_get_shortest_paths_,               5},
     {"_igraphlite_girth_",                            (DL_FUNC) &_igraphlite_girth_,                            1},
+    {"_igraphlite_global_efficiency_",                (DL_FUNC) &_igraphlite_global_efficiency_,                3},
     {"_igraphlite_graph_copy_",                       (DL_FUNC) &_igraphlite_graph_copy_,                       1},
     {"_igraphlite_graph_create_",                     (DL_FUNC) &_igraphlite_graph_create_,                     3},
     {"_igraphlite_graph_empty_",                      (DL_FUNC) &_igraphlite_graph_empty_,                      2},
@@ -905,6 +928,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_layout_random_",                    (DL_FUNC) &_igraphlite_layout_random_,                    1},
     {"_igraphlite_layout_reingold_tilford_",          (DL_FUNC) &_igraphlite_layout_reingold_tilford_,          3},
     {"_igraphlite_layout_reingold_tilford_circular_", (DL_FUNC) &_igraphlite_layout_reingold_tilford_circular_, 3},
+    {"_igraphlite_local_efficiency_",                 (DL_FUNC) &_igraphlite_local_efficiency_,                 5},
     {"_igraphlite_maxdegree_",                        (DL_FUNC) &_igraphlite_maxdegree_,                        4},
     {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               5},
     {"_igraphlite_mutate_Eattr_",                     (DL_FUNC) &_igraphlite_mutate_Eattr_,                     3},
