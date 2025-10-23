@@ -38,6 +38,12 @@ layout_nicely = function(graph, ...) {
 #'
 #' layout_random(g) |> Vattr()
 #'
+#' layout_circle(g) |> Vattr()
+#'
+#' layout_star(g, center = 1L) |> Vattr()
+#'
+#' layout_grid(g) |> Vattr()
+#'
 #' layout_drl(g) |> Vattr()
 #'
 #' layout_fruchterman_reingold(g) |> Vattr()
@@ -45,6 +51,30 @@ layout_nicely = function(graph, ...) {
 #' layout_mds(g, dist = distances(g)) |> Vattr()
 layout_random = function(graph) {
   .Call(`_igraphlite_layout_random_`, graph)
+  graph
+}
+
+#' @param order An integer vector of vertex IDs including `center`.
+#' @rdname layout-2d
+#' @export
+layout_circle = function(graph, order = integer(0L)) {
+  .Call(`_igraphlite_layout_circle_`, graph, order)
+  graph
+}
+
+#' @param center An vertex ID.
+#' @rdname layout-2d
+#' @export
+layout_star = function(graph, center, order = integer(0L)) {
+  .Call(`_igraphlite_layout_star_`, graph, center, order)
+  graph
+}
+
+#' @param width The number of vertices in a single row of the grid.
+#' @rdname layout-2d
+#' @export
+layout_grid = function(graph, width = 0L) {
+  .Call(`_igraphlite_layout_grid_`, graph, width)
   graph
 }
 

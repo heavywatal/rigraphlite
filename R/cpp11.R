@@ -324,6 +324,18 @@ layout_random_ <- function(graph) {
   invisible(.Call(`_igraphlite_layout_random_`, graph))
 }
 
+layout_circle_ <- function(graph, order) {
+  invisible(.Call(`_igraphlite_layout_circle_`, graph, order))
+}
+
+layout_star_ <- function(graph, center, order) {
+  invisible(.Call(`_igraphlite_layout_star_`, graph, center, order))
+}
+
+layout_grid_ <- function(graph, width) {
+  invisible(.Call(`_igraphlite_layout_grid_`, graph, width))
+}
+
 layout_drl_ <- function(graph) {
   invisible(.Call(`_igraphlite_layout_drl_`, graph))
 }

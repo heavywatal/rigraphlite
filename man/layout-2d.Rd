@@ -2,6 +2,9 @@
 % Please edit documentation in R/layout.R
 \name{layout_random}
 \alias{layout_random}
+\alias{layout_circle}
+\alias{layout_star}
+\alias{layout_grid}
 \alias{layout_drl}
 \alias{layout_fruchterman_reingold}
 \alias{layout_mds}
@@ -12,6 +15,12 @@
 \usage{
 layout_random(graph)
 
+layout_circle(graph, order = integer(0L))
+
+layout_star(graph, center, order = integer(0L))
+
+layout_grid(graph, width = 0L)
+
 layout_drl(graph)
 
 layout_fruchterman_reingold(graph, grid = 2L)
@@ -20,6 +29,12 @@ layout_mds(graph, dist)
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
+
+\item{order}{An integer vector of vertex IDs including \code{center}.}
+
+\item{center}{An vertex ID.}
+
+\item{width}{The number of vertices in a single row of the grid.}
 
 \item{grid}{An integer value, whether to use the (fast but less accurate) grid based algorithm;
 \{0: GRID, 1: NOGRID, 2: AUTOGRID\}.}
@@ -38,6 +53,12 @@ igraph_rng_seed(24601L)
 g = graph_tree(5L)
 
 layout_random(g) |> Vattr()
+
+layout_circle(g) |> Vattr()
+
+layout_star(g, center = 1L) |> Vattr()
+
+layout_grid(g) |> Vattr()
 
 layout_drl(g) |> Vattr()
 

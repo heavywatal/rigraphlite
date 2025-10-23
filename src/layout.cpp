@@ -29,6 +29,30 @@ layout_random_(const cpp11::external_pointer<IGraph> graph) {
 }
 
 [[cpp11::register]] void
+layout_circle_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& order) {
+  IMatrix res(graph->vcount(), 2);
+  igraph_layout_circle(graph->data(), res.data(),
+    order.empty() ? igraph_vss_all() : ISelectorInPlace(order).vss());
+  mutate_vattr_xy(&graph->Vattr_, res.wrap());
+}
+
+[[cpp11::register]] void
+layout_star_(const cpp11::external_pointer<IGraph> graph,
+    int center, const cpp11::integers& order) {
+  IMatrix res(graph->vcount(), 2);
+  igraph_layout_star(graph->data(), res.data(), --center,
+    order.empty() ? nullptr : ISelectorInPlace(order).data());
+  mutate_vattr_xy(&graph->Vattr_, res.wrap());
+}
+
+[[cpp11::register]] void
+layout_grid_(const cpp11::external_pointer<IGraph> graph, const int width) {
+  IMatrix res(graph->vcount(), 2);
+  igraph_layout_grid(graph->data(), res.data(), width);
+  mutate_vattr_xy(&graph->Vattr_, res.wrap());
+}
+
+[[cpp11::register]] void
 layout_drl_(const cpp11::external_pointer<IGraph> graph) {
   igraph_layout_drl_options_t options;
   igraph_layout_drl_options_init(&options, IGRAPH_LAYOUT_DRL_DEFAULT);

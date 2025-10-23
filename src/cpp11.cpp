@@ -584,6 +584,30 @@ extern "C" SEXP _igraphlite_layout_random_(SEXP graph) {
   END_CPP11
 }
 // layout.cpp
+void layout_circle_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& order);
+extern "C" SEXP _igraphlite_layout_circle_(SEXP graph, SEXP order) {
+  BEGIN_CPP11
+    layout_circle_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(order));
+    return R_NilValue;
+  END_CPP11
+}
+// layout.cpp
+void layout_star_(const cpp11::external_pointer<IGraph> graph, int center, const cpp11::integers& order);
+extern "C" SEXP _igraphlite_layout_star_(SEXP graph, SEXP center, SEXP order) {
+  BEGIN_CPP11
+    layout_star_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(center), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(order));
+    return R_NilValue;
+  END_CPP11
+}
+// layout.cpp
+void layout_grid_(const cpp11::external_pointer<IGraph> graph, const int width);
+extern "C" SEXP _igraphlite_layout_grid_(SEXP graph, SEXP width) {
+  BEGIN_CPP11
+    layout_grid_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(width));
+    return R_NilValue;
+  END_CPP11
+}
+// layout.cpp
 void layout_drl_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_layout_drl_(SEXP graph) {
   BEGIN_CPP11
@@ -922,12 +946,15 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
     {"_igraphlite_is_simple_",                        (DL_FUNC) &_igraphlite_is_simple_,                        2},
     {"_igraphlite_k_regular_game_",                   (DL_FUNC) &_igraphlite_k_regular_game_,                   4},
+    {"_igraphlite_layout_circle_",                    (DL_FUNC) &_igraphlite_layout_circle_,                    2},
     {"_igraphlite_layout_drl_",                       (DL_FUNC) &_igraphlite_layout_drl_,                       1},
     {"_igraphlite_layout_fruchterman_reingold_",      (DL_FUNC) &_igraphlite_layout_fruchterman_reingold_,      2},
+    {"_igraphlite_layout_grid_",                      (DL_FUNC) &_igraphlite_layout_grid_,                      2},
     {"_igraphlite_layout_mds_",                       (DL_FUNC) &_igraphlite_layout_mds_,                       2},
     {"_igraphlite_layout_random_",                    (DL_FUNC) &_igraphlite_layout_random_,                    1},
     {"_igraphlite_layout_reingold_tilford_",          (DL_FUNC) &_igraphlite_layout_reingold_tilford_,          3},
     {"_igraphlite_layout_reingold_tilford_circular_", (DL_FUNC) &_igraphlite_layout_reingold_tilford_circular_, 3},
+    {"_igraphlite_layout_star_",                      (DL_FUNC) &_igraphlite_layout_star_,                      3},
     {"_igraphlite_local_efficiency_",                 (DL_FUNC) &_igraphlite_local_efficiency_,                 5},
     {"_igraphlite_maxdegree_",                        (DL_FUNC) &_igraphlite_maxdegree_,                        4},
     {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               5},
