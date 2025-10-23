@@ -46,7 +46,10 @@ test_that("as_adjlist and as_inclist work", {
 })
 
 test_that("macros work", {
-  expect_identical(IGRAPH_VCOUNT_MAX, 2147483646L)
-  expect_identical(IGRAPH_ECOUNT_MAX, IGRAPH_VCOUNT_MAX %/% 2L)
-  expect_identical(IGRAPH_UNLIMITED, -1L)
+  expect_identical(VCOUNT_MAX(), 2147483646L)
+  expect_identical(ECOUNT_MAX(), VCOUNT_MAX() %/% 2L)
+  expect_identical(UNLIMITED(), -1L)
+  expect_identical(IGRAPH_VCOUNT_MAX, VCOUNT_MAX())
+  expect_identical(IGRAPH_ECOUNT_MAX, ECOUNT_MAX())
+  expect_identical(IGRAPH_UNLIMITED, UNLIMITED())
 })

@@ -96,10 +96,6 @@ delete_vertices_ <- function(graph, vids) {
   invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
 }
 
-INTEGER_MAX <- function() {
-  .Call(`_igraphlite_INTEGER_MAX`)
-}
-
 VCOUNT_MAX <- function() {
   .Call(`_igraphlite_VCOUNT_MAX`)
 }

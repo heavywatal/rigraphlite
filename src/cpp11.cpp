@@ -182,13 +182,6 @@ extern "C" SEXP _igraphlite_delete_vertices_(SEXP graph, SEXP vids) {
   END_CPP11
 }
 // basic.cpp
-int INTEGER_MAX();
-extern "C" SEXP _igraphlite_INTEGER_MAX() {
-  BEGIN_CPP11
-    return cpp11::as_sexp(INTEGER_MAX());
-  END_CPP11
-}
-// basic.cpp
 int VCOUNT_MAX();
 extern "C" SEXP _igraphlite_VCOUNT_MAX() {
   BEGIN_CPP11
@@ -926,7 +919,6 @@ extern "C" {
 static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_ECOUNT_MAX",                        (DL_FUNC) &_igraphlite_ECOUNT_MAX,                        0},
     {"_igraphlite_E_",                                (DL_FUNC) &_igraphlite_E_,                                1},
-    {"_igraphlite_INTEGER_MAX",                       (DL_FUNC) &_igraphlite_INTEGER_MAX,                       0},
     {"_igraphlite_UNLIMITED",                         (DL_FUNC) &_igraphlite_UNLIMITED,                         0},
     {"_igraphlite_VCOUNT_MAX",                        (DL_FUNC) &_igraphlite_VCOUNT_MAX,                        0},
     {"_igraphlite_V_",                                (DL_FUNC) &_igraphlite_V_,                                1},

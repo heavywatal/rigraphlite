@@ -97,9 +97,6 @@ void delete_vertices_(cpp11::external_pointer<IGraph> graph, const cpp11::intege
 }
 
 [[cpp11::register]] int
-INTEGER_MAX() { return IGRAPH_INTEGER_MAX; }
-
-[[cpp11::register]] int
 VCOUNT_MAX() { return IGRAPH_VCOUNT_MAX; }
 
 [[cpp11::register]] int
