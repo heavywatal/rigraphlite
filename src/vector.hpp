@@ -38,6 +38,7 @@ class IVector {
 };
 
 using IVectorView = IVector<AsValues, InitView>;
+using IVectorIntView = IVector<AsValues, InitViewInt>;
 using ISelector = IVector<AsIndices, InitIndices>;
 using ISelectorInPlace = IVector<AsIndices, InitIndicesInPlace>;
 

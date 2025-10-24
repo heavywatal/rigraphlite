@@ -3,6 +3,7 @@
 \name{is_dag}
 \alias{is_dag}
 \alias{is_acyclic}
+\alias{topological_sorting}
 \title{Acyclic graphs and feedback sets}
 \source{
 \url{https://igraph.org/c/doc/igraph-Cycles.html#acyclic-graphs-feedback-sets}
@@ -11,9 +12,13 @@
 is_dag(graph)
 
 is_acyclic(graph)
+
+topological_sorting(graph, mode = 1L)
 }
 \arguments{
 \item{graph}{An \code{\link{igraph_ptr}} object.}
+
+\item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
 }
 \value{
 A logical value.
@@ -34,4 +39,9 @@ is_dag(ring)
 is_acyclic(dag)
 is_acyclic(tree)
 is_acyclic(ring)
+
+topological_sorting(dag)
+}
+\seealso{
+\code{\link[=permutate_vertices]{permutate_vertices()}} to use the output of \code{\link[=topological_sorting]{topological_sorting()}}.
 }

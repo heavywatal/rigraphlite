@@ -190,6 +190,13 @@ average_local_efficiency_(
   return res;
 }
 
+[[cpp11::register]] SEXP
+expand_path_to_pairs_(const cpp11::integers& path) {
+  ISelector pairs(path);
+  igraph_expand_path_to_pairs(pairs.data());
+  return pairs.wrap();
+}
+
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////
 // experimental
 

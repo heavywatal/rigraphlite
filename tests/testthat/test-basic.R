@@ -63,4 +63,5 @@ test_that("macros work", {
   expect_identical(IGRAPH_VCOUNT_MAX, VCOUNT_MAX())
   expect_identical(IGRAPH_ECOUNT_MAX, ECOUNT_MAX())
   expect_identical(IGRAPH_UNLIMITED, UNLIMITED())
+  expect_identical(expand_path_to_pairs(seq_len(4L)), c(1L, 2L, 2L, 3L, 3L, 4L))
 })

@@ -6,6 +6,8 @@
 \alias{IGRAPH_VCOUNT_MAX}
 \alias{IGRAPH_ECOUNT_MAX}
 \alias{IGRAPH_UNLIMITED}
+\alias{expand_path_to_pairs}
+\alias{is_same_graph}
 \title{Miscellaneous macros}
 \format{
 An object of class \code{integer} of length 1.
@@ -19,6 +21,22 @@ IGRAPH_VCOUNT_MAX
 IGRAPH_ECOUNT_MAX
 
 IGRAPH_UNLIMITED
+
+expand_path_to_pairs(vids)
+
+is_same_graph(graph1, graph2)
+}
+\arguments{
+\item{vids}{An integer vector of vertex IDs.}
+
+\item{graph1, graph2}{Two \code{\link{igraph_ptr}} objects to compare.}
+}
+\value{
+\code{is_same_graph()} returns a logical value.
+It verifies that the two graphs have the same directedness,
+the same number of vertices, and that they contain precisely the same edges
+(regardless of their ordering) when written in terms of vertex indices.
+Graph attributes are not taken into account.
 }
 \description{
 igraphlite uses 32-bit igraph,
@@ -30,5 +48,19 @@ IGRAPH_VCOUNT_MAX
 IGRAPH_ECOUNT_MAX
 
 IGRAPH_UNLIMITED
+
+expand_path_to_pairs(seq_len(4L))
+
+g1 = graph_create(c(1L, 2L, 1L, 3L), directed = FALSE)
+g2 = graph_create(c(3L, 2L, 3L, 1L), directed = FALSE)
+g3 = graph_create(c(3L, 1L, 3L, 2L), directed = FALSE)
+isomorphic(g1, g2)
+
+is_same_graph(g1, g2)
+
+is_same_graph(g2, g3)
+}
+\seealso{
+\code{\link[=isomorphic]{isomorphic()}} and \code{\link[=subisomorphic]{subisomorphic()}}.
 }
 \keyword{datasets}

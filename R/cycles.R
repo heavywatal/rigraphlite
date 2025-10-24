@@ -5,6 +5,7 @@
 #' @inheritParams common_params
 #' @returns A logical value.
 #' @source <https://igraph.org/c/doc/igraph-Cycles.html#acyclic-graphs-feedback-sets>
+#' @seealso [permutate_vertices()] to use the output of [topological_sorting()].
 #' @rdname cycles-acyclic
 #' @export
 #' @examples
@@ -19,6 +20,8 @@
 #' is_acyclic(dag)
 #' is_acyclic(tree)
 #' is_acyclic(ring)
+#'
+#' topological_sorting(dag)
 is_dag = function(graph) {
   .Call(`_igraphlite_is_dag_`, graph)
 }
@@ -27,6 +30,12 @@ is_dag = function(graph) {
 #' @export
 is_acyclic = function(graph) {
   .Call(`_igraphlite_is_acyclic_`, graph)
+}
+
+#' @rdname cycles-acyclic
+#' @export
+topological_sorting = function(graph, mode = 1L) {
+  .Call(`_igraphlite_topological_sorting_`, graph, mode)
 }
 
 #' Eulerian cycles and paths

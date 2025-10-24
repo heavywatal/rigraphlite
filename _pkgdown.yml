@@ -62,6 +62,11 @@ reference:
 - contents:
   - is_acyclic
   - is_eulerian
+- title: Graph isomorphism
+  desc: https://igraph.org/c/doc/igraph-Isomorphism.html
+- contents:
+  - isomorphic
+  - permutation
 - title: Generating Layouts for Graph Drawing
   desc: https://igraph.org/c/doc/igraph-Layout.html
 - contents:

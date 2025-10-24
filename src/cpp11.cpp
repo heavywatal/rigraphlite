@@ -171,6 +171,13 @@ extern "C" SEXP _igraphlite_degree_(SEXP graph, SEXP vids, SEXP mode, SEXP loops
   END_CPP11
 }
 // basic.cpp
+bool is_same_graph_(const cpp11::external_pointer<IGraph> graph1, const cpp11::external_pointer<IGraph> graph2);
+extern "C" SEXP _igraphlite_is_same_graph_(SEXP graph1, SEXP graph2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_same_graph_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph1), cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph2)));
+  END_CPP11
+}
+// basic.cpp
 void add_vertices_(cpp11::external_pointer<IGraph> graph, int n);
 extern "C" SEXP _igraphlite_add_vertices_(SEXP graph, SEXP n) {
   BEGIN_CPP11
@@ -347,6 +354,13 @@ bool is_biconnected_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_is_biconnected_(SEXP graph) {
   BEGIN_CPP11
     return cpp11::as_sexp(is_biconnected_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// cycles.cpp
+SEXP topological_sorting_(const cpp11::external_pointer<IGraph> graph, const int mode);
+extern "C" SEXP _igraphlite_topological_sorting_(SEXP graph, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(topological_sorting_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
   END_CPP11
 }
 // cycles.cpp
@@ -631,6 +645,27 @@ extern "C" SEXP _igraphlite_rng_seed(SEXP seed) {
     return R_NilValue;
   END_CPP11
 }
+// isomorphism.cpp
+bool isomorphic_(const cpp11::external_pointer<IGraph>& graph1, const cpp11::external_pointer<IGraph>& graph2);
+extern "C" SEXP _igraphlite_isomorphic_(SEXP graph1, SEXP graph2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(isomorphic_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>&>>(graph1), cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>&>>(graph2)));
+  END_CPP11
+}
+// isomorphism.cpp
+bool subisomorphic_(const cpp11::external_pointer<IGraph>& graph1, const cpp11::external_pointer<IGraph>& graph2);
+extern "C" SEXP _igraphlite_subisomorphic_(SEXP graph1, SEXP graph2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(subisomorphic_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>&>>(graph1), cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>&>>(graph2)));
+  END_CPP11
+}
+// isomorphism.cpp
+SEXP canonical_permutation_(const cpp11::external_pointer<IGraph>& graph, const cpp11::integers& colors);
+extern "C" SEXP _igraphlite_canonical_permutation_(SEXP graph, SEXP colors) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(canonical_permutation_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>&>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(colors)));
+  END_CPP11
+}
 // layout.cpp
 void layout_random_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_layout_random_(SEXP graph) {
@@ -732,6 +767,13 @@ extern "C" SEXP _igraphlite_subgraph_from_edges_(SEXP graph, SEXP eids, SEXP del
     return cpp11::as_sexp(subgraph_from_edges_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(delete_vertices)));
   END_CPP11
 }
+// operators.cpp
+SEXP permute_vertices_(const cpp11::external_pointer<IGraph>& graph, const cpp11::integers& perm);
+extern "C" SEXP _igraphlite_permute_vertices_(SEXP graph, SEXP perm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(permute_vertices_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>&>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(perm)));
+  END_CPP11
+}
 // paths.cpp
 SEXP distances_(const cpp11::external_pointer<IGraph> graph, const cpp11::doubles& weights, const cpp11::integers& from, const cpp11::integers& to, const int mode, const double cutoff);
 extern "C" SEXP _igraphlite_distances_(SEXP graph, SEXP weights, SEXP from, SEXP to, SEXP mode, SEXP cutoff) {
@@ -814,6 +856,13 @@ double average_local_efficiency_(const cpp11::external_pointer<IGraph> graph, co
 extern "C" SEXP _igraphlite_average_local_efficiency_(SEXP graph, SEXP weights, SEXP directed, SEXP mode) {
   BEGIN_CPP11
     return cpp11::as_sexp(average_local_efficiency_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
+  END_CPP11
+}
+// paths.cpp
+SEXP expand_path_to_pairs_(const cpp11::integers& path);
+extern "C" SEXP _igraphlite_expand_path_to_pairs_(SEXP path) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(expand_path_to_pairs_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(path)));
   END_CPP11
 }
 // paths.cpp
@@ -957,6 +1006,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_betweenness_",                      (DL_FUNC) &_igraphlite_betweenness_,                      6},
     {"_igraphlite_betweenness_subset_",               (DL_FUNC) &_igraphlite_betweenness_subset_,               7},
     {"_igraphlite_bridges_",                          (DL_FUNC) &_igraphlite_bridges_,                          1},
+    {"_igraphlite_canonical_permutation_",            (DL_FUNC) &_igraphlite_canonical_permutation_,            2},
     {"_igraphlite_closeness_",                        (DL_FUNC) &_igraphlite_closeness_,                        5},
     {"_igraphlite_connected_components_",             (DL_FUNC) &_igraphlite_connected_components_,             2},
     {"_igraphlite_constraint_",                       (DL_FUNC) &_igraphlite_constraint_,                       3},
@@ -979,6 +1029,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_eigenvector_centrality_",           (DL_FUNC) &_igraphlite_eigenvector_centrality_,           3},
     {"_igraphlite_erdos_renyi_game_gnm_",             (DL_FUNC) &_igraphlite_erdos_renyi_game_gnm_,             4},
     {"_igraphlite_erdos_renyi_game_gnp_",             (DL_FUNC) &_igraphlite_erdos_renyi_game_gnp_,             4},
+    {"_igraphlite_expand_path_to_pairs_",             (DL_FUNC) &_igraphlite_expand_path_to_pairs_,             1},
     {"_igraphlite_from_",                             (DL_FUNC) &_igraphlite_from_,                             1},
     {"_igraphlite_getEattr_",                         (DL_FUNC) &_igraphlite_getEattr_,                         1},
     {"_igraphlite_getVattr_",                         (DL_FUNC) &_igraphlite_getVattr_,                         1},
@@ -1016,7 +1067,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_is_dag_",                           (DL_FUNC) &_igraphlite_is_dag_,                           1},
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
     {"_igraphlite_is_eulerian_",                      (DL_FUNC) &_igraphlite_is_eulerian_,                      1},
+    {"_igraphlite_is_same_graph_",                    (DL_FUNC) &_igraphlite_is_same_graph_,                    2},
     {"_igraphlite_is_simple_",                        (DL_FUNC) &_igraphlite_is_simple_,                        2},
+    {"_igraphlite_isomorphic_",                       (DL_FUNC) &_igraphlite_isomorphic_,                       2},
     {"_igraphlite_k_regular_game_",                   (DL_FUNC) &_igraphlite_k_regular_game_,                   4},
     {"_igraphlite_layout_circle_",                    (DL_FUNC) &_igraphlite_layout_circle_,                    2},
     {"_igraphlite_layout_drl_",                       (DL_FUNC) &_igraphlite_layout_drl_,                       1},
@@ -1039,6 +1092,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_path_length_count_between",         (DL_FUNC) &_igraphlite_path_length_count_between,         3},
     {"_igraphlite_path_length_count_within",          (DL_FUNC) &_igraphlite_path_length_count_within,          2},
     {"_igraphlite_path_length_hist_",                 (DL_FUNC) &_igraphlite_path_length_hist_,                 2},
+    {"_igraphlite_permute_vertices_",                 (DL_FUNC) &_igraphlite_permute_vertices_,                 2},
     {"_igraphlite_radius_",                           (DL_FUNC) &_igraphlite_radius_,                           3},
     {"_igraphlite_read_graph_dl_",                    (DL_FUNC) &_igraphlite_read_graph_dl_,                    2},
     {"_igraphlite_read_graph_edgelist_",              (DL_FUNC) &_igraphlite_read_graph_edgelist_,              2},
@@ -1056,7 +1110,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_subcomponent_",                     (DL_FUNC) &_igraphlite_subcomponent_,                     3},
     {"_igraphlite_subcomponents_",                    (DL_FUNC) &_igraphlite_subcomponents_,                    3},
     {"_igraphlite_subgraph_from_edges_",              (DL_FUNC) &_igraphlite_subgraph_from_edges_,              3},
+    {"_igraphlite_subisomorphic_",                    (DL_FUNC) &_igraphlite_subisomorphic_,                    2},
     {"_igraphlite_to_",                               (DL_FUNC) &_igraphlite_to_,                               1},
+    {"_igraphlite_topological_sorting_",              (DL_FUNC) &_igraphlite_topological_sorting_,              2},
     {"_igraphlite_transitive_closure_",               (DL_FUNC) &_igraphlite_transitive_closure_,               1},
     {"_igraphlite_vcount_",                           (DL_FUNC) &_igraphlite_vcount_,                           1},
     {"_igraphlite_watts_strogatz_game_",              (DL_FUNC) &_igraphlite_watts_strogatz_game_,              5},

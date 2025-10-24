@@ -126,6 +126,17 @@ degree = function(graph, vids = integer(0), mode = 3L, loops = 1L) {
 #' IGRAPH_ECOUNT_MAX
 #'
 #' IGRAPH_UNLIMITED
+#'
+#' expand_path_to_pairs(seq_len(4L))
+#'
+#' g1 = graph_create(c(1L, 2L, 1L, 3L), directed = FALSE)
+#' g2 = graph_create(c(3L, 2L, 3L, 1L), directed = FALSE)
+#' g3 = graph_create(c(3L, 1L, 3L, 2L), directed = FALSE)
+#' isomorphic(g1, g2)
+#'
+#' is_same_graph(g1, g2)
+#'
+#' is_same_graph(g2, g3)
 "IGRAPH_VCOUNT_MAX"
 
 #' @format NULL
@@ -135,3 +146,23 @@ degree = function(graph, vids = integer(0), mode = 3L, loops = 1L) {
 #' @format NULL
 #' @rdname basic-macros
 "IGRAPH_UNLIMITED"
+
+#' @inheritParams common_params
+#' @rdname basic-macros
+#' @export
+expand_path_to_pairs = function(vids) {
+  .Call(`_igraphlite_expand_path_to_pairs_`, vids)
+}
+
+#' @param graph1,graph2 Two [`igraph_ptr`] objects to compare.
+#' @returns `is_same_graph()` returns a logical value.
+#' It verifies that the two graphs have the same directedness,
+#' the same number of vertices, and that they contain precisely the same edges
+#' (regardless of their ordering) when written in terms of vertex indices.
+#' Graph attributes are not taken into account.
+#' @seealso [isomorphic()] and [subisomorphic()].
+#' @rdname basic-macros
+#' @export
+is_same_graph = function(graph1, graph2) {
+  .Call(`_igraphlite_is_same_graph_`, graph1, graph2)
+}

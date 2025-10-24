@@ -100,6 +100,13 @@ degree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids
   return res.wrap();
 }
 
+[[cpp11::register]] bool
+is_same_graph_(const cpp11::external_pointer<IGraph> graph1, const cpp11::external_pointer<IGraph> graph2) {
+  igraph_bool_t res;
+  igraph_is_same_graph(graph1->data(), graph2->data(), &res);
+  return res;
+}
+
 [[cpp11::register]]
 void add_vertices_(cpp11::external_pointer<IGraph> graph, int n) {
   if (n <= 0) return;

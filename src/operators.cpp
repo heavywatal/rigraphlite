@@ -43,3 +43,11 @@ subgraph_from_edges_(const cpp11::external_pointer<IGraph> graph, const cpp11::i
   impl::filter(&res->Eattr_, eids);
   return res;
 }
+
+[[cpp11::register]] SEXP
+permute_vertices_(const cpp11::external_pointer<IGraph>& graph, const cpp11::integers& perm) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_permute_vertices(graph->data(), p->data(), ISelectorInPlace(perm).data());
+  p->init_attr();
+  return p;
+}

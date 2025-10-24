@@ -92,6 +92,10 @@ degree_ <- function(graph, vids, mode, loops) {
   .Call(`_igraphlite_degree_`, graph, vids, mode, loops)
 }
 
+is_same_graph_ <- function(graph1, graph2) {
+  .Call(`_igraphlite_is_same_graph_`, graph1, graph2)
+}
+
 add_vertices_ <- function(graph, n) {
   invisible(.Call(`_igraphlite_add_vertices_`, graph, n))
 }
@@ -190,6 +194,10 @@ bridges_ <- function(graph) {
 
 is_biconnected_ <- function(graph) {
   .Call(`_igraphlite_is_biconnected_`, graph)
+}
+
+topological_sorting_ <- function(graph, mode) {
+  .Call(`_igraphlite_topological_sorting_`, graph, mode)
 }
 
 is_dag_ <- function(graph) {
@@ -352,6 +360,18 @@ rng_seed <- function(seed) {
   invisible(.Call(`_igraphlite_rng_seed`, seed))
 }
 
+isomorphic_ <- function(graph1, graph2) {
+  .Call(`_igraphlite_isomorphic_`, graph1, graph2)
+}
+
+subisomorphic_ <- function(graph1, graph2) {
+  .Call(`_igraphlite_subisomorphic_`, graph1, graph2)
+}
+
+canonical_permutation_ <- function(graph, colors) {
+  .Call(`_igraphlite_canonical_permutation_`, graph, colors)
+}
+
 layout_random_ <- function(graph) {
   invisible(.Call(`_igraphlite_layout_random_`, graph))
 }
@@ -404,6 +424,10 @@ subgraph_from_edges_ <- function(graph, eids, delete_vertices) {
   .Call(`_igraphlite_subgraph_from_edges_`, graph, eids, delete_vertices)
 }
 
+permute_vertices_ <- function(graph, perm) {
+  .Call(`_igraphlite_permute_vertices_`, graph, perm)
+}
+
 distances_ <- function(graph, weights, from, to, mode, cutoff) {
   .Call(`_igraphlite_distances_`, graph, weights, from, to, mode, cutoff)
 }
@@ -450,6 +474,10 @@ local_efficiency_ <- function(graph, weights, vids, directed, mode) {
 
 average_local_efficiency_ <- function(graph, weights, directed, mode) {
   .Call(`_igraphlite_average_local_efficiency_`, graph, weights, directed, mode)
+}
+
+expand_path_to_pairs_ <- function(path) {
+  .Call(`_igraphlite_expand_path_to_pairs_`, path)
 }
 
 mean_distances_cpp_ <- function(graph, weights, from, to, mode) {
