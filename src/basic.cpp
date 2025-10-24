@@ -42,6 +42,38 @@ edge_(const cpp11::external_pointer<IGraph> graph, int eid) {
 }
 
 [[cpp11::register]] SEXP
+edges_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& eids, const bool bycol) {
+  const R_xlen_t n = eids.size();
+  IVector<AsIndices> res(n > 0 ? n * 2 : graph->ecount() * 2);
+  igraph_edges(graph->data(),
+    (n > 0) ? ISelectorInPlace(eids).ess() : igraph_ess_all(igraph_edgeorder_type_t::IGRAPH_EDGEORDER_ID),
+    res.data(), bycol);
+  return res.wrap();
+}
+
+[[cpp11::register]] SEXP
+get_eids_(const cpp11::external_pointer<IGraph> graph,
+    const cpp11::integers& pairs, const bool directed, const bool error) {
+  const R_xlen_t n = pairs.size() / 2;
+  IVector<AsIndices> res(n);
+  igraph_get_eids(
+    graph->data(), res.data(),
+    ISelectorInPlace(pairs).data(),
+    directed, error);
+  return res.wrap();
+}
+
+[[cpp11::register]] SEXP
+get_all_eids_between_(const cpp11::external_pointer<IGraph> graph,
+    int from, int to, const bool directed) {
+  IVector<AsIndices> res(2);
+  igraph_get_all_eids_between(
+    graph->data(), res.data(),
+    --from, --to, directed);
+  return res.wrap();
+}
+
+[[cpp11::register]] SEXP
 neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode, int loops, bool multiple) {
   IVector<AsIndices> res(1);
   igraph_neighbors(graph->data(), res.data(), --node,

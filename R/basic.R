@@ -40,17 +40,53 @@ is_directed = function(graph) {
 #' @examples
 #' g = graph_tree(5L)
 #' edge(g, 1L)
+#'
+#' edges(g, c(1L, 3L))
+#'
+#' get_eids(g, c(1L, 2L, 2L, 4L))
+#'
+#' get_all_eids_between(g, 1L, 2L)
+#'
 #' neighbors(g, 1L)
+#'
 #' incident(g, 1L)
+#'
 #' degree(g, mode = 1L)
+#'
 #' degree(g, mode = 2L)
+#'
 #' degree(g, mode = 3L)
-
-#' @returns `edge()` returns the head and tail vertices of an edge.
+#' @returns `edge()` and `edges()` return the head and tail vertices of edges.
 #' @rdname basic-adjacent
 #' @export
 edge = function(graph, eid) {
   .Call(`_igraphlite_edge_`, graph, eid)
+}
+
+#' @param bycol A logical value to specify the result format.
+#' If `FALSE` (default), the result is an edge list compatible with `add_edges()`.
+#' If `TRUE`, the result is suitable for making a 2-column matrix as returned by
+#' `as.matrix.igraph_ptr()`.
+#' @rdname basic-adjacent
+#' @export
+edges = function(graph, eids = integer(0), bycol = FALSE) {
+  .Call(`_igraphlite_edges_`, graph, eids, bycol)
+}
+
+#' @param error A logical value, whether to raise an error or assign `0` for
+#' non-existing edges.
+#' @returns `get_eids()` returns the edge IDs of given vertex pairs.
+#' @rdname basic-adjacent
+#' @export
+get_eids = function(graph, edges, directed = is_directed(graph), error = TRUE) {
+  .Call(`_igraphlite_get_eids_`, graph, edges, directed, error)
+}
+
+#' @returns `get_all_eids_between()` returns all edge IDs between two vertices.
+#' @rdname basic-adjacent
+#' @export
+get_all_eids_between = function(graph, from, to, directed = is_directed(graph)) {
+  .Call(`_igraphlite_get_all_eids_between_`, graph, from, to, directed)
 }
 
 #' @returns `neighbors()` returns the adjacent vertices to a vertex.

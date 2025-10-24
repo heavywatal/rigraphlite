@@ -129,6 +129,27 @@ extern "C" SEXP _igraphlite_edge_(SEXP graph, SEXP eid) {
   END_CPP11
 }
 // basic.cpp
+SEXP edges_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& eids, const bool bycol);
+extern "C" SEXP _igraphlite_edges_(SEXP graph, SEXP eids, SEXP bycol) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(edges_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(eids), cpp11::as_cpp<cpp11::decay_t<const bool>>(bycol)));
+  END_CPP11
+}
+// basic.cpp
+SEXP get_eids_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& pairs, const bool directed, const bool error);
+extern "C" SEXP _igraphlite_get_eids_(SEXP graph, SEXP pairs, SEXP directed, SEXP error) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_eids_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(pairs), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(error)));
+  END_CPP11
+}
+// basic.cpp
+SEXP get_all_eids_between_(const cpp11::external_pointer<IGraph> graph, int from, int to, const bool directed);
+extern "C" SEXP _igraphlite_get_all_eids_between_(SEXP graph, SEXP from, SEXP to, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(get_all_eids_between_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<int>>(from), cpp11::as_cpp<cpp11::decay_t<int>>(to), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// basic.cpp
 SEXP neighbors_(const cpp11::external_pointer<IGraph> graph, int node, const int mode, int loops, bool multiple);
 extern "C" SEXP _igraphlite_neighbors_(SEXP graph, SEXP node, SEXP mode, SEXP loops, SEXP multiple) {
   BEGIN_CPP11
@@ -954,14 +975,17 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_edge_",                             (DL_FUNC) &_igraphlite_edge_,                             2},
     {"_igraphlite_edge_betweenness_",                 (DL_FUNC) &_igraphlite_edge_betweenness_,                 6},
     {"_igraphlite_edge_betweenness_subset_",          (DL_FUNC) &_igraphlite_edge_betweenness_subset_,          7},
+    {"_igraphlite_edges_",                            (DL_FUNC) &_igraphlite_edges_,                            3},
     {"_igraphlite_eigenvector_centrality_",           (DL_FUNC) &_igraphlite_eigenvector_centrality_,           3},
     {"_igraphlite_erdos_renyi_game_gnm_",             (DL_FUNC) &_igraphlite_erdos_renyi_game_gnm_,             4},
     {"_igraphlite_erdos_renyi_game_gnp_",             (DL_FUNC) &_igraphlite_erdos_renyi_game_gnp_,             4},
     {"_igraphlite_from_",                             (DL_FUNC) &_igraphlite_from_,                             1},
     {"_igraphlite_getEattr_",                         (DL_FUNC) &_igraphlite_getEattr_,                         1},
     {"_igraphlite_getVattr_",                         (DL_FUNC) &_igraphlite_getVattr_,                         1},
+    {"_igraphlite_get_all_eids_between_",             (DL_FUNC) &_igraphlite_get_all_eids_between_,             4},
     {"_igraphlite_get_all_shortest_paths_",           (DL_FUNC) &_igraphlite_get_all_shortest_paths_,           5},
     {"_igraphlite_get_all_simple_paths_",             (DL_FUNC) &_igraphlite_get_all_simple_paths_,             7},
+    {"_igraphlite_get_eids_",                         (DL_FUNC) &_igraphlite_get_eids_,                         4},
     {"_igraphlite_get_shortest_paths_",               (DL_FUNC) &_igraphlite_get_shortest_paths_,               5},
     {"_igraphlite_girth_",                            (DL_FUNC) &_igraphlite_girth_,                            1},
     {"_igraphlite_global_efficiency_",                (DL_FUNC) &_igraphlite_global_efficiency_,                3},

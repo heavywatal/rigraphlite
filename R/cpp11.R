@@ -68,6 +68,18 @@ edge_ <- function(graph, eid) {
   .Call(`_igraphlite_edge_`, graph, eid)
 }
 
+edges_ <- function(graph, eids, bycol) {
+  .Call(`_igraphlite_edges_`, graph, eids, bycol)
+}
+
+get_eids_ <- function(graph, pairs, directed, error) {
+  .Call(`_igraphlite_get_eids_`, graph, pairs, directed, error)
+}
+
+get_all_eids_between_ <- function(graph, from, to, directed) {
+  .Call(`_igraphlite_get_all_eids_between_`, graph, from, to, directed)
+}
+
 neighbors_ <- function(graph, node, mode, loops, multiple) {
   .Call(`_igraphlite_neighbors_`, graph, node, mode, loops, multiple)
 }

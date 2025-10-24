@@ -3,6 +3,9 @@
 \name{basic-adjacent}
 \alias{basic-adjacent}
 \alias{edge}
+\alias{edges}
+\alias{get_eids}
+\alias{get_all_eids_between}
 \alias{neighbors}
 \alias{incident}
 \alias{degree}
@@ -12,6 +15,12 @@
 }
 \usage{
 edge(graph, eid)
+
+edges(graph, eids = integer(0), bycol = FALSE)
+
+get_eids(graph, edges, directed = is_directed(graph), error = TRUE)
+
+get_all_eids_between(graph, from, to, directed = is_directed(graph))
 
 neighbors(graph, vid, mode = 3L, loops = 1L, multiple = TRUE)
 
@@ -24,6 +33,25 @@ degree(graph, vids = integer(0), mode = 3L, loops = 1L)
 
 \item{eid}{An integer value of edge ID.}
 
+\item{eids}{An integer vector of edge IDs.}
+
+\item{bycol}{A logical value to specify the result format.
+If \code{FALSE} (default), the result is an edge list compatible with \code{add_edges()}.
+If \code{TRUE}, the result is suitable for making a 2-column matrix as returned by
+\code{as.matrix.igraph_ptr()}.}
+
+\item{edges}{An integer vector of vertex IDs; the first two elements are the first edge, etc.}
+
+\item{directed}{A logical value, whether to consider directed paths.
+Ignored for undirected graphs.}
+
+\item{error}{A logical value, whether to raise an error or assign \code{0} for
+non-existing edges.}
+
+\item{from}{An integer vector of vertex IDs.}
+
+\item{to}{An integer vector of vertex IDs.}
+
 \item{vid}{An integer value of vertex ID.}
 
 \item{mode}{An integer value of edge type to count; \{1: OUT, 2: IN, 3: ALL\}.}
@@ -35,7 +63,11 @@ degree(graph, vids = integer(0), mode = 3L, loops = 1L)
 \item{vids}{An integer vector of vertex IDs.}
 }
 \value{
-\code{edge()} returns the head and tail vertices of an edge.
+\code{edge()} and \code{edges()} return the head and tail vertices of edges.
+
+\code{get_eids()} returns the edge IDs of given vertex pairs.
+
+\code{get_all_eids_between()} returns all edge IDs between two vertices.
 
 \code{neighbors()} returns the adjacent vertices to a vertex.
 
@@ -49,10 +81,21 @@ Basic query operations to get adjacency
 \examples{
 g = graph_tree(5L)
 edge(g, 1L)
+
+edges(g, c(1L, 3L))
+
+get_eids(g, c(1L, 2L, 2L, 4L))
+
+get_all_eids_between(g, 1L, 2L)
+
 neighbors(g, 1L)
+
 incident(g, 1L)
+
 degree(g, mode = 1L)
+
 degree(g, mode = 2L)
+
 degree(g, mode = 3L)
 }
 \seealso{
