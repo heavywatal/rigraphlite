@@ -37,6 +37,20 @@ graph_star = function(n, mode = 0L, center = 1L) {
   .Call(`_igraphlite_graph_star_`, n, mode, center - 1L) |> set_ptr_class()
 }
 
+#' Create an n-dimensional hypercube graph
+#'
+#' The hypercube graph `Q_n` has `2^n` vertices and `2^(n-1) n` edges.
+#' @source <https://igraph.org/c/doc/igraph-Generators.html#igraph_hypercube>
+#' @param n The dimension of the hypercube graph.
+#' @returns An [`igraph_ptr`] object.
+#' @family deterministic generators
+#' @examples
+#' graph_hypercube(3L)
+#' @inheritParams graph_create
+#' @export
+graph_hypercube = function(n, directed = FALSE) {
+  .Call(`_igraphlite_graph_hypercube_`, n, directed) |> set_ptr_class()
+}
 
 #' Create arbitrary dimensional lattices
 #'
@@ -50,12 +64,31 @@ graph_star = function(n, mode = 0L, center = 1L) {
 #' @family deterministic generators
 #' @examples
 #' graph_square_lattice(c(2L, 3L))
+#'
+#' graph_triangular_lattice(c(2L, 3L))
+#'
+#' graph_hexagonal_lattice(c(2L, 3L))
+#'
 #' graph_ring(4L)
-#' graph_ring(4L, circular = FALSE)
+#'
+#' graph_path(4L)
 #' @rdname graph_lattice
 #' @export
 graph_square_lattice = function(dim, nei = 1L, directed = FALSE, mutual = FALSE, circular = FALSE) {
   .Call(`_igraphlite_graph_square_lattice_`, dim, nei, directed, mutual, circular) |> set_ptr_class()
+}
+
+#' @param dims An integer vector defining the shape of the lattice.
+#' @rdname graph_lattice
+#' @export
+graph_triangular_lattice = function(dims, directed = FALSE, mutual = FALSE) {
+  .Call(`_igraphlite_graph_triangular_lattice_`, dims, directed, mutual) |> set_ptr_class()
+}
+
+#' @rdname graph_lattice
+#' @export
+graph_hexagonal_lattice = function(dims, directed = FALSE, mutual = FALSE) {
+  .Call(`_igraphlite_graph_hexagonal_lattice_`, dims, directed, mutual) |> set_ptr_class()
 }
 
 #' @rdname graph_lattice
@@ -66,9 +99,50 @@ graph_ring = function(n, directed = FALSE, mutual = FALSE, circular = TRUE) {
 
 #' @rdname graph_lattice
 #' @export
+graph_path = function(n, directed = FALSE, mutual = FALSE) {
+  .Call(`_igraphlite_graph_ring_`, n, directed, mutual, FALSE) |> set_ptr_class()
+}
+
+#' @rdname graph_lattice
+#' @export
+#' @usage # graph_cycle = graph_ring
+graph_cycle = graph_ring
+
+#' @rdname graph_lattice
+#' @export
 #' @usage # graph_lattice = graph_square_lattice
 graph_lattice = graph_square_lattice
 
+#' Creates a graph from LCF notation
+#'
+#' @description
+#' LCF notation (named after Lederberg, Coxeter, and Frucht) is a concise notation
+#' for 3-regular Hamiltonian graphs.
+#'
+#' `graph_circulant(n, shifts)` is roughly equivalent to `graph_lcf(n, c(1L, shifts), n)`.
+#' @source <https://igraph.org/c/html/latest/igraph-Generators.html#igraph_lcf>
+#' @inheritParams graph_create
+#' @param shifts An integer vector giving the shifts.
+#' For `graph_lcf()`, it gives additional edges to a cycle backbone,
+#' while for `graph_circulant()`, it gives all the edges.
+#' @param repeats The number of repeats for the shifts.
+#' @returns An [`igraph_ptr`] object.
+#' @family deterministic generators
+#' @examples
+#' graph_lcf(5L, 2L, 5L)
+#'
+#' graph_circulant(5L, 2L, directed = TRUE)
+#' @rdname graph_lcf
+#' @export
+graph_lcf = function(n, shifts, repeats = n) {
+  .Call(`_igraphlite_graph_lcf_`, n, shifts, repeats) |> set_ptr_class()
+}
+
+#' @rdname graph_lcf
+#' @export
+graph_circulant = function(n, shifts, directed = FALSE) {
+  .Call(`_igraphlite_graph_circulant_`, n, shifts, directed) |> set_ptr_class()
+}
 
 #' Create a tree graph
 #'

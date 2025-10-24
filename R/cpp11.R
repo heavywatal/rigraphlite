@@ -316,12 +316,32 @@ graph_star_ <- function(n, mode, center) {
   .Call(`_igraphlite_graph_star_`, n, mode, center)
 }
 
+graph_hypercube_ <- function(n, directed) {
+  .Call(`_igraphlite_graph_hypercube_`, n, directed)
+}
+
 graph_square_lattice_ <- function(dim, nei, directed, mutual, circular) {
   .Call(`_igraphlite_graph_square_lattice_`, dim, nei, directed, mutual, circular)
 }
 
+graph_triangular_lattice_ <- function(dims, directed, mutual) {
+  .Call(`_igraphlite_graph_triangular_lattice_`, dims, directed, mutual)
+}
+
+graph_hexagonal_lattice_ <- function(dims, directed, mutual) {
+  .Call(`_igraphlite_graph_hexagonal_lattice_`, dims, directed, mutual)
+}
+
 graph_ring_ <- function(n, directed, mutual, circular) {
   .Call(`_igraphlite_graph_ring_`, n, directed, mutual, circular)
+}
+
+graph_lcf_ <- function(n, shifts, repeats) {
+  .Call(`_igraphlite_graph_lcf_`, n, shifts, repeats)
+}
+
+graph_circulant_ <- function(n, shifts, directed) {
+  .Call(`_igraphlite_graph_circulant_`, n, shifts, directed)
 }
 
 graph_kary_tree_ <- function(n, children, mode) {

@@ -19,8 +19,26 @@ test_that("generator functions work", {
 test_that("named generator functions work", {
   n = 8L
   expect_s3_class(graph_star(n), "igraph_ptr")
+
+  for (dim in seq.int(2L, 5L)) {
+    hc = graph_hypercube(dim)
+    expect_identical(vcount(hc), as.integer(2L**dim))
+    expect_identical(ecount(hc), as.integer(2L**(dim - 1L) * dim))
+  }
+
   expect_s3_class(graph_square_lattice(c(2L, 3L)), "igraph_ptr")
-  expect_s3_class(graph_ring(n), "igraph_ptr")
+  expect_s3_class(graph_triangular_lattice(c(2L, 3L)), "igraph_ptr")
+  expect_s3_class(graph_hexagonal_lattice(c(2L, 3L)), "igraph_ptr")
+  graph_hypercube(4L) |> plot()
+
+  cycle = graph_ring(n) |> expect_s3_class("igraph_ptr")
+  expect_true(is_same_graph(graph_path(n), graph_ring(n, circular = FALSE)))
+  expect_true(is_same_graph(graph_cycle(n), cycle))
+
+  expect_true(is_same_graph(graph_circulant(n, 1L), cycle))
+  expect_true(is_same_graph(graph_lcf(n, integer(0L), 0L), cycle))
+  expect_true(is_same_graph(graph_lcf(n, 2L), graph_circulant(n, c(1L, 2L))))
+
   expect_s3_class(graph_tree(n), "igraph_ptr")
   expect_s3_class(graph_full(n), "igraph_ptr")
   expect_s3_class(graph_famous("Diamond"), "igraph_ptr")

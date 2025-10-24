@@ -28,8 +28,8 @@ degree_sequence_game_(const cpp11::integers& out_degrees,
     const int method = 0) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_degree_sequence_game(p->data(),
-      IVector<AsValues, InitViewInt>(out_degrees).data(),
-      in_degrees.empty() ? nullptr : IVector<AsValues, InitViewInt>(in_degrees).data(),
+      IVectorIntView(out_degrees).data(),
+      in_degrees.empty() ? nullptr : IVectorIntView(in_degrees).data(),
       static_cast<igraph_degseq_t>(method));
   p->init_attr();
   return p;

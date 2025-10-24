@@ -30,7 +30,9 @@ reference:
 - contents:
   - graph_create
   - graph_star
+  - graph_hypercube
   - graph_square_lattice
+  - graph_lcf
   - graph_tree
   - graph_full
   - graph_famous

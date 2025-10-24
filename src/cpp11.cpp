@@ -568,6 +568,13 @@ extern "C" SEXP _igraphlite_graph_star_(SEXP n, SEXP mode, SEXP center) {
   END_CPP11
 }
 // generators.cpp
+SEXP graph_hypercube_(int n, const bool directed);
+extern "C" SEXP _igraphlite_graph_hypercube_(SEXP n, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_hypercube_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// generators.cpp
 SEXP graph_square_lattice_(const cpp11::integers& dim, int nei, bool directed, bool mutual, bool circular);
 extern "C" SEXP _igraphlite_graph_square_lattice_(SEXP dim, SEXP nei, SEXP directed, SEXP mutual, SEXP circular) {
   BEGIN_CPP11
@@ -575,10 +582,38 @@ extern "C" SEXP _igraphlite_graph_square_lattice_(SEXP dim, SEXP nei, SEXP direc
   END_CPP11
 }
 // generators.cpp
+SEXP graph_triangular_lattice_(const cpp11::integers& dims, const bool directed, const bool mutual);
+extern "C" SEXP _igraphlite_graph_triangular_lattice_(SEXP dims, SEXP directed, SEXP mutual) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_triangular_lattice_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(dims), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(mutual)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_hexagonal_lattice_(const cpp11::integers& dims, const bool directed, const bool mutual);
+extern "C" SEXP _igraphlite_graph_hexagonal_lattice_(SEXP dims, SEXP directed, SEXP mutual) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_hexagonal_lattice_(cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(dims), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed), cpp11::as_cpp<cpp11::decay_t<const bool>>(mutual)));
+  END_CPP11
+}
+// generators.cpp
 SEXP graph_ring_(int n, bool directed, bool mutual, bool circular);
 extern "C" SEXP _igraphlite_graph_ring_(SEXP n, SEXP directed, SEXP mutual, SEXP circular) {
   BEGIN_CPP11
     return cpp11::as_sexp(graph_ring_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<bool>>(directed), cpp11::as_cpp<cpp11::decay_t<bool>>(mutual), cpp11::as_cpp<cpp11::decay_t<bool>>(circular)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_lcf_(const int n, const cpp11::integers& shifts, const int repeats);
+extern "C" SEXP _igraphlite_graph_lcf_(SEXP n, SEXP shifts, SEXP repeats) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_lcf_(cpp11::as_cpp<cpp11::decay_t<const int>>(n), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(shifts), cpp11::as_cpp<cpp11::decay_t<const int>>(repeats)));
+  END_CPP11
+}
+// generators.cpp
+SEXP graph_circulant_(int n, const cpp11::integers& shifts, bool directed);
+extern "C" SEXP _igraphlite_graph_circulant_(SEXP n, SEXP shifts, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(graph_circulant_(cpp11::as_cpp<cpp11::decay_t<int>>(n), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(shifts), cpp11::as_cpp<cpp11::decay_t<bool>>(directed)));
   END_CPP11
 }
 // generators.cpp
@@ -1040,6 +1075,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_get_shortest_paths_",               (DL_FUNC) &_igraphlite_get_shortest_paths_,               5},
     {"_igraphlite_girth_",                            (DL_FUNC) &_igraphlite_girth_,                            1},
     {"_igraphlite_global_efficiency_",                (DL_FUNC) &_igraphlite_global_efficiency_,                3},
+    {"_igraphlite_graph_circulant_",                  (DL_FUNC) &_igraphlite_graph_circulant_,                  3},
     {"_igraphlite_graph_copy_",                       (DL_FUNC) &_igraphlite_graph_copy_,                       1},
     {"_igraphlite_graph_create_",                     (DL_FUNC) &_igraphlite_graph_create_,                     3},
     {"_igraphlite_graph_empty_",                      (DL_FUNC) &_igraphlite_graph_empty_,                      2},
@@ -1049,10 +1085,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_graph_from_symbolic_edgelist_",     (DL_FUNC) &_igraphlite_graph_from_symbolic_edgelist_,     2},
     {"_igraphlite_graph_from_symbolic_edges_",        (DL_FUNC) &_igraphlite_graph_from_symbolic_edges_,        2},
     {"_igraphlite_graph_full_",                       (DL_FUNC) &_igraphlite_graph_full_,                       3},
+    {"_igraphlite_graph_hexagonal_lattice_",          (DL_FUNC) &_igraphlite_graph_hexagonal_lattice_,          3},
+    {"_igraphlite_graph_hypercube_",                  (DL_FUNC) &_igraphlite_graph_hypercube_,                  2},
     {"_igraphlite_graph_kary_tree_",                  (DL_FUNC) &_igraphlite_graph_kary_tree_,                  3},
+    {"_igraphlite_graph_lcf_",                        (DL_FUNC) &_igraphlite_graph_lcf_,                        3},
     {"_igraphlite_graph_ring_",                       (DL_FUNC) &_igraphlite_graph_ring_,                       4},
     {"_igraphlite_graph_square_lattice_",             (DL_FUNC) &_igraphlite_graph_square_lattice_,             5},
     {"_igraphlite_graph_star_",                       (DL_FUNC) &_igraphlite_graph_star_,                       3},
+    {"_igraphlite_graph_triangular_lattice_",         (DL_FUNC) &_igraphlite_graph_triangular_lattice_,         3},
     {"_igraphlite_harmonic_centrality_",              (DL_FUNC) &_igraphlite_harmonic_centrality_,              5},
     {"_igraphlite_has_loop_",                         (DL_FUNC) &_igraphlite_has_loop_,                         1},
     {"_igraphlite_has_multiple_",                     (DL_FUNC) &_igraphlite_has_multiple_,                     1},

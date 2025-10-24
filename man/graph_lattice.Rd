@@ -2,7 +2,11 @@
 % Please edit documentation in R/generators.R
 \name{graph_square_lattice}
 \alias{graph_square_lattice}
+\alias{graph_triangular_lattice}
+\alias{graph_hexagonal_lattice}
 \alias{graph_ring}
+\alias{graph_path}
+\alias{graph_cycle}
 \alias{graph_lattice}
 \title{Create arbitrary dimensional lattices}
 \usage{
@@ -14,7 +18,15 @@ graph_square_lattice(
   circular = FALSE
 )
 
+graph_triangular_lattice(dims, directed = FALSE, mutual = FALSE)
+
+graph_hexagonal_lattice(dims, directed = FALSE, mutual = FALSE)
+
 graph_ring(n, directed = FALSE, mutual = FALSE, circular = TRUE)
+
+graph_path(n, directed = FALSE, mutual = FALSE)
+
+# graph_cycle = graph_ring
 
 # graph_lattice = graph_square_lattice
 }
@@ -30,6 +42,8 @@ Ignored for undirected graphs.}
 
 \item{circular}{A logical, whether to create a closed ring/cycle or an open path.}
 
+\item{dims}{An integer vector defining the shape of the lattice.}
+
 \item{n}{An integer value, the number of vertices.}
 }
 \value{
@@ -40,8 +54,14 @@ A ring/cycle graph is a special case of a lattice graph with one dimension.
 }
 \examples{
 graph_square_lattice(c(2L, 3L))
+
+graph_triangular_lattice(c(2L, 3L))
+
+graph_hexagonal_lattice(c(2L, 3L))
+
 graph_ring(4L)
-graph_ring(4L, circular = FALSE)
+
+graph_path(4L)
 }
 \seealso{
 Other deterministic generators: 
@@ -49,7 +69,9 @@ Other deterministic generators:
 \code{\link{graph_empty}()},
 \code{\link{graph_famous}()},
 \code{\link{graph_full}()},
+\code{\link{graph_hypercube}()},
 \code{\link{graph_kary_tree}()},
+\code{\link{graph_lcf}()},
 \code{\link{graph_star}()}
 }
 \concept{deterministic generators}

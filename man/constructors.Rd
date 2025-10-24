@@ -46,7 +46,9 @@ Other deterministic generators:
 \code{\link{graph_create}()},
 \code{\link{graph_famous}()},
 \code{\link{graph_full}()},
+\code{\link{graph_hypercube}()},
 \code{\link{graph_kary_tree}()},
+\code{\link{graph_lcf}()},
 \code{\link{graph_square_lattice}()},
 \code{\link{graph_star}()}
 }

@@ -37,7 +37,8 @@ test_that("edge rewiring models work", {
   nei = 2L
   prob = 0.1
   g_ws0 = watts_strogatz_game(dim, size, nei, 0)
-  expect_identical(vcount(g_ws0), as.integer(size ** dim))
+  expect_true(is_same_graph(g_ws0, graph_circulant(size, c(1L, 2L))))
+  expect_identical(vcount(g_ws0), as.integer(size**dim))
   expect_identical(degree(g_ws0), rep(4L, vcount(g_ws0)))
 
   g_small_world = watts_strogatz_game(dim, size, nei, prob)

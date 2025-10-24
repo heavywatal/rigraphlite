@@ -25,13 +25,38 @@ graph_star_(int n, int mode = 0, int center = 0) {
 }
 
 [[cpp11::register]] SEXP
+graph_hypercube_(int n, const bool directed) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_hypercube(p->data(), n, directed);
+  p->init_attr();
+  return p;
+}
+
+
+[[cpp11::register]] SEXP
 graph_square_lattice_(const cpp11::integers& dim, int nei = 1, bool directed = false, bool mutual = false, bool circular = false) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_vector_bool_t periodic;
   igraph_vector_bool_init(&periodic, dim.size());
   igraph_vector_bool_fill(&periodic, circular);
-  igraph_square_lattice(p->data(), IVector<AsValues, InitViewInt>(dim).data(), nei, directed, mutual, &periodic);
+  igraph_square_lattice(p->data(), IVectorIntView(dim).data(), nei, directed, mutual, &periodic);
   igraph_vector_bool_destroy(&periodic);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_triangular_lattice_(const cpp11::integers& dims, const bool directed, const bool mutual) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_triangular_lattice(p->data(), IVectorIntView(dims).data(), directed, mutual);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_hexagonal_lattice_(const cpp11::integers& dims, const bool directed, const bool mutual) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_hexagonal_lattice(p->data(), IVectorIntView(dims).data(), directed, mutual);
   p->init_attr();
   return p;
 }
@@ -40,6 +65,22 @@ graph_square_lattice_(const cpp11::integers& dim, int nei = 1, bool directed = f
 graph_ring_(int n, bool directed = false, bool mutual = false, bool circular = true) {
   cpp11::external_pointer<IGraph> p(new IGraph());
   igraph_ring(p->data(), n, directed, mutual, circular);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_lcf_(const int n, const cpp11::integers& shifts, const int repeats) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_lcf(p->data(), n, IVectorIntView(shifts).data(), repeats);
+  p->init_attr();
+  return p;
+}
+
+[[cpp11::register]] SEXP
+graph_circulant_(int n, const cpp11::integers& shifts, bool directed = false) {
+  cpp11::external_pointer<IGraph> p(new IGraph());
+  igraph_circulant(p->data(), n, IVectorIntView(shifts).data(), directed);
   p->init_attr();
   return p;
 }
