@@ -8,10 +8,10 @@
 
 inline SEXP col(const cpp11::doubles_matrix<>& mat, const int i) {
   auto slice = mat[i];
-  cpp11::writable::doubles res;
-  res.reserve(slice.size());
-  for (auto d: slice) {
-    res.push_back(d);
+  const auto n = slice.size();
+  cpp11::writable::doubles res(n);
+  for (R_xlen_t j = 0; j < n; ++j) {
+    res[j] = slice[j];
   }
   return res;
 }

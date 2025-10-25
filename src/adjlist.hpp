@@ -28,10 +28,9 @@ class IAdjList {
     }
     SEXP wrap() const {
       const auto len = size();
-      cpp11::writable::list output;
-      output.reserve(len);
+      cpp11::writable::list output(len);
       for (igraph_int_t i = 0; i < len; ++i) {
-        output.push_back(at(i));
+        output[i] = at(i);
       }
       return output;
     }
@@ -61,10 +60,9 @@ class IIncList {
     }
     SEXP wrap() const {
       const auto len = size();
-      cpp11::writable::list output;
-      output.reserve(len);
+      cpp11::writable::list output(len);
       for (igraph_int_t i = 0; i < len; ++i) {
-        output.push_back(at(i));
+        output[i] = at(i);
       }
       return output;
     }
