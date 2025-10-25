@@ -21,10 +21,6 @@ class IGraph {
 
     cpp11::integers from() const;
     cpp11::integers to() const;
-    cpp11::integers oi() const;
-    cpp11::integers ii() const;
-    cpp11::integers os() const;
-    cpp11::integers is() const;
 
     igraph_t* data() {return data_.get();}
     const igraph_t* data() const {return data_.get();}

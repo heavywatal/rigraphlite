@@ -72,3 +72,14 @@ test_that("diameter, radius, and girth work", {
       expect_identical(min(eccentricity(g, weights = TRUE, mode = mode)))
   }
 })
+
+test_that("experimental functions work", {
+  n = 7L
+  g = graph_tree(n, mode = 2L)
+  mean_distances_cpp_(g, double(0L), integer(0L), integer(0L), 3L) |>
+    expect_identical(mean_distances(g))
+  path_length_count_within(g, c(4L, 5L, 6L, 7L)) |>
+    expect_identical(c(0L, 2L, 0L, 4L))
+  path_length_count_between(g, c(4L, 5L), c(6L, 7L)) |>
+    expect_identical(c(0L, 0L, 0L, 4L))
+})

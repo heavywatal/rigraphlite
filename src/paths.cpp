@@ -230,6 +230,16 @@ mean_distances_cpp_(
   return total / num_paths;
 }
 
+// cpp11 does not fill with 0
+template <class T> inline
+cpp11::writable::r_vector<T> writable_vector(const R_xlen_t n) {
+  cpp11::writable::r_vector<T> v(n);
+  for (R_xlen_t i = 0; i < n; ++i) {
+    v[i] = T{};
+  }
+  return v;
+}
+
 [[cpp11::register]] SEXP
 path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids) {
   std::map<int, int> counter;
@@ -243,7 +253,7 @@ path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp1
     }
   }
   const int max_len = counter.rbegin()->first;
-  cpp11::writable::integers output(max_len);
+  auto output = writable_vector<int>(max_len);
   for (const auto& p: counter) {
     output[p.first - 1] = p.second;
   }
@@ -262,7 +272,7 @@ path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp
     }
   }
   const int max_len = counter.rbegin()->first;
-  cpp11::writable::integers output(max_len);
+  auto output = writable_vector<int>(max_len);
   for (const auto& p: counter) {
     output[p.first - 1] = p.second;
   }

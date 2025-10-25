@@ -2,18 +2,36 @@ test_that("generator functions work", {
   n = 8L
   edges = seq_len(n)
   el = matrix(edges, ncol = 2L)
-  symel = matrix(as.character(edges), ncol = 2L)
+  el_dbl = matrix(as.double(edges), ncol = 2L)
+  el_chr = matrix(as.character(edges), ncol = 2L)
   dfi = as.data.frame(el)
-  dfc = as.data.frame(symel)
-  expect_s3_class(graph_create(edges), "igraph_ptr")
-  expect_s3_class(graph_create(letters[edges]), "igraph_ptr")
-  expect_s3_class(graph_from_edgelist(el), "igraph_ptr")
-  expect_identical(graph_from_edgelist(el) |> Vattr() |> ncol(), 0L)
-  expect_type(graph_from_symbolic_edgelist(el) |> Vnames(), "integer")
-  expect_type(graph_from_symbolic_edgelist(symel) |> Vnames(), "character")
+  dfd = as.data.frame(el_dbl)
+  dfc = as.data.frame(el_chr)
+
+  graph_create(edges) |>
+    expect_s3_class("igraph_ptr") |>
+    Vnames() |>
+    expect_type("integer")
+  graph_from_symbolic_edges_(edges, TRUE) |> Vnames() |> expect_type("integer")
+  graph_create(as.double(edges)) |> Vnames() |> expect_type("double")
+  graph_create(letters[edges]) |> Vnames() |> expect_type("character")
+
+  g = graph_from_edgelist(el) |>
+    expect_s3_class("igraph_ptr")
+  expect_identical(dim(Vattr(g)), c(n, 0L))
+  expect_type(Vnames(g), "integer")
+  expect_type(graph_from_symbolic_edgelist(el_dbl) |> Vnames(), "double")
+  expect_type(graph_from_symbolic_edgelist(el_chr) |> Vnames(), "character")
+
   expect_type(graph_from_data_frame(dfi) |> Vnames(), "integer")
+  expect_type(graph_from_data_frame(dfd) |> Vnames(), "double")
   expect_type(graph_from_data_frame(dfc) |> Vnames(), "character")
-  expect_error(graph_create(seq_len(n - 1L)))
+
+  expect_error(graph_create(seq_len(n - 1L)), "odd")
+  edges_lgl = logical(n)
+  el_lgl = matrix(edges_lgl, ncol = 2L)
+  expect_error(graph_create(edges_lgl, "Invalid type"))
+  expect_error(graph_from_symbolic_edgelist(el_lgl, "Invalid type"))
 })
 
 test_that("named generator functions work", {

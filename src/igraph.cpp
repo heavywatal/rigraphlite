@@ -30,10 +30,6 @@ int IGraph::ecount() const {
 
 cpp11::integers IGraph::from() const {return AsIndices::wrap(&data_->from);}
 cpp11::integers IGraph::to() const {return AsIndices::wrap(&data_->to);}
-cpp11::integers IGraph::oi() const {return AsIndices::wrap(&data_->oi);}
-cpp11::integers IGraph::ii() const {return AsIndices::wrap(&data_->ii);}
-cpp11::integers IGraph::os() const {return AsIndices::wrap(&data_->os);}
-cpp11::integers IGraph::is() const {return AsIndices::wrap(&data_->is);}
 
 void IGraph::init_attr() {
   impl::set_data_frame_attributes(&Vattr_, vcount());
