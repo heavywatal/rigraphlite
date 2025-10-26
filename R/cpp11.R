@@ -168,6 +168,62 @@ convergence_degree_ <- function(graph) {
   .Call(`_igraphlite_convergence_degree_`, graph)
 }
 
+is_complete_ <- function(graph) {
+  .Call(`_igraphlite_is_complete_`, graph)
+}
+
+is_clique_ <- function(graph, candidate, directed) {
+  .Call(`_igraphlite_is_clique_`, graph, candidate, directed)
+}
+
+cliques_ <- function(graph, min_size, max_size, max_results) {
+  .Call(`_igraphlite_cliques_`, graph, min_size, max_size, max_results)
+}
+
+clique_size_hist_ <- function(graph, min_size, max_size) {
+  .Call(`_igraphlite_clique_size_hist_`, graph, min_size, max_size)
+}
+
+largest_cliques_ <- function(graph) {
+  .Call(`_igraphlite_largest_cliques_`, graph)
+}
+
+maximal_cliques_ <- function(graph, min_size, max_size, max_results) {
+  .Call(`_igraphlite_maximal_cliques_`, graph, min_size, max_size, max_results)
+}
+
+maximal_cliques_count_ <- function(graph, min_size, max_size) {
+  .Call(`_igraphlite_maximal_cliques_count_`, graph, min_size, max_size)
+}
+
+maximal_cliques_hist_ <- function(graph, min_size, max_size) {
+  .Call(`_igraphlite_maximal_cliques_hist_`, graph, min_size, max_size)
+}
+
+clique_number_ <- function(graph) {
+  .Call(`_igraphlite_clique_number_`, graph)
+}
+
+is_independent_vertex_set_ <- function(graph, candidate) {
+  .Call(`_igraphlite_is_independent_vertex_set_`, graph, candidate)
+}
+
+independent_vertex_sets_ <- function(graph, min_size, max_size, max_results) {
+  .Call(`_igraphlite_independent_vertex_sets_`, graph, min_size, max_size, max_results)
+}
+
+largest_independent_vertex_sets_ <- function(graph) {
+  .Call(`_igraphlite_largest_independent_vertex_sets_`, graph)
+}
+
+maximal_independent_vertex_sets_ <- function(graph, min_size, max_size, max_results) {
+  .Call(`_igraphlite_maximal_independent_vertex_sets_`, graph, min_size, max_size, max_results)
+}
+
+independence_number_ <- function(graph) {
+  .Call(`_igraphlite_independence_number_`, graph)
+}
+
 connected_components_ <- function(graph, mode) {
   .Call(`_igraphlite_connected_components_`, graph, mode)
 }

@@ -307,6 +307,104 @@ extern "C" SEXP _igraphlite_convergence_degree_(SEXP graph) {
     return cpp11::as_sexp(convergence_degree_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
   END_CPP11
 }
+// cliques.cpp
+bool is_complete_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_is_complete_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_complete_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// cliques.cpp
+bool is_clique_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& candidate, const bool directed);
+extern "C" SEXP _igraphlite_is_clique_(SEXP graph, SEXP candidate, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_clique_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(candidate), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP cliques_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size, const int max_results);
+extern "C" SEXP _igraphlite_cliques_(SEXP graph, SEXP min_size, SEXP max_size, SEXP max_results) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(cliques_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_results)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP clique_size_hist_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size);
+extern "C" SEXP _igraphlite_clique_size_hist_(SEXP graph, SEXP min_size, SEXP max_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(clique_size_hist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP largest_cliques_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_largest_cliques_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(largest_cliques_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP maximal_cliques_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size, const int max_results);
+extern "C" SEXP _igraphlite_maximal_cliques_(SEXP graph, SEXP min_size, SEXP max_size, SEXP max_results) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(maximal_cliques_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_results)));
+  END_CPP11
+}
+// cliques.cpp
+int maximal_cliques_count_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size);
+extern "C" SEXP _igraphlite_maximal_cliques_count_(SEXP graph, SEXP min_size, SEXP max_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(maximal_cliques_count_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP maximal_cliques_hist_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size);
+extern "C" SEXP _igraphlite_maximal_cliques_hist_(SEXP graph, SEXP min_size, SEXP max_size) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(maximal_cliques_hist_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size)));
+  END_CPP11
+}
+// cliques.cpp
+int clique_number_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_clique_number_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(clique_number_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// cliques.cpp
+bool is_independent_vertex_set_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& candidate);
+extern "C" SEXP _igraphlite_is_independent_vertex_set_(SEXP graph, SEXP candidate) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_independent_vertex_set_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(candidate)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP independent_vertex_sets_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size, const int max_results);
+extern "C" SEXP _igraphlite_independent_vertex_sets_(SEXP graph, SEXP min_size, SEXP max_size, SEXP max_results) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(independent_vertex_sets_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_results)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP largest_independent_vertex_sets_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_largest_independent_vertex_sets_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(largest_independent_vertex_sets_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// cliques.cpp
+SEXP maximal_independent_vertex_sets_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size, const int max_results);
+extern "C" SEXP _igraphlite_maximal_independent_vertex_sets_(SEXP graph, SEXP min_size, SEXP max_size, SEXP max_results) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(maximal_independent_vertex_sets_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(min_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_size), cpp11::as_cpp<cpp11::decay_t<const int>>(max_results)));
+  END_CPP11
+}
+// cliques.cpp
+int independence_number_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_independence_number_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(independence_number_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
 // components.cpp
 SEXP connected_components_(const cpp11::external_pointer<IGraph> graph, const int mode);
 extern "C" SEXP _igraphlite_connected_components_(SEXP graph, SEXP mode) {
@@ -1042,6 +1140,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_betweenness_subset_",               (DL_FUNC) &_igraphlite_betweenness_subset_,               7},
     {"_igraphlite_bridges_",                          (DL_FUNC) &_igraphlite_bridges_,                          1},
     {"_igraphlite_canonical_permutation_",            (DL_FUNC) &_igraphlite_canonical_permutation_,            2},
+    {"_igraphlite_clique_number_",                    (DL_FUNC) &_igraphlite_clique_number_,                    1},
+    {"_igraphlite_clique_size_hist_",                 (DL_FUNC) &_igraphlite_clique_size_hist_,                 3},
+    {"_igraphlite_cliques_",                          (DL_FUNC) &_igraphlite_cliques_,                          4},
     {"_igraphlite_closeness_",                        (DL_FUNC) &_igraphlite_closeness_,                        5},
     {"_igraphlite_connected_components_",             (DL_FUNC) &_igraphlite_connected_components_,             2},
     {"_igraphlite_constraint_",                       (DL_FUNC) &_igraphlite_constraint_,                       3},
@@ -1099,18 +1200,25 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_hub_and_authority_scores_",         (DL_FUNC) &_igraphlite_hub_and_authority_scores_,         2},
     {"_igraphlite_igraph_version_",                   (DL_FUNC) &_igraphlite_igraph_version_,                   0},
     {"_igraphlite_incident_",                         (DL_FUNC) &_igraphlite_incident_,                         4},
+    {"_igraphlite_independence_number_",              (DL_FUNC) &_igraphlite_independence_number_,              1},
+    {"_igraphlite_independent_vertex_sets_",          (DL_FUNC) &_igraphlite_independent_vertex_sets_,          4},
     {"_igraphlite_induced_subgraph_",                 (DL_FUNC) &_igraphlite_induced_subgraph_,                 3},
     {"_igraphlite_induced_subgraph_edges_",           (DL_FUNC) &_igraphlite_induced_subgraph_edges_,           2},
     {"_igraphlite_is_acyclic_",                       (DL_FUNC) &_igraphlite_is_acyclic_,                       1},
     {"_igraphlite_is_biconnected_",                   (DL_FUNC) &_igraphlite_is_biconnected_,                   1},
+    {"_igraphlite_is_clique_",                        (DL_FUNC) &_igraphlite_is_clique_,                        3},
+    {"_igraphlite_is_complete_",                      (DL_FUNC) &_igraphlite_is_complete_,                      1},
     {"_igraphlite_is_connected_",                     (DL_FUNC) &_igraphlite_is_connected_,                     2},
     {"_igraphlite_is_dag_",                           (DL_FUNC) &_igraphlite_is_dag_,                           1},
     {"_igraphlite_is_directed_",                      (DL_FUNC) &_igraphlite_is_directed_,                      1},
     {"_igraphlite_is_eulerian_",                      (DL_FUNC) &_igraphlite_is_eulerian_,                      1},
+    {"_igraphlite_is_independent_vertex_set_",        (DL_FUNC) &_igraphlite_is_independent_vertex_set_,        2},
     {"_igraphlite_is_same_graph_",                    (DL_FUNC) &_igraphlite_is_same_graph_,                    2},
     {"_igraphlite_is_simple_",                        (DL_FUNC) &_igraphlite_is_simple_,                        2},
     {"_igraphlite_isomorphic_",                       (DL_FUNC) &_igraphlite_isomorphic_,                       2},
     {"_igraphlite_k_regular_game_",                   (DL_FUNC) &_igraphlite_k_regular_game_,                   4},
+    {"_igraphlite_largest_cliques_",                  (DL_FUNC) &_igraphlite_largest_cliques_,                  1},
+    {"_igraphlite_largest_independent_vertex_sets_",  (DL_FUNC) &_igraphlite_largest_independent_vertex_sets_,  1},
     {"_igraphlite_layout_circle_",                    (DL_FUNC) &_igraphlite_layout_circle_,                    2},
     {"_igraphlite_layout_drl_",                       (DL_FUNC) &_igraphlite_layout_drl_,                       1},
     {"_igraphlite_layout_fruchterman_reingold_",      (DL_FUNC) &_igraphlite_layout_fruchterman_reingold_,      2},
@@ -1122,6 +1230,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_igraphlite_layout_star_",                      (DL_FUNC) &_igraphlite_layout_star_,                      3},
     {"_igraphlite_local_efficiency_",                 (DL_FUNC) &_igraphlite_local_efficiency_,                 5},
     {"_igraphlite_maxdegree_",                        (DL_FUNC) &_igraphlite_maxdegree_,                        4},
+    {"_igraphlite_maximal_cliques_",                  (DL_FUNC) &_igraphlite_maximal_cliques_,                  4},
+    {"_igraphlite_maximal_cliques_count_",            (DL_FUNC) &_igraphlite_maximal_cliques_count_,            3},
+    {"_igraphlite_maximal_cliques_hist_",             (DL_FUNC) &_igraphlite_maximal_cliques_hist_,             3},
+    {"_igraphlite_maximal_independent_vertex_sets_",  (DL_FUNC) &_igraphlite_maximal_independent_vertex_sets_,  4},
     {"_igraphlite_mean_distances_cpp_",               (DL_FUNC) &_igraphlite_mean_distances_cpp_,               5},
     {"_igraphlite_mutate_Eattr_",                     (DL_FUNC) &_igraphlite_mutate_Eattr_,                     3},
     {"_igraphlite_mutate_Vattr_",                     (DL_FUNC) &_igraphlite_mutate_Vattr_,                     3},

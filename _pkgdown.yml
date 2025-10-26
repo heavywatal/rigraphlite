@@ -64,6 +64,11 @@ reference:
 - contents:
   - is_acyclic
   - is_eulerian
+- title: Cliques and independent vertex sets
+  desc: https://igraph.org/c/doc/igraph-Cliques.html
+- contents:
+  - cliques
+  - independent
 - title: Graph isomorphism
   desc: https://igraph.org/c/doc/igraph-Isomorphism.html
 - contents:
