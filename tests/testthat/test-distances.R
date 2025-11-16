@@ -3,18 +3,16 @@ test_that("distances works", {
   g = graph_tree(n)
   d = distances(g) |>
     expect_type("double") |>
-    expect_length(n**2L)
+    expect_shape(dim = c(n, n))
   expect_true(is.matrix(d))
-  expect_identical(dim(d), c(vcount(g), vcount(g)))
   from = seq_len(3L)
   to = seq_len(3L) + 4L
-  expect_identical(dim(distances(g, from = from)), c(length(from), length(from)))
-  expect_identical(dim(distances(g, from = from, to = to)), c(length(from), length(to)))
+  expect_shape(distances(g, from = from), dim = c(length(from), length(from)))
+  expect_shape(distances(g, from = from, to = to), dim = c(length(from), length(to)))
   dw = distances(g, weights = E(g)) |>
     expect_type("double") |>
-    expect_length(n**2L)
+    expect_shape(dim = c(n, n))
   expect_true(is.matrix(dw))
-  expect_identical(dim(dw), c(vcount(g), vcount(g)))
   suppressWarnings(distances(g, weights = TRUE)) |>
     expect_identical(d)
   Eattr(g)$weight = E(g)

@@ -26,10 +26,10 @@ test_that("centrality functions works", {
   convergence_degree(g) |>
     expect_type("double") |>
     expect_length(ecount(g))
-  ha = hub_and_authority_scores(g) |>
+  hub_and_authority_scores(g) |>
     expect_s3_class("data.frame") |>
-    expect_named(c("hub", "authority"))
-  expect_identical(nrow(ha), vcount(g))
+    expect_named(c("hub", "authority")) |>
+    expect_shape(dim = c(vcount(g), 2L))
 
   gw = graph_copy(g)
   Eattr(gw, "weight") = as.double(E(g))
@@ -56,10 +56,10 @@ test_that("centrality functions works", {
   eigenvector_centrality(gw, mode = 3L, weights = TRUE) |>
     expect_type("double") |>
     expect_length(vcount(gw))
-  haw = hub_and_authority_scores(gw, weights = TRUE) |>
+  hub_and_authority_scores(gw, weights = TRUE) |>
     expect_s3_class("data.frame") |>
-    expect_named(c("hub", "authority"))
-  expect_identical(nrow(haw), vcount(gw))
+    expect_named(c("hub", "authority")) |>
+    expect_shape(dim = c(vcount(gw), 2L))
 })
 
 test_that("betweenness() works", {

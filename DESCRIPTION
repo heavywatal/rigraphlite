@@ -20,7 +20,7 @@ Imports:
 Suggests:
     ape,
     ggplot2,
-    testthat (>= 3.2.3)
+    testthat (>= 3.3.0)
 LinkingTo:
     cpp11
 Config/Needs/coverage: covr

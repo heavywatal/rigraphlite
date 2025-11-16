@@ -17,14 +17,10 @@ test_that("add_edges/add_vertices work", {
   add_edges(g, c(1L, 2L))
   add_edges(g, c(3L, 4L))
   add_vertices(g, 2L)
-  length(E(g)) |>
-    expect_identical(ecount(g)) |>
-    expect_identical(nrow(Eattr(g))) |>
-    expect_identical(2L)
-  length(V(g)) |>
-    expect_identical(vcount(g)) |>
-    expect_identical(nrow(Vattr(g))) |>
-    expect_identical(6L)
+  expect_identical(E(g), seq_len(2L))
+  expect_identical(V(g), seq_len(6L))
+  expect_shape(Eattr(g), dim = c(ecount(g), 0L))
+  expect_shape(Vattr(g), dim = c(vcount(g), 0L))
 
   h = graph_copy(g)
   expect_identical(as.matrix(h), as.matrix(g))
@@ -34,16 +30,10 @@ test_that("add_edges/add_vertices work", {
   g = graph_tree_test(7L)
   add_edges(g, c(6L, 7L))
   add_edges(g, c(8L, 9L))
-  length(E(g)) |>
-    expect_identical(ecount(g)) |>
-    expect_identical(nrow(Eattr(g))) |>
-    expect_identical(8L)
-  length(V(g)) |>
-    expect_identical(vcount(g)) |>
-    expect_identical(nrow(Vattr(g))) |>
-    expect_identical(9L)
-  expect_identical(ncol(Vattr(g)), 6L)
-  expect_identical(ncol(Eattr(g)), 3L)
+  expect_identical(E(g), seq_len(8L))
+  expect_shape(Eattr(g), dim = c(ecount(g), 3L))
+  expect_identical(V(g), seq_len(9L))
+  expect_shape(Vattr(g), dim = c(vcount(g), 6L))
   Vattr(g)$invalid = as.list(V(g))
   Eattr(g)$invalid = as.list(E(g))
   expect_error(add_edges(g, c(10, 11)), "Invalid input type")
@@ -52,34 +42,23 @@ test_that("add_edges/add_vertices work", {
 test_that("delete_edges/delete_vertices work", {
   g = graph_tree(7L)
   delete_edges(g, c(2L, 4L))
-  length(E(g)) |>
-    expect_identical(ecount(g)) |>
-    expect_identical(nrow(Eattr(g))) |>
-    expect_identical(4L)
+  expect_identical(E(g), seq_len(4L))
+  expect_shape(Eattr(g), dim = c(ecount(g), 0L))
   delete_vertices(g, c(2L, 4L))
-  length(V(g)) |>
-    expect_identical(vcount(g)) |>
-    expect_identical(nrow(Vattr(g))) |>
-    expect_identical(5L)
+  expect_identical(V(g), seq_len(5L))
+  expect_shape(Vattr(g), dim = c(vcount(g), 0L))
 
   g = graph_tree_test(7L)
   delete_edges(g, c(4L, 2L))
-  length(E(g)) |>
-    expect_identical(ecount(g)) |>
-    expect_identical(nrow(Eattr(g))) |>
-    expect_identical(4L)
-  expect_identical(nrow(Eattr(g)), ecount(g))
+  expect_identical(E(g), seq_len(4L))
+  expect_shape(Eattr(g), dim = c(ecount(g), 3L))
   expect_identical(Eattr(g)$name, c("A", "C", "E", "F"))
   expect_identical(Eattr(g)$weight, c(1, 3, 5, 6))
   delete_vertices(g, c(4L, 2L))
-  length(V(g)) |>
-    expect_identical(vcount(g)) |>
-    expect_identical(nrow(Vattr(g))) |>
-    expect_identical(5L)
+  expect_identical(V(g), seq_len(5L))
+  expect_shape(Vattr(g), dim = c(vcount(g), 6L))
   expect_identical(Vnames(g), c("A", "C", "E", "F", "G"))
   expect_identical(Vattr(g)$weight, c(1, 3, 5, 6, 7))
-  expect_identical(ncol(Vattr(g)), 6L)
-  expect_identical(ncol(Eattr(g)), 3L)
 
   Vattr(g)$invalid = as.list(V(g))
   Eattr(g)$invalid = as.list(E(g))

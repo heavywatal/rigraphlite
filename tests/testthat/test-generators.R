@@ -18,7 +18,7 @@ test_that("generator functions work", {
 
   g = graph_from_edgelist(el) |>
     expect_s3_class("igraph_ptr")
-  expect_identical(dim(Vattr(g)), c(n, 0L))
+  expect_shape(Vattr(g), dim = c(n, 0L))
   expect_type(Vnames(g), "integer")
   expect_type(graph_from_symbolic_edgelist(el_dbl) |> Vnames(), "double")
   expect_type(graph_from_symbolic_edgelist(el_chr) |> Vnames(), "character")
