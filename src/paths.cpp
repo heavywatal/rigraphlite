@@ -254,8 +254,8 @@ path_length_count_within(const cpp11::external_pointer<IGraph> graph, const cpp1
   }
   const int max_len = counter.rbegin()->first;
   auto output = writable_vector<int>(max_len);
-  for (const auto& p: counter) {
-    output[p.first - 1] = p.second;
+  for (const auto [distance, count]: counter) {
+    output[distance - 1] = count;
   }
   return output;
 }
@@ -273,8 +273,8 @@ path_length_count_between(const cpp11::external_pointer<IGraph> graph, const cpp
   }
   const int max_len = counter.rbegin()->first;
   auto output = writable_vector<int>(max_len);
-  for (const auto& p: counter) {
-    output[p.first - 1] = p.second;
+  for (const auto [distance, count]: counter) {
+    output[distance - 1] = count;
   }
   return output;
 }

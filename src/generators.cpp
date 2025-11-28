@@ -156,12 +156,12 @@ namespace impl {
     std::unordered_map<T, int> map;
     int i = 1;
     for (const auto& elem: sym_edges) {
-      const auto p = map.emplace(elem, i);
-      if (p.second) {
+      const auto [it, inserted] = map.emplace(elem, i);
+      if (inserted) {
         symbols.push_back(elem);
         ++i;
       }
-      edges.push_back(p.first->second);
+      edges.push_back(it->second);
     }
     cpp11::external_pointer<IGraph> g = graph_create_(edges, 0, directed);
     g->Vattr_ = impl::tibble({cpp11::named_arg("name") = symbols});
