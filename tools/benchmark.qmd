@@ -122,8 +122,8 @@ n_half = length(vsink) / 2L
 from = vsink |> head(n_half)
 to = vsink |> tail(n_half)
 bench::mark(
-  igraphlite::distances(lg, from, to) |> unname(),
-  igraphlite::distances(lgn, from, to) |> unname(),
+  igraphlite::distances(lg, from = from, to = to) |> unname(),
+  igraphlite::distances(lgn, from = from, to = to) |> unname(),
   igraph::distances(rg, from, to) |> unname(),
   igraph::distances(rgn, from, to) |> unname(),
   check = TRUE
