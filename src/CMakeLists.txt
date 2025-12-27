@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 project($ENV{R_PACKAGE_NAME}
-  VERSION 1.0.0
+  VERSION 1.0.1
   LANGUAGES C CXX)
 
 include(CMakePrintHelpers)
@@ -24,7 +24,7 @@ if(igraph_FOUND AND (IGRAPH_INTEGER_SIZE STREQUAL "32"))
 else()
   FetchContent_Declare(igraph
     URL https://github.com/igraph/igraph/releases/download/${PROJECT_VERSION}/igraph-${PROJECT_VERSION}.tar.gz
-    URL_HASH SHA256=91e23e080634393dec4dfb02c2ae53ac4e3837172bb9047d32e39380b16c0bb0
+    URL_HASH SHA256=969f2d7d22f67e788d8638c9a8c96615f50d7819c08978b3ef4a787bb6daa96c
   )
   set(CMAKE_BUILD_TYPE Release)
   set(CMAKE_RULE_MESSAGES OFF CACHE BOOL "")
