@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">igraphlite</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,8 +35,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -47,13 +46,15 @@
 
         </dt>
         <dd><code>igraph_ptr</code>: cpp11-powered class for igraph objects</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="conversion.html">as_igraph()</a></code> <code><a href="conversion.html">as.data.frame(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="conversion.html">as.matrix(<i>&lt;igraph_ptr&gt;</i>)</a></code>
 
         </dt>
         <dd>Convert igraph objects to and from other formats.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="conversion-impl.html">graph_from_data_frame()</a></code> <code><a href="conversion-impl.html">graph_from_symbolic_edgelist()</a></code> <code><a href="conversion-impl.html">graph_from_edgelist()</a></code>
 
@@ -64,8 +65,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Basic.html" class="external-link uri">https://igraph.org/c/doc/igraph-Basic.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -76,27 +76,31 @@
 
         </dt>
         <dd>Graph constructors</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="basic.html">vcount()</a></code> <code><a href="basic.html">ecount()</a></code> <code><a href="basic.html">is_directed()</a></code>
 
         </dt>
         <dd>Basic query operations</dd>
-      </dl><dl><dt>
 
-          <code><a href="basic-adjacent.html">edge()</a></code> <code><a href="basic-adjacent.html">neighbors()</a></code> <code><a href="basic-adjacent.html">incident()</a></code> <code><a href="basic-adjacent.html">degree()</a></code>
+        <dt>
+
+          <code><a href="basic-adjacent.html">edge()</a></code> <code><a href="basic-adjacent.html">edges()</a></code> <code><a href="basic-adjacent.html">get_eids()</a></code> <code><a href="basic-adjacent.html">get_all_eids_between()</a></code> <code><a href="basic-adjacent.html">neighbors()</a></code> <code><a href="basic-adjacent.html">incident()</a></code> <code><a href="basic-adjacent.html">degree()</a></code>
 
         </dt>
         <dd>Basic query operations to get adjacency</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="basic-add-delete.html">add_edges()</a></code> <code><a href="basic-add-delete.html">add_vertices()</a></code> <code><a href="basic-add-delete.html">delete_edges()</a></code> <code><a href="basic-add-delete.html">delete_vertices()</a></code>
 
         </dt>
         <dd>Adding and deleting vertices and edges</dd>
-      </dl><dl><dt>
 
-          <code><a href="basic-macros.html">IGRAPH_VCOUNT_MAX</a></code> <code><a href="basic-macros.html">IGRAPH_ECOUNT_MAX</a></code> <code><a href="basic-macros.html">IGRAPH_UNLIMITED</a></code>
+        <dt>
+
+          <code><a href="basic-macros.html">IGRAPH_VCOUNT_MAX</a></code> <code><a href="basic-macros.html">IGRAPH_ECOUNT_MAX</a></code> <code><a href="basic-macros.html">IGRAPH_UNLIMITED</a></code> <code><a href="basic-macros.html">expand_path_to_pairs()</a></code> <code><a href="basic-macros.html">is_same_graph()</a></code>
 
         </dt>
         <dd>Miscellaneous macros</dd>
@@ -105,8 +109,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Data-structures.html" class="external-link uri">https://igraph.org/c/doc/igraph-Data-structures.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -122,8 +125,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Random.html" class="external-link uri">https://igraph.org/c/doc/igraph-Random.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -139,14 +141,12 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
       <h3 id="deterministic-graph-generators">Deterministic Graph Generators<a class="anchor" aria-label="anchor" href="#deterministic-graph-generators"></a></h3>
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Generators.html" class="external-link uri">https://igraph.org/c/doc/igraph-Generators.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -157,31 +157,50 @@
 
         </dt>
         <dd>Create a graph with the specified edges</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="graph_star.html">graph_star()</a></code>
 
         </dt>
         <dd>Create a star graph</dd>
-      </dl><dl><dt>
 
-          <code><a href="graph_lattice.html">graph_square_lattice()</a></code> <code><a href="graph_lattice.html">graph_ring()</a></code>
+        <dt>
+
+          <code><a href="graph_hypercube.html">graph_hypercube()</a></code>
+
+        </dt>
+        <dd>Create an n-dimensional hypercube graph</dd>
+
+        <dt>
+
+          <code><a href="graph_lattice.html">graph_square_lattice()</a></code> <code><a href="graph_lattice.html">graph_triangular_lattice()</a></code> <code><a href="graph_lattice.html">graph_hexagonal_lattice()</a></code> <code><a href="graph_lattice.html">graph_ring()</a></code> <code><a href="graph_lattice.html">graph_path()</a></code>
 
         </dt>
         <dd>Create arbitrary dimensional lattices</dd>
-      </dl><dl><dt>
+
+        <dt>
+
+          <code><a href="graph_lcf.html">graph_lcf()</a></code> <code><a href="graph_lcf.html">graph_circulant()</a></code>
+
+        </dt>
+        <dd>Creates a graph from LCF notation</dd>
+
+        <dt>
 
           <code><a href="graph_tree.html">graph_kary_tree()</a></code>
 
         </dt>
         <dd>Create a tree graph</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="graph_full.html">graph_full()</a></code>
 
         </dt>
         <dd>Create a full graph (complete graph)</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="graph_famous.html">graph_famous()</a></code>
 
@@ -192,8 +211,7 @@
       <h3 id="stochastic-graph-generators-games-">Stochastic Graph Generators (“games”)<a class="anchor" aria-label="anchor" href="#stochastic-graph-generators-games-"></a></h3>
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Games.html" class="external-link uri">https://igraph.org/c/doc/igraph-Games.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -204,13 +222,15 @@
 
         </dt>
         <dd>The Erdős-Rényi and related models</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="games-degree-constrained.html">degree_sequence_game()</a></code> <code><a href="games-degree-constrained.html">k_regular_game()</a></code> <code><a href="games-degree-constrained.html">rewire()</a></code>
 
         </dt>
         <dd>Degree-constrained models</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="games-edge-rewiring.html">watts_strogatz_game()</a></code> <code><a href="games-edge-rewiring.html">rewire_edges()</a></code>
 
@@ -221,8 +241,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Attributes.html" class="external-link uri">https://igraph.org/c/doc/igraph-Attributes.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -233,13 +252,15 @@
 
         </dt>
         <dd>Get and set vertex and edge attributes</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="vnames.html">Vnames()</a></code> <code><a href="vnames.html">as_vids()</a></code> <code><a href="vnames.html">as_vnames()</a></code>
 
         </dt>
         <dd>Conversion between vertex IDs and names</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="from-to.html">igraph_from()</a></code> <code><a href="from-to.html">igraph_to()</a></code>
 
@@ -250,8 +271,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Structural.html" class="external-link uri">https://igraph.org/c/doc/igraph-Structural.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -262,43 +282,50 @@
 
         </dt>
         <dd>Basic Properties</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="distances.html">distances()</a></code> <code><a href="distances.html">average_path_length()</a></code> <code><a href="distances.html">path_length_hist()</a></code> <code><a href="distances.html">eccentricity()</a></code> <code><a href="distances.html">diameter()</a></code> <code><a href="distances.html">girth()</a></code> <code><a href="distances.html">radius()</a></code>
 
         </dt>
         <dd>Distance-related Functions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="paths.html">get_shortest_paths()</a></code> <code><a href="paths.html">get_all_shortest_paths()</a></code> <code><a href="paths.html">get_all_simple_paths()</a></code>
 
         </dt>
         <dd>Shortest Path Related Functions</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="efficiency.html">global_efficiency()</a></code> <code><a href="efficiency.html">local_efficiency()</a></code> <code><a href="efficiency.html">average_local_efficiency()</a></code>
 
         </dt>
         <dd>Efficiency measures</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="neighborhood.html">neighborhood_size()</a></code> <code><a href="neighborhood.html">neighborhood()</a></code>
 
         </dt>
         <dd>Neighborhood of vertices</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="components.html">subcomponent()</a></code> <code><a href="components.html">connected_components()</a></code> <code><a href="components.html">is_connected()</a></code> <code><a href="components.html">count_reachable()</a></code> <code><a href="components.html">transitive_closure()</a></code> <code><a href="components.html">articulation_points()</a></code> <code><a href="components.html">bridges()</a></code> <code><a href="components.html">is_biconnected()</a></code> <code><a href="components.html">subcomponents()</a></code>
 
         </dt>
         <dd>Graph Components</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="centrality.html">closeness()</a></code> <code><a href="centrality.html">harmonic_centrality()</a></code> <code><a href="centrality.html">betweenness()</a></code> <code><a href="centrality.html">edge_betweenness()</a></code> <code><a href="centrality.html">edge_betweenness_subset()</a></code> <code><a href="centrality.html">pagerank()</a></code> <code><a href="centrality.html">constraint()</a></code> <code><a href="centrality.html">maxdegree()</a></code> <code><a href="centrality.html">strength()</a></code> <code><a href="centrality.html">eigenvector_centrality()</a></code> <code><a href="centrality.html">hub_and_authority_scores()</a></code> <code><a href="centrality.html">convergence_degree()</a></code>
 
         </dt>
         <dd>Centrality measures</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="non-simple.html">is_simple()</a></code> <code><a href="non-simple.html">has_loop()</a></code> <code><a href="non-simple.html">count_loops()</a></code> <code><a href="non-simple.html">has_multiple()</a></code> <code><a href="non-simple.html">count_multiple()</a></code>
 
@@ -309,31 +336,76 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Cycles.html" class="external-link uri">https://igraph.org/c/doc/igraph-Cycles.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
 
       <dl><dt>
 
-          <code><a href="cycles-acyclic.html">is_dag()</a></code> <code><a href="cycles-acyclic.html">is_acyclic()</a></code>
+          <code><a href="cycles-acyclic.html">is_dag()</a></code> <code><a href="cycles-acyclic.html">is_acyclic()</a></code> <code><a href="cycles-acyclic.html">topological_sorting()</a></code>
 
         </dt>
         <dd>Acyclic graphs and feedback sets</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="cycles-eulerian.html">is_eulerian()</a></code>
 
         </dt>
         <dd>Eulerian cycles and paths</dd>
       </dl></div><div class="section level2">
+      <h2 id="cliques-and-independent-vertex-sets">Cliques and independent vertex sets<a class="anchor" aria-label="anchor" href="#cliques-and-independent-vertex-sets"></a></h2>
+
+      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Cliques.html" class="external-link uri">https://igraph.org/c/doc/igraph-Cliques.html</a></p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="cliques.html">is_complete()</a></code> <code><a href="cliques.html">is_clique()</a></code> <code><a href="cliques.html">cliques()</a></code> <code><a href="cliques.html">clique_size_hist()</a></code> <code><a href="cliques.html">largest_cliques()</a></code> <code><a href="cliques.html">maximal_cliques()</a></code> <code><a href="cliques.html">maximal_cliques_count()</a></code> <code><a href="cliques.html">maximal_cliques_hist()</a></code> <code><a href="cliques.html">clique_number()</a></code>
+
+        </dt>
+        <dd>Cliques</dd>
+
+        <dt>
+
+          <code><a href="independent.html">is_independent_vertex_set()</a></code> <code><a href="independent.html">independent_vertex_sets()</a></code> <code><a href="independent.html">largest_independent_vertex_sets()</a></code> <code><a href="independent.html">maximal_independent_vertex_sets()</a></code> <code><a href="independent.html">independence_number()</a></code>
+
+        </dt>
+        <dd>Independent vertex sets</dd>
+      </dl></div><div class="section level2">
+      <h2 id="graph-isomorphism">Graph isomorphism<a class="anchor" aria-label="anchor" href="#graph-isomorphism"></a></h2>
+
+      <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Isomorphism.html" class="external-link uri">https://igraph.org/c/doc/igraph-Isomorphism.html</a></p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="isomorphic.html">isomorphic()</a></code> <code><a href="isomorphic.html">subisomorphic()</a></code>
+
+        </dt>
+        <dd>The simple interface for graph isomorphism</dd>
+
+        <dt>
+
+          <code><a href="permutation.html">canonical_permutation()</a></code> <code><a href="permutation.html">permutate_vertices()</a></code>
+
+        </dt>
+        <dd>Permute the vertices</dd>
+      </dl></div><div class="section level2">
       <h2 id="generating-layouts-for-graph-drawing">Generating Layouts for Graph Drawing<a class="anchor" aria-label="anchor" href="#generating-layouts-for-graph-drawing"></a></h2>
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Layout.html" class="external-link uri">https://igraph.org/c/doc/igraph-Layout.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -344,19 +416,22 @@
 
         </dt>
         <dd>2D layout generators</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="layout-tree.html">layout_reingold_tilford()</a></code> <code><a href="layout-tree.html">layout_reingold_tilford_circular()</a></code>
 
         </dt>
         <dd>Layouts for trees and acyclic graphs</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="layout.html">layout_nicely()</a></code>
 
         </dt>
         <dd>Choose a layout algorithm automatically</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="plot.html">augment(<i>&lt;igraph_ptr&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;igraph_ptr&gt;</i>)</a></code>
 
@@ -367,8 +442,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Operators.html" class="external-link uri">https://igraph.org/c/doc/igraph-Operators.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -384,8 +458,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Nongraph.html" class="external-link uri">https://igraph.org/c/doc/igraph-Nongraph.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -396,7 +469,8 @@
 
         </dt>
         <dd>Get the version of the igraph C library</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="common_params.html">common_params()</a></code>
 
@@ -407,8 +481,7 @@
 
       <div class="section-desc"><p><a href="https://igraph.org/c/doc/igraph-Foreign.html" class="external-link uri">https://igraph.org/c/doc/igraph-Foreign.html</a></p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -419,7 +492,8 @@
 
         </dt>
         <dd>Read graphs from files</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="write.html">write_graph()</a></code> <code><a href="write.html">write_graph_edgelist()</a></code> <code><a href="write.html">write_graph_ncol()</a></code> <code><a href="write.html">write_graph_lgl()</a></code> <code><a href="write.html">write_graph_graphml()</a></code> <code><a href="write.html">write_graph_gml()</a></code> <code><a href="write.html">write_graph_pajek()</a></code> <code><a href="write.html">write_graph_dot()</a></code> <code><a href="write.html">write_graph_leda()</a></code>
 
@@ -430,8 +504,7 @@
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -442,19 +515,22 @@
 
         </dt>
         <dd>Conversion between phylo and igraph</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="tbl_tree.html">as_igraph(<i>&lt;tbl_tree&gt;</i>)</a></code> <code><a href="tbl_tree.html">as_tbl_tree()</a></code>
 
         </dt>
         <dd>Conversion between tbl_tree and igraph</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sink.html">is_sink()</a></code> <code><a href="sink.html">is_source()</a></code> <code><a href="sink.html">Vsink()</a></code> <code><a href="sink.html">Vsource()</a></code>
 
         </dt>
         <dd>Shortcuts to get sink/source vertices.</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="experimental.html">find_common_ancestors()</a></code> <code><a href="experimental.html">upstream_vertices()</a></code>
 
@@ -470,7 +546,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
