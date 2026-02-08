@@ -3,24 +3,6 @@
 #include "vector.hpp"
 
 #include <igraph/igraph_cliques.h>
-#include <igraph/igraph_structural.h>
-
-[[cpp11::register]] bool
-is_complete_(const cpp11::external_pointer<IGraph> graph) {
-  igraph_bool_t res;
-  igraph_is_complete(graph->data(), &res);
-  return res;
-}
-
-[[cpp11::register]] bool
-is_clique_(const cpp11::external_pointer<IGraph> graph,
-    const cpp11::integers& candidate, const bool directed) {
-  igraph_bool_t res;
-  igraph_is_clique(graph->data(),
-    candidate.empty() ? igraph_vss_all() : ISelectorInPlace(candidate).vss(),
-    directed, &res);
-  return res;
-}
 
 [[cpp11::register]] SEXP
 cliques_(const cpp11::external_pointer<IGraph> graph,
@@ -73,17 +55,6 @@ maximal_cliques_hist_(const cpp11::external_pointer<IGraph> graph,
 clique_number_(const cpp11::external_pointer<IGraph> graph) {
   igraph_int_t res;
   igraph_clique_number(graph->data(), &res);
-  return res;
-}
-
-
-[[cpp11::register]] bool
-is_independent_vertex_set_(const cpp11::external_pointer<IGraph> graph,
-    const cpp11::integers& candidate) {
-  igraph_bool_t res;
-  igraph_is_independent_vertex_set(graph->data(),
-    candidate.empty() ? igraph_vss_all() : ISelectorInPlace(candidate).vss(),
-    &res);
   return res;
 }
 

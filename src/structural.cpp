@@ -3,10 +3,10 @@
 #include "vector.hpp"
 
 #include <igraph/igraph_structural.h>
-#include <igraph/igraph_neighborhood.h>
 
-[[cpp11::register]]
-bool
+// Basic query functions
+
+[[cpp11::register]] bool
 are_adjacent_(const cpp11::external_pointer<IGraph> graph, int v1, int v2) {
   igraph_bool_t res;
   igraph_are_adjacent(graph->data(), --v1, --v2, &res);
@@ -64,36 +64,6 @@ girth_(const cpp11::external_pointer<IGraph> graph) {
   return res;
 }
 
-[[cpp11::register]] SEXP
-neighborhood_size_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist) {
-  const int n = vids.size();
-  IVector<AsValues> res(n > 0 ? n : graph->vcount());
-  igraph_neighborhood_size(
-    graph->data(), res.data(),
-    n > 0 ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
-    order, static_cast<igraph_neimode_t>(mode), mindist);
-  return res.wrap();
-}
-
-[[cpp11::register]] SEXP
-neighborhood_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist) {
-  const int n = vids.size();
-  IVectorIntList<AsIndices> res;
-  res.reserve(n > 0 ? n : graph->vcount());
-  igraph_neighborhood(
-    graph->data(), res.data(),
-    n > 0 ? ISelectorInPlace(vids).vss() : igraph_vss_all(),
-    order, static_cast<igraph_neimode_t>(mode), mindist);
-  return res.wrap();
-}
-
-[[cpp11::register]] SEXP
-subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const int mode) {
-  IVector<AsIndices> res(1);
-  igraph_subcomponent(graph->data(), res.data(), v - 1, static_cast<igraph_neimode_t>(mode));
-  return res.wrap();
-}
-
 [[cpp11::register]] int
 maxdegree_(const cpp11::external_pointer<IGraph> graph,
     const cpp11::integers& vids,
@@ -121,6 +91,42 @@ strength_(const cpp11::external_pointer<IGraph> graph,
     static_cast<igraph_neimode_t>(mode),
     static_cast<igraph_loops_t>(loops),
     weights.size() ? IVectorView(weights).data() : nullptr);
+  return res.wrap();
+}
+
+// Structural properties
+
+[[cpp11::register]] bool
+is_complete_(const cpp11::external_pointer<IGraph> graph) {
+  igraph_bool_t res;
+  igraph_is_complete(graph->data(), &res);
+  return res;
+}
+
+[[cpp11::register]] bool
+is_clique_(const cpp11::external_pointer<IGraph> graph,
+    const cpp11::integers& candidate, const bool directed) {
+  igraph_bool_t res;
+  igraph_is_clique(graph->data(),
+    candidate.empty() ? igraph_vss_all() : ISelectorInPlace(candidate).vss(),
+    directed, &res);
+  return res;
+}
+
+[[cpp11::register]] bool
+is_independent_vertex_set_(const cpp11::external_pointer<IGraph> graph,
+    const cpp11::integers& candidate) {
+  igraph_bool_t res;
+  igraph_is_independent_vertex_set(graph->data(),
+    candidate.empty() ? igraph_vss_all() : ISelectorInPlace(candidate).vss(),
+    &res);
+  return res;
+}
+
+[[cpp11::register]] SEXP
+subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const int mode) {
+  IVector<AsIndices> res(1);
+  igraph_subcomponent(graph->data(), res.data(), v - 1, static_cast<igraph_neimode_t>(mode));
   return res.wrap();
 }
 

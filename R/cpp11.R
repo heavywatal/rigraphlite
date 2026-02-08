@@ -168,14 +168,6 @@ convergence_degree_ <- function(graph) {
   .Call(`_igraphlite_convergence_degree_`, graph)
 }
 
-is_complete_ <- function(graph) {
-  .Call(`_igraphlite_is_complete_`, graph)
-}
-
-is_clique_ <- function(graph, candidate, directed) {
-  .Call(`_igraphlite_is_clique_`, graph, candidate, directed)
-}
-
 cliques_ <- function(graph, min_size, max_size, max_results) {
   .Call(`_igraphlite_cliques_`, graph, min_size, max_size, max_results)
 }
@@ -202,10 +194,6 @@ maximal_cliques_hist_ <- function(graph, min_size, max_size) {
 
 clique_number_ <- function(graph) {
   .Call(`_igraphlite_clique_number_`, graph)
-}
-
-is_independent_vertex_set_ <- function(graph, candidate) {
-  .Call(`_igraphlite_is_independent_vertex_set_`, graph, candidate)
 }
 
 independent_vertex_sets_ <- function(graph, min_size, max_size, max_results) {
@@ -484,6 +472,14 @@ layout_reingold_tilford_circular_ <- function(graph, mode, roots) {
   invisible(.Call(`_igraphlite_layout_reingold_tilford_circular_`, graph, mode, roots))
 }
 
+neighborhood_size_ <- function(graph, vids, order, mode, mindist) {
+  .Call(`_igraphlite_neighborhood_size_`, graph, vids, order, mode, mindist)
+}
+
+neighborhood_ <- function(graph, vids, order, mode, mindist) {
+  .Call(`_igraphlite_neighborhood_`, graph, vids, order, mode, mindist)
+}
+
 rewire_ <- function(graph, n, edge_type_sw) {
   invisible(.Call(`_igraphlite_rewire_`, graph, n, edge_type_sw))
 }
@@ -600,24 +596,28 @@ girth_ <- function(graph) {
   .Call(`_igraphlite_girth_`, graph)
 }
 
-neighborhood_size_ <- function(graph, vids, order, mode, mindist) {
-  .Call(`_igraphlite_neighborhood_size_`, graph, vids, order, mode, mindist)
-}
-
-neighborhood_ <- function(graph, vids, order, mode, mindist) {
-  .Call(`_igraphlite_neighborhood_`, graph, vids, order, mode, mindist)
-}
-
-subcomponent_ <- function(graph, v, mode) {
-  .Call(`_igraphlite_subcomponent_`, graph, v, mode)
-}
-
 maxdegree_ <- function(graph, vids, mode, loops) {
   .Call(`_igraphlite_maxdegree_`, graph, vids, mode, loops)
 }
 
 strength_ <- function(graph, vids, mode, loops, weights) {
   .Call(`_igraphlite_strength_`, graph, vids, mode, loops, weights)
+}
+
+is_complete_ <- function(graph) {
+  .Call(`_igraphlite_is_complete_`, graph)
+}
+
+is_clique_ <- function(graph, candidate, directed) {
+  .Call(`_igraphlite_is_clique_`, graph, candidate, directed)
+}
+
+is_independent_vertex_set_ <- function(graph, candidate) {
+  .Call(`_igraphlite_is_independent_vertex_set_`, graph, candidate)
+}
+
+subcomponent_ <- function(graph, v, mode) {
+  .Call(`_igraphlite_subcomponent_`, graph, v, mode)
 }
 
 subcomponents_ <- function(graph, vids, mode) {

@@ -308,20 +308,6 @@ extern "C" SEXP _igraphlite_convergence_degree_(SEXP graph) {
   END_CPP11
 }
 // cliques.cpp
-bool is_complete_(const cpp11::external_pointer<IGraph> graph);
-extern "C" SEXP _igraphlite_is_complete_(SEXP graph) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(is_complete_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// cliques.cpp
-bool is_clique_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& candidate, const bool directed);
-extern "C" SEXP _igraphlite_is_clique_(SEXP graph, SEXP candidate, SEXP directed) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(is_clique_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(candidate), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
-  END_CPP11
-}
-// cliques.cpp
 SEXP cliques_(const cpp11::external_pointer<IGraph> graph, const int min_size, const int max_size, const int max_results);
 extern "C" SEXP _igraphlite_cliques_(SEXP graph, SEXP min_size, SEXP max_size, SEXP max_results) {
   BEGIN_CPP11
@@ -368,13 +354,6 @@ int clique_number_(const cpp11::external_pointer<IGraph> graph);
 extern "C" SEXP _igraphlite_clique_number_(SEXP graph) {
   BEGIN_CPP11
     return cpp11::as_sexp(clique_number_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
-  END_CPP11
-}
-// cliques.cpp
-bool is_independent_vertex_set_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& candidate);
-extern "C" SEXP _igraphlite_is_independent_vertex_set_(SEXP graph, SEXP candidate) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(is_independent_vertex_set_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(candidate)));
   END_CPP11
 }
 // cliques.cpp
@@ -871,6 +850,20 @@ extern "C" SEXP _igraphlite_layout_reingold_tilford_circular_(SEXP graph, SEXP m
     return R_NilValue;
   END_CPP11
 }
+// neighborhood.cpp
+SEXP neighborhood_size_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist);
+extern "C" SEXP _igraphlite_neighborhood_size_(SEXP graph, SEXP vids, SEXP order, SEXP mode, SEXP mindist) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(neighborhood_size_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(order), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(mindist)));
+  END_CPP11
+}
+// neighborhood.cpp
+SEXP neighborhood_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist);
+extern "C" SEXP _igraphlite_neighborhood_(SEXP graph, SEXP vids, SEXP order, SEXP mode, SEXP mindist) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(neighborhood_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(order), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(mindist)));
+  END_CPP11
+}
 // operators.cpp
 void rewire_(const cpp11::external_pointer<IGraph> graph, const int n, const int edge_type_sw);
 extern "C" SEXP _igraphlite_rewire_(SEXP graph, SEXP n, SEXP edge_type_sw) {
@@ -1076,27 +1069,6 @@ extern "C" SEXP _igraphlite_girth_(SEXP graph) {
   END_CPP11
 }
 // structural.cpp
-SEXP neighborhood_size_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist);
-extern "C" SEXP _igraphlite_neighborhood_size_(SEXP graph, SEXP vids, SEXP order, SEXP mode, SEXP mindist) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(neighborhood_size_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(order), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(mindist)));
-  END_CPP11
-}
-// structural.cpp
-SEXP neighborhood_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int order, const int mode, const int mindist);
-extern "C" SEXP _igraphlite_neighborhood_(SEXP graph, SEXP vids, SEXP order, SEXP mode, SEXP mindist) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(neighborhood_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(order), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(mindist)));
-  END_CPP11
-}
-// structural.cpp
-SEXP subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const int mode);
-extern "C" SEXP _igraphlite_subcomponent_(SEXP graph, SEXP v, SEXP mode) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(subcomponent_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(v), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
-  END_CPP11
-}
-// structural.cpp
 int maxdegree_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& vids, const int mode, const int loops);
 extern "C" SEXP _igraphlite_maxdegree_(SEXP graph, SEXP vids, SEXP mode, SEXP loops) {
   BEGIN_CPP11
@@ -1108,6 +1080,34 @@ SEXP strength_(const cpp11::external_pointer<IGraph> graph, const cpp11::integer
 extern "C" SEXP _igraphlite_strength_(SEXP graph, SEXP vids, SEXP mode, SEXP loops, SEXP weights) {
   BEGIN_CPP11
     return cpp11::as_sexp(strength_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(vids), cpp11::as_cpp<cpp11::decay_t<const int>>(mode), cpp11::as_cpp<cpp11::decay_t<const int>>(loops), cpp11::as_cpp<cpp11::decay_t<const cpp11::doubles&>>(weights)));
+  END_CPP11
+}
+// structural.cpp
+bool is_complete_(const cpp11::external_pointer<IGraph> graph);
+extern "C" SEXP _igraphlite_is_complete_(SEXP graph) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_complete_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph)));
+  END_CPP11
+}
+// structural.cpp
+bool is_clique_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& candidate, const bool directed);
+extern "C" SEXP _igraphlite_is_clique_(SEXP graph, SEXP candidate, SEXP directed) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_clique_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(candidate), cpp11::as_cpp<cpp11::decay_t<const bool>>(directed)));
+  END_CPP11
+}
+// structural.cpp
+bool is_independent_vertex_set_(const cpp11::external_pointer<IGraph> graph, const cpp11::integers& candidate);
+extern "C" SEXP _igraphlite_is_independent_vertex_set_(SEXP graph, SEXP candidate) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(is_independent_vertex_set_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const cpp11::integers&>>(candidate)));
+  END_CPP11
+}
+// structural.cpp
+SEXP subcomponent_(const cpp11::external_pointer<IGraph> graph, const int v, const int mode);
+extern "C" SEXP _igraphlite_subcomponent_(SEXP graph, SEXP v, SEXP mode) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(subcomponent_(cpp11::as_cpp<cpp11::decay_t<const cpp11::external_pointer<IGraph>>>(graph), cpp11::as_cpp<cpp11::decay_t<const int>>(v), cpp11::as_cpp<cpp11::decay_t<const int>>(mode)));
   END_CPP11
 }
 // structural.cpp
