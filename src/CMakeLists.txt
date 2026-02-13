@@ -64,3 +64,20 @@ configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/Makevars.in
   ${CMAKE_CURRENT_SOURCE_DIR}/Makevars @ONLY
 )
+
+cmake_print_variables(CMAKE_CURRENT_BINARY_DIR)
+if("${CMAKE_CURRENT_BINARY_DIR}" MATCHES "/build$")
+  add_library(compile_commands OBJECT cpp11.cpp init.cpp igraph.cpp)
+  target_include_directories(compile_commands PRIVATE
+    "$ENV{R_INCLUDE_DIR}"
+    "${INCLUDEDIR}"
+  )
+  string(REPLACE ":" ";" R_LIBS_USER "$ENV{R_LIBS_USER}")
+  string(REPLACE ":" ";" R_LIBS_SITE "$ENV{R_LIBS_SITE}")
+  set(R_HOME "$ENV{R_HOME}/library")
+  foreach(r_lib IN LISTS R_LIBS_USER R_LIBS_SITE R_HOME)
+    if(IS_DIRECTORY "${r_lib}/cpp11/include")
+      target_include_directories(compile_commands PRIVATE "${r_lib}/cpp11/include")
+    endif()
+  endforeach()
+endif()
