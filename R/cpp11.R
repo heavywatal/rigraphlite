@@ -44,86 +44,6 @@ mutate_Eattr_ <- function(graph, key, value) {
   invisible(.Call(`_igraphlite_mutate_Eattr_`, graph, key, value))
 }
 
-graph_empty_ <- function(n, directed) {
-  .Call(`_igraphlite_graph_empty_`, n, directed)
-}
-
-graph_copy_ <- function(graph) {
-  .Call(`_igraphlite_graph_copy_`, graph)
-}
-
-vcount_ <- function(graph) {
-  .Call(`_igraphlite_vcount_`, graph)
-}
-
-ecount_ <- function(graph) {
-  .Call(`_igraphlite_ecount_`, graph)
-}
-
-is_directed_ <- function(graph) {
-  .Call(`_igraphlite_is_directed_`, graph)
-}
-
-edge_ <- function(graph, eid) {
-  .Call(`_igraphlite_edge_`, graph, eid)
-}
-
-edges_ <- function(graph, eids, bycol) {
-  .Call(`_igraphlite_edges_`, graph, eids, bycol)
-}
-
-get_eids_ <- function(graph, pairs, directed, error) {
-  .Call(`_igraphlite_get_eids_`, graph, pairs, directed, error)
-}
-
-get_all_eids_between_ <- function(graph, from, to, directed) {
-  .Call(`_igraphlite_get_all_eids_between_`, graph, from, to, directed)
-}
-
-neighbors_ <- function(graph, node, mode, loops, multiple) {
-  .Call(`_igraphlite_neighbors_`, graph, node, mode, loops, multiple)
-}
-
-incident_ <- function(graph, node, mode, loops) {
-  .Call(`_igraphlite_incident_`, graph, node, mode, loops)
-}
-
-degree_ <- function(graph, vids, mode, loops) {
-  .Call(`_igraphlite_degree_`, graph, vids, mode, loops)
-}
-
-is_same_graph_ <- function(graph1, graph2) {
-  .Call(`_igraphlite_is_same_graph_`, graph1, graph2)
-}
-
-add_vertices_ <- function(graph, n) {
-  invisible(.Call(`_igraphlite_add_vertices_`, graph, n))
-}
-
-add_edges_ <- function(graph, edges) {
-  invisible(.Call(`_igraphlite_add_edges_`, graph, edges))
-}
-
-delete_edges_ <- function(graph, eids) {
-  invisible(.Call(`_igraphlite_delete_edges_`, graph, eids))
-}
-
-delete_vertices_ <- function(graph, vids) {
-  invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
-}
-
-VCOUNT_MAX <- function() {
-  .Call(`_igraphlite_VCOUNT_MAX`)
-}
-
-ECOUNT_MAX <- function() {
-  .Call(`_igraphlite_ECOUNT_MAX`)
-}
-
-UNLIMITED <- function() {
-  .Call(`_igraphlite_UNLIMITED`)
-}
-
 closeness_ <- function(graph, vids, mode, weights, normalized) {
   .Call(`_igraphlite_closeness_`, graph, vids, mode, weights, normalized)
 }
@@ -240,6 +160,70 @@ is_biconnected_ <- function(graph) {
   .Call(`_igraphlite_is_biconnected_`, graph)
 }
 
+graph_create_ <- function(edges, n, directed) {
+  .Call(`_igraphlite_graph_create_`, edges, n, directed)
+}
+
+graph_star_ <- function(n, mode, center) {
+  .Call(`_igraphlite_graph_star_`, n, mode, center)
+}
+
+graph_hypercube_ <- function(n, directed) {
+  .Call(`_igraphlite_graph_hypercube_`, n, directed)
+}
+
+graph_square_lattice_ <- function(dim, nei, directed, mutual, circular) {
+  .Call(`_igraphlite_graph_square_lattice_`, dim, nei, directed, mutual, circular)
+}
+
+graph_triangular_lattice_ <- function(dims, directed, mutual) {
+  .Call(`_igraphlite_graph_triangular_lattice_`, dims, directed, mutual)
+}
+
+graph_hexagonal_lattice_ <- function(dims, directed, mutual) {
+  .Call(`_igraphlite_graph_hexagonal_lattice_`, dims, directed, mutual)
+}
+
+graph_ring_ <- function(n, directed, mutual, circular) {
+  .Call(`_igraphlite_graph_ring_`, n, directed, mutual, circular)
+}
+
+graph_lcf_ <- function(n, shifts, repeats) {
+  .Call(`_igraphlite_graph_lcf_`, n, shifts, repeats)
+}
+
+graph_circulant_ <- function(n, shifts, directed) {
+  .Call(`_igraphlite_graph_circulant_`, n, shifts, directed)
+}
+
+graph_kary_tree_ <- function(n, children, mode) {
+  .Call(`_igraphlite_graph_kary_tree_`, n, children, mode)
+}
+
+graph_full_ <- function(n, directed, loops) {
+  .Call(`_igraphlite_graph_full_`, n, directed, loops)
+}
+
+graph_famous_ <- function(name) {
+  .Call(`_igraphlite_graph_famous_`, name)
+}
+
+graph_from_edgelist_ <- function(edgelist, directed) {
+  .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed)
+}
+
+graph_from_data_frame_ <- function(df, directed) {
+  .Call(`_igraphlite_graph_from_data_frame_`, df, directed)
+}
+
+graph_from_symbolic_edgelist_ <- function(edgelist, directed) {
+  .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed)
+}
+
+graph_from_symbolic_edges_ <- function(edges, directed) {
+  .Call(`_igraphlite_graph_from_symbolic_edges_`, edges, directed)
+}
+
 topological_sorting_ <- function(graph, mode) {
   .Call(`_igraphlite_topological_sorting_`, graph, mode)
 }
@@ -352,76 +336,92 @@ rewire_edges_ <- function(graph, prob, edge_type_sw) {
   invisible(.Call(`_igraphlite_rewire_edges_`, graph, prob, edge_type_sw))
 }
 
-graph_create_ <- function(edges, n, directed) {
-  .Call(`_igraphlite_graph_create_`, edges, n, directed)
-}
-
-graph_star_ <- function(n, mode, center) {
-  .Call(`_igraphlite_graph_star_`, n, mode, center)
-}
-
-graph_hypercube_ <- function(n, directed) {
-  .Call(`_igraphlite_graph_hypercube_`, n, directed)
-}
-
-graph_square_lattice_ <- function(dim, nei, directed, mutual, circular) {
-  .Call(`_igraphlite_graph_square_lattice_`, dim, nei, directed, mutual, circular)
-}
-
-graph_triangular_lattice_ <- function(dims, directed, mutual) {
-  .Call(`_igraphlite_graph_triangular_lattice_`, dims, directed, mutual)
-}
-
-graph_hexagonal_lattice_ <- function(dims, directed, mutual) {
-  .Call(`_igraphlite_graph_hexagonal_lattice_`, dims, directed, mutual)
-}
-
-graph_ring_ <- function(n, directed, mutual, circular) {
-  .Call(`_igraphlite_graph_ring_`, n, directed, mutual, circular)
-}
-
-graph_lcf_ <- function(n, shifts, repeats) {
-  .Call(`_igraphlite_graph_lcf_`, n, shifts, repeats)
-}
-
-graph_circulant_ <- function(n, shifts, directed) {
-  .Call(`_igraphlite_graph_circulant_`, n, shifts, directed)
-}
-
-graph_kary_tree_ <- function(n, children, mode) {
-  .Call(`_igraphlite_graph_kary_tree_`, n, children, mode)
-}
-
-graph_full_ <- function(n, directed, loops) {
-  .Call(`_igraphlite_graph_full_`, n, directed, loops)
-}
-
-graph_famous_ <- function(name) {
-  .Call(`_igraphlite_graph_famous_`, name)
-}
-
-graph_from_edgelist_ <- function(edgelist, directed) {
-  .Call(`_igraphlite_graph_from_edgelist_`, edgelist, directed)
-}
-
-graph_from_data_frame_ <- function(df, directed) {
-  .Call(`_igraphlite_graph_from_data_frame_`, df, directed)
-}
-
-graph_from_symbolic_edgelist_ <- function(edgelist, directed) {
-  .Call(`_igraphlite_graph_from_symbolic_edgelist_`, edgelist, directed)
-}
-
-graph_from_symbolic_edges_ <- function(edges, directed) {
-  .Call(`_igraphlite_graph_from_symbolic_edges_`, edges, directed)
-}
-
 igraph_version_ <- function() {
   .Call(`_igraphlite_igraph_version_`)
 }
 
 rng_seed <- function(seed) {
   invisible(.Call(`_igraphlite_rng_seed`, seed))
+}
+
+graph_empty_ <- function(n, directed) {
+  .Call(`_igraphlite_graph_empty_`, n, directed)
+}
+
+graph_copy_ <- function(graph) {
+  .Call(`_igraphlite_graph_copy_`, graph)
+}
+
+vcount_ <- function(graph) {
+  .Call(`_igraphlite_vcount_`, graph)
+}
+
+ecount_ <- function(graph) {
+  .Call(`_igraphlite_ecount_`, graph)
+}
+
+is_directed_ <- function(graph) {
+  .Call(`_igraphlite_is_directed_`, graph)
+}
+
+edge_ <- function(graph, eid) {
+  .Call(`_igraphlite_edge_`, graph, eid)
+}
+
+edges_ <- function(graph, eids, bycol) {
+  .Call(`_igraphlite_edges_`, graph, eids, bycol)
+}
+
+get_eids_ <- function(graph, pairs, directed, error) {
+  .Call(`_igraphlite_get_eids_`, graph, pairs, directed, error)
+}
+
+get_all_eids_between_ <- function(graph, from, to, directed) {
+  .Call(`_igraphlite_get_all_eids_between_`, graph, from, to, directed)
+}
+
+neighbors_ <- function(graph, node, mode, loops, multiple) {
+  .Call(`_igraphlite_neighbors_`, graph, node, mode, loops, multiple)
+}
+
+incident_ <- function(graph, node, mode, loops) {
+  .Call(`_igraphlite_incident_`, graph, node, mode, loops)
+}
+
+degree_ <- function(graph, vids, mode, loops) {
+  .Call(`_igraphlite_degree_`, graph, vids, mode, loops)
+}
+
+is_same_graph_ <- function(graph1, graph2) {
+  .Call(`_igraphlite_is_same_graph_`, graph1, graph2)
+}
+
+add_vertices_ <- function(graph, n) {
+  invisible(.Call(`_igraphlite_add_vertices_`, graph, n))
+}
+
+add_edges_ <- function(graph, edges) {
+  invisible(.Call(`_igraphlite_add_edges_`, graph, edges))
+}
+
+delete_edges_ <- function(graph, eids) {
+  invisible(.Call(`_igraphlite_delete_edges_`, graph, eids))
+}
+
+delete_vertices_ <- function(graph, vids) {
+  invisible(.Call(`_igraphlite_delete_vertices_`, graph, vids))
+}
+
+VCOUNT_MAX <- function() {
+  .Call(`_igraphlite_VCOUNT_MAX`)
+}
+
+ECOUNT_MAX <- function() {
+  .Call(`_igraphlite_ECOUNT_MAX`)
+}
+
+UNLIMITED <- function() {
+  .Call(`_igraphlite_UNLIMITED`)
 }
 
 isomorphic_ <- function(graph1, graph2) {
