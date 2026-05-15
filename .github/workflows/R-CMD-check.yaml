@@ -5,7 +5,7 @@ on:
     branches: [main, master]
   pull_request:
 
-name: R-CMD-check
+name: R-CMD-check.yaml
 
 permissions: read-all
 
@@ -27,9 +27,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: actions/checkout@v6
 
       - name: Install system requirements on macOS
         if: runner.os == 'macOS'
@@ -37,38 +35,18 @@ jobs:
           brew install glpk
         shell: bash
 
+      - uses: r-lib/actions/setup-pandoc@v2
+
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
-          use-public-rspm: true
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::covr, any::xml2
-          needs: check, coverage
+          extra-packages: any::rcmdcheck
+          needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          error-on: '"error"'
           upload-snapshots: true
-
-      - name: Test coverage
-        if: matrix.config.os == 'macos-latest'
-        run: |
-          cov <- covr::package_coverage(
-            type = "all",
-            quiet = FALSE,
-            clean = FALSE,
-            install_path = file.path(Sys.getenv("RUNNER_TEMP"), "package")
-          )
-          covr::to_cobertura(cov)
-        shell: Rscript {0}
-
-      - uses: codecov/codecov-action@v5
-        if: matrix.config.os == 'macos-latest'
-        with:
-          fail_ci_if_error: ${{ github.event_name != 'pull_request' && true || false }}
-          files: ./cobertura.xml
-          plugins: noop
-          disable_search: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
