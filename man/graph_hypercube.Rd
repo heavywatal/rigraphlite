@@ -25,14 +25,14 @@ The hypercube graph \code{Q_n} has \code{2^n} vertices and \verb{2^(n-1) n} edge
 graph_hypercube(3L)
 }
 \seealso{
-Other deterministic generators: 
-\code{\link{graph_create}()},
-\code{\link{graph_empty}()},
-\code{\link{graph_famous}()},
-\code{\link{graph_full}()},
-\code{\link{graph_kary_tree}()},
-\code{\link{graph_lcf}()},
-\code{\link{graph_square_lattice}()},
-\code{\link{graph_star}()}
+Other deterministic generators:
+\code{\link[=graph_create]{graph_create()}},
+\code{\link[=graph_empty]{graph_empty()}},
+\code{\link[=graph_famous]{graph_famous()}},
+\code{\link[=graph_full]{graph_full()}},
+\code{\link[=graph_kary_tree]{graph_kary_tree()}},
+\code{\link[=graph_lcf]{graph_lcf()}},
+\code{\link[=graph_square_lattice]{graph_square_lattice()}},
+\code{\link[=graph_star]{graph_star()}}
 }
 \concept{deterministic generators}

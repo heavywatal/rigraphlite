@@ -34,8 +34,8 @@ layout_reingold_tilford(g) |> Vattr()
 layout_reingold_tilford_circular(g) |> Vattr()
 }
 \seealso{
-Other layouts: 
-\code{\link{layout_nicely}()},
-\code{\link{layout_random}()}
+Other layouts:
+\code{\link[=layout_nicely]{layout_nicely()}},
+\code{\link[=layout_random]{layout_random()}}
 }
 \concept{layouts}

@@ -13,10 +13,10 @@ URL: https://heavywatal.github.io/rigraphlite/,
     https://github.com/heavywatal/rigraphlite
 BugReports: https://github.com/heavywatal/rigraphlite/issues
 Depends:
-    R (>= 4.3.0)
+    R (>= 4.4.0)
 Imports:
     generics (>= 0.1.4),
-    rlang (>= 1.1.6)
+    rlang (>= 1.2.0)
 Suggests:
     ape,
     ggplot2,
@@ -24,9 +24,9 @@ Suggests:
 LinkingTo:
     cpp11
 Config/Needs/coverage: covr
+Config/roxygen2/markdown: TRUE
+Config/roxygen2/version: 8.0.0
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 SystemRequirements: CMake (>= 3.24.0), glpk (optional), libxml2 (optional)

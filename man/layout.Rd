@@ -25,8 +25,8 @@ The object is modified in place, and its shallow copy is returned.
 layout_nicely(graph_tree(5L)) |> Vattr()
 }
 \seealso{
-Other layouts: 
-\code{\link{layout_random}()},
-\code{\link{layout_reingold_tilford}()}
+Other layouts:
+\code{\link[=layout_random]{layout_random()}},
+\code{\link[=layout_reingold_tilford]{layout_reingold_tilford()}}
 }
 \concept{layouts}

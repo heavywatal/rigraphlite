@@ -26,14 +26,14 @@ graph_create(seq_len(6L))
 \seealso{
 \code{\link[=as_igraph]{as_igraph()}}, \code{\link[=graph_from_data_frame]{graph_from_data_frame()}}
 
-Other deterministic generators: 
-\code{\link{graph_empty}()},
-\code{\link{graph_famous}()},
-\code{\link{graph_full}()},
-\code{\link{graph_hypercube}()},
-\code{\link{graph_kary_tree}()},
-\code{\link{graph_lcf}()},
-\code{\link{graph_square_lattice}()},
-\code{\link{graph_star}()}
+Other deterministic generators:
+\code{\link[=graph_empty]{graph_empty()}},
+\code{\link[=graph_famous]{graph_famous()}},
+\code{\link[=graph_full]{graph_full()}},
+\code{\link[=graph_hypercube]{graph_hypercube()}},
+\code{\link[=graph_kary_tree]{graph_kary_tree()}},
+\code{\link[=graph_lcf]{graph_lcf()}},
+\code{\link[=graph_square_lattice]{graph_square_lattice()}},
+\code{\link[=graph_star]{graph_star()}}
 }
 \concept{deterministic generators}

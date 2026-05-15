@@ -67,8 +67,8 @@ layout_fruchterman_reingold(g) |> Vattr()
 layout_mds(g, dist = distances(g)) |> Vattr()
 }
 \seealso{
-Other layouts: 
-\code{\link{layout_nicely}()},
-\code{\link{layout_reingold_tilford}()}
+Other layouts:
+\code{\link[=layout_nicely]{layout_nicely()}},
+\code{\link[=layout_reingold_tilford]{layout_reingold_tilford()}}
 }
 \concept{layouts}

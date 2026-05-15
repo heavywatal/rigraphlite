@@ -64,14 +64,14 @@ graph_ring(4L)
 graph_path(4L)
 }
 \seealso{
-Other deterministic generators: 
-\code{\link{graph_create}()},
-\code{\link{graph_empty}()},
-\code{\link{graph_famous}()},
-\code{\link{graph_full}()},
-\code{\link{graph_hypercube}()},
-\code{\link{graph_kary_tree}()},
-\code{\link{graph_lcf}()},
-\code{\link{graph_star}()}
+Other deterministic generators:
+\code{\link[=graph_create]{graph_create()}},
+\code{\link[=graph_empty]{graph_empty()}},
+\code{\link[=graph_famous]{graph_famous()}},
+\code{\link[=graph_full]{graph_full()}},
+\code{\link[=graph_hypercube]{graph_hypercube()}},
+\code{\link[=graph_kary_tree]{graph_kary_tree()}},
+\code{\link[=graph_lcf]{graph_lcf()}},
+\code{\link[=graph_star]{graph_star()}}
 }
 \concept{deterministic generators}
